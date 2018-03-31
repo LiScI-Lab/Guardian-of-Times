@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20180331144723) do
     t.string "username", null: false
     t.string "realname", null: false
     t.string "department"
+    t.date "birthdate"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"

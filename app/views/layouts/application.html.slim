@@ -3,12 +3,24 @@ html
   head
     title TimeTracker
     meta name="viewport" content="width=device-width, initial-scale=1.0"
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'https://www.google.com/jsapi', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': true
+    = javascript_include_tag 'https://www.google.com/jsapi', 'data-turbolinks-track': true
+    = javascript_include_tag 'application', 'data-turbolinks-track': true
     = csrf_meta_tags
 
   body
     = render 'layouts/navbar'
-    .container-fluid
-      = yield
+    .container-fluid.mt-4
+      = render 'application/flash_messages'
+      .row.flex-xl-nowrap
+        .col-1
+        - if content_for? :sidenav
+          .col-10.col-md-3.col-xl-2
+            #sidenav.list-group
+              = yield :sidenav
+          .col-10.col-md-7.col-xl-8
+            = yield
+        - else
+          .col-10
+            = content_for?(:content) ? yield(:content) : yield
+        .col-1

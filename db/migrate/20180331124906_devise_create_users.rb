@@ -38,6 +38,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       t.string :realname, null: false
       t.string :department
 
+      t.date :birthdate
+
       t.timestamps null: false
       t.datetime :discarded_at, index: true
     end

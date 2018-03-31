@@ -1,0 +1,10 @@
+.col-12.col-md-6.col-lg-4.mt-2.mb-2
+  .card
+    .card-header
+      = project.name
+    .card-body
+
+      = asciidoc project.description
+      = link_to 'Details', project_path(project)
+    .card-footer
+      | TODO: here will be many tags!

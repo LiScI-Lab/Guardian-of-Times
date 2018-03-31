@@ -1,0 +1,11 @@
+- content_for :sidenav
+  - action = params[:action].to_sym
+  = link_to 'New Project', new_project_path, class:"list-group-item list-group-item-action #{"active" if controller.is_a? ProjectsController and action == :new}"
+  = link_to 'All my Projects', owner_projects_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? ProjectsController and action == :owner}"
+  = link_to 'All involved Projects', projects_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? ProjectsController and action == :index}"
+  = link_to 'Project invitations', invited_projects_path, class:"list-group-item list-group-item-action #{"active" if controller.is_a? ProjectsController and action == :invited}"
+
+- content_for :content
+  = yield
+
+= render template: 'layouts/application'

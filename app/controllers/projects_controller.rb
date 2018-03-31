@@ -1,12 +1,15 @@
 class ProjectsController < ApplicationController
+  layout 'project'
+
   load_and_authorize_resource
 
   def show; end
   def new; end
 
   def create
+    @project.members.new user: @current_user, role: :owner
     if @project.save
-      flash[:notice] = "Project successfully created"
+      flash[:success] = "Project successfully created"
       redirect_to @project
     else
       render 'new'
@@ -14,9 +17,18 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    #TODO: use projects from db !
-    @projects = Array.new(5,Project.new(id: -1, name: "test proj", description: "an awesome testproj"))
+    @projects = @current_user.involved_projects.kept
   end
+
+  def invited
+    @projects = @current_user.invited_projects.kept
+  end
+
+  def owner
+    @projects = @current_user.own_projects.kept
+
+  end
+
 
   private
   def project_params

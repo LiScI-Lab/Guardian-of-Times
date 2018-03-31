@@ -16,4 +16,22 @@
 #= require bootstrap-sprockets
 #= require_tree .
 
-this.timetracker || (this.timetracker = {})
+window.timetracker || (window.timetracker = {})
+
+timetracker.dismissFlash = () ->
+  flash = $('#flash')
+  $('.alert', flash).each (i, elem) ->
+    setTimeout (->
+      $(elem).alert('close')
+      return
+    ), 2500
+    return
+
+  return
+
+timetracker.init = () ->
+  console.log('Application init')
+  timetracker.dismissFlash()
+  return
+
+$(document).ready(timetracker.init)

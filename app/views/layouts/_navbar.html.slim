@@ -9,7 +9,7 @@ nav.sticky-top.navbar.navbar-expand-md.navbar-dark.bg-dark
       li.nav-item class="#{"active" if controller.is_a? UsersController}"
         = link_to 'Me', user_path(@current_user), class: 'nav-link'
       li.nav-item class="#{"active" if controller.is_a? ProjectsController}"
-        = link_to 'Projects', new_project_path, class: 'nav-link'
+        = link_to 'Projects', projects_path, class: 'nav-link'
       li.nav-item.d-block.d-md-none
         span.navbar-text
           ' Logged in as #{@current_user.realname}.

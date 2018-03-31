@@ -1,0 +1,5 @@
+- flash.any?
+  #flash.row.flash-messages
+    .col-12
+      - flash.each do |type, message|
+        = render 'application/flash_message', type: type, message: message

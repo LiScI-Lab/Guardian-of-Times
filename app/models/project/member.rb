@@ -1,5 +1,5 @@
 class Project::Member < ApplicationRecord
-  enum role: {member: 0, owner: 100}
+  enum role: {invited: 0, participant: 1, owner: 100}
 
   belongs_to :user, class_name: "User"
   belongs_to :project, class_name: "Project"
