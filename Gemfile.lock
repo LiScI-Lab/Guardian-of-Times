@@ -321,6 +321,7 @@ DEPENDENCIES
   devise_cas_authenticatable
   discard
   jbuilder
+  jquery-rails
   listen
   material_design_icons
   puma

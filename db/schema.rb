@@ -14,6 +14,11 @@ ActiveRecord::Schema.define(version: 20180331134942) do
 
   create_table "project_members", force: :cascade do |t|
     t.integer "role", default: 0, null: false
+    t.integer "target_hours"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_project_members_on_discarded_at"
   end
 
   create_table "project_progress_participants", force: :cascade do |t|
@@ -33,8 +38,12 @@ ActiveRecord::Schema.define(version: 20180331134942) do
     t.index ["discarded_at"], name: "index_project_progresses_on_discarded_at"
   end
 
-  create_table "projects", force: :cascade do |t|
+  create_table "welcome", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_projects_on_discarded_at"
     t.index ["name"], name: "index_projects_on_name"
   end
 
@@ -67,10 +76,16 @@ ActiveRecord::Schema.define(version: 20180331134942) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
+    t.integer "role", default: 0, null: false
+    t.string "username", null: false
+    t.string "realname", null: false
+    t.string "department"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
     t.string "authentication_token", limit: 30
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
+    t.index ["discarded_at"], name: "index_users_on_discarded_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
