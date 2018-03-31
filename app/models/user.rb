@@ -8,4 +8,7 @@ class User < ApplicationRecord
     devise :database_authenticatable, :trackable
   end
 
+  has_many :project_members, class_name: "Project::Member"
+  has_many :projects, through: :project_members, class_name: "Project"
+  has_many :project_progresses, through: :project_members, class_name: "Project::Progress"
 end
