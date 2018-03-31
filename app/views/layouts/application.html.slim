@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title TimeTracker
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'https://www.google.com/jsapi', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+
+  body
+    nav.navbar.navbar-light.bg-light
+      .container-fluid
+        .navbar-header
+          a.navbar-brand[href="/"] TimeTracker
+    .container-fluid
+      == yield
