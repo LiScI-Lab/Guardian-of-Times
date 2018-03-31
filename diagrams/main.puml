@@ -1,0 +1,39 @@
+@startuml
+object User {
+}
+
+object Project {
+  name
+}
+
+object ProjectMember {
+  target_hours
+  role: [owner, member]
+}
+
+object ProjectProgress {
+  start
+  end
+  description
+}
+
+object TagAffected
+
+object ProjectProgressParticipant
+
+object Tag {
+  name
+  description
+}
+
+User "1" -- "*" ProjectMember
+Project "1" -- "*" ProjectMember
+
+ProjectProgressParticipant "*" -- "1" ProjectMember
+ProjectProgressParticipant "*" -u- "1" ProjectProgress
+
+TagAffected "*" -- "1" Tag
+TagAffected "*" -- "1" Project
+TagAffected "*" -- "1" ProjectProgress
+
+@enduml

@@ -10,15 +10,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180331125706) do
+ActiveRecord::Schema.define(version: 20180331134942) do
 
   create_table "project_members", force: :cascade do |t|
     t.integer "role", default: 0, null: false
   end
 
+  create_table "project_progress_participants", force: :cascade do |t|
+    t.integer "project_member_id"
+    t.integer "project_progress_id"
+    t.index ["project_member_id"], name: "index_project_progress_participants_on_project_member_id"
+    t.index ["project_progress_id"], name: "index_project_progress_participants_on_project_progress_id"
+  end
+
+  create_table "project_progresses", force: :cascade do |t|
+    t.datetime "start"
+    t.datetime "end"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_project_progresses_on_discarded_at"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.index ["name"], name: "index_projects_on_name"
+  end
+
+  create_table "tag_affecteds", force: :cascade do |t|
+    t.integer "tags_id"
+    t.string "affected_type"
+    t.integer "affected_id"
+    t.index ["affected_type", "affected_id"], name: "index_tag_affecteds_on_affected_type_and_affected_id"
+    t.index ["tags_id"], name: "index_tag_affecteds_on_tags_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_tags_on_discarded_at"
+    t.index ["name"], name: "index_tags_on_name"
   end
 
   create_table "users", force: :cascade do |t|
