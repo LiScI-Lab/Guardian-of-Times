@@ -2,7 +2,7 @@ module AbilityProject
   include CanCan::Ability
 
   def initialize_project(user, member)
-    can [:create], Project
+    can [:show,:create,:new], Project
 
     if member
       can [:show], Project, members: {id: member.id}
