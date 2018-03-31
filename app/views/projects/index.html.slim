@@ -1,0 +1,17 @@
+h1 Projects
+
+= link_to 'New Project', new_project_path, class: 'btn btn-outline-primary'
+
+#2 Available Projects
+
+.container
+  - @projects.each do |project|
+    .card
+      .card-body
+        .card-title
+          =  project.name
+        p.card-text
+          = project.description
+        = link_to 'Details', project_path(project)
+      .card-footer
+        | TODO: here will be many tags!
