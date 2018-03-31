@@ -1,10 +1,21 @@
 class ProjectsController < ApplicationController
   load_and_authorize_resource
-  def show
+
+  def show; end
+
+  def new; end
+
+  def create
+    if @project.save
+      flash[:notice] = "Project successfully created"
+      redirect_to @project
+    else
+      render 'new'
+    end
   end
 
-  def new
-    puts 'User', @current_user.inspect
-    @project = Project.new
+  private
+  def project_params
+    params.require(:project).permit([:name, :description])
   end
 end

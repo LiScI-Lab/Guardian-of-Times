@@ -1,0 +1,9 @@
+- if errors.any?
+  .alert.alert-danger
+    h5.alert-heading
+      | Error
+    p
+      | There are Errors:
+    ul
+      - errors.full_messages.each do |message|
+        li = message

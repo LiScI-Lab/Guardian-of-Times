@@ -13,12 +13,17 @@
 ActiveRecord::Schema.define(version: 20180331144723) do
 
   create_table "project_members", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "project_id"
     t.integer "role", default: 0, null: false
-    t.integer "target_hours"
+    t.integer "target_hours", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
     t.index ["discarded_at"], name: "index_project_members_on_discarded_at"
+    t.index ["project_id"], name: "index_project_members_on_project_id"
+    t.index ["user_id", "project_id"], name: "index_project_members_on_user_id_and_project_id", unique: true
+    t.index ["user_id"], name: "index_project_members_on_user_id"
   end
 
   create_table "project_progress_participants", force: :cascade do |t|
@@ -29,7 +34,7 @@ ActiveRecord::Schema.define(version: 20180331144723) do
   end
 
   create_table "project_progresses", force: :cascade do |t|
-    t.datetime "start"
+    t.datetime "start", null: false
     t.datetime "end"
     t.string "description"
     t.datetime "created_at", null: false
