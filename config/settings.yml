@@ -1,0 +1,15 @@
+tag:
+  name:
+    length_minimum: 5
+  description:
+    length_minimum: 5
+
+project:
+  name:
+    length_minimum: 5
+  description:
+    length_minimum: 5
+
+  member:
+    target_hours:
+      minimum: 0

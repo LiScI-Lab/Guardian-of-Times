@@ -1,7 +1,7 @@
 class CreateProjectProgress < ActiveRecord::Migration[5.1]
   def change
     create_table :project_progresses do |t|
-      t.datetime :start
+      t.datetime :start, null: false
       t.datetime :end
       t.string :description
 
