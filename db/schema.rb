@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20180331134942) do
     t.index ["discarded_at"], name: "index_project_progresses_on_discarded_at"
   end
 
-  create_table "projects", force: :cascade do |t|
+  create_table "welcome", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
