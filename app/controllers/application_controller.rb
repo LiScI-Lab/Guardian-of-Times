@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   def current_ability
     if @current_ability.nil?
       @current_user = current_user
-      @current_member = @project.members.find_by user: current_user unless @project.nil?
+      @current_member = @project.members.find_by user: @current_user unless @project.nil?
       @current_ability = Ability.new(current_user, @current_member)
     end
     @current_ability

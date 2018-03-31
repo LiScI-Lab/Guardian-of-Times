@@ -3,7 +3,7 @@ class CreateProjectMember < ActiveRecord::Migration[5.1]
     create_table :project_members do |t|
       t.integer :role, null: false, default: 0
 
-      i.integer :target_hours
+      t.integer :target_hours
 
       t.timestamps null: false
       t.datetime :discarded_at, index: true

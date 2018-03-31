@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  enum role: {user: 0, admin: 100}
+
   acts_as_token_authenticatable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -11,4 +13,14 @@ class User < ApplicationRecord
   has_many :project_members, class_name: "Project::Member"
   has_many :projects, through: :project_members, class_name: "Project"
   has_many :project_progresses, through: :project_members, class_name: "Project::Progress"
+
+  def cas_extra_attributes=(attributes)
+    self.email = attributes['mail']
+    self.username = attributes['username']
+    self.realname = attributes['displayName']
+    self.department = attributes['department']
+    if User.all.size == 0
+      self.role = :admin
+    end
+  end
 end
