@@ -2,15 +2,13 @@ doctype html
 html
   head
     title TimeTracker
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'https://www.google.com/jsapi', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
 
   body
-    nav.navbar.navbar-light.bg-light
-      .container-fluid
-        .navbar-header
-          a.navbar-brand[href="/"] TimeTracker
+    = render 'layouts/navbar'
     .container-fluid
-      == yield
+      = yield
