@@ -1,10 +1,10 @@
 = render 'application/form_errors', errors: @progress.errors
 
-= simple_form_for(@progress, html: { class: 'form-horizontal' }, url: project_progresses_path(@project,@progress)) do |f|
-  = f.input :start
-  = f.input :end
-  = f.input :description
-  = f.input :tags
-  = f.button :submit, class: 'btn-outline-primary'
-  = f.button :button, 'Start Timer', class: 'btn-outline-success', id: 'start-timer'
-  = f.button :button, 'Stop Timer', class: 'btn-outline-warning', id: 'stop-timer'
+= simple_form_for([@project, @progress]) do |f|
+  .row
+    .col.s10
+      = f.input :tags, wrapper_html: {class: 's6'}
+      = f.input :description, wrapper_html: {class: 's6'}
+    .col.s2
+      = f.button :button
+        = mdi_tag 'run-fast'

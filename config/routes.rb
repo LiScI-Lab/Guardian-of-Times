@@ -14,7 +14,11 @@ Rails.application.routes.draw do
 
     scope module: :project do
       resources :members
-      resources :progresses
+      resources :progresses do
+        member do
+          patch :stop
+        end
+      end
     end
   end
 end

@@ -8,12 +8,13 @@
     h5 Statistics
     ul
       li Total time spend: #{distance_of_time(@current_member.total_time_spend, accumulate_on: :hours, except: :seconds)}
-      li Time spend this month: #{distance_of_time(@current_member.this_month_time_spend, accumulate_on: :hours, except: :seconds)}
+      li Time spend this month: #{distance_of_time(@current_member.current_month_time_spend, accumulate_on: :hours, except: :seconds)}
 .row
-  .col.s12
-    h5 New Progress
-  .col.s12
-    = render 'project/progresses/form'
+  - if @current_member.progresses.ongoing.empty?
+    .col.s12
+      h5 Start Progress
+    .col.s12
+      = render 'project/progresses/form'
 .row
   .col.s12
   h5 Your progresses
@@ -28,13 +29,25 @@
           th Duration
           th Description
           th Tags
+          th Options
       tbody
         - id = 0
-        - @project.progresses.each do |progress|
+        - @current_member.progresses.each do |progress|
           tr
             td #{id += 1}
             td #{l(progress.start, format: :short)}
-            td #{l(progress.end, format: :short)}
-            td #{l(Time.at(progress.time_spend), format: :time_short)}
+            - if progress.finished?
+              td #{l(progress.end, format: :short)}
+              td #{distance_of_time(progress.time_spend, accumulate_on: :hours, except: :seconds)}
+            - else
+              td Ongoing
+              td #{distance_of_time progress.time_spend, accumulate_on: :hours}
             td #{progress.description}
             td #{progress.tags.join(' ')}
+            td
+              - unless progress.finished?
+                = link_to stop_project_progress_path(@project, progress), class: 'btn-floating waves-effect waves-light red', method: :patch
+                  = mdi_tag 'stop'
+              - else
+                = link_to edit_project_progress_path(@project, progress), class: 'btn-floating waves-effect waves-light'
+                  = mdi_tag 'pencil'

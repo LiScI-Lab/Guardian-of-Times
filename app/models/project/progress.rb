@@ -6,10 +6,26 @@ class Project::Progress < ApplicationRecord
 
   scope :in_month, -> (date){where(start: date.beginning_of_month..date.end_of_month)}
   scope :this_month, -> {in_month(DateTime.now)}
+  scope :ongoing, -> {where end: nil}
 
   validates :start, presence: true
 
+  after_initialize :set_start
+
+  def finished?
+    not self[:end].nil?
+  end
+
+  def end
+    self[:end] || Time.zone.now
+  end
+
   def time_spend
-    (self.end - start).seconds
+    ActiveSupport::Duration.build((self.end - start).seconds)
+  end
+
+  private
+  def set_start
+    self.start = start || DateTime.now
   end
 end
