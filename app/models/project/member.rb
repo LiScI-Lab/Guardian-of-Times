@@ -10,10 +10,8 @@ class Project::Member < ApplicationRecord
   validates :user, uniqueness: {scope: :project}
 
   def total_time_spend
-    #TODO: how to summarize each duration ?
-    durations = progresses.all.map{ |p| p.end-p.start }
+    durations = progresses.map { |p| ActiveSupport::Duration.build(p.end-p.start) }
     puts durations
-    # raise "dump"
-    -1
+    durations.sum
   end
 end
