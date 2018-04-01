@@ -21,6 +21,7 @@ h1 Project: #{@project.name}
           th Start
           th End
           th Breaks
+          th Description
           th Tags
       tbody
         - id = 0
@@ -30,4 +31,5 @@ h1 Project: #{@project.name}
             td #{l(progress.start, format: :short)}
             td #{l(progress.end, format: :short)}
             td TODO
+            td #{progress.description}
             td #{progress.tags.join(' ')}
