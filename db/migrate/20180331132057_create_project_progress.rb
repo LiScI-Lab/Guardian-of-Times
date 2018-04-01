@@ -5,7 +5,7 @@ class CreateProjectProgress < ActiveRecord::Migration[5.1]
 
       t.datetime :start, null: false
       t.datetime :end
-      t.string :description
+      t.text :description
 
       t.timestamps null: false
       t.datetime :discarded_at, index: true

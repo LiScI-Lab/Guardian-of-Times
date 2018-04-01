@@ -1,26 +1,25 @@
 doctype html
 html
   head
-    title TimeTracker
+    title
+      | TimeTracker #{"| #{yield(:subtitle)}" if content_for?(:subtitle)}
     meta name="viewport" content="width=device-width, initial-scale=1.0"
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': true
     = javascript_include_tag 'https://www.google.com/jsapi', 'data-turbolinks-track': true
     = javascript_include_tag 'application', 'data-turbolinks-track': true
     = csrf_meta_tags
 
-  body
+  body class="#{controller.class.name.sub('Controller', '').gsub('::', ' ').downcase}"
     = render 'layouts/navbar'
-    .container-fluid.mt-4
-      = render 'application/flash_messages'
-      .row.flex-xl-nowrap
-        .col-1
-        - if content_for? :sidenav
-          .col-10.col-md-3.col-xl-2
-            #sidenav.list-group
-              = yield :sidenav
-          .col-10.col-md-7.col-xl-8
-            = yield
-        - else
-          .col-10
-            = content_for?(:content) ? yield(:content) : yield
-        .col-1
+    = render 'application/flash_messages'
+    - if content_for?(:subtitle) and content_for?(:subnav)
+      .row
+        .col.s1
+        .col.s10
+          h4 = yield(:subtitle)
+        .col.s1
+    .row
+      .col.s1
+      .col.s10
+        = content_for?(:content) ? yield(:content) : yield
+      .col.s1

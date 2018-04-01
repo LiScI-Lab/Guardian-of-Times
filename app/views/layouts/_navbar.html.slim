@@ -1,22 +1,49 @@
-- action = params[:action]
+- action = params[:action].to_sym
 
-nav.sticky-top.navbar.navbar-expand-md.navbar-dark.bg-dark
-  = link_to TimeTracker, root_path, class: 'navbar-brand'
-  = button_tag type: :button, class: 'navbar-toggler', data: {toggle: 'collapse', target: '#navbar-links'}
-    span.navbar-toggler-icon
-  #navbar-links.collapse.navbar-collapse
-    ul.navbar-nav.mr-auto
-      li.nav-item class="#{"active" if controller.is_a? UsersController}"
-        = link_to 'Me', user_path(@current_user), class: 'nav-link'
-      li.nav-item class="#{"active" if controller.is_a? ProjectsController}"
-        = link_to 'Projects', projects_path, class: 'nav-link'
-      li.nav-item.d-block.d-md-none
-        span.navbar-text
-          ' Logged in as #{@current_user.realname}.
+ul#main-sidenav.sidenav
+  li class="#{"active" if controller.is_a? UsersController}"
+    = link_to 'Me', user_path(@current_user), class: 'nav-link'
+  li class="#{"active" if controller.is_a? ProjectsController}"
+    = link_to 'Projects', projects_path, class: 'nav-link'
+  li
+    = link_to destroy_user_session_path, method: :delete
+    = mdi_tag 'logout'
+
+ul#dropdown-projects.dropdown-content
+  li
+    = link_to 'All my Projects', owner_projects_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? ProjectsController and action == :owner}"
+  li
+    = link_to 'All involved Projects', projects_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? ProjectsController and action == :index}"
+  li
+    = link_to 'Project invitations', invited_projects_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? ProjectsController and action == :invited}"
+
+nav.row.nav-extended
+  .nav-wrapper
+    .col.s12.l2
+      = link_to "TimeTracker", root_path, class: 'brand-logo'
+      = link_to '#', class: 'sidenav-trigger', data: {target: 'main-sidenav', hover: true, turbolinks: false}
+        = mdi_tag 'menu'
+    .col.l8.hide-on-med-and-down
+      ul
+        li class="#{"active" if controller.is_a? UsersController}"
+          = link_to 'Me', user_path(@current_user)
+        li class="#{"active" if controller.is_a? ProjectsController}"
+          = link_to '#', class: 'dropdown-trigger no-autoinit', data: {target: 'dropdown-projects'}
+            | Projects
+            = mdi_tag 'menu_down', class: 'right'
+    .col.l2.hide-on-med-and-down
+      ul.right
+        li
           = link_to destroy_user_session_path, method: :delete
             = mdi_tag 'logout'
 
-  span.navbar-text.d-none.d-md-block
-    ' Logged in as #{@current_user.realname}.
-    = link_to destroy_user_session_path, method: :delete
-      = mdi_tag 'logout'
+  - if content_for?(:subtitle) or content_for?(:subnav)
+    .nav-content.col.s12
+      - if content_for?(:subtitle) and not content_for?(:subnav)
+        span.nav-title
+          = yield :subtitle
+        - if content_for?(:halfway_fab)
+          = yield :halfway_fab
+      - elsif content_for?(:subnav)
+        ul.tabs.tabs-transparent
+          = yield :subnav

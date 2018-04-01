@@ -16,8 +16,9 @@ gem 'puma'
 # Use SCSS for stylesheets
 gem 'sass-rails'
 
-#bootstrap
-gem 'bootstrap'
+# MaterializeCSS
+gem 'materialize-sass', '~> 1.0.0.beta'
+gem 'materialize-form'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'

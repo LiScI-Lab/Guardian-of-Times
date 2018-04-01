@@ -1,17 +1,20 @@
-h1 Project: #{@project.name}
-.container
-  .row
-    .col
-      p #{@project.description}
-    .col
-      h4 Statistics
-      ul
-        li Total time spend: #{distance_of_time_in_words(@project.member(@current_user).total_time_spend)}
-        li Time spend this month: TODO
-  .row.col
-    h2 Your progresses
+- content_for :subtitle
+  | Project: #{@project.name}
 
-    table.table
+.row
+  .col.s6
+    = asciidoc @project.description
+  .col.s6
+    h5 Statistics
+    ul
+      li Total time spend: #{distance_of_time_in_words(@project.member(@current_user).total_time_spend)}
+      li Time spend this month: TODO
+.row
+  .col.s12
+  h5 Your progresses
+
+  .col.s12
+    table.highlight.responsive-table
       thead
         tr
           th #
@@ -21,6 +24,7 @@ h1 Project: #{@project.name}
           th Tags
       tbody
         - id = 0
+
         - @project.progresses.each do |progress|
           tr
             td #{id += 1}
