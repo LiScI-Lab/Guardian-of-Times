@@ -7,7 +7,7 @@ h1 Project: #{@project.name}
       h4 Statistics
       ul
         li Total time spend: #{distance_of_time_in_words(@project.member(@current_user).total_time_spend)}
-        li Time spend this month: TODO
+        li Time spend this month: #{distance_of_time_in_words(@project.member(@current_user).current_month_spend)}
   .row.col
     h1 New Progress
     = render 'project/progresses/form'

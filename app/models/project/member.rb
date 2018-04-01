@@ -11,7 +11,14 @@ class Project::Member < ApplicationRecord
 
   def total_time_spend
     durations = progresses.map { |p| ActiveSupport::Duration.build(p.end-p.start) }
-    puts durations
+    durations.sum
+  end
+
+  def current_month_spend
+    current_month = Date.current.beginning_of_month
+    durations = progresses
+                  .where(start: current_month..current_month.end_of_month)
+                  .map { |p| ActiveSupport::Duration.build(p.end-p.start) }
     durations.sum
   end
 end
