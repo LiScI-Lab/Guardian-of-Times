@@ -11,5 +11,9 @@ Rails.application.routes.draw do
         get :owner
       end
     end
+
+    scope module: :project do
+      resources :members
+    end
   end
 end

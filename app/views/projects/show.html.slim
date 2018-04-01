@@ -24,7 +24,7 @@ h1 Project: #{@project.name}
         - @project.progresses.each do |progress|
           tr
             td #{id += 1}
-            td #{l(progress.start, format: :long)}
-            td #{l(progress.end, format: :long)}
+            td #{l(progress.start, format: :short)}
+            td #{l(progress.end, format: :short)}
             td TODO
             td #{progress.tags.join(' ')}

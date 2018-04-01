@@ -1,8 +1,11 @@
 class ApplicationController < ActionController::Base
+  include HttpAcceptLanguage::AutoLocale
+
   protect_from_forgery with: :exception
 
   acts_as_token_authentication_handler_for User
 
+  before_action :set_locale_from_params
   before_action :authenticate_user!
   check_authorization unless: :unchecked_controller?
 
@@ -22,6 +25,11 @@ class ApplicationController < ActionController::Base
       @current_ability = Ability.new(current_user, @current_member)
     end
     @current_ability
+  end
+
+  private
+  def set_locale_from_params
+    I18n.locale = params[:locale] || I18n.locale
   end
 
 end

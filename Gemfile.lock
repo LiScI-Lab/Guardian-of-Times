@@ -145,6 +145,7 @@ GEM
     has_scope (0.7.1)
       actionpack (>= 4.1, < 5.2)
       activesupport (>= 4.1, < 5.2)
+    http_accept_language (2.1.1)
     i18n (1.0.0)
       concurrent-ruby (~> 1.0)
     inflecto (0.0.2)
@@ -219,6 +220,9 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
+    rails-i18n (5.1.1)
+      i18n (>= 0.7, < 2)
+      railties (>= 5.0, < 6)
     railties (5.1.6)
       actionpack (= 5.1.6)
       activesupport (= 5.1.6)
@@ -326,12 +330,14 @@ DEPENDENCIES
   devise_cas_authenticatable
   discard
   faker
+  http_accept_language
   jbuilder
   jquery-rails
   listen
   material_design_icons
   puma
   rails
+  rails-i18n
   rouge
   rouge-rails
   sass-rails

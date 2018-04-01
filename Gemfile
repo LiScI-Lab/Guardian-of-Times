@@ -71,6 +71,8 @@ gem 'simple_form'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'http_accept_language'
+gem 'rails-i18n'
 
 group :development, :test do
   # Adds support for Capybara system testing and selenium driver
