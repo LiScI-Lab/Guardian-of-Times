@@ -9,10 +9,10 @@ SimpleForm.setup do |config|
   config.wrappers :materialize_form, tag: 'div', class: 'input-field col', error_class: 'has-error' do |b|
     b.use :html5
     b.use :placeholder
-    b.une :maxlength
-    b.une :pattern
-    b.une :min_max
-    b.une :readonly
+    b.use :maxlength
+    b.use :pattern
+    b.use :min_max
+    b.use :readonly
     b.use :input, class: 'validate'
     b.use :label, class: 'active'
     b.use :error, wrap_with: { tag: 'small', class: 'error-block red-text text-darken-1' }
@@ -22,10 +22,10 @@ SimpleForm.setup do |config|
   config.wrappers :materialize_text, tag: 'div', class: 'input-field col', error_class: 'has-error' do |b|
     b.use :html5
     b.use :placeholder
-    b.une :maxlength
-    b.une :pattern
-    b.une :min_max
-    b.une :readonly
+    b.use :maxlength
+    b.use :pattern
+    b.use :min_max
+    b.use :readonly
     b.use :input, class: 'materialize-textarea validate'
     b.use :label, class: 'active'
     b.use :error, wrap_with: { tag: 'small', class: 'error-block red-text text-darken-1' }
@@ -34,7 +34,7 @@ SimpleForm.setup do |config|
 
   config.wrappers :materialize_boolean, tag: 'p', class: 'col', error_class: 'has-error' do |b|
     b.use :html5
-    b.une :readonly
+    b.use :readonly
 
     b.use :input, class: 'validate'
     b.use :label
@@ -44,7 +44,7 @@ SimpleForm.setup do |config|
 
   config.wrappers :materialize_toggle, tag: 'p', class: 'col switch', error_class: 'has-error' do |b|
     b.use :html5
-    b.une :readonly
+    b.use :readonly
 
     b.use :label
     b.wrapper tag: 'label' do |ba| 
@@ -58,7 +58,7 @@ SimpleForm.setup do |config|
 
   config.wrappers :materialize_radio_and_checkboxes, tag: 'div', class: 'col', error_class: 'has-error' do |b|
     b.use :html5
-    b.une :readonly
+    b.use :readonly
     b.use :label
     b.use :input, class: 'validate'
     b.use :error, wrap_with: { tag: 'small', class: 'error-block red-text text-darken-1' }

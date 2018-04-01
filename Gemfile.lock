@@ -101,6 +101,9 @@ GEM
       rubycas-client (>= 2.2.1)
     discard (1.0.0)
       activerecord (>= 4.2, < 6)
+    dotiw (4.0.0)
+      actionpack (>= 4)
+      i18n
     dry-configurable (0.7.0)
       concurrent-ruby (~> 1.0)
     dry-container (0.6.0)
@@ -327,6 +330,7 @@ DEPENDENCIES
   devise-i18n
   devise_cas_authenticatable
   discard
+  dotiw
   faker
   http_accept_language
   jbuilder

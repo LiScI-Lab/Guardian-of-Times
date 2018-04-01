@@ -7,8 +7,8 @@
   .col.s6
     h5 Statistics
     ul
-      li Total time spend: #{distance_of_time_in_words(@project.member(@current_user).total_time_spend)}
-      li Time spend this month: TODO
+      li Total time spend: #{distance_of_time(@current_member.total_time_spend, accumulate_on: :hours, except: :seconds)}
+      li Time spend this month: #{distance_of_time(@current_member.this_month_time_spend, accumulate_on: :hours, except: :seconds)}
 .row
   .col.s12
   h5 Your progresses
@@ -21,6 +21,7 @@
           th Start
           th End
           th Breaks
+          th Duration
           th Tags
       tbody
         - id = 0
@@ -31,4 +32,5 @@
             td #{l(progress.start, format: :short)}
             td #{l(progress.end, format: :short)}
             td TODO
+            td #{l(Time.at(progress.time_spend), format: :time_short)}
             td #{progress.tags.join(' ')}

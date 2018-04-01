@@ -20,6 +20,9 @@ gem 'sass-rails'
 gem 'materialize-sass', '~> 1.0.0.beta'
 gem 'materialize-form'
 
+# better distance_of_time_in_words
+gem 'dotiw'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
 # See https://github.com/rails/execjs#readme for more supported runtimes
