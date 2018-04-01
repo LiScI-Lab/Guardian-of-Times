@@ -11,6 +11,7 @@ class Project::ProgressesController < ApplicationController
   def create
     @project = Project.find(params[:project_id])
     @progress.project_id = @project.id
+    @progress.members <<  [Project::Member.find_by(user_id: @current_user.id)]
     if @progress.save
       flash[:success] = "Progress successfully created"
       redirect_to @project
