@@ -1,6 +1,6 @@
 tag:
   name:
-    length_minimum: 5
+    length_minimum: 2
   description:
     length_minimum: 5
 

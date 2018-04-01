@@ -19,4 +19,8 @@ if user
     p.members.new user: user, role: [:invited, :participant, :owner].sample
     p.save!
   end
+
+  tags = ["rails", "dozentron", "gildamesh", "A&D"].map{ |s| Tag.new(name: s) }
+  tags.each { |t| t.save! }
+
 end
