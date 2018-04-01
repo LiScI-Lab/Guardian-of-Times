@@ -13,16 +13,18 @@ h1 Project: #{@project.name}
 
     table.table
       thead
-        th #
-        th Start
-        th End
-        th Breaks
-        th Tags
+        tr
+          th #
+          th Start
+          th End
+          th Breaks
+          th Tags
       tbody
-        - @progresses.each_with_index do |progress,idx|
+        - id = 0
+        - @project.progresses.each do |progress|
           tr
-            td #{idx}
-            td #{progress.start}
-            td #{progress.end}
+            td #{id += 1}
+            td #{l(progress.start, format: :long)}
+            td #{l(progress.end, format: :long)}
             td TODO
             td #{progress.tags.join(' ')}

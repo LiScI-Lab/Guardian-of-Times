@@ -5,6 +5,9 @@ class Project < ApplicationRecord
   has_many :tag_affecteds, as: :affected, class_name: "TagAffected"
   has_many :tags, through: :tag_affecteds, class_name: "Tag"
 
+  has_many :progresses, class_name: "Project::Progress"
+
+
   validates :name, presence: true, length: { minimum: Settings.project.name.length_minimum }
   validates :description, allow_blank: true, length: { minimum: Settings.project.description.length_minimum }
 

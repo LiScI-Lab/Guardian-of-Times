@@ -26,14 +26,15 @@ ActiveRecord::Schema.define(version: 20180331144723) do
     t.index ["user_id"], name: "index_project_members_on_user_id"
   end
 
-  create_table "project_progress_participants", force: :cascade do |t|
-    t.integer "project_member_id"
-    t.integer "project_progress_id"
-    t.index ["project_member_id"], name: "index_project_progress_participants_on_project_member_id"
-    t.index ["project_progress_id"], name: "index_project_progress_participants_on_project_progress_id"
+  create_table "project_members_progresses", id: false, force: :cascade do |t|
+    t.integer "project_member_id", null: false
+    t.integer "project_progress_id", null: false
+    t.index ["project_member_id", "project_progress_id"], name: "index_project_members_progresses_member_id_progress_id", unique: true
+    t.index ["project_progress_id", "project_member_id"], name: "index_project_members_progresses_progress_id_member_id", unique: true
   end
 
   create_table "project_progresses", force: :cascade do |t|
+    t.integer "project_id", null: false
     t.datetime "start", null: false
     t.datetime "end"
     t.string "description"
@@ -41,6 +42,7 @@ ActiveRecord::Schema.define(version: 20180331144723) do
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
     t.index ["discarded_at"], name: "index_project_progresses_on_discarded_at"
+    t.index ["project_id"], name: "index_project_progresses_on_project_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -54,11 +56,14 @@ ActiveRecord::Schema.define(version: 20180331144723) do
   end
 
   create_table "tag_affecteds", force: :cascade do |t|
-    t.integer "tags_id"
+    t.integer "project_member_id"
+    t.integer "tag_id"
     t.string "affected_type"
     t.integer "affected_id"
     t.index ["affected_type", "affected_id"], name: "index_tag_affecteds_on_affected_type_and_affected_id"
-    t.index ["tags_id"], name: "index_tag_affecteds_on_tags_id"
+    t.index ["project_member_id", "tag_id", "affected_type", "affected_id"], name: "index_tag_affecteds_on_everything", unique: true
+    t.index ["project_member_id"], name: "index_tag_affecteds_on_project_member_id"
+    t.index ["tag_id"], name: "index_tag_affecteds_on_tag_id"
   end
 
   create_table "tags", force: :cascade do |t|

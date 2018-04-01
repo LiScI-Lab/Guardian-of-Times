@@ -16,7 +16,16 @@ if user
       name = Faker::HitchhikersGuideToTheGalaxy.location
     end
     p = Project.new name: name, description: Faker::HitchhikersGuideToTheGalaxy.marvin_quote
-    p.members.new user: user, role: [:invited, :participant, :owner].sample
+    member = p.members.new user: user, role: [:invited, :participant, :owner].sample
+
+    unless member.invited?
+      rand(0..20).times do
+        start_time = Faker::Time.between(2.days.ago, Date.today, :morning)
+        progress = p.progresses.new(start: start_time, end: Faker::Time.between(start_time, Date.today, :evening))
+        progress.members << member
+      end
+    end
+
     p.save!
   end
 
