@@ -1,1 +1,19 @@
-h1 showing project
+h1 Project: #{@project.name}
+
+h2 Your progresses
+
+table.table
+  thead
+    th #
+    th Start
+    th End
+    th Breaks
+    th Tags
+  tbody
+    - @progresses.each_with_index do |progress,idx|
+      tr
+        td #{idx}
+        td #{progress.start}
+        td #{progress.end}
+        td TODO
+        td #{progress.tags.join(' ')}

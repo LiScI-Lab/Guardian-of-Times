@@ -3,7 +3,11 @@ class ProjectsController < ApplicationController
 
   load_and_authorize_resource
 
-  def show; end
+  def show
+    start_time = Faker::Time.between(2.days.ago, Date.today, :morning)
+    end_time = Faker::Time.between(start_time, Date.today, :evening)
+    @progresses = Array.new(5, Project::Progress.new(start: start_time, end: end_time))
+  end
   def new; end
 
   def create
