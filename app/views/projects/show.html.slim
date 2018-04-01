@@ -1,20 +1,25 @@
-h1 Project: #{@project.name}
-.container
-  .row
-    .col
-      p #{@project.description}
-    .col
-      h4 Statistics
-      ul
-        li Total time spend: #{distance_of_time_in_words(@project.member(@current_user).total_time_spend)}
-        li Time spend this month: #{distance_of_time_in_words(@project.member(@current_user).current_month_spend)}
-  .row.col
-    h1 New Progress
-    = render 'project/progresses/form'
-  .row.col
-    h2 Your progresses
+- content_for :subtitle
+  | Project: #{@project.name}
 
-    table.table
+.row
+  .col.s6
+    = asciidoc @project.description
+  .col.s6
+    h5 Statistics
+    ul
+      li Total time spend: #{distance_of_time(@current_member.total_time_spend, accumulate_on: :hours, except: :seconds)}
+      li Time spend this month: #{distance_of_time(@current_member.this_month_time_spend, accumulate_on: :hours, except: :seconds)}
+.row
+  .col.s12
+    h5 New Progress
+  .col.s12
+    = render 'project/progresses/form'
+.row
+  .col.s12
+  h5 Your progresses
+
+  .col.s12
+    table.highlight.responsive-table
       thead
         tr
           th #
@@ -30,6 +35,6 @@ h1 Project: #{@project.name}
             td #{id += 1}
             td #{l(progress.start, format: :short)}
             td #{l(progress.end, format: :short)}
-            td #{distance_of_time_in_words(progress.start,progress.end)}
+            td #{l(Time.at(progress.time_spend), format: :time_short)}
             td #{progress.description}
             td #{progress.tags.join(' ')}

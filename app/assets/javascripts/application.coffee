@@ -13,25 +13,27 @@
 #= require rails-ujs
 #= require turbolinks
 #= require jquery
-#= require bootstrap-sprockets
+#= require materialize
 #= require_tree .
 
 window.timetracker || (window.timetracker = {})
 
-timetracker.dismissFlash = () ->
-  flash = $('#flash')
-  $('.alert', flash).each (i, elem) ->
-    setTimeout (->
-      $(elem).alert('close')
-      return
-    ), 2500
-    return
+timetracker.app = {}
 
-  return
-
-timetracker.init = () ->
+timetracker.app.init = () ->
   console.log('Application init')
-  timetracker.dismissFlash()
+  timetracker.app.materialize()
   return
 
-$(document).ready(timetracker.init)
+timetracker.app.materialize = (elem) ->
+  elem || (elem = $('body'))
+  M.AutoInit(elem[0])
+  $(".dropdown-trigger", elem).dropdown
+    constrainWidth: false
+  $('input[type="text"]', elem).characterCounter()
+  $('textarea', elem).characterCounter()
+
+  return
+
+$(document).on 'turbolinks:load', timetracker.app.init
+$(document).ready timetracker.app.init
