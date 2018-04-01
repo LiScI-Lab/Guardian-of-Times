@@ -1,3 +1,5 @@
+= render 'application/form_errors', errors: @progress.errors
+
 = simple_form_for(@progress, html: { class: 'form-horizontal' }, url: project_progresses_path(@project,@progress)) do |f|
   = f.input :start
   = f.input :end

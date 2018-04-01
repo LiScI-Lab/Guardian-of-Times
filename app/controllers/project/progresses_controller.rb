@@ -5,14 +5,12 @@ class Project::ProgressesController < ApplicationController
   end
 
   def new
+    @project = Project.find(params[:project_id])
     @progress = Project::Progress.new(start: DateTime.now, end: DateTime.now)
   end
   def create
-    #TODO: render errors in view
     @project = Project.find(params[:project_id])
     @progress.project_id = @project.id
-    @progress.members.new(user: @current_user)
-    @progress.tags = []
     if @progress.save
       flash[:success] = "Progress successfully created"
       redirect_to @project

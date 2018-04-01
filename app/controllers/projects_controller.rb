@@ -4,6 +4,7 @@ class ProjectsController < ApplicationController
   load_and_authorize_resource
 
   def show
+    @progress = Project::Progress.new(start: DateTime.now, end: DateTime.now)
   end
 
   def new
