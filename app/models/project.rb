@@ -7,4 +7,8 @@ class Project < ApplicationRecord
 
   validates :name, presence: true, length: { minimum: Settings.project.name.length_minimum }
   validates :description, allow_blank: true, length: { minimum: Settings.project.description.length_minimum }
+
+  def member(user)
+    members.find_by(user_id: user.id)
+  end
 end

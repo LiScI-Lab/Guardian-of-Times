@@ -1,19 +1,28 @@
 h1 Project: #{@project.name}
+.container
+  .row
+    .col
+      p #{@project.description}
+    .col
+      h4 Statistics
+      ul
+        li Total time spend: #{distance_of_time_in_words(@project.member(@current_user).total_time_spend)}
+        li Time spend this month: TODO
+  .row.col
+    h2 Your progresses
 
-h2 Your progresses
-
-table.table
-  thead
-    th #
-    th Start
-    th End
-    th Breaks
-    th Tags
-  tbody
-    - @progresses.each_with_index do |progress,idx|
-      tr
-        td #{idx}
-        td #{progress.start}
-        td #{progress.end}
-        td TODO
-        td #{progress.tags.join(' ')}
+    table.table
+      thead
+        th #
+        th Start
+        th End
+        th Breaks
+        th Tags
+      tbody
+        - @progresses.each_with_index do |progress,idx|
+          tr
+            td #{idx}
+            td #{progress.start}
+            td #{progress.end}
+            td TODO
+            td #{progress.tags.join(' ')}
