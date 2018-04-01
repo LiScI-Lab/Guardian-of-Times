@@ -20,7 +20,7 @@ h1 Project: #{@project.name}
           th #
           th Start
           th End
-          th Breaks
+          th Duration
           th Description
           th Tags
       tbody
@@ -30,6 +30,6 @@ h1 Project: #{@project.name}
             td #{id += 1}
             td #{l(progress.start, format: :short)}
             td #{l(progress.end, format: :short)}
-            td TODO
+            td #{distance_of_time_in_words(progress.start,progress.end)}
             td #{progress.description}
             td #{progress.tags.join(' ')}
