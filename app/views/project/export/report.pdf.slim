@@ -18,7 +18,7 @@ html
       .column.column-40
         dl
           dt Fachbereich: #{@current_user.department.upcase}
-          dt Monat: #{Date::MONTHNAMES[@report_month.month]}
+          dt Monat: #{Date::MONTHNAMES[@report_month.month]} #{@report_month.year}
     .row.column
       table
         thead
@@ -36,3 +36,8 @@ html
               td #{work_duration.end_time.to_s(:time)}
               td #{work_duration.pauses}
               td #{distance_of_time(work_duration.work_duration, accumulate_on: :hours, except: :seconds)}
+    .row style="margin-top: 5em;"
+      .column
+        p Professor
+      .column
+        p studentische Hilfskraft

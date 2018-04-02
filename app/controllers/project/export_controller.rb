@@ -4,7 +4,7 @@ class Project::ExportController < ApplicationController
   load_and_authorize_resource :project
   load_and_authorize_resource :progress, through: :project
 
-  #TODO:  use max_hours from project ; german month names !
+  #TODO:  use max_hours from project ; german month names ! ; add total hours below the table
 
   def index
     #setup values for month picker
