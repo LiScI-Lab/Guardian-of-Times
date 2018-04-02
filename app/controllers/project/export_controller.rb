@@ -11,9 +11,13 @@ class Project::ExportController < ApplicationController
   end
 
   def create
+    require 'project/work_duration'
     # raise "dump"
     month = Date.new(DateTime.now.year, export_params[:month].to_i)
-    render plain: @current_member.progresses.in_month(month).all.inspect
+    progresses_current_month = @current_member.progresses.in_month(month).all
+    durations = progresses_current_month.map { |p|  WorkDuration.new(p.start, p.start,p.end) }
+    @normalized_progresses = durations
+    render 'report'
     # render plain: export_params
   end
 

@@ -1,0 +1,15 @@
+
+table
+  thead
+    tr
+      th Datum
+      th Start
+      th Ende
+      th Arbeitszeit ohne Pause
+  tbody
+   - @normalized_progresses.each do |work_duration|
+     tr
+       td #{work_duration.date}
+       td #{work_duration.start_time}
+       td #{work_duration.end_time}
+       td #{work_duration.work_duration}
