@@ -33,3 +33,6 @@ de:
   time:
     formats:
       time_short: "%H:%M"
+  date:
+    formats:
+      birthday: "%d.%m.%Y"
