@@ -12,10 +12,10 @@ class Project::ExportController < ApplicationController
     @current_month = @month_with_index[DateTime.now.month]
   end
 
-
   def show
-    month = DateTime.now.last_month
-    progresses_current_month = @current_member.progresses.in_month(month).all
+    @debug_pdf = params[:debug].present?
+    @report_month = DateTime.now.last_month
+    progresses_current_month = @current_member.progresses.in_month(@report_month).all
     durations = progresses_current_month
                   .sort_by { |p| p.start }
                   .map { |p|
@@ -30,8 +30,8 @@ class Project::ExportController < ApplicationController
 
     @normalized_progresses = durations
     # render plain: durations.inspect
-    render pdf: "#{month}-report",
-           :show_as_html => params[:debug].present?,
+    render pdf: "#{@report_month}-report",
+           :show_as_html => @debug_pdf,
            template: '/project/export/report.pdf.slim',
            disposition: "inline",
            layout: nil
@@ -44,9 +44,9 @@ class Project::ExportController < ApplicationController
   end
 
   def create
-    # raise "dump"
-    month = Date.new(DateTime.now.year, export_params[:month].to_i)
-    progresses_current_month = @current_member.progresses.in_month(month).all
+    @debug_pdf = params[:debug].present?
+    @report_month = Date.new(DateTime.now.year, export_params[:month].to_i)
+    progresses_current_month = @current_member.progresses.in_month(@report_month).all
     durations = progresses_current_month
                   .sort_by { |p| p.start }
                   .map { |p|
@@ -61,8 +61,8 @@ class Project::ExportController < ApplicationController
 
     @normalized_progresses = durations
     # render plain: durations.inspect
-    render pdf: "#{month}-report",
-           :show_as_html => params[:debug].present?,
+    render pdf: "#{@report_month}-report",
+           :show_as_html => @debug_pdf,
            template: '/project/export/report.pdf.slim',
            disposition: "inline",
            layout: nil

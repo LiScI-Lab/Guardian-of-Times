@@ -1,18 +1,35 @@
 html
   head
-    link href="#{Rails.root.join('vendor', 'milligram', 'milligram.min.css')}" rel='stylesheet'
+    - if @debug_pdf
+      = stylesheet_link_tag "milligram.min", media: 'all', 'data-turbolinks-track': true
+    - else
+      link href="#{Rails.root.join('vendor', 'assets', 'stylesheets', 'milligram.min.css')}" rel='stylesheet'
   body
-  table
-    thead
-      tr
-      th Datum
-      th Start
-      th Ende
-      th Arbeitszeit ohne Pause
-    tbody
-      - @normalized_progresses.each do |work_duration|
-        tr
-          td #{work_duration.date.strftime("%d.%m")}
-          td #{work_duration.start_time.to_s(:time)}
-          td #{work_duration.end_time.to_s(:time)}
-          td #{distance_of_time(work_duration.work_duration, accumulate_on: :hours, except: :seconds)}
+
+  .container
+    .row
+      .column.column-40
+        dl
+          dt Name: #{@current_user.realname}
+          dt Geburtsdatum: #{@current_user.birthdate}
+      .column.column-40
+        dl
+          dt Fachbereich: #{@current_user.department.upcase}
+          dt Monat: #{@report_month}
+    .row.column
+      table
+        thead
+          tr
+          th Datum
+          th Start
+          th Ende
+          th Pausenzeiten
+          th Arbeitszeit ohne Pause
+        tbody
+          - @normalized_progresses.each do |work_duration|
+            tr
+              td #{work_duration.date.strftime("%d.%m")}
+              td #{work_duration.start_time.to_s(:time)}
+              td #{work_duration.end_time.to_s(:time)}
+              td pauses are todo
+              td #{distance_of_time(work_duration.work_duration, accumulate_on: :hours, except: :seconds)}
