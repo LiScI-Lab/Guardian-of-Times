@@ -2,7 +2,7 @@
 
 ul#main-sidenav.sidenav
   li class="#{"active" if controller.is_a? UsersController}"
-    = link_to 'Me', user_path(@current_user), class: 'nav-link'
+    = link_to 'Me', edit_user_path(@current_user), class: 'nav-link'
   li class="#{"active" if controller.is_a? ProjectsController}"
     = link_to 'Projects', projects_path, class: 'nav-link'
   li
@@ -26,7 +26,7 @@ nav.row.nav-extended
     .col.l8.hide-on-med-and-down
       ul
         li class="#{"active" if controller.is_a? UsersController}"
-          = link_to 'Me', user_path(@current_user)
+          = link_to 'Me', edit_user_path(@current_user)
         li class="#{"active" if controller.is_a? ProjectsController}"
           = link_to '#', class: 'dropdown-trigger no-autoinit', data: {target: 'dropdown-projects'}
             | Projects
