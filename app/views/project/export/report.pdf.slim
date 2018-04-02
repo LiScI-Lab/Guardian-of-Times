@@ -34,7 +34,7 @@ html
               td #{work_duration.date.strftime("%d.%m")}
               td #{work_duration.start_time.to_s(:time)}
               td #{work_duration.end_time.to_s(:time)}
-              td #{work_duration.pauses}
+              td #{distance_of_time(work_duration.pauses, accumulate_on: :hours, except: :seconds)}
               td #{distance_of_time(work_duration.work_duration, accumulate_on: :hours, except: :seconds)}
     .row style="margin-top: 5em;"
       .column
