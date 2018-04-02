@@ -1,6 +1,6 @@
 .section
   h4 Export project #{@project.name} as "THM-Stundenzettel"
-  = simple_form_for :export_options do |f|
+  = simple_form_for(:export_options, format: :pdf) do |f|
     = f.select :month, @month_with_index, selected: @current_month
     = f.input :max_hours, as: :integer
     = f.button :submit, 'Generate Report'
