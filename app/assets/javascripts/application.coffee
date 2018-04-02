@@ -33,7 +33,21 @@ timetracker.app.materialize = (elem) ->
   $('input[type="text"]', elem).characterCounter()
   $('textarea', elem).characterCounter()
 
+  $('.modal', elem).modal()
   return
 
 $(document).on 'turbolinks:load', timetracker.app.init
 $(document).ready timetracker.app.init
+
+
+jQuery.fn.changeTag = (newTag) ->
+  q = this
+  @each (i, el) ->
+    h = '<' + el.outerHTML.replace(/(^<\w+|\w+>$)/g, newTag) + '>'
+    try
+      el.outerHTML = h
+    catch e
+      #elem not in dom
+      q[i] = jQuery(h)[0]
+    return
+  this

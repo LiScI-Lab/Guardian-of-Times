@@ -33,3 +33,8 @@ de:
   time:
     formats:
       time_short: "%H:%M"
+  project:
+    menu:
+      overview: "Übersicht"
+      members: "Mitglieder"
+      progresses: "Fortschritte"

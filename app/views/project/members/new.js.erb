@@ -1,0 +1,9 @@
+var m = $('main > #main_modal')
+m.html('<%= j(render 'project/members/new_modal_content') %>')
+var cbs = $('.check_boxes', m)
+
+$('p.checkbox label', cbs).changeTag('span')
+$('p.checkbox', cbs).addClass('col s6 m4 l3')
+$('p.checkbox', cbs).changeTag('label')
+
+m.modal('open')

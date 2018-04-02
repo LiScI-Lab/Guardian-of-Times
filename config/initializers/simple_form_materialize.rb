@@ -36,8 +36,13 @@ SimpleForm.setup do |config|
     b.use :html5
     b.use :readonly
 
-    b.use :input, class: 'validate'
-    b.use :label
+    b.wrapper tag: 'label' do |ba|
+      ba.use :input, class: 'validate'
+      ba.wrapper tag: 'span' do |bb|
+        bb.use :label_text
+      end
+    end
+
     b.use :error, wrap_with: { tag: 'small', class: 'error-block red-text text-darken-1' }
     b.use :hint,  wrap_with: { tag: 'span', class: 'help-block' }
   end

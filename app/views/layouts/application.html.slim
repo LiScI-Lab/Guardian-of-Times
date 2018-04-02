@@ -13,15 +13,10 @@ html
     = render 'layouts/navbar'
     main
       = render 'application/flash_messages'
-      - if content_for?(:subtitle) and content_for?(:subnav)
-        .row
-          .col.s1
-          .col.s10
-            h4 = yield(:subtitle)
-          .col.s1
       .row
         .col.s1
         .col.s10
           = content_for?(:content) ? yield(:content) : yield
         .col.s1
+      #main_modal.modal.bottom-sheet
     = render 'layouts/footer'

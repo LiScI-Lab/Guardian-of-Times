@@ -13,7 +13,11 @@ Rails.application.routes.draw do
     end
 
     scope module: :project do
-      resources :members
+      resources :members, only: [:index, :show, :new] do
+        collection do
+          post :invite
+        end
+      end
       resources :progresses do
         member do
           patch :stop

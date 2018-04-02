@@ -39,11 +39,11 @@ nav.row.nav-extended
 
   - if content_for?(:subtitle) or content_for?(:subnav)
     .nav-content.col.s12
-      - if content_for?(:subtitle) and not content_for?(:subnav)
+      - if content_for?(:subtitle)
         span.nav-title
           = yield :subtitle
         - if content_for?(:halfway_fab)
           = yield :halfway_fab
-      - elsif content_for?(:subnav)
+      - if content_for?(:subnav)
         ul.tabs.tabs-transparent
           = yield :subnav
