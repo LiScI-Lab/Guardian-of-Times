@@ -1,4 +1,4 @@
-class WorkDuration
+class Project::WorkDuration
 
   attr_reader :date
   attr_reader :start_time

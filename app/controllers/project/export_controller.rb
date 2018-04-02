@@ -1,3 +1,5 @@
+require 'project/work_duration'
+
 class Project::ExportController < ApplicationController
   load_and_authorize_resource :project
   load_and_authorize_resource :progress, through: :project
@@ -10,15 +12,14 @@ class Project::ExportController < ApplicationController
     @current_month = @month_with_index[DateTime.now.month]
   end
 
-  def create
-    require 'project/work_duration'
-    # raise "dump"
-    month = Date.new(DateTime.now.year, export_params[:month].to_i)
+
+  def show
+    month = DateTime.now.last_month
     progresses_current_month = @current_member.progresses.in_month(month).all
     durations = progresses_current_month
                   .sort_by { |p| p.start }
                   .map { |p|
-      WorkDuration.new(p.start,p.start,p.end)
+      Project::WorkDuration.new(p.start,p.start,p.end)
     }
                   .group_by { |p| p.date.to_date }
                   .map { |date,values|
@@ -29,7 +30,47 @@ class Project::ExportController < ApplicationController
 
     @normalized_progresses = durations
     # render plain: durations.inspect
-    render 'report'
+    render pdf: "#{month}-report",
+           :show_as_html => params[:debug].present?,
+           template: '/project/export/report.pdf.slim',
+           disposition: "inline",
+           layout: nil
+    # respond_to do |format|
+    #   format.html { render 'report' }
+    #   format.pdf { render pdf: "#{month}-report", template: 'report' }
+    # end
+
+    # render plain: export_params
+  end
+
+  def create
+    # raise "dump"
+    month = Date.new(DateTime.now.year, export_params[:month].to_i)
+    progresses_current_month = @current_member.progresses.in_month(month).all
+    durations = progresses_current_month
+                  .sort_by { |p| p.start }
+                  .map { |p|
+      Project::WorkDuration.new(p.start,p.start,p.end)
+    }
+                  .group_by { |p| p.date.to_date }
+                  .map { |date,values|
+      values.reduce { |acc,p|
+        acc.combine(p)
+      }
+    }
+
+    @normalized_progresses = durations
+    # render plain: durations.inspect
+    render pdf: "#{month}-report",
+           :show_as_html => params[:debug].present?,
+           template: '/project/export/report.pdf.slim',
+           disposition: "inline",
+           layout: nil
+    # respond_to do |format|
+    #   format.html { render 'report' }
+    #   format.pdf { render pdf: "#{month}-report", template: 'report' }
+    # end
+
     # render plain: export_params
   end
 
