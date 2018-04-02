@@ -20,6 +20,12 @@ gem 'sass-rails'
 gem 'materialize-sass', '~> 1.0.0.beta'
 gem 'materialize-form'
 
+#pdf generation through wicked & wkhtmltopdf
+gem 'wicked_pdf'
+group :wk_binary do
+  gem 'wkhtmltopdf-binary'
+end
+
 # better distance_of_time_in_words
 gem 'dotiw'
 

@@ -30,6 +30,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 de:
+  date:
+    formats:
+      birthday: "%d.%m.%Y"
   menu:
     projects: "Projekte"
     dashboard: "Dashboard"

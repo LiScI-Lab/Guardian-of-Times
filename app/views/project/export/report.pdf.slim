@@ -1,0 +1,43 @@
+html
+  head
+    meta charset="utf-8"
+    - if @debug_pdf
+      = stylesheet_link_tag "milligram.min", media: 'all', 'data-turbolinks-track': true
+    - else
+      link href="#{Rails.root.join('vendor', 'assets', 'stylesheets', 'milligram.min.css')}" rel='stylesheet'
+  body
+  .container
+    .row
+      .column
+        h4 Stundennachweis nach § 17 Mindestlohngesetz (MiloG)
+    .row
+      .column.column-40
+        dl
+          dt Name: #{@current_user.realname}
+          dt Geburtsdatum: #{l(@current_user.birthdate, format: :birthday)}
+      .column.column-40
+        dl
+          dt Fachbereich: #{@current_user.department.upcase}
+          dt Monat: #{Date::MONTHNAMES[@report_month.month]} #{@report_month.year}
+    .row.column
+      table
+        thead
+          tr
+          th Datum
+          th Start
+          th Ende
+          th Pausenzeiten
+          th Arbeitszeit ohne Pause
+        tbody
+          - @normalized_progresses.each do |work_duration|
+            tr
+              td #{work_duration.date.strftime("%d.%m")}
+              td #{work_duration.start_time.to_s(:time)}
+              td #{work_duration.end_time.to_s(:time)}
+              td #{distance_of_time(work_duration.pauses, accumulate_on: :hours, except: :seconds)}
+              td #{distance_of_time(work_duration.work_duration, accumulate_on: :hours, except: :seconds)}
+    .row style="margin-top: 5em;"
+      .column
+        p Professor
+      .column
+        p studentische Hilfskraft
