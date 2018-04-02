@@ -37,7 +37,7 @@ class Project::ExportController < ApplicationController
   end
 
   def create
-    @debug_pdf = params[:debug].present?
+    @debug_pdf = params[:debug].present? || export_params[:format] == :html.to_s
     @report_month = Date.new(DateTime.now.year, export_params[:month].to_i)
     progresses_current_month = @current_member.progresses.in_month(@report_month).all
     durations = progresses_current_month
@@ -63,6 +63,6 @@ class Project::ExportController < ApplicationController
 
   private
   def export_params
-    params.require(:export_options).permit(:month,:max_hours)
+    params.require(:export_options).permit(:month,:max_hours,:format)
   end
 end
