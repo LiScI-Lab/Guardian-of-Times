@@ -20,8 +20,8 @@ if user
 
     unless member.invited?
       rand(0..20).times do
-        start_time = Faker::Time.between(2.days.ago, Date.today, :morning)
-        progress = p.progresses.new(start: start_time, end: Faker::Time.between(start_time, Date.today, :evening))
+        start_time = Faker::Time.between(2.months.ago, Date.today, :morning)
+        progress = p.progresses.new(start: start_time, end: Faker::Time.between(start_time, start_time.end_of_day, :evening))
         progress.members << member
       end
     end
