@@ -4,4 +4,5 @@
     = f.select :month, @month_with_index, selected: @current_month
     = f.select :format, [:pdf, :html], selected: :pdf
     = f.input :max_hours, as: :integer
+    = f.input :normalize, as: :boolean
     = f.button :submit, 'Generate Report'
