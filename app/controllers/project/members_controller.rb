@@ -7,6 +7,11 @@ class Project::MembersController < ApplicationController
   def index
   end
 
+  def show
+    #TODO
+    redirect_to project_path(@project)
+  end
+
   def new
     
   end

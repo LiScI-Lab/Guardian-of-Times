@@ -30,11 +30,20 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 de:
-  time:
-    formats:
-      time_short: "%H:%M"
+  menu:
+    projects: "Projekte"
+    dashboard: "Dashboard"
+  dropdown:
+      projects:
+        own: "Meine Projekte"
+        invitations: "Projekt Einladungen"
+        involved: "Involvierte Projekte"
+
   project:
     menu:
       overview: "Übersicht"
       members: "Mitglieder"
       progresses: "Fortschritte"
+    actions:
+      join: "Beitreten"
+      show: "Anzeigen"

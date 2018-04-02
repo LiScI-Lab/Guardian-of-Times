@@ -4,9 +4,8 @@ class CreateProjectMember < ActiveRecord::Migration[5.1]
       t.belongs_to :user, index: true
       t.belongs_to :project, index: true
 
+      t.integer :status, null: false, default: 0
       t.integer :role, null: false, default: 0
-
-      t.integer :target_hours, null: false, default: 0
 
       t.timestamps null: false
       t.datetime :discarded_at, index: true

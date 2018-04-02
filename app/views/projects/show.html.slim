@@ -42,9 +42,9 @@
             td #{progress.description}
             td #{progress.tags.join(' ')}
             td
-              - unless progress.finished?
-                = link_to stop_project_progress_path(@project, progress), class: 'btn-floating waves-effect waves-light red', method: :patch
-                  = mdi_tag 'stop'
-              - else
+              - if progress.finished?
                 = link_to edit_project_progress_path(@project, progress), class: 'btn-floating waves-effect waves-light'
                   = mdi_tag 'pencil'
+              - else
+                = link_to stop_project_progress_path(@project, progress), class: 'btn-floating waves-effect waves-light red', method: :patch
+                  = mdi_tag 'stop'

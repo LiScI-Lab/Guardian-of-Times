@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180331134942) do
+ActiveRecord::Schema.define(version: 20180402164842) do
 
   create_table "project_members", force: :cascade do |t|
     t.integer "user_id"
     t.integer "project_id"
+    t.integer "status", default: 0, null: false
     t.integer "role", default: 0, null: false
-    t.integer "target_hours", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
@@ -43,6 +43,13 @@ ActiveRecord::Schema.define(version: 20180331134942) do
     t.datetime "discarded_at"
     t.index ["discarded_at"], name: "index_project_progresses_on_discarded_at"
     t.index ["project_id"], name: "index_project_progresses_on_project_id"
+  end
+
+  create_table "project_target_hours", force: :cascade do |t|
+    t.date "since", null: false
+    t.integer "hours", default: 0, null: false
+    t.integer "project_member_id"
+    t.index ["project_member_id"], name: "index_project_target_hours_on_project_member_id"
   end
 
   create_table "projects", force: :cascade do |t|

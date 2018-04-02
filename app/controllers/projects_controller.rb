@@ -33,6 +33,18 @@ class ProjectsController < ApplicationController
 
   end
 
+  def join
+    @current_member.status = :joined
+    if @current_member.save
+      flash[:success] = "Successfully joined #{@project.name}"
+      if @current_member.owner?
+        redirect_to project_path(@project)
+      else
+        redirect_to project_member_path(@project, @current_member)
+      end
+    else
+    end
+  end
 
   private
   def project_params

@@ -7,7 +7,6 @@ class Project < ApplicationRecord
 
   has_many :progresses, -> {order start: :desc}, class_name: "Project::Progress"
 
-
   validates :name, presence: true, length: { minimum: Settings.project.name.length_minimum}
   validates :description, allow_blank: true, length: { minimum: Settings.project.description.length_minimum }
 

@@ -2,20 +2,33 @@
 
 ul#main-sidenav.sidenav
   li class="#{"active" if controller.is_a? UsersController}"
-    = link_to 'Me', edit_user_path(@current_user), class: 'nav-link'
+    = link_to edit_user_path(@current_user), class: 'nav-link'
+      = t('menu.dashboard')
   li class="#{"active" if controller.is_a? ProjectsController}"
-    = link_to 'Projects', projects_path, class: 'nav-link'
+    = link_to projects_path, class: 'nav-link'
+      = t('menu.projects')
+      - if @current_user.invited_projects.any?
+        span.new.badge = @current_user.invited_projects.count
   li
     = link_to destroy_user_session_path, method: :delete
     = mdi_tag 'logout'
 
 ul#dropdown-projects.dropdown-content
   li
-    = link_to 'All my Projects', owner_projects_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? ProjectsController and action == :owner}"
+    = link_to owner_projects_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? ProjectsController and action == :owner}"
+      = t('dropdown.projects.own')
+      - if @current_user.own_projects.any?
+        span.badge = @current_user.own_projects.count
   li
-    = link_to 'All involved Projects', projects_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? ProjectsController and action == :index}"
+    = link_to projects_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? ProjectsController and action == :index}"
+      = t('dropdown.projects.involved')
+      - if @current_user.involved_projects.any?
+        span.badge = @current_user.involved_projects.count
   li
-    = link_to 'Project invitations', invited_projects_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? ProjectsController and action == :invited}"
+    = link_to invited_projects_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? ProjectsController and action == :invited}"
+      = t('dropdown.projects.invitations')
+      - if @current_user.invited_projects.any?
+        span.new.badge = @current_user.invited_projects.count
 
 nav.row.nav-extended
   .nav-wrapper
@@ -26,10 +39,13 @@ nav.row.nav-extended
     .col.l8.hide-on-med-and-down
       ul
         li class="#{"active" if controller.is_a? UsersController}"
-          = link_to 'Me', edit_user_path(@current_user)
+          = link_to edit_user_path(@current_user)
+            = t('menu.dashboard')
         li class="#{"active" if controller.is_a? ProjectsController}"
           = link_to '#', class: 'dropdown-trigger no-autoinit', data: {target: 'dropdown-projects'}
-            | Projects
+            = t('menu.projects')
+            - if @current_user.invited_projects.any?
+              span.new.badge = @current_user.invited_projects.count
             = mdi_tag 'menu_down', class: 'right'
     .col.l2.hide-on-med-and-down
       ul.right

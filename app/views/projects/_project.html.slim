@@ -10,4 +10,9 @@
         | TODO: here will be many tags!
 
     .card-action
-      = link_to 'Details', project_path(project)
+      - member = project.members.find_by user: @current_user
+      - if member
+        - if member.invited?
+          = link_to t('project.actions.join'), join_project_path(project), method: :patch
+        - else
+          = link_to t('project.actions.show'), if member.owner? then project_path(project) else project_member_path(project, member) end

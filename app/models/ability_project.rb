@@ -7,6 +7,11 @@ module AbilityProject
 
     if member
       can [:show], Project, members: {id: member.id}
+      can [:join], Project, members: {id: member.id, status: Project::Member.statuses[:invited]}
+
+      can [:index], Project::Member, project: {members: {id: member.id, role: Project::Member.roles[:owner]}}
+      can [:show], Project::Member, id: member.id
+      can [:show], Project::Member, project: {members: {id: member.id, role: Project::Member.roles[:owner]}}
     end
   end
 end

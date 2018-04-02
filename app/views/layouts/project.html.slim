@@ -5,8 +5,9 @@
   - content_for :subnav
     li.tab
       = link_to t('project.menu.overview'), project_path(@project), class: "#{'active' if controller.is_a? ProjectsController}", target: :_self
-    li.tab
-      = link_to t('project.menu.members'), project_members_path(@project), class: "#{'active' if controller.is_a? Project::MembersController}", target: :_self
+    - if can? :index, Project::Member.new(project: @project)
+      li.tab
+        = link_to t('project.menu.members'), project_members_path(@project), class: "#{'active' if controller.is_a? Project::MembersController}", target: :_self
     li.tab
       = link_to t('project.menu.progresses'), project_progresses_path(@project), class: "#{'active' if controller.is_a? Project::ProgressesController}", target: :_self
 

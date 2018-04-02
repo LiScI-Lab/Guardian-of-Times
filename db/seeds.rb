@@ -12,21 +12,38 @@ user = User.create email: Settings.seed.email, username: Settings.seed.username,
 
 20.times do
   User.create email: Faker::Internet.unique.email, username: Faker::Internet.unique.user_name, realname: Faker::Name.name
-end
 
-20.times do
   name = ""
   while name.length < 5
     name = Faker::HitchhikersGuideToTheGalaxy.location
   end
-  p = Project.new name: name, description: Faker::HitchhikersGuideToTheGalaxy.marvin_quote
-  member = p.members.new user: user, role: [:invited, :participant, :owner].sample
+  p = Project.create name: name, description: Faker::HitchhikersGuideToTheGalaxy.marvin_quote
+end
 
-  unless member.invited?
-    rand(0..20).times do
-      start_time = Faker::Time.between(2.days.ago, Date.today, :morning)
-      progress = p.progresses.new(start: start_time, end: Faker::Time.between(start_time, Date.today, :evening))
-      progress.members << member
+
+Project.all.each do |p|
+  p.members.create user: user, role: [:participant, :owner].sample, status: [:joined, :leaved, :invited].sample
+
+  rand(0..5).times do
+    m = p.members.find_or_initialize_by user_id: rand(2..19)
+    m.role = :participant
+    m.status = [:joined, :leaved, :invited].sample
+    m.save!
+  end
+
+  p.save!
+
+  p.members.each do |member|
+    if member.target_hours.empty?
+      member.target_hours.new hours: rand(20..45), since: DateTime.now.to_date.beginning_of_month
+    end
+
+    unless member.invited?
+      rand(0..20).times do
+        start_time = Faker::Time.between(2.days.ago, Date.today, :morning)
+        progress = p.progresses.new(start: start_time, end: Faker::Time.between(start_time, Date.today, :evening))
+        progress.members << member
+      end
     end
   end
 

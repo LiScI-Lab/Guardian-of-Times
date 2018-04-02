@@ -11,9 +11,9 @@ class User < ApplicationRecord
   end
 
   has_many :project_members, class_name: "Project::Member"
-  has_many :invited_project_members, -> {kept.where(role: :invited)}, class_name: "Project::Member"
-  has_many :involved_project_members, -> {kept.where.not(role: :invited)}, class_name: "Project::Member"
-  has_many :own_project_members, -> {kept.where(role: :owner)}, class_name: "Project::Member"
+  has_many :invited_project_members, -> {kept.invited}, class_name: "Project::Member"
+  has_many :involved_project_members, -> {kept.joined.where.not(role: :owner)}, class_name: "Project::Member"
+  has_many :own_project_members, -> {kept.owner}, class_name: "Project::Member"
 
   has_many :projects, through: :project_members, class_name: "Project"
 

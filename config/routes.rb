@@ -7,9 +7,15 @@ Rails.application.routes.draw do
   resources :projects do
     collection do
       scope :role do
-        get :invited
         get :owner
       end
+      scope :status do
+        get :invited
+      end
+    end
+
+    member do
+      patch :join
     end
 
     scope module: :project do
