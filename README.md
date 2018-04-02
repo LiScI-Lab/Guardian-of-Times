@@ -22,3 +22,9 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+# Export
+The export uses wkhtmltopdf (https://wkhtmltopdf.org).
+It should be included as a binary gem using bundler.
+If this fails, install wkhtmltopdf using your distribution and tell wicked_pdf (https://github.com/mileszs/wicked_pdf)  where the local installation is.
+Tell bundler to install without the binary by running `bundle install --without wk_binary`.
