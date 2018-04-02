@@ -1,5 +1,10 @@
 class WorkDuration
 
+  attr_reader :date
+  attr_reader :start_time
+  attr_reader :end_time
+  attr_reader :work_duration
+
   def initialize(date,start,end_time,work_duration=nil)
     @date = date
     @start_time = start
@@ -11,18 +16,9 @@ class WorkDuration
     end
   end
 
-  def date
-    @date
-  end
 
-  def work_duration
-    @work_duration
-  end
-
-  def start_time
-    @start_time.to_s(:time)
-  end
-  def end_time
-    @start_time.to_s(:time)
+  def combine(other)
+    duration = work_duration + other.work_duration
+    WorkDuration.new(@date,@start_time,other.end_time,duration)
   end
 end

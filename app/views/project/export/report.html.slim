@@ -9,7 +9,7 @@ table
   tbody
    - @normalized_progresses.each do |work_duration|
      tr
-       td #{work_duration.date}
-       td #{work_duration.start_time}
-       td #{work_duration.end_time}
-       td #{work_duration.work_duration}
+       td #{work_duration.date.strftime("%d.%m")}
+       td #{work_duration.start_time.to_s(:time)}
+       td #{work_duration.end_time.to_s(:time)}
+       td #{distance_of_time(work_duration.work_duration, accumulate_on: :hours, except: :seconds)}

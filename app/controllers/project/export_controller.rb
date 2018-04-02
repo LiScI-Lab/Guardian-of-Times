@@ -15,8 +15,20 @@ class Project::ExportController < ApplicationController
     # raise "dump"
     month = Date.new(DateTime.now.year, export_params[:month].to_i)
     progresses_current_month = @current_member.progresses.in_month(month).all
-    durations = progresses_current_month.map { |p|  WorkDuration.new(p.start, p.start,p.end) }
+    durations = progresses_current_month
+                  .sort_by { |p| p.start }
+                  .map { |p|
+      WorkDuration.new(p.start,p.start,p.end)
+    }
+                  .group_by { |p| p.date.to_date }
+                  .map { |date,values|
+      values.reduce { |acc,p|
+        acc.combine(p)
+      }
+    }
+
     @normalized_progresses = durations
+    # render plain: durations.inspect
     render 'report'
     # render plain: export_params
   end
