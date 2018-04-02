@@ -19,6 +19,7 @@ Rails.application.routes.draw do
           patch :stop
         end
       end
+      resources :export, only: [:index, :create]
     end
   end
 end
