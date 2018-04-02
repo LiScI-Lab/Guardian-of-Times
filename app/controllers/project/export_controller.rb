@@ -29,18 +29,11 @@ class Project::ExportController < ApplicationController
     }
 
     @normalized_progresses = durations
-    # render plain: durations.inspect
     render pdf: "#{@report_month}-report",
            :show_as_html => @debug_pdf,
            template: '/project/export/report.pdf.slim',
            disposition: "inline",
            layout: nil
-    # respond_to do |format|
-    #   format.html { render 'report' }
-    #   format.pdf { render pdf: "#{month}-report", template: 'report' }
-    # end
-
-    # render plain: export_params
   end
 
   def create
@@ -66,12 +59,6 @@ class Project::ExportController < ApplicationController
            template: '/project/export/report.pdf.slim',
            disposition: "inline",
            layout: nil
-    # respond_to do |format|
-    #   format.html { render 'report' }
-    #   format.pdf { render pdf: "#{month}-report", template: 'report' }
-    # end
-
-    # render plain: export_params
   end
 
   private
