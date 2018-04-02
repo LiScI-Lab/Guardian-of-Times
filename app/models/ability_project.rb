@@ -12,6 +12,8 @@ module AbilityProject
       can [:index], Project::Member, project: {members: {id: member.id, role: Project::Member.roles[:owner]}}
       can [:show], Project::Member, id: member.id
       can [:show], Project::Member, project: {members: {id: member.id, role: Project::Member.roles[:owner]}}
+
+      can [:create, :index], :export
     end
   end
 end

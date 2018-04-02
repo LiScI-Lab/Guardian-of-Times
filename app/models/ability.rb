@@ -7,7 +7,7 @@ class Ability
     if user
       can [:index], :welcome
       can [:show], User, id: user.id
-      can [:edit], User, id: user.id
+      can [:edit, :update], User, id: user.id
 
       initialize_project(user, member)
     end
