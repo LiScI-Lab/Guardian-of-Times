@@ -21,4 +21,8 @@ class Project::WorkDuration
     duration = work_duration + other.work_duration
     WorkDuration.new(@date,@start_time,other.end_time,duration)
   end
+
+  def pauses
+    @end_time - @start_time - @work_duration
+  end
 end

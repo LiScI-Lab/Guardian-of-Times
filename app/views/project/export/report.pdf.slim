@@ -1,12 +1,15 @@
 html
   head
+    meta charset="utf-8"
     - if @debug_pdf
       = stylesheet_link_tag "milligram.min", media: 'all', 'data-turbolinks-track': true
     - else
       link href="#{Rails.root.join('vendor', 'assets', 'stylesheets', 'milligram.min.css')}" rel='stylesheet'
   body
-
   .container
+    .row
+      .column
+        h4 Stundennachweis nach § 17 Mindestlohngesetz (MiloG)
     .row
       .column.column-40
         dl
@@ -15,7 +18,7 @@ html
       .column.column-40
         dl
           dt Fachbereich: #{@current_user.department.upcase}
-          dt Monat: #{@report_month}
+          dt Monat: #{Date::MONTHNAMES[@report_month.month]}
     .row.column
       table
         thead
@@ -31,5 +34,5 @@ html
               td #{work_duration.date.strftime("%d.%m")}
               td #{work_duration.start_time.to_s(:time)}
               td #{work_duration.end_time.to_s(:time)}
-              td pauses are todo
+              td #{work_duration.pauses}
               td #{distance_of_time(work_duration.work_duration, accumulate_on: :hours, except: :seconds)}
