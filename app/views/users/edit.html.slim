@@ -1,9 +1,8 @@
-h2 Edit your profile #{@current_user.realname}
+- content_for :subtitle
+  | Edit your profile #{@current_user.realname}
 
 = render 'application/form_errors', errors: @current_user.errors
 = simple_form_for(@current_user) do |f|
-  .row
-     .col.s10
-      = f.hidden_field :department
-      = f.input :birthdate, as: :date, wrapper_html: {class: 's6'}
-      = f.button :submit
+  = render 'application/form', f: f
+    = f.hidden_field :department
+    = f.input :birthdate, as: :date, wrapper_html: {class: 's6'}

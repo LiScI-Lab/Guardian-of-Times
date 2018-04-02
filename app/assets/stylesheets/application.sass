@@ -12,6 +12,15 @@ $primary-color: color("blue-grey", "darken-3") !default
 
 @import "materialize"
 
+body
+  display: flex
+  min-height: 100vh
+  flex-direction: column
+
+
+main
+  flex: 1 0 auto
+
 nav button.sidenav-trigger, nav button.sidenav-trigger i
   height: 64px
   line-height: 64px
