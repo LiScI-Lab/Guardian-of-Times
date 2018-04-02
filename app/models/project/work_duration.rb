@@ -19,7 +19,7 @@ class Project::WorkDuration
 
   def combine(other)
     duration = work_duration + other.work_duration
-    WorkDuration.new(@date,@start_time,other.end_time,duration)
+    ::Project::WorkDuration.new(@date,@start_time,other.end_time,duration)
   end
 
   def pauses
