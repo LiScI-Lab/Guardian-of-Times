@@ -18,7 +18,7 @@ html
       .column.column-40
         dl
           dt Fachbereich: #{@current_user.department.upcase}
-          dt Monat: #{Date::MONTHNAMES[@report_month.month]} #{@report_month.year}
+          dt Monat: #{t('date.month_names')[@report_month.month]} #{@report_month.year}
     .row.column
       table
         thead
