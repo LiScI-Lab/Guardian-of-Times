@@ -23,6 +23,16 @@ Things you may want to cover:
 
 * ...
 
+# Generating a seed
+To generate a seed, we need your user informations in the `settings.yml` file.
+Please append it as follows:
+```yaml
+seed:
+  email: <THM-Email>
+  username: <THM-Userkennung>
+  realname: <Your full name>
+```
+
 # Export
 The export uses wkhtmltopdf (https://wkhtmltopdf.org).
 It should be included as a binary gem using bundler.
