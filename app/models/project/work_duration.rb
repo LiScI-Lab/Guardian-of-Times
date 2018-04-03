@@ -25,4 +25,10 @@ class Project::WorkDuration
   def pauses
     @end_time - @start_time - @work_duration
   end
+  def pauses_formatted
+    Time.at(self.pauses).utc.strftime("%H:%M")
+  end
+  def work_duration_formatted
+    Time.at(@work_duration).utc.strftime("%H:%M")
+  end
 end
