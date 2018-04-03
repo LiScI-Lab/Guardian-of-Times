@@ -26,8 +26,9 @@ class Project::ExportController < ApplicationController
         acc.combine(p)
       }
     }
-
     @normalized_progresses = durations
+    @time_spend_this_month = @normalized_progresses.map { |p| p.work_duration }.sum
+    @time_spend_this_month = Time.at(@time_spend_this_month).strftime("%H:%M")
     # render plain: durations.inspect
     render pdf: "#{@report_month}-report",
            :show_as_html => @debug_pdf,

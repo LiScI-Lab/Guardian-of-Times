@@ -36,6 +36,13 @@ html
               td #{work_duration.end_time.to_s(:time)}
               td #{work_duration.pauses_formatted}
               td #{work_duration.work_duration_formatted}
+          tr
+            td Gesamtstunden
+            td
+            td
+            td
+            td #{@time_spend_this_month}
+
     .row style="margin-top: 5em;"
       .column
         p Professor
