@@ -10,6 +10,8 @@
         = link_to t('project.menu.members'), project_members_path(@project), class: "#{'active' if controller.is_a? Project::MembersController}", target: :_self
     li.tab
       = link_to t('project.menu.progresses'), project_progresses_path(@project), class: "#{'active' if controller.is_a? Project::ProgressesController}", target: :_self
+    li.tab
+      = link_to t('project.menu.exports'), project_export_index_path(@project), class: "#{'active' if controller.is_a? Project::ExportController}", target: :_self
 
 
 = render template: 'layouts/application'
