@@ -1,4 +1,5 @@
 class Project::ExportController < ApplicationController
+  layout 'project'
   load_and_authorize_resource :project
   authorize_resource :export, class: false
 
