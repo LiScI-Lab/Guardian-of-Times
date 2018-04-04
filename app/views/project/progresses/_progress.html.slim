@@ -22,8 +22,15 @@ tr
   - unless overview
     td
       - if progress.finished?
-        = link_to edit_project_member_progress_path(@project, @member, progress), class: 'btn-floating waves-effect waves-light'
-          = mdi_tag 'pencil'
+        .button-group
+          = link_to edit_project_member_progress_path(@project, @member, progress), class: 'btn-floating waves-effect waves-light'
+            = mdi_tag 'pencil'
+          - if progress.discarded?
+            = link_to restore_project_member_progress_path(@project, @member, progress), class: 'btn-floating waves-effect waves-light green', method: :patch
+              = mdi_tag 'delete-restore'
+          - else
+            = link_to project_member_progress_path(@project, @member, progress), class: 'btn-floating waves-effect waves-light red', method: :delete
+              = mdi_tag 'delete'
       - else
         = link_to stop_project_member_progress_path(@project, @member, progress), class: 'btn-floating waves-effect waves-light red', method: :patch
           = mdi_tag 'stop'

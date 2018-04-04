@@ -14,7 +14,7 @@ class Project::ExportController < ApplicationController
   def create
     @debug_pdf = params[:debug].present? || export_params[:format] == :html.to_s
     @report_month = Date.new(DateTime.now.year, export_params[:month].to_i)
-    progresses_current_month = @current_member.progresses.in_month(@report_month).all
+    progresses_current_month = @current_member.progresses.kept.in_month(@report_month).all
     durations = progresses_current_month
                   .sort_by { |p| p.start }
                   .map { |p|

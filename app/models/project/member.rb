@@ -12,10 +12,10 @@ class Project::Member < ApplicationRecord
   validates :user, uniqueness: {scope: :project}
 
   def total_time_spend
-    progresses.map { |p| p.time_spend }.sum
+    progresses.kept.map { |p| p.time_spend }.sum
   end
 
   def current_month_time_spend
-    progresses.this_month.map { |p| p.time_spend }.sum
+    progresses.kept.this_month.map { |p| p.time_spend }.sum
   end
 end

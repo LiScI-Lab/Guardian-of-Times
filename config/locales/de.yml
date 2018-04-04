@@ -51,6 +51,7 @@ de:
       dashboard: "Dashboard"
       my_progresses: "Meine Fortschritte"
       my_dashboard: "Mein Dashbaord"
+      discarded_progresses: "Gelöschte Fortschritte"
     actions:
       join: "Beitreten"
       show: "Anzeigen"

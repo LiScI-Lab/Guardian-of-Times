@@ -4,7 +4,7 @@
     ul
       li Total time spend: #{distance_of_time(@member.total_time_spend, accumulate_on: :hours, except: :seconds)}
       li Time spend this month: #{distance_of_time(@member.current_month_time_spend, accumulate_on: :hours, except: :seconds)}
-  - if @member.progresses.ongoing.empty?
+  - if @member.progresses.kept.ongoing.empty?
     .col.s12.m6
       .col.s12
         h5 Start Progress
@@ -21,4 +21,10 @@
   .col.s12
     h5
       =t('project.menu.progresses')
-  = render 'project/progresses/progresses'
+  = render 'project/progresses/progresses', progresses: @progresses.kept
+
+.row
+  .col.s12
+    h5
+      =t('project.menu.discarded_progresses')
+  = render 'project/progresses/progresses', progresses: @progresses.discarded

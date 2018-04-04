@@ -31,6 +31,24 @@ class Project::Member::ProgressesController < ApplicationController
     redirect_to project_member_progresses_path(@project, @member)
   end
 
+  def destroy
+    if @progress.discard
+      flash[:success] = "Progress successfully discarded"
+    else
+      flash[:error] = "Progress not discarded"
+    end
+    redirect_to project_member_progresses_path(@project, @member)
+  end
+
+  def restore
+    if @progress.undiscard
+      flash[:success] = "Progress successfully undiscarded"
+    else
+      flash[:error] = "Progress not undiscarded"
+    end
+    redirect_to project_member_progresses_path(@project, @member)
+  end
+
   private
   def progress_params
     params.require(:progress).permit([:description])
