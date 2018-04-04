@@ -41,7 +41,7 @@ html
             td
             td
             td
-            td #{@time_spend_this_month}
+            td #{ChronicDuration.output(@time_spend_this_month, :limit_to_hours => true,:format => :chrono)}
 
     .row style="margin-top: 5em;"
       .column

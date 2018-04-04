@@ -28,6 +28,8 @@ end
 
 # better distance_of_time_in_words
 gem 'dotiw'
+# better duration printing
+gem 'chronic_duration'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
