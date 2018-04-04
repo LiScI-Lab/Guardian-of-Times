@@ -48,6 +48,10 @@ de:
       members: "Mitglieder"
       progresses: "Fortschritte"
       exports: "Export"
+      dashboard: "Dashboard"
+      my_progresses: "Meine Fortschritte"
+      my_dashboard: "Mein Dashbaord"
     actions:
       join: "Beitreten"
       show: "Anzeigen"
+    filter: "Filter"

@@ -1,0 +1,35 @@
+.row
+  .col.s12.m6
+    h5 Statistics
+    ul
+      li Total time spend: #{distance_of_time(@member.total_time_spend, accumulate_on: :hours, except: :seconds)}
+      li Time spend this month: #{distance_of_time(@member.current_month_time_spend, accumulate_on: :hours, except: :seconds)}
+  - if @member.progresses.ongoing.empty?
+    .col.s12.m6
+      .col.s12
+        h5 Start Progress
+      .col.s12
+        = render 'project/progresses/form'
+
+.row
+  .col.s12
+    h5
+      = t('project.filter')
+  .col.s12
+    | TODO: Insert filter options here....
+.row
+  .col.s12
+    h5
+      =t('project.menu.progresses')
+  .col.s12
+    table.highlight.responsive-table
+      thead
+        tr
+          th User
+          th Start
+          th End
+          th Duration
+          th Description
+          th Tags
+      tbody
+        = render @progresses.kept

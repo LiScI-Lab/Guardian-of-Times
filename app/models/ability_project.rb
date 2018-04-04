@@ -3,15 +3,19 @@ module AbilityProject
 
   def initialize_project(user, member)
     can [:index, :invited, :owner], Project
-    can [:create, :new], Project
+    can [:create, :new],            Project
 
     if member
-      can [:show], Project, members: {id: member.id}
-      can [:join], Project, members: {id: member.id, status: Project::Member.statuses[:invited]}
+      can [:show],      Project, members: {id: member.id}
+      can [:dashboard], Project, members: {id: member.id, role: Project::Member.roles[:owner]}
+      can [:join],      Project, members: {id: member.id, status: Project::Member.statuses[:invited]}
 
-      can [:index], Project::Member, project: {members: {id: member.id, role: Project::Member.roles[:owner]}}
-      can [:show], Project::Member, id: member.id
-      can [:show], Project::Member, project: {members: {id: member.id, role: Project::Member.roles[:owner]}}
+      can [:index],             Project::Member, project: {members: {id: member.id, role: Project::Member.roles[:owner]}}
+      can [:show, :dashboard],  Project::Member, id: member.id
+      can [:show, :dashboard],  Project::Member, project: {members: {id: member.id, role: Project::Member.roles[:owner]}}
+
+      can [:index, :show],                  Project::Progress, project: {members: {id: member.id, role: Project::Member.roles[:owner]}}
+      can [:index, :show, :create, :stop],  Project::Progress, members: {id: member.id}
 
       can [:create, :index], :export
     end

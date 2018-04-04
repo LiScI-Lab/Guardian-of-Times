@@ -8,12 +8,13 @@ class Project::MembersController < ApplicationController
   end
 
   def show
-    #TODO
-    redirect_to project_path(@project)
+    redirect_to dashboard_project_member_path(@project, @member)
+  end
+
+  def dashboard
   end
 
   def new
-    
   end
 
   def invite

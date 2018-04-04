@@ -1,10 +1,11 @@
 = render 'application/form_errors', errors: @progress.errors
 
-= simple_form_for([@project, @progress]) do |f|
+= simple_form_for([@project, @member, @progress]) do |f|
   .row
+    .col.s12
+      = f.input :tags, wrapper_html: {class: 's12'}
     .col.s10
-      = f.input :tags, wrapper_html: {class: 's6'}
-      = f.input :description, wrapper_html: {class: 's6'}
+      = f.input :description, wrapper_html: {class: 's12'}
     .col.s2
       = f.button :button
         = mdi_tag 'run-fast'

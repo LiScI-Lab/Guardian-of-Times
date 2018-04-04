@@ -15,4 +15,4 @@
         - if member.invited?
           = link_to t('project.actions.join'), join_project_path(project), method: :patch
         - else
-          = link_to t('project.actions.show'), if member.owner? then project_path(project) else project_member_path(project, member) end
+          = link_to t('project.actions.show'), project_path(project)

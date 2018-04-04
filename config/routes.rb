@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
     member do
       patch :join
+      get :dashboard
     end
 
     scope module: :project do
@@ -23,12 +24,19 @@ Rails.application.routes.draw do
         collection do
           post :invite
         end
-      end
-      resources :progresses do
         member do
-          patch :stop
+          get :dashboard
+        end
+
+        scope module: :member do
+          resources :progresses, only: [:index, :create, :edit, :update] do
+            member do
+              patch :stop
+            end
+          end
         end
       end
+      resources :progresses, only: [:index, :show]
       resources :export, only: [:index, :create]
     end
   end

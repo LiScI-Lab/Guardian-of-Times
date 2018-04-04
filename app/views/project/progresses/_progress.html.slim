@@ -1,0 +1,29 @@
+- overview = controller.is_a? Project::ProgressesController
+
+tr
+  - if overview
+    - if progress.members.size == 1
+      td
+        = progress.members.first.user.realname
+    - else
+      td
+        span.btn.tooltipped data={position: "bottom", tooltip: "#{progress.users.select(:realname).join(', ')}"}
+          = progress.members.size
+
+  td #{l(progress.start, format: :short)}
+  - if progress.finished?
+    td #{l(progress.end, format: :short)}
+    td #{distance_of_time(progress.time_spend, accumulate_on: :hours, except: :seconds)}
+  - else
+    td Ongoing
+    td #{distance_of_time progress.time_spend, accumulate_on: :hours}
+  td #{progress.description}
+  td #{progress.tags.join(' ')}
+  - unless overview
+    td
+      - if progress.finished?
+        = link_to edit_project_member_progress_path(@project, @member, progress), class: 'btn-floating waves-effect waves-light'
+          = mdi_tag 'pencil'
+      - else
+        = link_to stop_project_member_progress_path(@project, @member, progress), class: 'btn-floating waves-effect waves-light red', method: :patch
+          = mdi_tag 'stop'

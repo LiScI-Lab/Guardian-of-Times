@@ -4,7 +4,14 @@ class ProjectsController < ApplicationController
   load_and_authorize_resource
 
   def show
-    @progress = Project::Progress.new(start: DateTime.now, end: DateTime.now)
+    if can? :dashboard, @project
+      redirect_to dashboard_project_path(@project)
+    else
+      redirect_to dashboard_project_member_path(@project, @current_member)
+    end
+  end
+
+  def dashboard
   end
 
   def new
@@ -38,9 +45,9 @@ class ProjectsController < ApplicationController
     if @current_member.save
       flash[:success] = "Successfully joined #{@project.name}"
       if @current_member.owner?
-        redirect_to project_path(@project)
+        redirect_to dashboard_project_path(@project)
       else
-        redirect_to project_member_path(@project, @current_member)
+        redirect_to dashboard_project_member_path(@project, @current_member)
       end
     else
     end
