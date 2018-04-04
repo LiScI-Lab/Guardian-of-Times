@@ -26,7 +26,6 @@ html
           th Datum
           th Start
           th Ende
-          th Pausenzeiten
           th Arbeitszeit ohne Pause
         tbody
           - @normalized_progresses.each do |work_duration|
@@ -34,11 +33,9 @@ html
               td #{work_duration.date.strftime("%d.%m")}
               td #{work_duration.start_time.to_s(:time)}
               td #{work_duration.end_time.to_s(:time)}
-              td #{work_duration.pauses_formatted}
               td #{work_duration.work_duration_formatted}
           tr
             td Gesamtstunden
-            td
             td
             td
             td #{ChronicDuration.output(@time_spend_this_month, :limit_to_hours => true,:format => :chrono)}
