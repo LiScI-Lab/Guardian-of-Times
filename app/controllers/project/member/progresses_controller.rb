@@ -24,6 +24,16 @@ class Project::Member::ProgressesController < ApplicationController
     end
   end
 
+  def update
+    if @progress.update progress_params
+      flash[:success] = "Progress successfully updated"
+      redirect_to project_member_progresses_path(@project, @member)
+    else
+      flash[:error] = "Progress not updated"
+      render 'index'
+    end
+  end
+
   def start
     @progress.members << @member
     if @progress.save
