@@ -10,7 +10,21 @@ class Project::Member::ProgressesController < ApplicationController
     @progress = Project::Progress.new(start: DateTime.now)
   end
 
+  def new
+    @progress = Project::Progress.new
+  end
   def create
+    @progress.members << @member
+    if @progress.save
+      flash[:success] = "Progress successfully added"
+      redirect_to project_member_progresses_path(@project, @member)
+    else
+      flash[:error] = "Progress not created"
+      render 'new'
+    end
+  end
+
+  def start
     @progress.members << @member
     if @progress.save
       flash[:success] = "Progress successfully started"
@@ -33,6 +47,6 @@ class Project::Member::ProgressesController < ApplicationController
 
   private
   def progress_params
-    params.require(:progress).permit([:description])
+    params.require(:progress).permit([:start, :end, :description])
   end
 end
