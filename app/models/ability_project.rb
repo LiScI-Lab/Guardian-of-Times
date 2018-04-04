@@ -14,8 +14,9 @@ module AbilityProject
       can [:show, :dashboard],  Project::Member, id: member.id
       can [:show, :dashboard],  Project::Member, project: {members: {id: member.id, role: Project::Member.roles[:owner]}}
 
-      can [:index, :show],                  Project::Progress, project: {members: {id: member.id, role: Project::Member.roles[:owner]}}
-      can [:index, :show, :create, :stop],  Project::Progress, members: {id: member.id}
+      can [:index, :show],        Project::Progress, project: {members: {id: member.id, role: Project::Member.roles[:owner]}}
+      can [:index, :show, :stop], Project::Progress, members: {id: member.id}
+      can [:create],              Project::Progress, project: {members: {id: member.id}}
 
       can [:create, :index], :export
     end
