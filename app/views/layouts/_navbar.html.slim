@@ -4,7 +4,7 @@ ul#main-sidenav.sidenav
   li class="#{"active" if controller.is_a? UsersController}"
     = link_to edit_user_path(@current_user), class: 'nav-link'
       = t('menu.dashboard')
-  li class="#{"active" if controller.is_a? ProjectsController}"
+  li class="#{"active" if controller.is_a? ProjectsController and [:owner, :index, :invited].include? action}"
     = link_to projects_path, class: 'nav-link'
       = t('menu.projects')
       - if @current_user.invited_projects.any?

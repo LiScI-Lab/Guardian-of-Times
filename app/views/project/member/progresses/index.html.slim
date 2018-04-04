@@ -21,15 +21,4 @@
   .col.s12
     h5
       =t('project.menu.progresses')
-  .col.s12
-    table.highlight.responsive-table
-      thead
-        tr
-          th Start
-          th End
-          th Duration
-          th Description
-          th Tags
-          th Options
-      tbody
-        = render @progresses.kept
+  = render 'project/progresses/progresses'

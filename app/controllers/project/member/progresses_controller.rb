@@ -6,6 +6,7 @@ class Project::Member::ProgressesController < ApplicationController
   load_and_authorize_resource :progress, through: :project, class: Project::Progress
 
   def index
+    @progresses = @progresses.where(project_members_progresses: {project_member_id: @member})
     @progress = Project::Progress.new(start: DateTime.now)
   end
 

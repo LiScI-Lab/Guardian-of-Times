@@ -1,0 +1,17 @@
+- overview = controller.is_a? Project::ProgressesController
+
+.col.s12
+  table.highlight.responsive-table
+    thead
+      tr
+        - if overview
+          th User
+        th Start
+        th End
+        th Duration
+        th Description
+        th Tags
+        - unless overview
+          th Options
+    tbody
+      = render @progresses.kept
