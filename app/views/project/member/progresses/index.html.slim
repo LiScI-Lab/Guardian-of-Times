@@ -21,8 +21,9 @@
   .col.s12
     h5
       =t('project.menu.progresses')
+    = link_to new_project_member_progress_path, class: 'waves-effect waves-light btn'
+      = mdi_tag 'plus'
   = render 'project/progresses/progresses', progresses: @progresses.kept
-
 .row
   .col.s12
     h5

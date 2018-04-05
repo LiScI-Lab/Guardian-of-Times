@@ -5,12 +5,39 @@ class Project::Member::ProgressesController < ApplicationController
   load_and_authorize_resource :member, class: Project::Member
   load_and_authorize_resource :progress, through: :project, class: Project::Progress
 
+  #TODO: reuse form for new & edit; currently the partial is not found if i try to include it?.
+  #TODO: use materializecss datepicker instead of input field ??
+
   def index
     @progresses = @progresses.where(project_members_progresses: {project_member_id: @member})
     @progress = Project::Progress.new(start: DateTime.now)
   end
 
+  def new
+    @progress = Project::Progress.new
+  end
   def create
+    @progress.members << @member
+    if @progress.save
+      flash[:success] = "Progress successfully added"
+      redirect_to project_member_progresses_path(@project, @member)
+    else
+      flash[:error] = "Progress not created"
+      render 'new'
+    end
+  end
+
+  def update
+    if @progress.update progress_params
+      flash[:success] = "Progress successfully updated"
+      redirect_to project_member_progresses_path(@project, @member)
+    else
+      flash[:error] = "Progress not updated"
+      render 'index'
+    end
+  end
+
+  def start
     @progress.members << @member
     if @progress.save
       flash[:success] = "Progress successfully started"
@@ -51,6 +78,6 @@ class Project::Member::ProgressesController < ApplicationController
 
   private
   def progress_params
-    params.require(:progress).permit([:description])
+    params.require(:progress).permit([:start, :end, :description])
   end
 end
