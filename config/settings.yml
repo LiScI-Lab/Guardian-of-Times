@@ -4,7 +4,7 @@ tag:
   description:
     length_minimum: 5
 
-project:
+team:
   name:
     length_minimum: 5
   description:

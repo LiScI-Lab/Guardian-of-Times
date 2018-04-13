@@ -1,0 +1,26 @@
+- if User.where.not(id: @team.users).any?
+  - content_for :halfway_fab
+    = link_to new_team_member_path(@team), class: "btn-floating btn-large halfway-fab waves-effect waves-light", remote: true
+      = mdi_tag 'account-multiple-plus'
+
+.row
+  .col.s12
+    table.responsive-table.highlight
+      thead
+        tr
+          th
+            | Name
+          th
+            | Invited at
+          th
+            | Total
+          th
+            | Current Month
+        - @members.order(role: :desc).kept.group(:role).select(:role).each do |member_role|
+          tbody
+            - @members.joins(:user).where(role: member_role.role).kept.order('"users"."realname"').each do |member|
+              tr
+                td = member.user.realname
+                td = l(member.created_at.to_date)
+                td = distance_of_time member.total_time_spend, accumulate_on: :hours, except: :seconds
+                td = distance_of_time member.current_month_time_spend, accumulate_on: :hours, except: :seconds

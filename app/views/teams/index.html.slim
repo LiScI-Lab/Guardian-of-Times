@@ -1,0 +1,9 @@
+- content_for :subtitle
+  = t('dropdown.teams.involved')
+
+- content_for :halfway_fab
+  = link_to new_team_path, class: "btn-floating btn-large halfway-fab waves-effect waves-light"
+    = mdi_tag 'plus'
+
+.row
+  = render @teams

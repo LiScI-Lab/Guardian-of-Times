@@ -1,9 +1,0 @@
-- content_for :subtitle
-  = t('dropdown.projects.involved')
-
-- content_for :halfway_fab
-  = link_to new_project_path, class: "btn-floating btn-large halfway-fab waves-effect waves-light"
-    = mdi_tag 'plus'
-
-.row
-  = render @projects

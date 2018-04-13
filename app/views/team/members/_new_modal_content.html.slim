@@ -1,0 +1,8 @@
+= simple_form_for :invitations, url: invite_team_members_path(@team) do |f|
+  .modal-content
+    h4 Available Users
+    .row
+      = f.input :users, as: :check_boxes, collection: User.where.not(id: @team.users), value_method: :id, label_method: :realname, label: false, wrapper_html: {class: 's12'}
+
+  .modal-footer
+    = f.button :button

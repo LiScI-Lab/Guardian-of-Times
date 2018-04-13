@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/HappyKadaver/rails-plantuml-generator
+  revision: e3e0ebf78c190476bedb258825377f1c71c108e8
+  specs:
+    rails-plantuml-generator (0.5.1)
+      rails (>= 3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -87,7 +94,7 @@ GEM
       activesupport (>= 3.0)
       deep_merge (~> 1.1.1)
       dry-validation (>= 0.10.4)
-    crass (1.0.3)
+    crass (1.0.4)
     debug_inspector (0.0.3)
     deep_merge (1.1.1)
     devise (4.4.3)
@@ -348,6 +355,7 @@ DEPENDENCIES
   puma
   rails
   rails-i18n
+  rails-plantuml-generator!
   rouge
   rouge-rails
   sass-rails

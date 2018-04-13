@@ -4,31 +4,31 @@ ul#main-sidenav.sidenav
   li class="#{"active" if controller.is_a? UsersController}"
     = link_to edit_user_path(@current_user), class: 'nav-link'
       = t('menu.dashboard')
-  li class="#{"active" if controller.is_a? ProjectsController and [:owner, :index, :invited].include? action}"
-    = link_to projects_path, class: 'nav-link'
-      = t('menu.projects')
-      - if @current_user.invited_projects.any?
-        span.new.badge = @current_user.invited_projects.count
+  li class="#{"active" if controller.is_a? TeamsController and [:owner, :index, :invited].include? action}"
+    = link_to teams_path, class: 'nav-link'
+      = t('menu.teams')
+      - if @current_user.invited_teams.any?
+        span.new.badge = @current_user.invited_teams.count
   li
     = link_to destroy_user_session_path, method: :delete
     = mdi_tag 'logout'
 
-ul#dropdown-projects.dropdown-content
+ul#dropdown-teams.dropdown-content
   li
-    = link_to owner_projects_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? ProjectsController and action == :owner}"
-      = t('dropdown.projects.own')
-      - if @current_user.own_projects.any?
-        span.badge = @current_user.own_projects.count
+    = link_to owner_teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :owner}"
+      = t('dropdown.teams.own')
+      - if @current_user.own_teams.any?
+        span.badge = @current_user.own_teams.count
   li
-    = link_to projects_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? ProjectsController and action == :index}"
-      = t('dropdown.projects.involved')
-      - if @current_user.involved_projects.any?
-        span.badge = @current_user.involved_projects.count
+    = link_to teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :index}"
+      = t('dropdown.teams.involved')
+      - if @current_user.involved_teams.any?
+        span.badge = @current_user.involved_teams.count
   li
-    = link_to invited_projects_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? ProjectsController and action == :invited}"
-      = t('dropdown.projects.invitations')
-      - if @current_user.invited_projects.any?
-        span.new.badge = @current_user.invited_projects.count
+    = link_to invited_teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :invited}"
+      = t('dropdown.teams.invitations')
+      - if @current_user.invited_teams.any?
+        span.new.badge = @current_user.invited_teams.count
 
 nav.row.nav-extended
   .nav-wrapper
@@ -41,11 +41,11 @@ nav.row.nav-extended
         li class="#{"active" if controller.is_a? UsersController}"
           = link_to edit_user_path(@current_user)
             = t('menu.dashboard')
-        li class="#{"active" if controller.is_a? ProjectsController and [:owner, :index, :invited].include? action}"
-          = link_to '#', class: 'dropdown-trigger no-autoinit', data: {target: 'dropdown-projects'}
-            = t('menu.projects')
-            - if @current_user.invited_projects.any?
-              span.new.badge = @current_user.invited_projects.count
+        li class="#{"active" if controller.is_a? TeamsController and [:owner, :index, :invited].include? action}"
+          = link_to '#', class: 'dropdown-trigger no-autoinit', data: {target: 'dropdown-teams'}
+            = t('menu.teams')
+            - if @current_user.invited_teams.any?
+              span.new.badge = @current_user.invited_teams.count
             = mdi_tag 'menu_down', class: 'right'
     .col.l2.hide-on-med-and-down
       ul.right

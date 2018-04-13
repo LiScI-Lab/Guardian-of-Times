@@ -1,8 +1,0 @@
-h1 Edit progress
-
-= simple_form_for(@progress, url: project_member_progress_path, method: 'patch') do |f|
-  = render 'application/form', f: f
-    = f.input :start, as: :date
-    = f.input :end, as: :date
-    = f.input :description,wrapper_html: {class: 's12'}
-    = f.input :tags,wrapper_html: {class: 's12'}

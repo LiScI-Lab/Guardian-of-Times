@@ -1,0 +1,36 @@
+- overview = controller.is_a? Team::ProgressesController
+
+tr
+  - if overview
+    - if progress.members.size == 1
+      td
+        = progress.members.first.user.realname
+    - else
+      td
+        span.btn.tooltipped data={position: "bottom", tooltip: "#{progress.users.select(:realname).join(', ')}"}
+          = progress.members.size
+
+  td #{l(progress.start, format: :short)}
+  - if progress.finished?
+    td #{l(progress.end, format: :short)}
+    td #{distance_of_time(progress.time_spend, accumulate_on: :hours, except: :seconds)}
+  - else
+    td Ongoing
+    td #{distance_of_time progress.time_spend, accumulate_on: :hours}
+  td #{progress.description}
+  td #{progress.tags.join(' ')}
+  - unless overview
+    td
+      - if progress.finished?
+        .button-group
+          = link_to edit_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light'
+            = mdi_tag 'pencil'
+          - if progress.discarded?
+            = link_to restore_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light green', method: :patch
+              = mdi_tag 'delete-restore'
+          - else
+            = link_to team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light red', method: :delete
+              = mdi_tag 'delete'
+      - else
+        = link_to stop_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light red', method: :patch
+          = mdi_tag 'stop'

@@ -34,15 +34,15 @@ de:
     formats:
       birthday: "%d.%m.%Y"
   menu:
-    projects: "Projekte"
+    teams: "Teams"
     dashboard: "Dashboard"
   dropdown:
-      projects:
-        own: "Meine Projekte"
-        invitations: "Projekt Einladungen"
-        involved: "Involvierte Projekte"
+      teams:
+        own: "Meine Teams"
+        invitations: "Team Einladungen"
+        involved: "Involvierte Teams"
 
-  project:
+  team:
     menu:
       overview: "Übersicht"
       members: "Mitglieder"

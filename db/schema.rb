@@ -12,66 +12,19 @@
 
 ActiveRecord::Schema.define(version: 20180402164842) do
 
-  create_table "project_members", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "project_id"
-    t.integer "status", default: 0, null: false
-    t.integer "role", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "discarded_at"
-    t.index ["discarded_at"], name: "index_project_members_on_discarded_at"
-    t.index ["project_id"], name: "index_project_members_on_project_id"
-    t.index ["user_id", "project_id"], name: "index_project_members_on_user_id_and_project_id", unique: true
-    t.index ["user_id"], name: "index_project_members_on_user_id"
-  end
-
-  create_table "project_members_progresses", id: false, force: :cascade do |t|
-    t.integer "project_member_id", null: false
-    t.integer "project_progress_id", null: false
-    t.index ["project_member_id", "project_progress_id"], name: "index_project_members_progresses_member_id_progress_id", unique: true
-    t.index ["project_progress_id", "project_member_id"], name: "index_project_members_progresses_progress_id_member_id", unique: true
-  end
-
-  create_table "project_progresses", force: :cascade do |t|
-    t.integer "project_id", null: false
-    t.datetime "start", null: false
-    t.datetime "end"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "discarded_at"
-    t.index ["discarded_at"], name: "index_project_progresses_on_discarded_at"
-    t.index ["project_id"], name: "index_project_progresses_on_project_id"
-  end
-
-  create_table "project_target_hours", force: :cascade do |t|
-    t.date "since", null: false
-    t.integer "hours", default: 0, null: false
-    t.integer "project_member_id"
-    t.index ["project_member_id"], name: "index_project_target_hours_on_project_member_id"
-  end
-
-  create_table "projects", force: :cascade do |t|
-    t.string "name"
-    t.text "projects"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "discarded_at"
-    t.index ["discarded_at"], name: "index_projects_on_discarded_at"
-    t.index ["name"], name: "index_projects_on_name"
-  end
-
-  create_table "tag_affecteds", force: :cascade do |t|
-    t.integer "project_member_id"
+  create_table "tag_targets", force: :cascade do |t|
+    t.integer "team_member_id"
     t.integer "tag_id"
-    t.string "affected_type"
-    t.integer "affected_id"
-    t.index ["affected_type", "affected_id"], name: "index_tag_affecteds_on_affected_type_and_affected_id"
-    t.index ["project_member_id", "tag_id", "affected_type", "affected_id"], name: "index_tag_affecteds_on_everything", unique: true
-    t.index ["project_member_id"], name: "index_tag_affecteds_on_project_member_id"
-    t.index ["tag_id"], name: "index_tag_affecteds_on_tag_id"
+    t.string "target_type"
+    t.integer "target_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_tag_targets_on_discarded_at"
+    t.index ["tag_id"], name: "index_tag_targets_on_tag_id"
+    t.index ["target_type", "target_id"], name: "index_tag_targets_on_target_type_and_target_id"
+    t.index ["team_member_id", "tag_id", "target_type", "target_id"], name: "index_tag_affecteds_on_everything", unique: true
+    t.index ["team_member_id"], name: "index_tag_targets_on_team_member_id"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -82,6 +35,66 @@ ActiveRecord::Schema.define(version: 20180402164842) do
     t.datetime "discarded_at"
     t.index ["discarded_at"], name: "index_tags_on_discarded_at"
     t.index ["name"], name: "index_tags_on_name"
+  end
+
+  create_table "team_member_target_hours", force: :cascade do |t|
+    t.integer "team_member_id"
+    t.date "since", null: false
+    t.integer "hours", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_team_member_target_hours_on_discarded_at"
+    t.index ["team_member_id"], name: "index_team_member_target_hours_on_team_member_id"
+  end
+
+  create_table "team_members", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "team_id", null: false
+    t.integer "status", default: 0, null: false
+    t.integer "role", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_team_members_on_discarded_at"
+    t.index ["team_id"], name: "index_team_members_on_team_id"
+    t.index ["user_id", "team_id"], name: "index_team_members_on_user_id_and_team_id", unique: true
+    t.index ["user_id"], name: "index_team_members_on_user_id"
+  end
+
+  create_table "team_members_progresses", id: false, force: :cascade do |t|
+    t.integer "team_member_id", null: false
+    t.integer "team_progress_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_team_members_progresses_on_discarded_at"
+    t.index ["team_member_id", "team_progress_id"], name: "index_team_members_progresses_member_id_progress_id", unique: true
+    t.index ["team_progress_id", "team_member_id"], name: "index_team_members_progresses_progress_id_member_id", unique: true
+  end
+
+  create_table "team_progresses", force: :cascade do |t|
+    t.integer "team_id", null: false
+    t.datetime "start", null: false
+    t.datetime "end"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_team_progresses_on_discarded_at"
+    t.index ["team_id"], name: "index_team_progresses_on_team_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "ancestry"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["ancestry"], name: "index_teams_on_ancestry"
+    t.index ["discarded_at"], name: "index_teams_on_discarded_at"
+    t.index ["name"], name: "index_teams_on_name"
   end
 
   create_table "users", force: :cascade do |t|

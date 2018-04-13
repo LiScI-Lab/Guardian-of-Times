@@ -1,39 +1,44 @@
 @startuml
-object User {
+class User {
 }
 
-object Project {
+class Team {
   name
 }
 
-object ProjectMember {
-  target_hours
-  role: [owner, member]
+class Team::Member {
+  status: [invited, joined, leaved]
+  role: [owner, participant]
 }
 
-object ProjectProgress {
+class Team::Member::TargetHours {
+  since
+  hours
+}
+
+
+class Team::Progress {
   start
   end
   description
 }
 
-object TagAffected
+class Tag::Target
 
-object ProjectProgressParticipant
-
-object Tag {
+class Tag {
   name
   description
 }
 
-User "1" -- "*" ProjectMember
-Project "1" -- "*" ProjectMember
+User "1" -- "*" Team::Member
+Team "1" -- "*" Team::Member
+Team "1" -- "*" Team::Progress
 
-ProjectProgressParticipant "*" -- "1" ProjectMember
-ProjectProgressParticipant "*" -u- "1" ProjectProgress
+Team::Member "1" -- "*" Team::Member::TargetHours
+Team::Member "*" -- "*" Team::Progress
 
-TagAffected "*" -- "1" Tag
-TagAffected "*" -- "1" Project
-TagAffected "*" -- "1" ProjectProgress
+Tag::Target "*" -- "1" Tag
+Tag::Target "*" -- "1" Team
+Tag::Target "*" -- "1" Team::Progress
 
 @enduml

@@ -1,0 +1,11 @@
+.row
+  .col.s12
+    h5
+      = t('team.filter')
+  .col.s12
+    | TODO: Insert filter options here....
+.row
+  .col.s12
+    h5
+      =t('team.menu.progresses')
+  = render 'team/progresses/progresses', progresses: @progresses.kept

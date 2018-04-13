@@ -1,0 +1,8 @@
+= render 'application/form_errors', errors: @team.errors
+
+= simple_form_for @team, validate: true do |f|
+  = render 'application/form', f: f
+    = f.input :name, wrapper_html: {class: 's12'}, input_html: {minlength: Settings.team.name.length_minimum}
+    = f.input :description, wrapper_html: {class: 's12'}, input_html: {minlength: Settings.team.description.length_minimum}
+    = f.input :tags, wrapper_html: {class: 's12'}
+

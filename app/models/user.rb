@@ -10,18 +10,18 @@ class User < ApplicationRecord
     devise :database_authenticatable, :trackable
   end
 
-  has_many :project_members, class_name: "Project::Member"
-  has_many :invited_project_members, -> {kept.invited}, class_name: "Project::Member"
-  has_many :involved_project_members, -> {kept.joined.where.not(role: :owner)}, class_name: "Project::Member"
-  has_many :own_project_members, -> {kept.owner}, class_name: "Project::Member"
+  has_many :team_members, class_name: Team::Member.name
+  has_many :invited_team_members, -> {kept.invited}, class_name: Team::Member.name
+  has_many :involved_team_members, -> {kept.joined.where.not(role: :owner)}, class_name: Team::Member.name
+  has_many :own_team_members, -> {kept.owner}, class_name: Team::Member.name
 
-  has_many :projects, through: :project_members, class_name: "Project"
+  has_many :teams, through: :team_members, class_name: Team.name
 
-  has_many :invited_projects, through: :invited_project_members, class_name: "Project", source: :project
-  has_many :involved_projects, through: :involved_project_members, class_name: "Project", source: :project
-  has_many :own_projects, through: :own_project_members, class_name: "Project", source: :project
+  has_many :invited_teams, through: :invited_team_members, class_name: Team.name, source: :team
+  has_many :involved_teams, through: :involved_team_members, class_name: Team.name, source: :team
+  has_many :own_teams, through: :own_team_members, class_name: Team.name, source: :team
 
-  has_many :project_progresses, through: :project_members, class_name: "Project::Progress"
+  has_many :team_progresses, through: :team_members, class_name: Team::Progress.name
 
   validates :email, presence: true, uniqueness: true
   validates :username, presence: true, uniqueness: true

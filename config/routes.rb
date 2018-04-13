@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   resources :users, only: [:show, :edit, :update]
-  resources :projects do
+  resources :teams do
     collection do
       scope :role do
         get :owner
@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       get :dashboard
     end
 
-    scope module: :project do
+    scope module: :team do
       resources :members, only: [:index, :show, :new] do
         collection do
           post :invite

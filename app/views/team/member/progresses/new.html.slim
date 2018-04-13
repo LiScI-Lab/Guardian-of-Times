@@ -1,0 +1,13 @@
+h1 Add a progress
+
+= simple_form_for(@progress, url: team_member_progresses_path, method: 'post') do |f|
+  = render 'application/form', f: f
+    = f.input :start, as: :date
+    = f.input :end, as: :date
+    = f.input :description,wrapper_html: {class: 's12'}
+    = f.input :tags,wrapper_html: {class: 's12'}
+
+javascript:
+  $(document).ready(function(){
+    $('.datepicker').datepicker();
+  });

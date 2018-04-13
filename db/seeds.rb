@@ -8,21 +8,21 @@
 
 Faker::Config.random = Random.new(42)
 
-user = User.create email: Settings.seed.email, username: Settings.seed.username, realname: Settings.seed.realname
+user = User.create! email: Settings.seed.email, username: Settings.seed.username, realname: Settings.seed.realname
 
 20.times do
-  User.create email: Faker::Internet.unique.email, username: Faker::Internet.unique.user_name, realname: Faker::Name.name
+  User.create! email: Faker::Internet.unique.email, username: Faker::Internet.unique.user_name, realname: Faker::Name.name
 
   name = ""
   while name.length < 5
     name = Faker::HitchhikersGuideToTheGalaxy.location
   end
-  p = Project.create name: name, description: Faker::HitchhikersGuideToTheGalaxy.marvin_quote
+  p = Team.create! name: name, description: Faker::HitchhikersGuideToTheGalaxy.marvin_quote
 end
 
 
-Project.all.each do |p|
-  p.members.create user: user, role: [:participant, :owner].sample, status: [:joined, :leaved, :invited].sample
+Team.all.each do |p|
+  p.members.create! user: user, role: [:participant, :owner].sample, status: [:joined, :leaved, :invited].sample
 
   rand(0..5).times do
     m = p.members.find_or_initialize_by user_id: rand(2..19)
@@ -53,10 +53,10 @@ end
 tags = ["rails", "dozentron", "gildamesh", "A&D"].map{ |s| Tag.new(name: s) }
 tags.each { |t| t.save! }
 
-name = "40 hours project"
-description = "a project with exactly 40 work hours"
-project = Project.new name: name, description: description
-member = project.members.new user: user, role: :owner
+name = "40 hours team"
+description = "a team with exactly 40 work hours"
+team = Team.create name: name, description: description
+member = team.members.create(user: user, role: :owner)
 monday = Date.new(2018,2,1).next_week
 tuesday = monday + 1.days
 wednesday = monday + 2.days
@@ -68,30 +68,22 @@ thursdays = (1...4).map {|multiplier| thursday+(multiplier*7)} << thursday
 tuesdays.each do |tuesday|
   start_time = DateTime.new(tuesday.year,tuesday.month,tuesday.day, 8,00)
   end_time = DateTime.new(tuesday.year,tuesday.month,tuesday.day, 12,00)
-  progress = project.progresses.new(start: start_time, end: end_time)
+  progress = team.progresses.new(start: start_time, end: end_time)
   progress.members << member
-
-  start_time = DateTime.new(tuesday.year,tuesday.month,tuesday.day, 14,00)
-  end_time = DateTime.new(tuesday.year,tuesday.month,tuesday.day, 18,00)
-  progress = project.progresses.new(start: start_time, end: end_time)
-  progress.members << member
+  progress.save!
 end
 wednesdays.each do |wednesday|
-  start_time = DateTime.new(wednesday.year,wednesday.month,wednesday.day, 8,00)
-  end_time = DateTime.new(wednesday.year,wednesday.month,wednesday.day, 12,00)
-  progress = project.progresses.new(start: start_time, end: end_time)
-  progress.members << member
-
   start_time = DateTime.new(wednesday.year,wednesday.month,wednesday.day, 14,00)
   end_time = DateTime.new(wednesday.year,wednesday.month,wednesday.day, 18,00)
-  progress = project.progresses.new(start: start_time, end: end_time)
+  progress = team.progresses.new(start: start_time, end: end_time)
   progress.members << member
+  progress.save!
 end
 
 thursdays.each do |thursday|
   start_time = DateTime.new(thursday.year,thursday.month,thursday.day, 14,00)
   end_time = DateTime.new(thursday.year,thursday.month,thursday.day, 16,00)
-  progress = project.progresses.new(start: start_time, end: end_time)
+  progress = team.progresses.new(start: start_time, end: end_time)
   progress.members << member
+  progress.save!
 end
-project.save!

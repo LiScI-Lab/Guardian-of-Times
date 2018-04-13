@@ -1,0 +1,18 @@
+.col.s12.m6.l3
+  .card
+    .card-content
+      span.card-title
+        = team.name
+      .section
+        = asciidoc team.description
+      .divider
+      .section
+        | TODO: here will be many tags!
+
+    .card-action
+      - member = team.members.find_by user: @current_user
+      - if member
+        - if member.invited?
+          = link_to t('team.actions.join'), join_team_path(team), method: :patch
+        - else
+          = link_to t('team.actions.show'), team_path(team)

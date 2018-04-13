@@ -1,8 +1,0 @@
-= render 'application/form_errors', errors: @project.errors
-
-= simple_form_for @project, validate: true do |f|
-  = render 'application/form', f: f
-    = f.input :name, wrapper_html: {class: 's12'}, input_html: {minlength: Settings.project.name.length_minimum}
-    = f.input :description, wrapper_html: {class: 's12'}, input_html: {minlength: Settings.project.description.length_minimum}
-    = f.input :tags, wrapper_html: {class: 's12'}
-
