@@ -1,6 +1,6 @@
 class Team::Member < ApplicationRecord
   enum status: {leaved: -10, invited: 0, joined: 10}
-  enum role: {participant: 0, owner: 100}
+  enum role: {participant: 0, timekeeper: 50, responsible: 90, owner: 100}
 
   belongs_to :user, class_name: User.name
   belongs_to :team, class_name: Team.name
