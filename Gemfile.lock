@@ -57,6 +57,8 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    ancestry (3.0.1)
+      activerecord (>= 3.2.0)
     arbre (1.1.1)
       activesupport (>= 3.0.0)
     arel (8.0.0)
@@ -329,6 +331,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin
+  ancestry
   asciidoctor
   asciidoctor-rouge
   better_errors

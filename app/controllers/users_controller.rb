@@ -8,9 +8,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    # render plain:  params.inspect
-    @current_user.attributes = user_params
-    if @current_user.save
+    if @current_user.update user_params
       flash[:success] = "User successfully updated"
       redirect_to @current_user
     else

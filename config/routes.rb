@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     end
 
     scope module: :team do
+      resources :sub_teams, only: [:index, :new, :create]
       resources :members, only: [:index, :show, :new] do
         collection do
           post :invite

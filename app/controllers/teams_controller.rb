@@ -14,6 +14,9 @@ class TeamsController < ApplicationController
   def dashboard
   end
 
+  def subs
+  end
+
   def new
   end
 

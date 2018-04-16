@@ -1,4 +1,6 @@
 class Team < ApplicationRecord
+  has_ancestry
+
   has_many :members, class_name: Team::Member.name
   has_many :users, through: :members, class_name: User.name
 
@@ -7,7 +9,7 @@ class Team < ApplicationRecord
 
   has_many :progresses, -> {order start: :desc}, class_name: Team::Progress.name
 
-  validates :name, presence: true, length: { minimum: Settings.team.name.length_minimum}
+  validates :name, presence: true, uniqueness: {scope: :ancestry}, length: { minimum: Settings.team.name.length_minimum}
   validates :description, allow_blank: true, length: { minimum: Settings.team.description.length_minimum }
 
   def member(user)

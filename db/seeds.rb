@@ -15,14 +15,18 @@ user = User.create! email: Settings.seed.email, username: Settings.seed.username
 
   name = ""
   while name.length < 5
-    name = Faker::HitchhikersGuideToTheGalaxy.location
+    name = Faker::HitchhikersGuideToTheGalaxy.unique.location
   end
   p = Team.create! name: name, description: Faker::HitchhikersGuideToTheGalaxy.marvin_quote
 end
 
 
 Team.all.each do |p|
-  p.members.create! user: user, role: [:participant, :owner].sample, status: [:joined, :leaved, :invited].sample
+  m = p.members.new(user: user, role: [:participant, :owner].sample, status: [:joined, :leaved, :invited].sample)
+  if m.owner?
+    m.status = :joined
+  end
+  m.save!
 
   rand(0..5).times do
     m = p.members.find_or_initialize_by user_id: rand(2..19)

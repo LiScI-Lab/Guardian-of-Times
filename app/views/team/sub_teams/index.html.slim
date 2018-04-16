@@ -1,0 +1,7 @@
+- if can? :new, :sub_team
+- content_for :halfway_fab
+  = link_to new_team_sub_team_path(@team), class: "btn-floating btn-large halfway-fab waves-effect waves-light"
+    = mdi_tag 'plus'
+
+.row
+  = render partial: 'teams/team', collection: @team.children.kept

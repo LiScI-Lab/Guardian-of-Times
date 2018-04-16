@@ -1,5 +1,5 @@
 class Team::Member < ApplicationRecord
-  enum status: {leaved: -10, invited: 0, joined: 10}
+  enum status: {removed: -20, leaved: -10, invited: 0, joined: 10}
   enum role: {participant: 0, timekeeper: 50, responsible: 90, owner: 100}
 
   belongs_to :user, class_name: User.name
@@ -13,11 +13,19 @@ class Team::Member < ApplicationRecord
 
   validates :user, uniqueness: {scope: :team}
 
+  before_create :set_joined, if: Proc.new {|member| member.owner? or (not member.team.root?) }
+
   def total_time_spend
     progresses.kept.map { |p| p.time_spend }.sum
   end
 
   def current_month_time_spend
     progresses.kept.this_month.map { |p| p.time_spend }.sum
+  end
+
+  private
+
+  def set_joined
+    member.status = :joined
   end
 end

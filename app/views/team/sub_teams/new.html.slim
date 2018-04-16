@@ -1,0 +1,11 @@
+- content_for :subtitle
+  | Create a new team
+
+= render 'application/form_errors', errors: @subteam.errors
+
+= simple_form_for @subteam, url: team_sub_teams_path(@team), validate: true do |f|
+  = render 'application/form', f: f
+    = f.hidden_field :parent_id, value: @subteam.parent.id
+    = f.input :name, wrapper_html: {class: 's12'}, input_html: {minlength: Settings.team.name.length_minimum}
+    = f.input :description, wrapper_html: {class: 's12'}, input_html: {minlength: Settings.team.description.length_minimum}
+    = f.input :tags, wrapper_html: {class: 's12'}

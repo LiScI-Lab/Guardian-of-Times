@@ -19,6 +19,8 @@ gem 'sass-rails'
 # MaterializeCSS
 gem 'materialize-sass', '~> 1.0.0.beta'
 gem 'materialize-form'
+gem 'ancestry'
+
 
 #pdf generation through wicked & wkhtmltopdf
 gem 'wicked_pdf'

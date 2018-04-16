@@ -53,11 +53,14 @@ nav.row.nav-extended
           = link_to destroy_user_session_path, method: :delete
             = mdi_tag 'logout'
 
-  - if content_for?(:subtitle) or content_for?(:subnav)
+  - if content_for?(:subtitle) or content_for?(:subnavtitle) or content_for?(:subnav)
     .nav-content.col.s12
-      - if content_for?(:subtitle)
+      - if content_for?(:subtitle) or content_for?(:subnavtitle)
         span.nav-title
-          = yield :subtitle
+          - if content_for?(:subnavtitle)
+            = yield :subnavtitle
+          - else
+            = yield :subtitle
         - if content_for?(:halfway_fab)
           = yield :halfway_fab
       - if content_for?(:subnav)

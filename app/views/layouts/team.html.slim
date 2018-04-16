@@ -1,6 +1,13 @@
 - if @team
   - content_for :subtitle
     | Team: #{@team.name}
+  - content_for :subnavtitle
+    .col.s12
+      - if @team.has_parent?
+        => link_to team_sub_teams_path(@team.parent), class: 'breadcrumb'
+          | #{@team.parent.name}
+      = link_to '#!', class: 'breadcrumb'
+        | #{@team.name}
 
   - content_for :subnav
     - action = params[:action].to_sym
@@ -20,6 +27,8 @@
     - if can? :index, Team::Member.new(team: @team)
       li.tab
         = link_to t('team.menu.members'), team_members_path(@team), class: "#{'active' if controller.is_a? Team::MembersController and action == :index}", target: :_self
-
+    - if can? :index, :sub_team
+      li.tab
+        = link_to t('menu.teams'), team_sub_teams_path(@team), class: "#{'active' if controller.is_a? Team::SubTeamsController and action == :index}", target: :_self
 
 = render template: 'layouts/application'

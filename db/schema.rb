@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 20180402164842) do
     t.datetime "discarded_at"
     t.index ["ancestry"], name: "index_teams_on_ancestry"
     t.index ["discarded_at"], name: "index_teams_on_discarded_at"
+    t.index ["name", "ancestry"], name: "index_teams_on_name_and_ancestry", unique: true
     t.index ["name"], name: "index_teams_on_name"
   end
 
