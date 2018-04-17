@@ -10,17 +10,15 @@ class Team::Member::ProgressesController < ApplicationController
 
   def index
     @progresses = @member.progresses
-    @progress = Team::Progress.new(start: DateTime.now, team: @team)
-    @progress.members << @member
+    @progress = Team::Progress.new(start: DateTime.now, team: @team, member: @member)
   end
 
   def new
-    @progress = Team::Progress.new(team: @team)
-    @progress.members << @member
+    @progress.team = @team
   end
 
   def create
-    @progress.members << @member
+    @progress.team = @team
     if @progress.save
       flash[:success] = "Progress successfully added"
       redirect_to team_member_progresses_path(@team, @member)
@@ -41,7 +39,7 @@ class Team::Member::ProgressesController < ApplicationController
   end
 
   def start
-    @progress.members << @member
+    @progress.team = @team
     if @progress.save
       flash[:success] = "Progress successfully started"
       redirect_to team_member_progresses_path(@team, @member)

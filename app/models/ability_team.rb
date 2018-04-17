@@ -22,10 +22,10 @@ module AbilityTeam
       can [:show, :dashboard, :new, :invite], Team::Member, team: {members: {id: member.id, role: Team::Member.roles[:owner]}}
 
       can [:index, :show],                        Team::Progress,           team: {members: {id: member.id, role: Team::Member.roles[:owner]}}
-      can [:create],                              Team::Progress,           members_progresses: {team_member_id: member.id}
-      can [:index, :show, :edit, :update, :stop], Team::Progress,           members_progresses: {team_member_id: member.id}
-      can [:destroy],                             Team::Progress.kept,      members_progresses: {team_member_id: member.id}
-      can [:restore],                             Team::Progress.discarded, members_progresses: {team_member_id: member.id}
+      can [:create],                              Team::Progress,           member: member
+      can [:index, :show, :edit, :update, :stop], Team::Progress,           member: member
+      can [:destroy],                             Team::Progress.kept,      member: member
+      can [:restore],                             Team::Progress.discarded, member: member
 
       can [:create, :index], :export
     end

@@ -5,8 +5,7 @@ class Team::Member < ApplicationRecord
   belongs_to :user, class_name: User.name
   belongs_to :team, class_name: Team.name
 
-  has_many :members_progresses, class_name: Team::MembersProgresses.name, foreign_key: :team_member_id
-  has_many :progresses, -> {order start: :desc}, class_name: Team::Progress.name, through: :members_progresses
+  has_many :progresses, -> {order start: :desc}, class_name: Team::Progress.name, foreign_key: :team_member_id
 
   has_many :target_hours, class_name: Team::Member::TargetHour.name, foreign_key: :team_member_id
 

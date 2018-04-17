@@ -22,7 +22,7 @@
         = link_to t('team.menu.my_progresses'), team_member_progresses_path(@team, @current_member), class: "#{'active' if controller.is_a? Team::Member::ProgressesController}", target: :_self
     li.tab
       = link_to t('team.menu.exports'), team_export_index_path(@team), class: "#{'active' if controller.is_a? Team::ExportController}", target: :_self
-    - if can? :index, Team::Progress.new(team: @team)
+    - if can? :index, Team::Progress.new(team: @team, member: @current_member)
       li.tab
         = link_to t('team.menu.progresses'), team_progresses_path(@team), class: "#{'active' if controller.is_a? Team::ProgressesController}", target: :_self
     - if can? :index, Team::Member.new(team: @team)

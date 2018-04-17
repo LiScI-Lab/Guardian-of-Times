@@ -62,19 +62,9 @@ ActiveRecord::Schema.define(version: 20180402164842) do
     t.index ["user_id"], name: "index_team_members_on_user_id"
   end
 
-  create_table "team_members_progresses", id: false, force: :cascade do |t|
-    t.integer "team_member_id", null: false
-    t.integer "team_progress_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "discarded_at"
-    t.index ["discarded_at"], name: "index_team_members_progresses_on_discarded_at"
-    t.index ["team_member_id", "team_progress_id"], name: "index_team_members_progresses_member_id_progress_id", unique: true
-    t.index ["team_progress_id", "team_member_id"], name: "index_team_members_progresses_progress_id_member_id", unique: true
-  end
-
   create_table "team_progresses", force: :cascade do |t|
     t.integer "team_id", null: false
+    t.integer "team_member_id", null: false
     t.datetime "start", null: false
     t.datetime "end"
     t.text "description"
@@ -83,6 +73,7 @@ ActiveRecord::Schema.define(version: 20180402164842) do
     t.datetime "discarded_at"
     t.index ["discarded_at"], name: "index_team_progresses_on_discarded_at"
     t.index ["team_id"], name: "index_team_progresses_on_team_id"
+    t.index ["team_member_id"], name: "index_team_progresses_on_team_member_id"
   end
 
   create_table "teams", force: :cascade do |t|

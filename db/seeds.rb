@@ -45,8 +45,7 @@ Team.all.each do |p|
 
       rand(0..20).times do
         start_time = Faker::Time.between(2.months.ago, Date.today, :morning)
-        progress = p.progresses.new(start: start_time, end: Faker::Time.between(start_time, start_time.end_of_day, :evening))
-        progress.members << member
+        p.progresses.new(start: start_time, end: Faker::Time.between(start_time, start_time.end_of_day, :evening), member: member)
       end
     end
   end
@@ -72,22 +71,19 @@ thursdays = (1...4).map {|multiplier| thursday+(multiplier*7)} << thursday
 tuesdays.each do |tuesday|
   start_time = DateTime.new(tuesday.year,tuesday.month,tuesday.day, 8,00)
   end_time = DateTime.new(tuesday.year,tuesday.month,tuesday.day, 12,00)
-  progress = team.progresses.new(start: start_time, end: end_time)
-  progress.members << member
+  progress = team.progresses.new(start: start_time, end: end_time, member: member)
   progress.save!
 end
 wednesdays.each do |wednesday|
   start_time = DateTime.new(wednesday.year,wednesday.month,wednesday.day, 14,00)
   end_time = DateTime.new(wednesday.year,wednesday.month,wednesday.day, 18,00)
-  progress = team.progresses.new(start: start_time, end: end_time)
-  progress.members << member
+  progress = team.progresses.new(start: start_time, end: end_time, member: member)
   progress.save!
 end
 
 thursdays.each do |thursday|
   start_time = DateTime.new(thursday.year,thursday.month,thursday.day, 14,00)
   end_time = DateTime.new(thursday.year,thursday.month,thursday.day, 16,00)
-  progress = team.progresses.new(start: start_time, end: end_time)
-  progress.members << member
+  progress = team.progresses.new(start: start_time, end: end_time, member: member)
   progress.save!
 end
