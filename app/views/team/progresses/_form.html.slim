@@ -1,11 +1,23 @@
 = render 'application/form_errors', errors: @progress.errors
 
 = simple_form_for([@team, @member, @progress]) do |f|
-  .row
-    .col.s12
-      = f.input :tags, wrapper_html: {class: 's12'}
-    .col.s10
+  - if local_assigns[:full]
+    = render 'application/form', f: f
+      = f.input :start, as: :datetime, wrapper_html: {class: 's6'}
+      = f.input :end, as: :datetime, wrapper_html: {class: 's6'}
       = f.input :description, wrapper_html: {class: 's12'}
-    .col.s2
-      = f.button :button
-        = mdi_tag 'run-fast'
+      = f.input :tags, wrapper_html: {class: 's12'}
+
+    javascript:
+      $(document).ready(function () {
+          $('.datepicker').datepicker();
+      });
+  - else
+    .row
+      .col.s12
+        = f.input :tags, wrapper_html: {class: 's12'}
+      .col.s10
+        = f.input :description, wrapper_html: {class: 's12'}
+      .col.s2
+        = f.button :button
+          = mdi_tag 'run-fast'

@@ -30,7 +30,7 @@ Rails.application.routes.draw do
         end
 
         scope module: :member do
-          resources :progresses, only: [:index, :create, :edit, :update,:new, :destroy] do
+          resources :progresses, only: [:index, :create, :edit, :update, :new, :destroy] do
             member do
               patch :update
               patch :stop

@@ -5,16 +5,11 @@ class Team::Member::ProgressesController < ApplicationController
   load_and_authorize_resource :member, class: Team::Member
   load_and_authorize_resource :progress, through: :member, class: Team::Progress
 
-  #TODO: reuse form for new & edit; currently the partial is not found if i try to include it?.
   #TODO: use materializecss datepicker instead of input field ??
 
   def index
     @progresses = @member.progresses
     @progress = Team::Progress.new(start: DateTime.now, team: @team, member: @member)
-  end
-
-  def new
-    @progress.team = @team
   end
 
   def create

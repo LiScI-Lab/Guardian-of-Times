@@ -5,7 +5,17 @@
 
 .row
   .col.s12
-    table.responsive-table.highlight
+    h5
+      = t('team.menu.members')
+.row
+  .col.s12
+    h5
+      = t('team.filter')
+  .col.s12
+    | TODO: Insert filter options here....
+.row
+  .col.s12
+    table.highlight.responsive-table
       thead
         tr
           th
@@ -22,6 +32,6 @@
             | Current Month
           th
             | Options
+      tbody
         - @members.order(role: :desc).kept.group(:role).select(:role).each do |member_role|
-          tbody
-            = render @members.joins(:user).order(status: :desc).where(role: member_role.role).kept.order('"users"."realname"')
+          = render @members.joins(:user).order(status: :desc).where(role: member_role.role).kept.order('"users"."realname"')
