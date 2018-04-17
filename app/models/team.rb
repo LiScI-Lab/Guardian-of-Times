@@ -12,6 +12,14 @@ class Team < ApplicationRecord
   validates :name, presence: true, uniqueness: {scope: :ancestry}, length: { minimum: Settings.team.name.length_minimum}
   validates :description, allow_blank: true, length: { minimum: Settings.team.description.length_minimum }
 
+  def total_time_spend
+    progresses.kept.map { |p| p.time_spend }.sum
+  end
+
+  def current_month_time_spend
+    progresses.kept.this_month.map { |p| p.time_spend }.sum
+  end
+
   def member(user)
     members.find_by(user: user)
   end

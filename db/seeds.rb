@@ -10,7 +10,7 @@ Faker::Config.random = Random.new(42)
 
 user = User.create! email: Settings.seed.email, username: Settings.seed.username, realname: Settings.seed.realname
 
-20.times do
+50.times do
   User.create! email: Faker::Internet.unique.email, username: Faker::Internet.unique.user_name, realname: Faker::Name.name
 
   name = ""
@@ -28,8 +28,8 @@ Team.all.each do |p|
   end
   m.save!
 
-  rand(0..5).times do
-    m = p.members.find_or_initialize_by user_id: rand(2..19)
+  rand(0..20).times do
+    m = p.members.find_or_initialize_by user_id: rand(2..49)
     m.role = :participant
     m.status = [:joined, :leaved, :invited].sample
     m.save!
@@ -38,11 +38,11 @@ Team.all.each do |p|
   p.save!
 
   p.members.each do |member|
-    if member.target_hours.empty?
-      member.target_hours.new hours: rand(20..45), since: DateTime.now.to_date.beginning_of_month
-    end
-
     unless member.invited?
+      if member.target_hours.empty?
+        member.target_hours.new hours: rand(20..45), since: DateTime.now.to_date.beginning_of_month
+      end
+
       rand(0..20).times do
         start_time = Faker::Time.between(2.months.ago, Date.today, :morning)
         progress = p.progresses.new(start: start_time, end: Faker::Time.between(start_time, start_time.end_of_day, :evening))

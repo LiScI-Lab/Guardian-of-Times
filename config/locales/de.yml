@@ -56,3 +56,5 @@ de:
       join: "Beitreten"
       show: "Anzeigen"
     filter: "Filter"
+    total_time_spend: "Gesamtzeit:"
+    current_month_time_spend: "Monatszeit:"

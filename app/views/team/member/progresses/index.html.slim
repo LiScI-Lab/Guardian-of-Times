@@ -2,9 +2,9 @@
   .col.s12.m6
     h5 Statistics
     ul
-      li Total time spend: #{distance_of_time(@member.total_time_spend, accumulate_on: :hours, except: :seconds)}
-      li Time spend this month: #{distance_of_time(@member.current_month_time_spend, accumulate_on: :hours, except: :seconds)}
-  - if @member.progresses.kept.ongoing.empty?
+      li Total time spend: #{distance_of_time_or_null @member.total_time_spend}
+      li Time spend this month: #{distance_of_time_or_null @member.current_month_time_spend}
+  - if can? :new, @progress and @member.progresses.kept.ongoing.empty?
     .col.s12.m6
       .col.s12
         h5 Start Progress
@@ -21,8 +21,9 @@
   .col.s12
     h5
       =t('team.menu.progresses')
-    = link_to new_team_member_progress_path, class: 'waves-effect waves-light btn'
-      = mdi_tag 'plus'
+    - if can? :new, @progress
+      = link_to new_team_member_progress_path, class: 'waves-effect waves-light btn'
+        = mdi_tag 'plus'
   = render 'team/progresses/progresses', progresses: @progresses.kept
 .row
   .col.s12

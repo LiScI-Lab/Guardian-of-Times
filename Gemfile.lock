@@ -142,6 +142,8 @@ GEM
       dry-equalizer (~> 0.2)
       dry-logic (~> 0.4, >= 0.4.0)
       dry-types (~> 0.12.0)
+    enum_help (0.0.17)
+      activesupport (>= 3.0.0)
     erubi (1.7.1)
     execjs (2.7.0)
     faker (1.8.7)
@@ -347,6 +349,7 @@ DEPENDENCIES
   devise_cas_authenticatable
   discard
   dotiw
+  enum_help
   faker
   http_accept_language
   jbuilder

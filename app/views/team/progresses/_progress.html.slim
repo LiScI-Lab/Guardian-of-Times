@@ -13,7 +13,7 @@ tr
   td #{l(progress.start, format: :short)}
   - if progress.finished?
     td #{l(progress.end, format: :short)}
-    td #{distance_of_time(progress.time_spend, accumulate_on: :hours, except: :seconds)}
+    td #{distance_of_time_or_null progress.time_spend}
   - else
     td Ongoing
     td #{distance_of_time progress.time_spend, accumulate_on: :hours}
@@ -23,12 +23,13 @@ tr
     td
       - if progress.finished?
         .button-group
-          = link_to edit_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light'
-            = mdi_tag 'pencil'
-          - if progress.discarded?
+          - if can? :edit, progress
+            = link_to edit_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light'
+              = mdi_tag 'pencil'
+          - if can? :restore, progress
             = link_to restore_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light green', method: :patch
               = mdi_tag 'delete-restore'
-          - else
+          - elsif can? :destroy, progress
             = link_to team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light red', method: :delete
               = mdi_tag 'delete'
       - else

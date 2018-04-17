@@ -5,5 +5,6 @@ class Team::ProgressesController < ApplicationController
   load_and_authorize_resource :progress, through: :team
 
   def index
+    @progresses = @team.progresses
   end
 end

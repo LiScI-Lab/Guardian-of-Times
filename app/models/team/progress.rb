@@ -1,7 +1,8 @@
 class Team::Progress < ApplicationRecord
   belongs_to :team, class_name: Team.name
 
-  has_and_belongs_to_many :members, class_name: Team::Member.name, foreign_key: :team_progress_id, association_foreign_key: :team_member_id
+  has_many :members_progresses, class_name: Team::MembersProgresses.name, foreign_key: :team_progress_id
+  has_many :members, class_name: Team::Member.name, through: :members_progresses
 
   has_many :tag_targets, as: :target, class_name: Tag::Target.name
   has_many :tags, through: :tag_targets, class_name: Tag.name

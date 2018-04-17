@@ -87,6 +87,7 @@ gem 'simple_form'
 # gem 'capistrano-rails', group: :development
 gem 'http_accept_language'
 gem 'rails-i18n'
+gem 'enum_help'
 
 group :development, :test do
   # Adds support for Capybara system testing and selenium driver

@@ -4,9 +4,10 @@
   - content_for :subnavtitle
     .col.s12
       - if @team.has_parent?
-        => link_to team_sub_teams_path(@team.parent), class: 'breadcrumb'
+        = link_to team_sub_teams_path(@team.parent)
           | #{@team.parent.name}
-      = link_to '#!', class: 'breadcrumb'
+        = mdi_tag 'chevron-right', style: 'display: inline-block;'
+      = link_to team_path(@team)
         | #{@team.name}
 
   - content_for :subnav

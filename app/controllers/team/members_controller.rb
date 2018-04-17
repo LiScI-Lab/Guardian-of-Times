@@ -5,6 +5,7 @@ class Team::MembersController < ApplicationController
   load_and_authorize_resource :member, through: :team
 
   def index
+    @members = @team.members
   end
 
   def show

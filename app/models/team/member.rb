@@ -1,11 +1,12 @@
 class Team::Member < ApplicationRecord
-  enum status: {removed: -20, leaved: -10, invited: 0, joined: 10}
+  enum status: {invited: 0, removed: 5, leaved: 10, joined: 100}
   enum role: {participant: 0, timekeeper: 50, responsible: 90, owner: 100}
 
   belongs_to :user, class_name: User.name
   belongs_to :team, class_name: Team.name
 
-  has_and_belongs_to_many :progresses, -> {order start: :desc}, class_name: Team::Progress.name, foreign_key: :team_member_id, association_foreign_key: :team_progress_id
+  has_many :members_progresses, class_name: Team::MembersProgresses.name, foreign_key: :team_member_id
+  has_many :progresses, -> {order start: :desc}, class_name: Team::Progress.name, through: :members_progresses
 
   has_many :target_hours, class_name: Team::Member::TargetHour.name, foreign_key: :team_member_id
 
@@ -24,8 +25,7 @@ class Team::Member < ApplicationRecord
   end
 
   private
-
   def set_joined
-    member.status = :joined
+    self.status = :joined
   end
 end

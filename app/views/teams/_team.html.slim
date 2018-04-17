@@ -7,6 +7,22 @@
         = asciidoc team.description
       .divider
       .section
+        b
+          | #{t('team.total_time_spend')}
+        br
+        | #{distance_of_time_or_null team.total_time_spend}
+      .section
+        b
+          | #{t('team.current_month_time_spend')}
+        br
+        | #{distance_of_time_or_null team.current_month_time_spend}
+      .section
+        b
+          | #{t('team.menu.members')}:
+        br
+        | #{team.members.joined.kept.size}
+      .divider
+      .section
         | TODO: here will be many tags!
 
     .card-action

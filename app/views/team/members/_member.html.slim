@@ -1,0 +1,16 @@
+tr
+  td
+    = member.role_i18n
+  td
+    = member.status_i18n
+  td
+    = member.user.realname
+  td
+    = l(member.created_at.to_date)
+  td
+    = distance_of_time_or_null member.total_time_spend
+  td
+    = distance_of_time_or_null member.current_month_time_spend
+  td
+    - if can? :show, member
+      = link_to 'show', team_member_progresses_path(@team, member)
