@@ -21,9 +21,10 @@
           | #{t('team.menu.members')}:
         br
         | #{team.members.joined.kept.size}
-      .divider
-      .section
-        | TODO: here will be many tags!
+      - if team.tags.any?
+        .divider
+        .section
+          = render team.tags
 
     .card-action
       - member = team.members.find_by user: @current_user

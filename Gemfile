@@ -67,6 +67,7 @@ gem 'devise'
 gem 'devise_cas_authenticatable'
 gem 'simple_token_authentication'
 gem 'devise-i18n'
+gem 'acts-as-taggable-on'
 
 # Upload files with Carrierwave. Read more here: https://github.com/carrierwaveuploader/carrierwave
 #gem 'carrierwave'

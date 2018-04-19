@@ -49,12 +49,11 @@ Team.all.each do |p|
       end
     end
   end
-
+  rand(0..5).times do
+    p.tag_list.add ["rails", "dozentron", "gildamesh", "A&D"].sample
+  end
   p.save!
 end
-
-tags = ["rails", "dozentron", "gildamesh", "A&D"].map{ |s| Tag.new(name: s) }
-tags.each { |t| t.save! }
 
 name = "40 hours team"
 description = "a team with exactly 40 work hours"

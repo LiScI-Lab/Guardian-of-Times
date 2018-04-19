@@ -1,11 +1,9 @@
 class Team < ApplicationRecord
   has_ancestry
+  acts_as_taggable
 
   has_many :members, class_name: Team::Member.name
   has_many :users, through: :members, class_name: User.name
-
-  has_many :tag_targets, as: :target, class_name: Tag::Target.name
-  has_many :tags, through: :tag_targets, class_name: Tag.name
 
   has_many :progresses, -> {order start: :desc}, class_name: Team::Progress.name
 

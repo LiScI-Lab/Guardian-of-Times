@@ -1,10 +1,9 @@
 class Team::Progress < ApplicationRecord
+  acts_as_taggable
+
   belongs_to :team, class_name: Team.name
 
   belongs_to :member, class_name: Team::Member.name, foreign_key: :team_member_id
-
-  has_many :tag_targets, as: :target, class_name: Tag::Target.name
-  has_many :tags, through: :tag_targets, class_name: Tag.name
 
   scope :in_month, -> (date){where(start: date.beginning_of_month..date.end_of_month)}
   scope :this_month, -> {in_month(DateTime.now)}
