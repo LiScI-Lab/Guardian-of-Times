@@ -31,8 +31,18 @@ class Team::ExportController < ApplicationController
         acc.combine(p)
       }
     }
-    @normalized_progresses = durations
-    @time_spend_this_month = @normalized_progresses.map { |p| p.work_duration }.sum
+
+    #generate a list of all days of a month (1..31) and pair it with the working ours [day,woring_duration]
+    #if there is no working our for a specific day, make it [day,nil]
+    days_in_month = (1..Time.days_in_month(@report_month.month, @report_month.year)).map { |d| Date.new(@report_month.year,@report_month.month,d) }
+    worked_days = durations.map { |d| [d.date.to_date, d] }.to_h
+    @normalized_progresses = days_in_month.map { |d| [d, worked_days[d]] }.to_h
+    puts @normalized_progresses.inspect
+
+    @time_spend_this_month = @normalized_progresses
+                               .select { |k,p| not p.nil? }
+                               .map { |k,p| p.work_duration }.sum
+
     render pdf: "#{@report_month}-report",
            :show_as_html => @debug_pdf,
            template: '/team/export/report.pdf.slim',

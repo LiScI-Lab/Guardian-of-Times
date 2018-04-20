@@ -28,17 +28,25 @@ html
           th Ende
           th Arbeitszeit ohne Pause
         tbody
-          - @normalized_progresses.each do |work_duration|
-            tr
-              td #{work_duration.date.strftime("%d.%m")}
-              td #{work_duration.start_time.to_s(:time)}
-              td #{work_duration.end_time.to_s(:time)}
-              td #{work_duration.work_duration_formatted}
-          tr
-            td Gesamtstunden
-            td
-            td
-            td #{ChronicDuration.output(@time_spend_this_month, :limit_to_hours => true,:format => :chrono)}
+         - @normalized_progresses.each do |(day, work_duration)|
+            - if work_duration
+              tr
+                td #{day.strftime("%d.%m")}
+                td #{work_duration.start_time.to_s(:time)}
+                td #{work_duration.end_time.to_s(:time)}
+                td #{work_duration.work_duration_formatted}
+            - else
+              tr
+                td #{day.strftime("%d.%m")}
+                td -
+                td -
+                td -
+
+        tr
+          td Gesamtstunden
+          td
+          td
+          td #{ChronicDuration.output(@time_spend_this_month, :limit_to_hours => true,:format => :chrono)}
 
     .row style="margin-top: 5em;"
       .column
