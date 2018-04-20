@@ -6,6 +6,13 @@ html
     - else
       link href="#{Rails.root.join('vendor', 'assets', 'stylesheets', 'milligram.min.css')}" rel='stylesheet'
   body
+    css:
+      body {
+        line-height: 1.0;
+      }
+      td, th {
+        padding: 0.4rem 0.5rem;
+      }
   .container
     .row
       .column
