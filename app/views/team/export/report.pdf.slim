@@ -12,6 +12,7 @@ html
       }
       td, th {
         padding: 0.4rem 0.5rem;
+        font-size: 10pt;
       }
       td#clear-style {
         border-bottom: none;
@@ -58,8 +59,9 @@ html
           td
           td #{ChronicDuration.output(@time_spend_this_month, :limit_to_hours => true,:format => :chrono)}
 
-    .row style="margin-top: 5em;"
+    .row style="margin-top: 2em;"
       .column
-        p Professor
-      .column
-        p studentische Hilfskraft
+        table
+          tr
+            td#clear-style Professor
+            td#clear-style studentische Hilfskraft
