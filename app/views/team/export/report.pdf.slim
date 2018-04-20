@@ -13,19 +13,22 @@ html
       td, th {
         padding: 0.4rem 0.5rem;
       }
+      td#clear-style {
+        border-bottom: none;
+      }
   .container
     .row
       .column
         h4 Stundennachweis nach § 17 Mindestlohngesetz (MiloG)
     .row
-      .column.column-40
-        dl
-          dt Name: #{@current_user.realname}
-          dt Geburtsdatum: #{l(@current_user.birthdate, format: :birthday)}
-      .column.column-40
-        dl
-          dt Fachbereich: #{@current_user.department.upcase}
-          dt Monat: #{t('date.month_names')[@report_month.month]} #{@report_month.year}
+      .column
+        table
+          tr
+            td#clear-style Name: #{@current_user.realname}
+            td#clear-style Fachbereich: #{@current_user.department.upcase}
+          tr
+            td#clear-style Geburtsdatum: #{l(@current_user.birthdate, format: :birthday)}
+            td#clear-style Monat: #{t('date.month_names')[@report_month.month]} #{@report_month.year}
     .row.column
       table
         thead
