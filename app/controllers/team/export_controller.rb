@@ -6,9 +6,14 @@ class Team::ExportController < ApplicationController
   #TODO:  use max_hours from team ; german month names ! ; add total hours below the table
 
   def index
-    #setup values for month picker
-    @month_with_index = Date::MONTHNAMES.each_with_index.collect{|m,i| [m,i]}
-    @current_month = @month_with_index[DateTime.now.month]
+    if @current_user.birthdate
+      #setup values for month picker
+      @month_with_index = Date::MONTHNAMES.each_with_index.collect{|m,i| [m,i]}
+      @current_month = @month_with_index[DateTime.now.month]
+    else
+      flash[:error] = "Add your birthdate first."
+      redirect_to edit_user_path(@current_user)
+    end
   end
 
   def create
