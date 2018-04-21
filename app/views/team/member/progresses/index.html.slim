@@ -29,7 +29,11 @@
     h5
       = t('team.filter')
   .col.s12
-    | TODO: Insert filter options here....
+    = simple_form_for('', method: :get) do |f|
+      = render 'application/form', f: f
+        = f.select :month, @month_with_index, selected: @current_month
+        = f.input :group_by_month, as: :boolean, checked_value: true, unchecked_value: false
+
 .row
   = render 'team/progresses/progresses', progresses: @progresses.kept
 .row

@@ -8,7 +8,9 @@ class Team::Member::ProgressesController < ApplicationController
   #TODO: use materializecss datepicker instead of input field ??
 
   def index
-    @progresses = @member.progresses
+    @month_with_index = Date::MONTHNAMES.each_with_index.collect{|m,i| [m,i]}
+    @current_month = @month_with_index[DateTime.now.month]
+    @progresses = get_filtered_progresses(@member)
     @progress = Team::Progress.new(start: DateTime.now, team: @team, member: @member)
   end
 
@@ -75,5 +77,15 @@ class Team::Member::ProgressesController < ApplicationController
   private
   def progress_params
     params.require(:progress).permit([:start, :end, :description])
+  end
+
+  def get_filtered_progresses(member)
+    month_filter = params[:month]
+    if month_filter
+      month_date = Date.new(DateTime.now.year, month_filter.to_i)
+      member.progresses.in_month(month_date)
+    else
+      member.progresses
+    end
   end
 end
