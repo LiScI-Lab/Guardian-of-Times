@@ -7,6 +7,7 @@ gem 'rails'
 gem 'slim'
 gem 'slim-rails'
 
+gem 'material_icons'
 gem 'material_design_icons'
 
 # Use sqlite3 as the database for Active Record

@@ -1,23 +1,22 @@
 = render 'application/form_errors', errors: @progress.errors
 
 = simple_form_for([@team, @member, @progress]) do |f|
-  - if local_assigns[:full]
-    = render 'application/form', f: f
-      = f.input :start, as: :datetime, wrapper_html: {class: 's6'}
-      = f.input :end, as: :datetime, wrapper_html: {class: 's6'}
-      = f.input :description, wrapper_html: {class: 's12'}
-      = f.input :tags, wrapper_html: {class: 's12'}
+  = render 'application/form', f: f
+    = f.input :start, as: :datetime, wrapper_html: {class: 's6'}
+    = f.input :end, as: :datetime, wrapper_html: {class: 's6'}
+    = f.input :description, wrapper_html: {class: 's12'}
+    .col.s12
+      = f.label :tag_list
+      .chips for="progress_tag_list"
+      = f.hidden_field :tag_list, value: f.object.tag_list.to_s
 
-    javascript:
-      $(document).ready(function () {
-          $('.datepicker').datepicker();
-      });
-  - else
-    .row
-      .col.s12
-        = f.input :tags, wrapper_html: {class: 's12'}
-      .col.s10
-        = f.input :description, wrapper_html: {class: 's12'}
-      .col.s2
-        = f.button :button
-          = mdi_tag 'run-fast'
+javascript:
+  function form() {
+    $(document).ready($('.datepicker').datepicker)
+    let tags = #{{ @progress.tags.pluck(:name).to_json }}
+    let autocomplete_tags = #{{ Team::Progress.tags_on(:tags).pluck(:name).to_json }}
+    timetracker.app.init_chips($('.chips'), tags, autocomplete_tags)
+  }
+
+  $(document).on('turbolinks:load', form)
+  $(document).ready(form)

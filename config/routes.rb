@@ -3,7 +3,12 @@ Rails.application.routes.draw do
   root 'welcome#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  resources :users, only: [:show, :edit, :update]
+  resources :users, only: [:show, :edit, :update] do
+    member do
+      get :dashboard
+    end
+  end
+
   resources :teams do
     collection do
       scope :role do
@@ -31,6 +36,10 @@ Rails.application.routes.draw do
 
         scope module: :member do
           resources :progresses, only: [:index, :create, :edit, :update, :new, :destroy] do
+            collection do
+              post :start
+            end
+
             member do
               patch :update
               patch :stop

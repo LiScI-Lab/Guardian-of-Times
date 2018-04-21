@@ -34,6 +34,8 @@ class Team::Member::ProgressesController < ApplicationController
   end
 
   def start
+    @progress = Team::Progress.new progress_params
+    @progress.member = @member
     @progress.team = @team
     if @progress.save
       flash[:success] = "Progress successfully started"
@@ -74,6 +76,6 @@ class Team::Member::ProgressesController < ApplicationController
 
   private
   def progress_params
-    params.require(:progress).permit([:start, :end, :description])
+    params.require(:progress).permit([:start, :end, :description, :tag_list])
   end
 end

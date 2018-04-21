@@ -37,10 +37,18 @@ de:
     teams: "Teams"
     dashboard: "Dashboard"
   dropdown:
-      teams:
-        own: "Meine Teams"
-        invitations: "Team Einladungen"
-        involved: "Involvierte Teams"
+    teams:
+      own: "Meine Teams"
+      invitations: "Team Einladungen"
+      involved: "Involvierte Teams"
+
+  tooltip:
+    team:
+      edit: 'Bearbeite das Team'
+    user:
+      edit: "Profil von '%{name}' bearbeiten"
+      self:
+        edit: "Dein Profil bearbeiten"
 
   team:
     menu:
@@ -58,3 +66,4 @@ de:
     filter: "Filter"
     total_time_spend: "Gesamtzeit:"
     current_month_time_spend: "Monatszeit:"
+    edit: "Bearbeite %{name}"

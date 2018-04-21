@@ -30,6 +30,18 @@ class TeamsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @team.update team_params
+      flash[:success] = "Team successfully updated"
+      redirect_to @team
+    else
+      render 'edit'
+    end
+  end
+
   def index
     @teams = @current_user.involved_teams.kept
   end
@@ -58,6 +70,6 @@ class TeamsController < ApplicationController
 
   private
   def team_params
-    params.require(:team).permit([:name, :description])
+    params.require(:team).permit([:name, :description, :tag_list])
   end
 end

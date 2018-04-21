@@ -36,6 +36,42 @@ timetracker.app.materialize = (elem) ->
   $('.modal', elem).modal()
   return
 
+timetracker.app.init_chips = (elem, tags, autocomplete_tags) ->
+  data = []
+  if tags.length > 0
+    tags.forEach (tag) ->
+      data.push {
+        tag: tag
+      }
+
+      return
+  if elem[0].hasAttribute("for")
+    target = elem.siblings("##{elem.attr('for')}")
+    updateTarget = () ->
+      chips = M.Chips.getInstance(elem).chipsData
+      str = ''
+      chips.forEach (chip) ->
+        if str != ''
+          str = "#{str}, "
+        str = "#{str}#{chip.tag}"
+      target.val(str)
+      return
+
+
+  autocomplete_data = {}
+  autocomplete_tags.forEach (tag) ->
+    autocomplete_data[tag] = null
+    return
+  elem.chips
+    data: data
+    autocompleteOptions:
+      data: autocomplete_data
+      limit: Infinity
+      minLength: 1
+    onChipAdd: updateTarget
+    onChipDelete: updateTarget
+  return
+
 $(document).on 'turbolinks:load', timetracker.app.init
 $(document).ready timetracker.app.init
 

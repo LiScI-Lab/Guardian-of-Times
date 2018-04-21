@@ -6,7 +6,7 @@ class Ability
   def initialize(user, member)
     if user
       can [:index], :welcome
-      can [:show], User, id: user.id
+      can [:show, :dashboard], User, id: user.id
       can [:edit, :update], User, id: user.id
 
       initialize_team(user, member)
