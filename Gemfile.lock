@@ -85,6 +85,7 @@ GEM
     chartkick (2.3.3)
     chronic_duration (0.10.6)
       numerizer (~> 0.1.1)
+    cocoon (1.2.11)
     coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -347,6 +348,7 @@ DEPENDENCIES
   chartjs-ror
   chartkick
   chronic_duration
+  cocoon
   coffee-rails
   config
   devise

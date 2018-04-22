@@ -25,13 +25,14 @@ Rails.application.routes.draw do
     end
 
     scope module: :team do
-      resources :sub_teams, only: [:index, :new, :create]
-      resources :members, only: [:index, :show, :new] do
+      #resources :sub_teams, only: [:index, :new, :create]
+      resources :members, only: [:index, :show, :new, :edit, :update, :destroy] do
         collection do
           post :invite
         end
         member do
           get :dashboard
+          patch :restore
         end
 
         scope module: :member do
@@ -41,7 +42,6 @@ Rails.application.routes.draw do
             end
 
             member do
-              patch :update
               patch :stop
               patch :restore
             end

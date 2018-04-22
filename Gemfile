@@ -22,6 +22,8 @@ gem 'materialize-sass', '~> 1.0.0.beta'
 gem 'materialize-form'
 gem 'ancestry'
 
+# Nested Forms helper
+gem 'cocoon'
 
 #pdf generation through wicked & wkhtmltopdf
 gem 'wicked_pdf'

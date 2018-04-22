@@ -12,5 +12,19 @@ tr
   td
     = distance_of_time_or_null member.current_month_time_spend
   td
-    - if can? :show, member
-      = link_to 'show', team_member_progresses_path(@team, member)
+    .button-group
+      - if can? :show, member
+        = link_to dashboard_team_member_path(@team, member), class: 'btn-floating waves-effect waves-light blue'
+          = mdi_tag 'view-dashboard'
+        = link_to team_member_progresses_path(@team, member), class: 'btn-floating waves-effect waves-light'
+          = mdi_tag 'run'
+      - if can? :edit, member
+        = link_to edit_team_member_path(@team, member), class: 'btn-floating waves-effect waves-light orange'
+          = mdi_tag 'pencil'
+
+      - if can? :restore, member
+        = link_to restore_team_member_path(@team, member), class: 'btn-floating waves-effect waves-light green', method: :patch
+          = mdi_tag 'delete-restore'
+      - elsif can? :destroy, member
+        = link_to team_member_path(@team, member), class: 'btn-floating waves-effect waves-light red', method: :delete
+          = mdi_tag 'delete'

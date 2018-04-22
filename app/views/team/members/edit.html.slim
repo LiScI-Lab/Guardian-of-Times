@@ -1,0 +1,36 @@
+- content_for :subtitle
+  = t('team.edit', name: @member.user.realname)
+
+= render 'application/form_errors', errors: @member.errors
+
+= simple_form_for [@team, @member], validate: true do |f|
+  = render 'application/form', f: f
+    /.col.s12
+      = f.label :tag_list
+      .chips for="member_tag_list"
+      = f.hidden_field :tag_list, value: f.object.tag_list.to_s
+    = f.label :target_hours
+    #target_hours.col.s12
+      = f.simple_fields_for :target_hours do |target_hour_form|
+        = render 'target_hour_fields', f: target_hour_form
+
+      .links.col.s12
+        = link_to_add_association f, :target_hours, class: "btn-floating btn-large waves-effect waves-light red right"
+          = mdi_tag 'plus'
+
+coffee:
+  form = () ->
+    timetracker.team.member.materialize($('#target_hours'))
+    timetracker.app.cocoonize($('#target_hours'))
+    timetracker.team.member.cocoonize($('#target_hours'))
+    return
+  $(document).on('turbolinks:load', form)
+/javascript:
+    function form() {
+        let tags = #{{ @team.tags.pluck(:name).to_json }}
+    let autocomplete_tags = #{{ Team.tags_on(:tags).pluck(:name).to_json }}
+    timetracker.app.init_chips($('.chips'), tags, autocomplete_tags)
+    }
+
+    $(document).on('turbolinks:load', form)
+    $(document).ready(form)

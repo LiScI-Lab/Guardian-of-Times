@@ -3,7 +3,7 @@
     h5 TODO User Dashboard!!!!
   .col.s2
     - tooltip = if @user == @current_user then t('tooltip.user.self.edit') else t('tooltip.user.edit', name: @user.realname) end
-    = link_to edit_user_path(@user), class: 'btn-floating btn-large waves-effect waves-light red right tooltipped', data: { position: 'left', tooltip: tooltip }
+    = link_to edit_user_path(@user), class: 'btn-floating btn-large waves-effect waves-light orange right tooltipped', data: { position: 'left', tooltip: tooltip }
       = mdi_tag 'pencil'
 
 .row
