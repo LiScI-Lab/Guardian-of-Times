@@ -17,13 +17,19 @@
       .col.s12
         = render 'team/progresses/mini_form'
 
-.row
-  .col.s12
+  .col.s12.m6
     h5
       = t('team.menu.progresses')
-    - if can? :new, @progress
-      = link_to new_team_member_progress_path, class: 'waves-effect waves-light btn'
-        = mdi_tag 'plus'
+    .button-group
+      - if can? :new, @progress
+        = link_to new_team_member_progress_path(@team, @member, @progress), class: 'waves-effect waves-light btn-floating green'
+          = mdi_tag 'plus'
+      - if can? :import, @progress
+        = link_to import_team_member_progresses_path(@team, @member), class: 'waves-effect waves-light btn-floating'
+          = mdi_tag 'cloud-upload'
+      - if can? :export, @progress
+        /TODO= link_to new_team_member_progress_path, class: 'waves-effect waves-light btn-floating'
+          = mdi_tag 'cloud-download'
 .row
   .col.s12
     h5

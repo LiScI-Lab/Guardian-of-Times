@@ -2,8 +2,12 @@
 
 = simple_form_for([@team, @member, @progress]) do |f|
   = render 'application/form', f: f
-    = f.input :start, as: :datetime, wrapper_html: {class: 's6'}
-    = f.input :end, as: :datetime, wrapper_html: {class: 's6'}
+    .col.s6
+      = f.input :start, as: :date, wrapper_html: {class: 's6'}
+      = f.input :start, as: :time, wrapper_html: {class: 's6'}
+    .col.s6
+      = f.input :end, as: :date, wrapper_html: {class: 's6'}
+      = f.input :end, as: :time, wrapper_html: {class: 's6'}
     = f.input :description, wrapper_html: {class: 's12'}
     .col.s12
       = f.label :tag_list

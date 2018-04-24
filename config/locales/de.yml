@@ -71,3 +71,5 @@ de:
     total_time_spend: "Gesamtzeit:"
     current_month_time_spend: "Monatszeit:"
     edit: "Bearbeite %{name}"
+    progress:
+      import: "Importiere Fortschritte"

@@ -74,6 +74,14 @@ class Team::Member::ProgressesController < ApplicationController
     redirect_to team_member_progresses_path(@team, @member)
   end
 
+  def import
+
+  end
+
+  def upload
+
+  end
+
   private
   def progress_params
     params.require(:progress).permit([:start, :end, :description, :tag_list])

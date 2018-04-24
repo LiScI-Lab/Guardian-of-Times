@@ -39,6 +39,8 @@ Rails.application.routes.draw do
           resources :progresses, only: [:index, :create, :edit, :update, :new, :destroy] do
             collection do
               post :start
+              get :import
+              post :upload
             end
 
             member do
@@ -46,6 +48,7 @@ Rails.application.routes.draw do
               patch :restore
             end
           end
+
         end
       end
       resources :progresses, only: [:index, :show]

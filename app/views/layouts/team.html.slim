@@ -1,4 +1,4 @@
-- if @team
+- if @team and @team.persisted?
   - content_for :subtitle
     | #{@team.name}
   - content_for :subnavtitle

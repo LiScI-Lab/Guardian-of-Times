@@ -21,18 +21,18 @@ module AbilityTeam
       can [:show, :dashboard, :update],                                     Team::Member, id: member.id
       can [:show, :dashboard, :update, :new, :invite, :destroy, :restore],  Team::Member, team: {members: {id: member.id, role: Team::Member.roles[:owner]}}
 
-      cannot [:restore],  Team::Member do |member|
+      cannot [:restore],                                                    Team::Member do |member|
         not member.removed?
       end
-      cannot [:destroy],  Team::Member do |member|
+      cannot [:destroy],                                                    Team::Member do |member|
         not member.joined?
       end
 
-      can [:index, :show],    Team::Progress,           team: {members: {id: member.id, role: Team::Member.roles[:owner]}}
-      can [:create, :start],  Team::Progress,           member: member
-      can [:update, :stop],   Team::Progress,           member: member
-      can [:destroy],         Team::Progress.kept,      member: member
-      can [:restore],         Team::Progress.discarded, member: member
+      can [:index, :show, :export],             Team::Progress,           team: {members: {id: member.id, role: Team::Member.roles[:owner]}}
+      can [:create, :start, :import, :export],  Team::Progress,           member: member
+      can [:update, :stop],                     Team::Progress,           member: member
+      can [:destroy],                           Team::Progress.kept,      member: member
+      can [:restore],                           Team::Progress.discarded, member: member
 
       can [:create, :index], :export
     end

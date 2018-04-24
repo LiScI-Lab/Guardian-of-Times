@@ -20,7 +20,7 @@ tr
       - if progress.finished?
         .button-group
           - if can? :edit, progress
-            = link_to edit_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light'
+            = link_to edit_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light orange'
               = mdi_tag 'pencil'
           - if can? :restore, progress
             = link_to restore_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light green', method: :patch

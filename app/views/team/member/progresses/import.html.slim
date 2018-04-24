@@ -1,0 +1,11 @@
+.row
+  .col.s12
+    h5 = t('team.progress.import')
+
+.row
+  .col.s12
+    - if @errors
+      = render 'application/form_errors', errors: @errors
+
+    = simple_form_for :import, url: upload_team_member_progresses_path(@team, @member) do |f|
+      = render 'application/form', f: f
