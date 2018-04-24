@@ -85,20 +85,37 @@ class Team::Member::ProgressesController < ApplicationController
       # when :csv
       #   raise ArgumentError, "not implemented"
       #   import_csv i_params[:file], i_params[:options]
+      when :csv_nico
+        import_csv_nico @member, i_params[:file], i_params[:options]
       when :hamster
         import_hamster @member, i_params[:file], i_params[:options]
       else
         raise ArgumentError, "format not implemented"
       end
+      flash[:success] = "Import successful."
     rescue StandardError => error
       flash[:error] = error.message
     end
-    redirect_to team_member_progresses_path @team, @member
+    redirect_to team_member_progresses_path @member.team, @member
+  end
+
+  def import_csv_nico member, file, options
+    require "csv"
+    File.foreach(file.path).with_index do |line, i|
+      next if i == 0 and options[:first_line_description]
+      row = CSV.parse(line).first
+
+      progress = import_progress_standard member, DateTime.parse("#{row[0]} #{row[1]}"), DateTime.parse("#{row[0]} #{row[2]}")
+
+      progress.description = row[4] if row[4] and not ActiveModel::Type::Boolean.new.cast(options[:drop_description])
+      raise 'problems while saving progress' unless progress.save
+    end
   end
 
   def import_hamster member, file, options
     require "csv"
-    CSV.read(file.path, { :col_sep => "\t" }).each_with_index do |row, i|
+
+    CSV.read(file.path, { col_sep: "\t" }).each_with_index do |row, i|
       next if i == 0 and options[:first_line_description]
       progress = import_progress_standard member, DateTime.parse(row[1]), DateTime.parse(row[2])
       progress.description = row[5] if row[5] and not ActiveModel::Type::Boolean.new.cast(options[:drop_description])

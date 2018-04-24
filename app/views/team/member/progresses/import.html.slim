@@ -10,12 +10,13 @@
     = simple_form_for :import, url: upload_team_member_progresses_path(@team, @member), html: {class: 'import has-hideable-content'} do |f|
       = render 'application/form', f: f
         .col.s12.m4
-          = f.input :format, collection: {'CSV': :csv, 'Hamster (TSV)': :hamster}, include_blank: false, wrapper_html: {class: 's12 hide-selector'}
+          = f.input :format, collection: {'CSV': :csv, 'CSV (Nico)': :csv_nico, 'Hamster (TSV)': :hamster}, include_blank: false, wrapper_html: {class: 's12 hide-selector'}
           = f.label :extra_options, required: false, class: 'col s12'
           = f.simple_fields_for :options do |ff|
             .global.col.s12
               = ff.input :first_line_description, as: :boolean, wrapper_html: {class: 's6'}, input_html: {checked: true}
               = ff.input :drop_description, as: :boolean, wrapper_html: {class: 's6'}
+            .hideable.csv.col.s12
               = ff.input :drop_tags, as: :boolean, wrapper_html: {class: 's6'}
             .hideable.hamster.col.s12 style='display: none'
               = ff.input :drop_category, as: :boolean, wrapper_html: {class: 's6'}
@@ -35,6 +36,14 @@
                       2018-04-22 12:00; 2018-04-22 18:00; more important work; work,important
                       2018-04-22 18:00; 2018-04-22 18:30; boooring; meeting
                       2018-04-23 12:00; 2018-04-23 18:00; some other important work; work,important
+              .hideable.csv_nico style='display: none'
+                code
+                  pre Datum,Start,Ende,Zeit,Beschreibung
+                      21.02.2018,13:00:00,15:00:00,2:00:00,
+                      22.02.2018,14:50:00,17:00:00,2:10:00,Saving JSHell tasks & mope/move debugging
+                      23.02.2018,12:50:00,16:00:00,3:10:00,"jshell submission from students"
+                      28.02.2018,11:00:00,11:30:00,0:30:00,Arbeitszeiten Datenblatt erstellen
+                      28.02.2018,11:30:00,16:00:00,4:30:00,"JShell finaly execute submissions,try to apply policies for jshell"
               .hideable.hamster style='display: none'
                 = t('team.progress.import.hamster_info')
                 code
