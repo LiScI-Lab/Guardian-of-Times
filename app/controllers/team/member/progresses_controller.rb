@@ -12,6 +12,7 @@ class Team::Member::ProgressesController < ApplicationController
     @current_month = @month_with_index[DateTime.now.month]
     @progresses = get_filtered_progresses(@member)
     @progress = Team::Progress.new(start: DateTime.now, team: @team, member: @member)
+    @tag_list = Team::Progress.tags_on(:tag)
   end
 
   def create
@@ -83,12 +84,20 @@ class Team::Member::ProgressesController < ApplicationController
 
   def get_filtered_progresses(member)
     month_filter = params[:month]
+    tag_list = params[:tag_list]
+    puts params.inspect
+    puts tag_list
     progresses = if month_filter then
       month_date = Date.new(DateTime.now.year, month_filter.to_i)
       member.progresses.in_month(month_date)
     else
       member.progresses
     end
-    progresses
+    if tag_list then
+      progresses.tagged_with(tag_list, any: true)
+    else
+      progresses
+    end
+
   end
 end
