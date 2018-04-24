@@ -32,12 +32,14 @@
     = simple_form_for('', method: :get) do |f|
       = render 'application/form', f: f
         = f.select :month, @month_with_index, selected: @current_month
-        = f.input :group_by_month, as: :boolean, checked_value: true, unchecked_value: false
 
-.row
-  = render 'team/progresses/progresses', progresses: @progresses.kept
+- @progresses.kept.group_by { |p| p.start.beginning_of_month }.each do |date, progresses|
+  .row
+    .col.s12
+      h5 #{Date::MONTHNAMES[date.month]} #{date.year}
+      = render 'team/progresses/progresses', progresses: progresses
 .row
   .col.s12
     h5
       =t('team.menu.discarded_progresses')
-  = render 'team/progresses/progresses', progresses: @progresses.discarded
+    = render 'team/progresses/progresses', progresses: @progresses.discarded

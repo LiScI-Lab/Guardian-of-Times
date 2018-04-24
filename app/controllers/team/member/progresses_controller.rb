@@ -81,11 +81,12 @@ class Team::Member::ProgressesController < ApplicationController
 
   def get_filtered_progresses(member)
     month_filter = params[:month]
-    if month_filter
+    progresses = if month_filter then
       month_date = Date.new(DateTime.now.year, month_filter.to_i)
       member.progresses.in_month(month_date)
     else
       member.progresses
     end
+    progresses
   end
 end
