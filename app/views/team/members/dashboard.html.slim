@@ -1,3 +1,9 @@
+- if can? :edit, @member
+  - content_for :halfway_fab
+    - tooltip = if @member == @current_member then t('tooltip.team.member.self.edit') else t('tooltip.team.member.edit') end
+    = link_to edit_team_member_path(@team, @member), class: 'btn-floating btn-large halfway-fab waves-effect waves-light tooltipped orange', data: {position: 'left', tooltip: tooltip}
+      = mdi_tag 'pencil'
+
 .row
   .col.s12
     h5 TODO My Dashboard!!!!

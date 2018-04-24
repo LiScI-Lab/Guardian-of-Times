@@ -7,6 +7,7 @@ gem 'rails'
 gem 'slim'
 gem 'slim-rails'
 
+gem 'material_icons'
 gem 'material_design_icons'
 
 # Use sqlite3 as the database for Active Record
@@ -21,6 +22,8 @@ gem 'materialize-sass', '~> 1.0.0.beta'
 gem 'materialize-form'
 gem 'ancestry'
 
+# Nested Forms helper
+gem 'cocoon'
 
 #pdf generation through wicked & wkhtmltopdf
 gem 'wicked_pdf'

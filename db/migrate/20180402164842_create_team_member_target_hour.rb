@@ -8,6 +8,8 @@ class CreateTeamMemberTargetHour < ActiveRecord::Migration[5.1]
 
       t.timestamps null: false
       t.datetime :discarded_at, index: true
+
+      t.index [:since, :team_member_id], unique: true
     end
   end
 end

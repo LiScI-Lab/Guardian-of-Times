@@ -1,6 +1,6 @@
 - if @team
   - content_for :subtitle
-    | Team: #{@team.name}
+    | #{@team.name}
   - content_for :subnavtitle
     .col.s12
       - if @team.has_parent?
@@ -17,9 +17,9 @@
         = link_to t('team.menu.dashboard'), dashboard_team_path(@team), class: "#{'active' if controller.is_a? TeamsController and action == :dashboard}", target: :_self
     - if can? :dashboard, @current_member
       li.tab
-        = link_to t('team.menu.my_dashboard'), dashboard_team_member_path(@team, @current_member), class: "#{'active' if controller.is_a? Team::MembersController and action == :dashboard}", target: :_self
+        = link_to t('team.menu.my_dashboard'), dashboard_team_member_path(@team, @current_member), class: "#{'active' if controller.is_a? Team::MembersController and action == :dashboard and @member == @current_member}", target: :_self
       li.tab
-        = link_to t('team.menu.my_progresses'), team_member_progresses_path(@team, @current_member), class: "#{'active' if controller.is_a? Team::Member::ProgressesController}", target: :_self
+        = link_to t('team.menu.my_progresses'), team_member_progresses_path(@team, @current_member), class: "#{'active' if controller.is_a? Team::Member::ProgressesController and @member == @current_member}", target: :_self
     li.tab
       = link_to t('team.menu.exports'), team_export_index_path(@team), class: "#{'active' if controller.is_a? Team::ExportController}", target: :_self
     - if can? :index, Team::Progress.new(team: @team, member: @current_member)
@@ -27,8 +27,8 @@
         = link_to t('team.menu.progresses'), team_progresses_path(@team), class: "#{'active' if controller.is_a? Team::ProgressesController}", target: :_self
     - if can? :index, Team::Member.new(team: @team)
       li.tab
-        = link_to t('team.menu.members'), team_members_path(@team), class: "#{'active' if controller.is_a? Team::MembersController and action == :index}", target: :_self
-    - if can? :index, :sub_team
+        = link_to t('team.menu.members'), team_members_path(@team), class: "#{'active' if (controller.is_a? Team::MembersController and action == :index or (action == :dashboard and not @member == @current_member)) or (controller.is_a? Team::Member::ProgressesController and not @member == @current_member)}", target: :_self
+    /- if can? :index, :sub_team
       li.tab
         = link_to t('menu.teams'), team_sub_teams_path(@team), class: "#{'active' if controller.is_a? Team::SubTeamsController and action == :index}", target: :_self
 

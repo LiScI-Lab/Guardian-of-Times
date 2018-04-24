@@ -14,6 +14,7 @@
 #= require turbolinks
 #= require jquery
 #= require materialize
+#= require cocoon
 #= require_tree .
 
 window.timetracker || (window.timetracker = {})
@@ -25,19 +26,68 @@ timetracker.app.init = () ->
   timetracker.app.materialize()
   return
 
+timetracker.app.cocoonize = (elem) ->
+
+  $(elem).on 'cocoon:after-remove', (e, elem) ->
+    if $(elem.context).siblings "[id$=discarded_at]"
+      $(elem.context).siblings("[id$=_destroy]").val(false)
+      $(elem.context).siblings("[id$=discarded_at]").val(new Date(Date.now()))
+    return
+
+  $(elem).on 'cocoon:after-insert', (ev, elem) ->
+    console.log(elem)
+    timetracker.app.materialize(elem)
+  return
+
 timetracker.app.materialize = (elem) ->
   elem || (elem = $('body'))
   M.AutoInit(elem[0])
   $(".dropdown-trigger", elem).dropdown
     constrainWidth: false
-  $('input[type="text"]', elem).characterCounter()
+  $('input[type="text"]', elem).not('.date,.time').characterCounter()
   $('textarea', elem).characterCounter()
 
   $('.modal', elem).modal()
   return
 
+timetracker.app.init_chips = (elem, tags, autocomplete_tags) ->
+  data = []
+  if tags.length > 0
+    tags.forEach (tag) ->
+      data.push {
+        tag: tag
+      }
+
+      return
+  if elem[0].hasAttribute("for")
+    target = elem.siblings("##{elem.attr('for')}")
+    updateTarget = () ->
+      chips = M.Chips.getInstance(elem).chipsData
+      str = ''
+      chips.forEach (chip) ->
+        if str != ''
+          str = "#{str}, "
+        str = "#{str}#{chip.tag}"
+      target.val(str)
+      return
+
+
+  autocomplete_data = {}
+  autocomplete_tags.forEach (tag) ->
+    autocomplete_data[tag] = null
+    return
+  elem.chips
+    data: data
+    autocompleteOptions:
+      data: autocomplete_data
+      limit: Infinity
+      minLength: 1
+    onChipAdd: updateTarget
+    onChipDelete: updateTarget
+  return
+
 $(document).on 'turbolinks:load', timetracker.app.init
-$(document).ready timetracker.app.init
+#$(document).ready timetracker.app.init
 
 
 jQuery.fn.changeTag = (newTag) ->

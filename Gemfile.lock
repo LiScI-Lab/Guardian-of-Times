@@ -85,6 +85,7 @@ GEM
     chartkick (2.3.3)
     chronic_duration (0.10.6)
       numerizer (~> 0.1.1)
+    cocoon (1.2.11)
     coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -201,6 +202,8 @@ GEM
       mini_mime (>= 0.1.1)
     material_design_icons (2.1.99.1)
       inline_svg (~> 1.0)
+    material_icons (2.2.1)
+      railties (>= 3.2)
     materialize-form (1.0.8)
     materialize-sass (1.0.0.beta)
       autoprefixer-rails (>= 6.0.3)
@@ -345,6 +348,7 @@ DEPENDENCIES
   chartjs-ror
   chartkick
   chronic_duration
+  cocoon
   coffee-rails
   config
   devise
@@ -359,6 +363,7 @@ DEPENDENCIES
   jquery-rails
   listen
   material_design_icons
+  material_icons
   materialize-form
   materialize-sass (~> 1.0.0.beta)
   puma

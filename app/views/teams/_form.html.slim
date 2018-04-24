@@ -4,5 +4,17 @@
   = render 'application/form', f: f
     = f.input :name, wrapper_html: {class: 's12'}, input_html: {minlength: Settings.team.name.length_minimum}
     = f.input :description, wrapper_html: {class: 's12'}, input_html: {minlength: Settings.team.description.length_minimum}
-    = f.input :tags, wrapper_html: {class: 's12'}
+    .col.s12
+      = f.label :tag_list
+      .chips for="team_tag_list"
+      = f.hidden_field :tag_list, value: f.object.tag_list.to_s
 
+javascript:
+  function form() {
+    let tags = #{{ @team.tags.pluck(:name).to_json }}
+    let autocomplete_tags = #{{ Team.tags_on(:tags).pluck(:name).to_json }}
+    timetracker.app.init_chips($('.chips'), tags, autocomplete_tags)
+  }
+
+  $(document).on('turbolinks:load', form)
+  $(document).ready(form)

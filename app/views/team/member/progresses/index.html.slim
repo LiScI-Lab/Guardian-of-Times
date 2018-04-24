@@ -10,12 +10,12 @@
         b
           ' #{t('team.current_month_time_spend')}
         | #{distance_of_time_or_null @member.current_month_time_spend}
-  - if can? :new, @progress and @member.progresses.kept.ongoing.empty?
+  - if can? :start, @progress and @member.progresses.kept.ongoing.empty?
     .col.s12.m6
       .col.s12
         h5 Start Progress
       .col.s12
-        = render 'team/progresses/form'
+        = render 'team/progresses/mini_form'
 
 .row
   .col.s12

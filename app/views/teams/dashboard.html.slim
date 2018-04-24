@@ -1,3 +1,7 @@
+- if can? :edit, @team
+  - content_for :halfway_fab
+    = link_to edit_team_path(@team), class: 'btn-floating btn-large halfway-fab waves-effect waves-light tooltipped orange', data: {position: 'left', tooltip: t('tooltip.team.edit')}
+      = mdi_tag 'pencil'
 .row
   .col.s12
     h5 TODO Dashboard!!!!
