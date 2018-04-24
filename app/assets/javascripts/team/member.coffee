@@ -11,6 +11,7 @@ timetracker.team.member = {}
 timetracker.team.member.init = () ->
   return if $('body.team.members').size is 0
   console.log('Team Member init')
+  timetracker.hideable.init()
   return
 
 timetracker.team.member.cocoonize = (elem) ->

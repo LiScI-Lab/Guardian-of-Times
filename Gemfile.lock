@@ -163,6 +163,8 @@ GEM
     http_accept_language (2.1.1)
     i18n (1.0.0)
       concurrent-ruby (~> 1.0)
+    i18n-debug (1.1.1)
+      i18n (< 2)
     inflecto (0.0.2)
     inherited_resources (1.8.0)
       actionpack (>= 4.2, <= 5.2)
@@ -359,6 +361,7 @@ DEPENDENCIES
   enum_help
   faker
   http_accept_language
+  i18n-debug
   jbuilder
   jquery-rails
   listen

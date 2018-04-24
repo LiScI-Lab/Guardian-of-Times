@@ -44,7 +44,7 @@ timetracker.app.materialize = (elem) ->
   M.AutoInit(elem[0])
   $(".dropdown-trigger", elem).dropdown
     constrainWidth: false
-  $('input[type="text"]', elem).not('.date,.time').characterCounter()
+  $('input[type="text"]', elem).not('.date,.time,.select-dropdown').characterCounter()
   $('textarea', elem).characterCounter()
 
   $('.modal', elem).modal()

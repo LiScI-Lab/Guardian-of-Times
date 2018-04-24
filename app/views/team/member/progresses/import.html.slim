@@ -1,11 +1,42 @@
 .row
   .col.s12
-    h5 = t('team.progress.import')
+    h5 = t('team.progress.import.name')
 
 .row
   .col.s12
     - if @errors
       = render 'application/form_errors', errors: @errors
 
-    = simple_form_for :import, url: upload_team_member_progresses_path(@team, @member) do |f|
+    = simple_form_for :import, url: upload_team_member_progresses_path(@team, @member), html: {class: 'import has-hideable-content'} do |f|
       = render 'application/form', f: f
+        .col.s12.m4
+          = f.input :format, collection: {'CSV': :csv, 'Hamster (TSV)': :hamster}, include_blank: false, wrapper_html: {class: 's12 hide-selector'}
+          = f.label :extra_options, required: false, class: 'col s12'
+          = f.simple_fields_for :options do |ff|
+            .global.col.s12
+              = ff.input :first_line_description, as: :boolean, wrapper_html: {class: 's6'}, input_html: {checked: true}
+              = ff.input :drop_description, as: :boolean, wrapper_html: {class: 's6'}
+              = ff.input :drop_tags, as: :boolean, wrapper_html: {class: 's6'}
+            .hideable.hamster.col.s12 style='display: none'
+              = ff.input :drop_category, as: :boolean, wrapper_html: {class: 's6'}
+              = ff.input :drop_work, as: :boolean, wrapper_html: {class: 's6'}
+          = f.input :file, as: :file, wrapper_html: {class: 's12'}, input_html: {accept: '.csv,.tsv'}
+
+        .col.s12.m8
+          .card
+            .card-content
+              .card-title
+                = t('team.progress.import.preview')
+              .hideable.csv
+                code
+                  pre Start; Stop; Description; Tags
+                      2018-04-20 12:00; 2018-04-20 18:00; important work; work,important
+                      2018-04-21 18:00; 2018-04-21 18:30; very important work; work,very important
+                      2018-04-22 12:00; 2018-04-22 18:00; more important work; work,important
+                      2018-04-22 18:00; 2018-04-22 18:30; boooring; meeting
+                      2018-04-23 12:00; 2018-04-23 18:00; some other important work; work,important
+              .hideable.hamster style='display: none'
+                = t('team.progress.import.hamster_info')
+                code
+                  pre Tätigkeit  Beginn  Ende  Dauer in Minuten  Kategorie  Beschreibung  Schlagworte
+                      important 2018-04-01 11:30:00  2018-04-01 13:45:22  135  work

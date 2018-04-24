@@ -2,6 +2,8 @@ module AbilityTeam
   include CanCan::Ability
 
   def initialize_team(user, member)
+    alias_action :upload, to: :import
+
     can [:index, :invited, :owner], Team
     can [:create, :new], Team
 

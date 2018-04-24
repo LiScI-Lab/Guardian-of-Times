@@ -72,4 +72,7 @@ de:
     current_month_time_spend: "Monatszeit:"
     edit: "Bearbeite %{name}"
     progress:
-      import: "Importiere Fortschritte"
+      import:
+        name: "Fortschritte importieren"
+        preview: "Format Vorschau"
+        hamster_info: "Ein Hamster Export ist Tab seperiert. Tätigkeiten, Kategorien und Schlagworte werden als Tags übernommen."
