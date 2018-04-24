@@ -83,16 +83,16 @@ class Team::Member::ProgressesController < ApplicationController
   end
 
   def get_filtered_progresses(member)
-    month_filter = params[:month]
-    tag_list = params[:tag_list]
-    puts params.inspect
-    puts tag_list
+    month_filter = params[:filter][:month] if params[:filter]
+    tag_list ||= params[:filter][:tag_list] if params[:filter]
+
     progresses = if month_filter then
       month_date = Date.new(DateTime.now.year, month_filter.to_i)
       member.progresses.in_month(month_date)
     else
       member.progresses
     end
+
     if tag_list then
       progresses.tagged_with(tag_list, any: true)
     else

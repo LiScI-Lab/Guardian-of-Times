@@ -29,10 +29,9 @@
     h5
       = t('team.filter')
   .col.s12
-    = simple_form_for(:filter, url: '.', method: :get) do |f|
+    = simple_form_for(:filter, url: team_member_progresses_path(@team,@current_member), method: :get) do |f|
       = render 'application/form', f: f
         = f.select :month, @month_with_index, selected: @current_month
-      .col.s12
         = f.label :tag_list
         .chips for="filter_tag_list"
         = f.hidden_field :tag_list, value: @tag_list.to_s
