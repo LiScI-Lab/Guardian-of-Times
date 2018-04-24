@@ -35,6 +35,7 @@
         = f.label :tag_list
         .chips for="filter_tag_list"
         = f.hidden_field :tag_list, value: @tag_list.to_s
+        = link_to 'Clear', team_member_progresses_path(@team,@current_member), class: 'waves-effect waves-light btn'
 
 - @progresses.kept.group_by { |p| p.start.beginning_of_month }.each do |date, progresses|
   .row
