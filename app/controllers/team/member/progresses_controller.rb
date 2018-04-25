@@ -93,7 +93,7 @@ class Team::Member::ProgressesController < ApplicationController
       member.progresses
     end
 
-    if tag_list then
+    if tag_list && !tag_list.empty? then
       progresses.tagged_with(tag_list, any: true)
     else
       progresses
