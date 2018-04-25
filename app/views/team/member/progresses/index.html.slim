@@ -29,13 +29,7 @@
     h5
       = t('team.filter')
   .col.s12
-    = simple_form_for(:filter, url: team_member_progresses_path(@team,@current_member), method: :get) do |f|
-      = render 'application/form', f: f
-        = f.select :month, @month_with_index, selected: @current_month
-        = f.label :tag_list
-        .chips for="filter_tag_list"
-        = f.hidden_field :tag_list
-        = link_to 'Clear', team_member_progresses_path(@team,@current_member), class: 'waves-effect waves-light btn'
+      = render 'team/progresses/filter_form', url: team_member_progresses_path(@team,@current_member)
 
 - @progresses.kept.group_by { |p| p.start.beginning_of_month }.each do |date, progresses|
   .row
@@ -47,14 +41,3 @@
     h5
       =t('team.menu.discarded_progresses')
     = render 'team/progresses/progresses', progresses: @progresses.discarded
-
-
-javascript:
-    function form() {
-        let tags = #{{ @progress.tags.pluck(:name).to_json }}
-    let autocomplete_tags = #{{ Team::Progress.tags_on(:tags).pluck(:name).to_json }}
-    timetracker.app.init_chips($('.filter .chips'), tags, autocomplete_tags)
-    }
-
-    $(document).on('turbolinks:load', form)
-    $(document).ready(form)
