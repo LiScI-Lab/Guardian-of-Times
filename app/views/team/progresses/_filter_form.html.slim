@@ -2,7 +2,7 @@
   = render 'application/form', f: f
     = f.select :month, month_with_index, selected: current_month
     = f.label :tag_list
-    = f.select :member_name, available_members, selected: available_members.first
+    = f.select :member_name, available_members.prepend(""), selected: available_members.first
     .chips for="filter_tag_list"
     = f.hidden_field :tag_list
     = link_to 'Clear', url, class: 'waves-effect waves-light btn'

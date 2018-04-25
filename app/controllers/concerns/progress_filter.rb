@@ -12,7 +12,7 @@ module ProgressFilter
                    model_with_progresses.progresses
                  end
 
-    progresses = if member_filter then
+    progresses = if member_filter && !member_filter.empty? then
                    progresses
                      .joins(:member)
                      .joins(:user)
