@@ -13,7 +13,10 @@ module ProgressFilter
                  end
 
     progresses = if member_filter then
-                   progresses.find_by(:member, :user, realname: member_filter)
+                   progresses
+                     .joins(:member)
+                     .joins(:user)
+                     .where(users: {realname: member_filter})
                  else
                    progresses
                  end
