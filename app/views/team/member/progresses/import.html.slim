@@ -10,7 +10,7 @@
     = simple_form_for :import, url: upload_team_member_progresses_path(@team, @member), html: {class: 'import has-hideable-content'} do |f|
       = render 'application/form', f: f
         .col.s12.m4
-          = f.input :format, collection: {'CSV': :csv, 'CSV (Nico)': :csv_nico, 'CSV (Felix)': :csv_felix, 'Hamster (TSV)': :hamster}, include_blank: false, wrapper_html: {class: 's12 hide-selector'}
+          = f.input :format, collection: {'CSV': :csv, 'CSV (Nico)': :csv_nico, 'Kimai (CSV)': :csv_kimai, 'Hamster (TSV)': :hamster}, include_blank: false, wrapper_html: {class: 's12 hide-selector'}
           = f.label :extra_options, required: false, class: 'col s12'
           = f.simple_fields_for :options do |ff|
             .global.col.s12
@@ -18,7 +18,7 @@
               = ff.input :drop_description, as: :boolean, wrapper_html: {class: 's6'}
             .hideable.csv.col.s12
               = ff.input :drop_tags, as: :boolean, wrapper_html: {class: 's6'}
-            .hideable.csv_felix.col.s12 style='display: none'
+            .hideable.csv_kimai.col.s12 style='display: none'
               = ff.input :drop_status, as: :boolean, wrapper_html: {class: 's6'}, input_html: {checked: true}
               = ff.input :drop_customer, as: :boolean, wrapper_html: {class: 's6'}, input_html: {checked: true}
               = ff.input :drop_user, as: :boolean, wrapper_html: {class: 's6'}, input_html: {checked: true}
@@ -26,7 +26,7 @@
               = ff.input :drop_location, as: :boolean, wrapper_html: {class: 's6'}
             .hideable.hamster.col.s12 style='display: none'
               = ff.input :drop_category, as: :boolean, wrapper_html: {class: 's6'}
-            .hideable.csv_felix.hamster.col.s12 style='display: none'
+            .hideable.csv_kimai.hamster.col.s12 style='display: none'
               = ff.input :drop_activity, as: :boolean, wrapper_html: {class: 's6'}
 
           = f.input :file, as: :file, wrapper_html: {class: 's12'}, input_html: {accept: '.csv,.tsv'}
@@ -55,8 +55,8 @@
                       23.02.2018,12:50:00,16:00:00,3:10:00,"jshell submission from students"
                       28.02.2018,11:00:00,11:30:00,0:30:00,Arbeitszeiten Datenblatt erstellen
                       28.02.2018,11:30:00,16:00:00,4:30:00,"JShell finaly execute submissions,try to apply policies for jshell"
-              .hideable.csv_felix style='display: none'
-                = t('team.progress.import.csv_felix_info')
+              .hideable.csv_kimai style='display: none'
+                = t('team.progress.import.csv_kimai_info')
                 pre style="overflow-x: auto; "
                   code style="white-space: pre; display: inline-block; min-width: 100%;"
                     | Datum,von,bis,h'm,Zeit,Stundenlohn,Euro,Budget,Bestätigt,Status,Verrechenbar,Kunde,Projekt,Tätigkeit,Beschreibung,Kommentar,Ort,Auftragsnummer,Benutzer,abgerechnet

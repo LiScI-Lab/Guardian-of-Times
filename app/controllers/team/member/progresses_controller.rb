@@ -87,8 +87,8 @@ class Team::Member::ProgressesController < ApplicationController
       #   import_csv i_params[:file], i_params[:options]
       when :csv_nico
         import_csv_nico @member, i_params[:file], i_params[:options]
-      when :csv_felix
-        import_csv_felix @member, i_params[:file], i_params[:options]
+      when :csv_kimai
+        import_csv_kimai @member, i_params[:file], i_params[:options]
       when :hamster
         import_hamster @member, i_params[:file], i_params[:options]
       else
@@ -114,7 +114,7 @@ class Team::Member::ProgressesController < ApplicationController
     end
   end
 
-  def import_csv_felix member, file, options
+  def import_csv_kimai member, file, options
     require "csv"
     File.foreach(file.path).with_index do |line, i|
       next if i == 0 and options[:first_line_description]
