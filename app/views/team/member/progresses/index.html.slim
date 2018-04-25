@@ -29,7 +29,7 @@
     h5
       = t('team.filter')
   .col.s12
-      = render 'team/progresses/filter_form', url: team_member_progresses_path(@team,@current_member)
+      = render 'team/progresses/filter_form', url: team_member_progresses_path(@team,@current_member), available_members: [@current_member.user.realname]
 
 - @progresses.kept.group_by { |p| p.start.beginning_of_month }.each do |date, progresses|
   .row
