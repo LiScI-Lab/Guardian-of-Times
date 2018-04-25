@@ -10,7 +10,7 @@
     = simple_form_for :import, url: upload_team_member_progresses_path(@team, @member), html: {class: 'import has-hideable-content'} do |f|
       = render 'application/form', f: f
         .col.s12.m4
-          = f.input :format, collection: {'CSV': :csv, 'CSV (Nico)': :csv_nico, 'Hamster (TSV)': :hamster}, include_blank: false, wrapper_html: {class: 's12 hide-selector'}
+          = f.input :format, collection: {'CSV': :csv, 'CSV (Nico)': :csv_nico, 'CSV (Felix)': :csv_felix, 'Hamster (TSV)': :hamster}, include_blank: false, wrapper_html: {class: 's12 hide-selector'}
           = f.label :extra_options, required: false, class: 'col s12'
           = f.simple_fields_for :options do |ff|
             .global.col.s12
@@ -18,9 +18,17 @@
               = ff.input :drop_description, as: :boolean, wrapper_html: {class: 's6'}
             .hideable.csv.col.s12
               = ff.input :drop_tags, as: :boolean, wrapper_html: {class: 's6'}
+            .hideable.csv_felix.col.s12 style='display: none'
+              = ff.input :drop_status, as: :boolean, wrapper_html: {class: 's6'}, input_html: {checked: true}
+              = ff.input :drop_customer, as: :boolean, wrapper_html: {class: 's6'}, input_html: {checked: true}
+              = ff.input :drop_user, as: :boolean, wrapper_html: {class: 's6'}, input_html: {checked: true}
+              = ff.input :drop_project, as: :boolean, wrapper_html: {class: 's6'}
+              = ff.input :drop_location, as: :boolean, wrapper_html: {class: 's6'}
             .hideable.hamster.col.s12 style='display: none'
               = ff.input :drop_category, as: :boolean, wrapper_html: {class: 's6'}
-              = ff.input :drop_work, as: :boolean, wrapper_html: {class: 's6'}
+            .hideable.csv_felix.hamster.col.s12 style='display: none'
+              = ff.input :drop_activity, as: :boolean, wrapper_html: {class: 's6'}
+
           = f.input :file, as: :file, wrapper_html: {class: 's12'}, input_html: {accept: '.csv,.tsv'}
 
         .col.s12.m8
@@ -29,23 +37,45 @@
               .card-title
                 = t('team.progress.import.preview')
               .hideable.csv
-                code
-                  pre Start; Stop; Description; Tags
+                pre style="overflow-x: auto; "
+                  code style="white-space: pre; display: inline-block; min-width: 100%;"
+                    | Start; Stop; Description; Tags
                       2018-04-20 12:00; 2018-04-20 18:00; important work; work,important
                       2018-04-21 18:00; 2018-04-21 18:30; very important work; work,very important
                       2018-04-22 12:00; 2018-04-22 18:00; more important work; work,important
                       2018-04-22 18:00; 2018-04-22 18:30; boooring; meeting
                       2018-04-23 12:00; 2018-04-23 18:00; some other important work; work,important
               .hideable.csv_nico style='display: none'
-                code
-                  pre Datum,Start,Ende,Zeit,Beschreibung
+                = t('team.progress.import.csv_nico_info')
+                pre style="overflow-x: auto; "
+                  code style="white-space: pre; display: inline-block; min-width: 100%;"
+                    | Datum,Start,Ende,Zeit,Beschreibung
                       21.02.2018,13:00:00,15:00:00,2:00:00,
                       22.02.2018,14:50:00,17:00:00,2:10:00,Saving JSHell tasks & mope/move debugging
                       23.02.2018,12:50:00,16:00:00,3:10:00,"jshell submission from students"
                       28.02.2018,11:00:00,11:30:00,0:30:00,Arbeitszeiten Datenblatt erstellen
                       28.02.2018,11:30:00,16:00:00,4:30:00,"JShell finaly execute submissions,try to apply policies for jshell"
+              .hideable.csv_felix style='display: none'
+                = t('team.progress.import.csv_felix_info')
+                pre style="overflow-x: auto; "
+                  code style="white-space: pre; display: inline-block; min-width: 100%;"
+                    | Datum,von,bis,h'm,Zeit,Stundenlohn,Euro,Budget,Bestätigt,Status,Verrechenbar,Kunde,Projekt,Tätigkeit,Beschreibung,Kommentar,Ort,Auftragsnummer,Benutzer,abgerechnet
+                      24.04.,13:30,15:00,1:30,1.50,10.00,15.00,,,open,0%,AuD Sommersemester 2018,Gildamesh,Entwicklung,,,,,FelixMuenscher,0
+                      23.04.,15:30,17:15,1:45,1.75,10.00,17.50,,,open,0%,AuD Sommersemester 2018,Algomantik & Datenreaturen SS2018,Vorbereitung Tutorium,,,,,FelixMuenscher,0
+                      23.04.,09:45,11:30,1:45,1.75,10.00,17.50,,,open,0%,AuD Sommersemester 2018,Algomantik & Datenreaturen SS2018,Tutorium,,,,,FelixMuenscher,0
+                      22.04.,14:00,14:30,0:30,0.50,10.00,5.00,,,open,0%,AuD Sommersemester 2018,Gildamesh,Entwicklung,,,,,FelixMuenscher,0
+                      20.04.,11:30,13:00,1:30,1.50,10.00,15.00,,,open,0%,AuD Sommersemester 2018,Algomantik & Datenreaturen SS2018,Vorbereitung Tutorium,,,,,FelixMuenscher,0
+                      19.04.,23:00,01:00,2:00,2.00,10.00,20.00,,,open,0%,AuD Sommersemester 2018,Gildamesh,Entwicklung,,,,,FelixMuenscher,0
               .hideable.hamster style='display: none'
                 = t('team.progress.import.hamster_info')
-                code
-                  pre Tätigkeit  Beginn  Ende  Dauer in Minuten  Kategorie  Beschreibung  Schlagworte
-                      important 2018-04-01 11:30:00  2018-04-01 13:45:22  135  work
+                pre style="overflow-x: auto; "
+                  code style="white-space: pre; display: inline-block; min-width: 100%;"
+                    | Tätigkeit  Beginn  Ende  Dauer in Minuten  Kategorie  Beschreibung  Schlagworte
+                      Gildamesh  2018-01-02 17:00:00  2018-01-02 18:30:00  90  Arbeit
+                      Gildamesh  2018-01-04 11:00:00  2018-01-04 18:45:00  465  Arbeit
+                      Gildamesh  2018-01-05 12:00:00  2018-01-05 19:34:44  454  Arbeit
+                      Gildamesh  2018-01-07 10:42:23  2018-01-07 19:24:24  522  Arbeit
+                      Gildamesh  2018-01-08 13:00:00  2018-01-08 19:54:15  414  Arbeit
+                      Gildamesh  2018-01-09 10:21:20  2018-01-09 20:41:59  620  Arbeit
+                      Gildamesh  2018-01-10 12:26:43  2018-01-10 20:43:02  496  Arbeit
+                      Gildamesh  2018-01-11 11:09:07  2018-01-11 14:17:36  188  Arbeit
