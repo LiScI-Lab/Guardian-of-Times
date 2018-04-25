@@ -5,7 +5,7 @@ module ProgressFilter
     tag_list ||= params[:filter][:tag_list] if params[:filter]
     member_filter ||= params[:filter][:member_name] if params[:filter]
 
-    progresses = if month_filter then
+    progresses = if month_filter && !month_filter.empty? && month_filter.to_i!=0 then
                    month_date = Date.new(DateTime.now.year, month_filter.to_i)
                    model_with_progresses.progresses.in_month(month_date)
                  else
