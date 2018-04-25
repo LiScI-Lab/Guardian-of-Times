@@ -1,4 +1,5 @@
 class Team::Member::ProgressesController < ApplicationController
+  include ::ProgressFilter
   layout 'team'
 
   load_and_authorize_resource :team
@@ -78,24 +79,5 @@ class Team::Member::ProgressesController < ApplicationController
   private
   def progress_params
     params.require(:progress).permit([:start, :end, :description, :tag_list])
-  end
-
-  def get_filtered_progresses(member)
-    month_filter = params[:filter][:month] if params[:filter]
-    tag_list ||= params[:filter][:tag_list] if params[:filter]
-
-    progresses = if month_filter then
-      month_date = Date.new(DateTime.now.year, month_filter.to_i)
-      member.progresses.in_month(month_date)
-    else
-      member.progresses
-    end
-
-    if tag_list && !tag_list.empty? then
-      progresses.tagged_with(tag_list, any: true)
-    else
-      progresses
-    end
-
   end
 end
