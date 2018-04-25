@@ -3,12 +3,19 @@ module ProgressFilter
   def get_filtered_progresses(model_with_progresses)
     month_filter = params[:filter][:month] if params[:filter]
     tag_list ||= params[:filter][:tag_list] if params[:filter]
+    member_filter ||= params[:filter][:member_name] if params[:filter]
 
     progresses = if month_filter then
                    month_date = Date.new(DateTime.now.year, month_filter.to_i)
                    model_with_progresses.progresses.in_month(month_date)
                  else
                    model_with_progresses.progresses
+                 end
+
+    progresses = if member_filter then
+                   progresses.find_by(:member, :user, realname: member_filter)
+                 else
+                   progresses
                  end
 
     if tag_list && !tag_list.empty? then
