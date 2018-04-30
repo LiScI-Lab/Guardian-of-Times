@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20180419094356) do
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
     t.index ["discarded_at"], name: "index_team_member_target_hours_on_discarded_at"
+    t.index ["since", "team_member_id"], name: "index_team_member_target_hours_on_since_and_team_member_id", unique: true
     t.index ["team_member_id"], name: "index_team_member_target_hours_on_team_member_id"
   end
 

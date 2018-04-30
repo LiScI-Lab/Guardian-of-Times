@@ -26,12 +26,28 @@ Team.all.each do |p|
   if m.owner?
     m.status = :joined
   end
+
+  unless m.invited?
+    rand(0..4).times do
+      hours = m.target_hours.find_or_initialize_by since: rand(-3..3).months.ago.beginning_of_month
+      hours.hours = rand(20..80)
+      hours.member = m
+      hours.save!
+    end
+  end
+
   m.save!
 
   rand(0..20).times do
     m = p.members.find_or_initialize_by user_id: rand(2..49)
     m.role = :participant
     m.status = [:joined, :leaved, :invited].sample
+    rand(0..4).times do
+      hours = m.target_hours.find_or_initialize_by since: rand(-3..3).months.ago.beginning_of_month
+      hours.hours = rand(20..80)
+      hours.member = m
+      hours.save!
+    end
     m.save!
   end
 
@@ -45,7 +61,10 @@ Team.all.each do |p|
 
       rand(0..20).times do
         start_time = Faker::Time.between(2.months.ago, Date.today, :morning)
-        p.progresses.new(start: start_time, end: Faker::Time.between(start_time, start_time.end_of_day, :evening), member: member)
+        progress = p.progresses.new(start: start_time, end: Faker::Time.between(start_time, start_time.end_of_day, :evening), member: member)
+        rand(0..5).times do
+          progress.tag_list.add ["rails", "dozentron", "gildamesh", "Meeting"].sample
+        end
       end
     end
   end
@@ -73,6 +92,7 @@ tuesdays.each do |tuesday|
   progress = team.progresses.new(start: start_time, end: end_time, member: member)
   progress.save!
 end
+
 wednesdays.each do |wednesday|
   start_time = DateTime.new(wednesday.year,wednesday.month,wednesday.day, 14,00)
   end_time = DateTime.new(wednesday.year,wednesday.month,wednesday.day, 18,00)
