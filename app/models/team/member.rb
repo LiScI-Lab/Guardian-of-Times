@@ -1,4 +1,6 @@
 class Team::Member < ApplicationRecord
+  include DateTimeHelper
+
   acts_as_tagger
 
   enum status: {invited: 0, leaved: 5, removed: 10, joined: 100}
@@ -24,6 +26,14 @@ class Team::Member < ApplicationRecord
   def current_month_time_spend
     progresses.kept.this_month.map { |p| p.time_spend }.sum
   end
+
+  def current_month_vs_time_spend
+    [
+      {name: "Time spend", data: {user.realname => seconds_to_hours(current_month_time_spend)}},
+      {name: "Time vertrag", data: {user.realname => recent_target_hours}}
+    ]
+  end
+
 
   def recent_target_hours
     (target_hours.last) ? target_hours.last.hours : 0
