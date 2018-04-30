@@ -14,7 +14,7 @@ SimpleForm.setup do |config|
     b.use :min_max
     b.use :readonly
     b.use :input, class: 'validate'
-    b.use :label, class: 'active'
+    b.use :label
     b.use :error, wrap_with: { tag: 'small', class: 'error-block red-text text-darken-1' }
     b.use :hint,  wrap_with: { tag: 'span', class: 'help-block' }
   end

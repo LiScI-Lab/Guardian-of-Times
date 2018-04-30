@@ -30,12 +30,8 @@
       - if can? :export, @progress
         /TODO= link_to new_team_member_progress_path, class: 'waves-effect waves-light btn-floating'
           = mdi_tag 'cloud-download'
-.row
-  .col.s12
-    h5
-      = t('team.filter')
-  .col.s12
-      = render 'team/progresses/filter_form', url: team_member_progresses_path(@team,@current_member), available_members: [@current_member.user.realname]
+
+= render 'team/progresses/filter', url: team_member_progresses_path(@team,@current_member)
 
 - @progresses.kept.group_by { |p| p.start.beginning_of_month }.each do |date, progresses|
   .row

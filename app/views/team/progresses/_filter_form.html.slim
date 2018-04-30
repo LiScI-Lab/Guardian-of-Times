@@ -1,11 +1,15 @@
 = simple_form_for(:filter, url: url, method: :get) do |f|
-  = render 'application/form', f: f
-    = f.select :month, month_with_index, selected: current_month
-    = f.label :tag_list
-    = f.select :member_name, available_members.prepend(""), selected: available_members.first
+  = f.input :month, collection: month_with_index, selected: current_month, wrapper_html: {class: 's6 m3'}
+  - if local_assigns[:available_members]
+    = f.input :member_name, collection: available_members.prepend(""), selected: available_members.first, wrapper_html: {class: 's6 m3'}
+  .col.s6.m4
+    = f.label :tag_list, required: false
     .chips for="filter_tag_list"
     = f.hidden_field :tag_list
-    = link_to 'Clear', url, class: 'waves-effect waves-light btn'
+  .col.s6.m2
+    .button-group
+      = link_to t('team.progress.filter.clear'), url, class: 'waves-effect waves-light btn'
+      = f.button :button, t('team.progress.filter.apply')
 
 javascript:
     function form() {

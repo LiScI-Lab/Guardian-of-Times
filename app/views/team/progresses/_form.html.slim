@@ -7,9 +7,9 @@
     .col.s6
       = f.input :end, as: :date, wrapper_html: {class: 's6'}
     .col.s12
-      = f.input :description, wrapper_html: {class: 's12'}
+      = f.input :description, wrapper_html: {class: 's6'}
       = f.label :tag_list
-      .chips for="progress_tag_list"
+      .chips.col.s6 for="progress_tag_list"
       = f.hidden_field :tag_list, value: f.object.tag_list.to_s
 
 javascript:
