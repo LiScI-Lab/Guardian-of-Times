@@ -6,11 +6,10 @@
 
 .row
   .col.s12
-    h5 Dashboard for #{@team.name}
-
-    h5 Total time spend in hours
-    = area_chart @time_spend_hours, discrete: true
-
+    h5
+      | #{t('team.menu.my_dashboard')}
+.row
+  = render 'team/dashboard/total_time_in_hours', time_spend_hours: @member.time_spend_series
+.row
     h5 Time spend in #{Date::MONTHNAMES[DateTime.now.month]} #{DateTime.now.year}
     = column_chart @member.current_month_vs_time_spend
-/@member.progresses.group_by{ |p| p.start.day }.map{|k,v| [k,v.size]}

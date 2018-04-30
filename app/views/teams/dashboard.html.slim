@@ -4,4 +4,9 @@
       = mdi_tag 'pencil'
 .row
   .col.s12
-    h5 TODO Dashboard!!!!
+    h5 Dashboard
+
+.row
+  = render 'team/dashboard/total_time_in_hours', time_spend_hours: @team.time_spend_series
+  /.col.s12.m6
+    = column_chart @team.progresses.this_month.group_by(:member).sum(&:time_spend)

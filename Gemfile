@@ -60,7 +60,7 @@ gem 'activeadmin'
 
 # Creating graphs with less work - Read more: http://chartkick.com/
 gem 'chartkick'
-gem 'chartjs-ror'
+#gem 'chartjs-ror'
 
 #date&time grouping
 gem 'groupdate'

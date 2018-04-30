@@ -21,4 +21,11 @@ class Team < ApplicationRecord
   def member(user)
     members.find_by(user: user)
   end
+
+  def time_spend_series
+    members.map { |m|
+      { name: m.user.realname, data: m.time_spend_series }
+    }
+  end
+
 end

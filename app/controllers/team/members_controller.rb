@@ -15,27 +15,19 @@ class Team::MembersController < ApplicationController
   end
 
   def dashboard
-    if @member.role.to_sym == :owner
-      @time_spend_hours = @team.members.map { |m|
-        { name: m.user.realname, data: time_spend_series(m) }
-      }
+    # ===== DO NOT KILL THIS ===========================================
+      # spend_hours = @team.members.map { |m|
+      #   [m.user.realname, seconds_to_hours(m.current_month_time_spend)]
+      # }
+      # target_hours = @team.members.map { |m|
+      #   [m.user.realname, m.recent_target_hours]
+      # }
 
-      spend_hours = @team.members.map { |m|
-        [m.user.realname, seconds_to_hours(m.current_month_time_spend)]
-      }
-      target_hours = @team.members.map { |m|
-        [m.user.realname, m.recent_target_hours]
-      }
-
-      @time_spend_with_target_hours = [
-        {name: "Time spend", data: spend_hours},
-        {name: "Time Vertrag", data: target_hours}
-      ]
-      # raise 'dump'
-    else
-      @time_spend_hours = time_spend_series(@member)
-      @time_spend_with_target_hours = time_spend_with_target_hours(@member)
-    end
+      # @time_spend_with_target_hours = [
+      #   {name: "Time spend", data: spend_hours},
+      #   {name: "Time Vertrag", data: target_hours}
+      # ]
+    # ===== DO NOT KILL THIS ===========================================
   end
 
   def new
@@ -94,26 +86,4 @@ class Team::MembersController < ApplicationController
   def invite_params
     params.require(:invitations).permit(users: [])
   end
-
-  def time_spend_series(member)
-    member.progresses.kept
-      .group_by{ |p| p.start.month }
-      .sort_by { |k,v| k }
-      .map{ |k,v| ["#{Date::MONTHNAMES[k]} #{v.first.start.year}", seconds_to_hours(v.map{ |p| p.time_spend }.sum)] }
-  end
-
-  def time_spend_with_target_hours(member)
-    time_spend_label = "Time spend"
-    time_vertrag_label = "Time Vertrag"
-    data_label = member.user.realname
-    time_spend = seconds_to_hours(member.progresses.kept.in_month(DateTime.now).map(&:time_spend).sum)
-    target_hours = member.target_hours.last.hours if member.target_hours.last
-
-    [
-      {name: time_spend_label, data: {data_label => time_spend}},
-      {name: time_vertrag_label, data: {data_label => (target_hours || 0)}}
-    ]
-  end
-
-
 end
