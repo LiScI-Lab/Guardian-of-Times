@@ -1,3 +1,4 @@
+# coding: utf-8
 class Team::MembersController < ApplicationController
   layout 'team'
 
@@ -13,6 +14,15 @@ class Team::MembersController < ApplicationController
   end
 
   def dashboard
+    # values = @member.progresses.group_by_month(:start)
+    #            .map { |progresses|
+    #   {name: progresses.first.start.month, data: progresses.map { |p| p.end-p.start }.sum}
+    # }
+    @values = @member.progresses
+                .group_by{ |p| p.start.month }
+                .sort_by{ |k,v| k }
+                .map{ |k,v| ["#{k} #{v.first.start.year}", v.map{ |p| p.time_spend }.sum / 3600] }
+    puts "values for diagram:", @values
   end
 
   def new

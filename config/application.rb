@@ -14,6 +14,11 @@ module TimeTracker
     config.i18n.available_locales = %w(en de )
     config.i18n.default_locale = 'de'
     config.time_zone = 'Berlin'
+
+    #TODO: update this when using postgres !!!
+    # => SQLite does not support timezones while grouping
+    Groupdate.time_zone = false
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
