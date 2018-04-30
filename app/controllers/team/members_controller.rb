@@ -14,15 +14,13 @@ class Team::MembersController < ApplicationController
   end
 
   def dashboard
-    # values = @member.progresses.group_by_month(:start)
-    #            .map { |progresses|
-    #   {name: progresses.first.start.month, data: progresses.map { |p| p.end-p.start }.sum}
-    # }
-    @values = @member.progresses
-                .group_by{ |p| p.start.month }
-                .sort_by{ |k,v| k }
-                .map{ |k,v| ["#{k} #{v.first.start.year}", v.map{ |p| p.time_spend }.sum / 3600] }
-    puts "values for diagram:", @values
+    if @member.role.to_sym == :owner
+      @time_spend_hours = @team.members.map { |m|
+        { name: m.user.realname, data: time_spend_series(m) }
+      }
+    else
+      @time_spend_hours = time_spend_series(@member)
+    end
   end
 
   def new
@@ -80,5 +78,12 @@ class Team::MembersController < ApplicationController
 
   def invite_params
     params.require(:invitations).permit(users: [])
+  end
+
+  def time_spend_series(member)
+    member.progresses.kept
+      .group_by{ |p| p.start.month }
+      .sort_by { |k,v| k }
+      .map{ |k,v| ["#{k} #{v.first.start.year}", v.map{ |p| p.time_spend }.sum / 3600] }
   end
 end

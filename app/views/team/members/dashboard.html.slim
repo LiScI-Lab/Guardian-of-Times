@@ -9,4 +9,5 @@
     h5 Dashboard for #{@team.name}
 
     h5 Total time spend in hours
-    = column_chart @values , xtitle: "Monat", ytitle: "Stunden"
+    = area_chart @time_spend_hours, discrete: true
+/@member.progresses.group_by{ |p| p.start.day }.map{|k,v| [k,v.size]}
