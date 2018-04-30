@@ -6,7 +6,8 @@
 
 .row
   .col.s12
-    h5 Dashboard for #{@team.name}
+    h5
+      | #{t('team.menu.my_dashboard')}
 .row
   = render 'team/dashboard/total_time_in_hours', time_spend_hours: @member.time_spend_series
 /@member.progresses.group_by{ |p| p.start.day }.map{|k,v| [k,v.size]}
