@@ -25,6 +25,18 @@ class Team::Member < ApplicationRecord
     progresses.kept.this_month.map { |p| p.time_spend }.sum
   end
 
+  def in_month_time_spend date
+    progresses.kept.in_month(date).map { |p| p.time_spend }.sum
+  end
+
+  def time_spend_series
+    data = {}
+    progresses.kept.group_by_month(:start).count.map do |k,v|
+      data[k.end_of_month] = in_month_time_spend(k) /3600
+    end
+    data
+  end
+
   private
   def set_joined
     self.status = :joined
