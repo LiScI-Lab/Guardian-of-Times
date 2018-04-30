@@ -1,0 +1,18 @@
+= simple_form_for(:filter, url: url, method: :get) do |f|
+  = render 'application/form', f: f
+    = f.select :month, month_with_index, selected: current_month
+    = f.label :tag_list
+    = f.select :member_name, available_members.prepend(""), selected: available_members.first
+    .chips for="filter_tag_list"
+    = f.hidden_field :tag_list
+    = link_to 'Clear', url, class: 'waves-effect waves-light btn'
+
+javascript:
+    function form() {
+        let tags = #{{ (@progress) ? @progress.tags.pluck(:name).to_json : [].to_json }}
+    let autocomplete_tags = #{{ Team::Progress.tags_on(:tags).pluck(:name).to_json }}
+    timetracker.app.init_chips($('.filter .chips'), tags, autocomplete_tags)
+    }
+
+    $(document).on('turbolinks:load', form)
+    $(document).ready(form)

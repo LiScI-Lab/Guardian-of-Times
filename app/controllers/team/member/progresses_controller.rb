@@ -1,4 +1,5 @@
 class Team::Member::ProgressesController < ApplicationController
+  include ::ProgressFilter
   layout 'team'
 
   load_and_authorize_resource :team
@@ -8,8 +9,9 @@ class Team::Member::ProgressesController < ApplicationController
   #TODO: use materializecss datepicker instead of input field ??
 
   def index
-    @progresses = @member.progresses
+    @progresses = get_filtered_progresses(@member)
     @progress = Team::Progress.new(start: DateTime.now, team: @team, member: @member)
+    @tag_list = Team::Progress.tags_on(:tag)
   end
 
   def create

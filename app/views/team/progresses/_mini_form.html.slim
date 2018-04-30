@@ -16,8 +16,8 @@ javascript:
   function form() {
     let tags = #{{ @progress.tags.pluck(:name).to_json }}
     let autocomplete_tags = #{{ Team::Progress.tags_on(:tags).pluck(:name).to_json }}
-    timetracker.app.init_chips($('.chips'), tags, autocomplete_tags)
-  }
+    timetracker.app.init_chips($('.new_progress .chips'), tags, autocomplete_tags)
+    }
 
-  $(document).on('turbolinks:load', form)
-  $(document).ready(form)
+    $(document).on('turbolinks:load', form)
+    $(document).ready(form)
