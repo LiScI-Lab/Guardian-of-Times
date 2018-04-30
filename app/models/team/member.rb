@@ -25,6 +25,10 @@ class Team::Member < ApplicationRecord
     progresses.kept.this_month.map { |p| p.time_spend }.sum
   end
 
+  def recent_target_hours
+    (target_hours.last) ? target_hours.last.hours : 0
+  end
+
   private
   def set_joined
     self.status = :joined
