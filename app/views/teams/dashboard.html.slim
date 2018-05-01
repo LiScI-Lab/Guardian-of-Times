@@ -8,5 +8,5 @@
 
 .row
   = render 'team/dashboard/total_time_in_hours', time_spend_hours: @team.time_spend_series
-  /.col.s12.m6
-    = column_chart @team.progresses.this_month.group_by(:member).sum(&:time_spend)
+.row
+  = render 'team/dashboard/actual_vs_expected_hours', series: @team.actual_vs_expected_hours

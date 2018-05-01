@@ -11,5 +11,4 @@
 .row
   = render 'team/dashboard/total_time_in_hours', time_spend_hours: @member.time_spend_series
 .row
-    h5 Time spend in #{Date::MONTHNAMES[DateTime.now.month]} #{DateTime.now.year}
-    = column_chart @member.current_month_vs_time_spend
+  = render 'team/dashboard/actual_vs_expected_hours', series: @member.actual_vs_expected_hours
