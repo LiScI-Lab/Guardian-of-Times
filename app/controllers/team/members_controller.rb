@@ -1,4 +1,6 @@
+# coding: utf-8
 class Team::MembersController < ApplicationController
+  include DateTimeHelper
   layout 'team'
 
   load_and_authorize_resource :team
@@ -13,6 +15,19 @@ class Team::MembersController < ApplicationController
   end
 
   def dashboard
+    # ===== DO NOT KILL THIS ===========================================
+      # spend_hours = @team.members.map { |m|
+      #   [m.user.realname, seconds_to_hours(m.current_month_time_spend)]
+      # }
+      # target_hours = @team.members.map { |m|
+      #   [m.user.realname, m.recent_target_hours]
+      # }
+
+      # @time_spend_with_target_hours = [
+      #   {name: "Time spend", data: spend_hours},
+      #   {name: "Time Vertrag", data: target_hours}
+      # ]
+    # ===== DO NOT KILL THIS ===========================================
   end
 
   def new

@@ -6,4 +6,9 @@
 
 .row
   .col.s12
-    h5 TODO My Dashboard!!!!
+    h5
+      | #{t('team.menu.my_dashboard')}
+.row
+  = render 'team/dashboard/total_time_in_hours', time_spend_hours: @member.time_spend_series
+.row
+  = render 'team/dashboard/actual_vs_expected_hours', series: @member.actual_vs_expected_hours

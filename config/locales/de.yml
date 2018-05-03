@@ -62,7 +62,7 @@ de:
       exports: "Export"
       dashboard: "Dashboard"
       my_progresses: "Meine Fortschritte"
-      my_dashboard: "Mein Dashbaord"
+      my_dashboard: "Mein Dashboard"
       discarded_progresses: "Gelöschte Fortschritte"
     actions:
       join: "Beitreten"

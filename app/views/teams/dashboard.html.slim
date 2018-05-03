@@ -4,4 +4,9 @@
       = mdi_tag 'pencil'
 .row
   .col.s12
-    h5 TODO Dashboard!!!!
+    h5 Dashboard
+
+.row
+  = render 'team/dashboard/total_time_in_hours', time_spend_hours: @team.time_spend_series
+.row
+  = render 'team/dashboard/actual_vs_expected_hours', series: @team.actual_vs_expected_hours

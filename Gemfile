@@ -60,7 +60,10 @@ gem 'activeadmin'
 
 # Creating graphs with less work - Read more: http://chartkick.com/
 gem 'chartkick'
-gem 'chartjs-ror'
+#gem 'chartjs-ror'
+
+#date&time grouping
+gem 'groupdate'
 
 # Nested Forms helper
 #gem 'cocoon'
@@ -113,4 +116,8 @@ group :development do
   gem 'binding_of_caller'
 
   gem 'faker'
+
+  #better repl & repl-doc browsing
+  gem 'pry-rails'
+  gem 'pry-doc'
 end

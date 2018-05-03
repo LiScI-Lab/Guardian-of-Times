@@ -21,4 +21,20 @@ class Team < ApplicationRecord
   def member(user)
     members.find_by(user: user)
   end
+
+  def time_spend_series
+    members.map { |m|
+      { name: m.user.realname, data: m.time_spend_series }
+    }
+  end
+
+  def actual_vs_expected_hours
+    timings_spend = members.map(&:time_spend_data)
+    expected_timings = members.map(&:expected_time_data)
+    # raise 'dump'
+    [
+      {name: "Time spend", data: timings_spend},
+      {name: "Time expected", data: expected_timings}
+    ]
+  end
 end

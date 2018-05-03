@@ -1,4 +1,6 @@
 class Team::Member < ApplicationRecord
+  include DateTimeHelper
+
   acts_as_tagger
 
   enum status: {invited: 0, leaved: 5, removed: 10, joined: 100}
@@ -23,6 +25,37 @@ class Team::Member < ApplicationRecord
 
   def current_month_time_spend
     progresses.kept.this_month.map { |p| p.time_spend }.sum
+  end
+
+  def time_spend_data
+    [user.realname, seconds_to_hours(current_month_time_spend)]
+  end
+
+  def expected_time_data
+    [user.realname, recent_target_hours]
+  end
+
+  def actual_vs_expected_hours
+    [
+      {name: "Time spend", data: [time_spend_data]},
+      {name: "Time expected", data: [expected_time_data]}
+    ]
+  end
+
+  def recent_target_hours
+    (target_hours.last) ? target_hours.last.hours : 0
+  end
+
+  def in_month_time_spend date
+    progresses.kept.in_month(date).map { |p| p.time_spend }.sum
+  end
+
+  def time_spend_series
+    data = {}
+    progresses.kept.group_by_month(:start).count.map do |k,v|
+      data[k.end_of_month] = in_month_time_spend(k) /3600
+    end
+    data
   end
 
   private
