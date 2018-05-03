@@ -28,13 +28,17 @@ class Team < ApplicationRecord
     }
   end
 
-  def actual_vs_expected_hours
-    timings_spend = members.map(&:time_spend_data)
-    expected_timings = members.map(&:expected_time_data)
+  def current_month_actual_vs_expected_hours
+    in_month_actual_vs_expected_hours(DateTime.now)
+  end
+
+  def in_month_actual_vs_expected_hours(date)
+    timings_spend = members.map { |member| member.time_spend_data(date)}
+    expected_timings = members.map { |member| member.expected_time_data(date)}
     # raise 'dump'
     [
-      {name: "Time spend", data: timings_spend},
-      {name: "Time expected", data: expected_timings}
+      {name: I18n.t('dashboard.spend_hours'), data: timings_spend},
+      {name: I18n.t('dashboard.target_hours'), data: expected_timings}
     ]
   end
 end

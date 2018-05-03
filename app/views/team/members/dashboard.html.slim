@@ -11,4 +11,8 @@
 .row
   = render 'team/dashboard/total_time_in_hours', time_spend_hours: @member.time_spend_series
 .row
-  = render 'team/dashboard/actual_vs_expected_hours', series: @member.actual_vs_expected_hours
+  .col.s12.m6
+    = render 'team/dashboard/actual_vs_expected_hours', series: @member.current_month_actual_vs_expected_hours
+  .col.s12.m6
+    - date = DateTime.now - 1.months
+    = render 'team/dashboard/actual_vs_expected_hours', date: date, series: @member.in_month_actual_vs_expected_hours(date)

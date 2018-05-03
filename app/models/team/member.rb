@@ -23,31 +23,36 @@ class Team::Member < ApplicationRecord
     progresses.kept.map { |p| p.time_spend }.sum
   end
 
+  def in_month_time_spend date
+    progresses.kept.in_month(date).map { |p| p.time_spend }.sum
+  end
+
   def current_month_time_spend
     progresses.kept.this_month.map { |p| p.time_spend }.sum
   end
 
-  def time_spend_data
-    [user.realname, seconds_to_hours(current_month_time_spend)]
+  def time_spend_data(date)
+    [user.realname, seconds_to_hours(in_month_time_spend(date))]
   end
 
-  def expected_time_data
+  def expected_time_data(date)
     [user.realname, recent_target_hours]
   end
 
-  def actual_vs_expected_hours
+  def current_month_actual_vs_expected_hours
+    in_month_actual_vs_expected_hours(DateTime.now)
+  end
+
+
+  def in_month_actual_vs_expected_hours(date)
     [
-      {name: "Time spend", data: [time_spend_data]},
-      {name: "Time expected", data: [expected_time_data]}
+      {name: "Time spend", data: [time_spend_data(date)]},
+      {name: "Time expected", data: [expected_time_data(date)]}
     ]
   end
 
   def recent_target_hours
     (target_hours.last) ? target_hours.last.hours : 0
-  end
-
-  def in_month_time_spend date
-    progresses.kept.in_month(date).map { |p| p.time_spend }.sum
   end
 
   def time_spend_series

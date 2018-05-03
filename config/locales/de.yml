@@ -33,6 +33,7 @@ de:
   date:
     formats:
       birthday: "%d.%m.%Y"
+      month_with_year: "%B %Y"
   menu:
     teams: "Teams"
     dashboard: "Dashboard"
@@ -80,3 +81,8 @@ de:
       filter:
         clear: "Löschen"
         apply: "Anwenden"
+  dashboard:
+    time_spend_in: "Arbeitszeiten im %{date}"
+    total_time_spend: "Gesamte Arbeitszeit"
+    target_hours: "Sollstunden"
+    spend_hours: "Arbeitsstunden"
