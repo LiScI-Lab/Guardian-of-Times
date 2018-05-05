@@ -9,6 +9,7 @@ class Team::Progress < ApplicationRecord
   scope :in_month, -> (date){where(start: date.beginning_of_month..date.end_of_month)}
   scope :this_month, -> {in_month(DateTime.now)}
   scope :ongoing, -> {where end: nil}
+  scope :finished, -> {where.not end: nil}
 
   validates :start, presence: true
 

@@ -1,4 +1,6 @@
 class Team::Member < ApplicationRecord
+  include Statistics
+
   include DateTimeHelper
 
   acts_as_tagger
@@ -36,7 +38,18 @@ class Team::Member < ApplicationRecord
   end
 
   def expected_time_data(date)
-    [user.realname, recent_target_hours]
+    [user.realname, matching_target_hours(date)]
+  end
+
+  def spend_time_percentage_data(date)
+    current_hours = seconds_to_hours(in_month_time_spend(date))
+    target_hours = matching_target_hours(date)
+
+    if target_hours > 0
+      [user.realname, ((100.0 / target_hours) * current_hours).to_i]
+    else
+      [user.realname, 0]
+    end
   end
 
   def current_month_actual_vs_expected_hours
@@ -46,13 +59,24 @@ class Team::Member < ApplicationRecord
 
   def in_month_actual_vs_expected_hours(date)
     [
-      {name: "Time spend", data: [time_spend_data(date)]},
-      {name: "Time expected", data: [expected_time_data(date)]}
+      {name: I18n.t('dashboard.spend_hours'), data: [time_spend_data(date)]},
+      {name: I18n.t('dashboard.target_hours'), data: [expected_time_data(date)]}
     ]
   end
 
-  def recent_target_hours
-    (target_hours.last) ? target_hours.last.hours : 0
+  def current_month_spend_time_percentages
+    in_month_spend_time_percentages(DateTime.now)
+  end
+
+  def in_month_spend_time_percentages(date)
+    [
+        {name: I18n.t('dashboard.spend_hours_by_percentage'), data: spend_time_percentage_data(date)},
+    ]
+  end
+
+  def matching_target_hours(date)
+    target_hour = target_hours.in_month(date).last
+    (target_hour) ? target_hour.hours : 0
   end
 
   def time_spend_series

@@ -1,0 +1,5 @@
+- date = DateTime.now unless local_assigns[:date]
+
+h6
+  | #{t('dashboard.spend_time_percentages_in', date: l(date.to_date, format: :month_with_year))}
+= column_chart series, suffix: '%'

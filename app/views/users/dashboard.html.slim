@@ -1,10 +1,23 @@
 .row
   .col.s10
-    h5 TODO User Dashboard!!!!
+    h5 Dashboard
   .col.s2
     - tooltip = if @user == @current_user then t('tooltip.user.self.edit') else t('tooltip.user.edit', name: @user.realname) end
     = link_to edit_user_path(@user), class: 'btn-floating btn-large waves-effect waves-light orange right tooltipped', data: { position: 'left', tooltip: tooltip }
       = mdi_tag 'pencil'
 
+- last_month = DateTime.now - 1.months
 .row
-  = @user.realname
+  .col.s6.m3
+    = render 'team/dashboard/spend_time_by_day_of_week', chart_id: 1, series: @user.all_time_spend_time_by_day_of_week, all_time: true
+  .col.s6.m3
+    = render 'team/dashboard/spend_time_by_day_of_week', chart_id: 2, date: last_month, series: @user.in_month_spend_time_by_day_of_week(last_month)
+  .col.s6.m3
+    = render 'team/dashboard/spend_time_by_day_of_week', chart_id: 3, series: @user.current_month_spend_time_by_day_of_week
+.row
+  .col.s6.m3
+    = render 'team/dashboard/spend_time_by_hour_of_day', chart_id: 4, series: @user.all_time_spend_time_by_hour_of_day, all_time: true
+  .col.s6.m3
+    = render 'team/dashboard/spend_time_by_hour_of_day', chart_id: 5, date: last_month, series: @user.in_month_spend_time_by_hour_of_day(last_month)
+  .col.s6.m3
+    = render 'team/dashboard/spend_time_by_hour_of_day', chart_id: 6, series: @user.current_month_spend_time_by_hour_of_day

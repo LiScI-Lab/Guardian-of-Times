@@ -1,0 +1,10 @@
+- date = DateTime.now unless local_assigns[:date]
+
+- data = {labels: series.keys, datasets:[{backgroundColor: "rgba(0,150,136,0.2)", borderColor: "rgba(0,150,136,0.8)", data: series.values}]}
+
+h6
+  - if local_assigns[:all_time]
+    | #{t('dashboard.spend_time_by_hour_of_day')}
+  - else
+    | #{t('dashboard.spend_time_by_hour_of_day_in', date: l(date.to_date, format: :month_with_year))}
+= chartjs_radar_chart data, {legend: {display: false}, id: "chartjs-#{chart_id}"}

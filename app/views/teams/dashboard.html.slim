@@ -2,16 +2,35 @@
   - content_for :halfway_fab
     = link_to edit_team_path(@team), class: 'btn-floating btn-large halfway-fab waves-effect waves-light tooltipped orange', data: {position: 'left', tooltip: t('tooltip.team.edit')}
       = mdi_tag 'pencil'
+
+- last_month = DateTime.now - 1.months
 .row
   .col.s12
     h5 Dashboard
 
 .row
   = render 'team/dashboard/total_time_in_hours', time_spend_hours: @team.time_spend_series
+
 .row
   .col.s12
-    = render 'team/dashboard/actual_vs_expected_hours', series: @team.current_month_actual_vs_expected_hours
+    = render 'team/dashboard/actual_vs_expected_hours', date: last_month, series: @team.in_month_actual_vs_expected_hours(last_month)
 .row
-  - date = DateTime.now - 1.months
-  .col.s12
-    = render 'team/dashboard/actual_vs_expected_hours', date: date, series: @team.in_month_actual_vs_expected_hours(date)
+  .col.s12.m6
+    = render 'team/dashboard/spend_time_percentages', series: @team.current_month_spend_time_percentages
+  .col.s12.m6
+    = render 'team/dashboard/spend_time_percentages', date: last_month, series: @team.in_month_spend_time_percentages(last_month)
+
+.row
+  .col.s6.m3
+    = render 'team/dashboard/spend_time_by_day_of_week', chart_id: 1, series: @team.all_time_spend_time_by_day_of_week, all_time: true
+  .col.s6.m3
+    = render 'team/dashboard/spend_time_by_day_of_week', chart_id: 2, date: last_month, series: @team.in_month_spend_time_by_day_of_week(last_month)
+  .col.s6.m3
+    = render 'team/dashboard/spend_time_by_day_of_week', chart_id: 3, series: @team.current_month_spend_time_by_day_of_week
+.row
+  .col.s6.m3
+    = render 'team/dashboard/spend_time_by_hour_of_day', chart_id: 4, series: @team.all_time_spend_time_by_hour_of_day, all_time: true
+  .col.s6.m3
+    = render 'team/dashboard/spend_time_by_hour_of_day', chart_id: 5, date: last_month, series: @team.in_month_spend_time_by_hour_of_day(last_month)
+  .col.s6.m3
+    = render 'team/dashboard/spend_time_by_hour_of_day', chart_id: 6, series: @team.current_month_spend_time_by_hour_of_day

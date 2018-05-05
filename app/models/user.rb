@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include Statistics
+
   enum role: {user: 0, admin: 100}
 
   acts_as_token_authenticatable
@@ -21,7 +23,7 @@ class User < ApplicationRecord
   has_many :involved_teams, through: :involved_team_members, class_name: Team.name, source: :team
   has_many :own_teams, through: :own_team_members, class_name: Team.name, source: :team
 
-  has_many :team_progresses, through: :team_members, class_name: Team::Progress.name
+  has_many :progresses, through: :team_members, class_name: Team::Progress.name
 
   validates :email, presence: true, uniqueness: true
   validates :username, presence: true, uniqueness: true

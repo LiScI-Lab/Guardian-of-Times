@@ -4,6 +4,7 @@
     = link_to edit_team_member_path(@team, @member), class: 'btn-floating btn-large halfway-fab waves-effect waves-light tooltipped orange', data: {position: 'left', tooltip: tooltip}
       = mdi_tag 'pencil'
 
+- last_month = DateTime.now - 1.months
 .row
   .col.s12
     h5
@@ -14,5 +15,19 @@
   .col.s12.m6
     = render 'team/dashboard/actual_vs_expected_hours', series: @member.current_month_actual_vs_expected_hours
   .col.s12.m6
-    - date = DateTime.now - 1.months
-    = render 'team/dashboard/actual_vs_expected_hours', date: date, series: @member.in_month_actual_vs_expected_hours(date)
+    = render 'team/dashboard/actual_vs_expected_hours', date: last_month, series: @member.in_month_actual_vs_expected_hours(last_month)
+
+.row
+  .col.s6.m3
+    = render 'team/dashboard/spend_time_by_day_of_week', chart_id: 1, series: @member.all_time_spend_time_by_day_of_week, all_time: true
+  .col.s6.m3
+    = render 'team/dashboard/spend_time_by_day_of_week', chart_id: 2, date: last_month, series: @member.in_month_spend_time_by_day_of_week(last_month)
+  .col.s6.m3
+    = render 'team/dashboard/spend_time_by_day_of_week', chart_id: 3, series: @member.current_month_spend_time_by_day_of_week
+.row
+  .col.s6.m3
+    = render 'team/dashboard/spend_time_by_hour_of_day', chart_id: 4, series: @member.all_time_spend_time_by_hour_of_day, all_time: true
+  .col.s6.m3
+    = render 'team/dashboard/spend_time_by_hour_of_day', chart_id: 5, date: last_month, series: @member.in_month_spend_time_by_hour_of_day(last_month)
+  .col.s6.m3
+    = render 'team/dashboard/spend_time_by_hour_of_day', chart_id: 6, series: @member.current_month_spend_time_by_hour_of_day

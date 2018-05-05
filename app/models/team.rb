@@ -1,4 +1,6 @@
 class Team < ApplicationRecord
+  include Statistics
+
   has_ancestry
   acts_as_taggable
 
@@ -35,10 +37,22 @@ class Team < ApplicationRecord
   def in_month_actual_vs_expected_hours(date)
     timings_spend = members.map { |member| member.time_spend_data(date)}
     expected_timings = members.map { |member| member.expected_time_data(date)}
-    # raise 'dump'
     [
       {name: I18n.t('dashboard.spend_hours'), data: timings_spend},
       {name: I18n.t('dashboard.target_hours'), data: expected_timings}
     ]
   end
+
+  def current_month_spend_time_percentages
+    in_month_spend_time_percentages(DateTime.now)
+  end
+
+  def in_month_spend_time_percentages(date)
+    timings_spend = members.map { |member| member.spend_time_percentage_data(date)}
+    [
+        {name: I18n.t('dashboard.spend_hours_by_percentage'), data: timings_spend},
+    ]
+  end
+
+
 end
