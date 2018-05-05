@@ -1,0 +1,67 @@
+== Setting up the servers for our rails apps
+
+=== Required gems
+
+[source,ruby]
+----
+  # Capistrano for Deployment to server
+  gem 'capistrano', require: false
+  gem 'capistrano-rvm', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-systemd', require: false
+  gem 'capistrano-maintenance', require: false
+  gem 'capistrano-pending', require: false
+  gem 'pg' #postgres database
+----
+
+Add the capistrano-related gems to the _development_ group and the `pg` gem to the _production_ group.
+
+=== Prerequisites
+Install the dependencies on the server:
+
+[source,sh]
+----
+apt-get update
+#postgres
+apt-get install postgresql postgresql-contrib libpq-dev
+----
+
+=== Capistrano configuration
+Setup capistrano in your repository by running:
+
+[source,sh]
+----
+bundle install
+bundle exec cap install
+----
+
+ To minimize the configuration steps, copy the files over from one of the existing applications (gildamesh/dozentron).
+Then update the following two configs in `config/deploy.rb`:
+
+[source,ruby]
+----
+set :application, '<app name>'
+set :repo_url, '<app repository url>'
+----
+
+Update the deploy configuration for production in `config/deploy/production.rb`:
+
+[source,ruby]
+----
+server '<production server url>', user: 'production', roles: %w{app db web}
+set :branch, 'master'
+----
+
+Add the following lines to the database configuration in `config/database.yml`:
+
+[source,yaml]
+----
+server_default: &server_default
+  adapter: postgresql
+  encoding: unicode
+  pool: 10
+
+production:
+  <<: *server_default
+----
