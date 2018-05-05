@@ -33,22 +33,25 @@ class Team::Member < ApplicationRecord
     progresses.kept.this_month.map { |p| p.time_spend }.sum
   end
 
-  def time_spend_data(date)
-    [user.realname, seconds_to_hours(in_month_time_spend(date))]
+  def time_spend_data(date, by_team=false)
+    name = if by_team then team.name else user.realname end
+    [name, seconds_to_hours(in_month_time_spend(date))]
   end
 
-  def expected_time_data(date)
-    [user.realname, matching_target_hours(date)]
+  def expected_time_data(date, by_team=false)
+    name = if by_team then team.name else user.realname end
+    [name, matching_target_hours(date)]
   end
 
-  def spend_time_percentage_data(date)
+  def spend_time_percentage_data(date, by_team=false)
+    name = if by_team then team.name else user.realname end
     current_hours = seconds_to_hours(in_month_time_spend(date))
     target_hours = matching_target_hours(date)
 
     if target_hours > 0
-      [user.realname, ((100.0 / target_hours) * current_hours).to_i]
+      [name, ((100.0 / target_hours) * current_hours).to_i]
     else
-      [user.realname, 0]
+      [name, 0]
     end
   end
 
@@ -82,7 +85,7 @@ class Team::Member < ApplicationRecord
   def time_spend_series
     data = {}
     progresses.kept.group_by_month(:start).count.map do |k,v|
-      data[k.end_of_month] = in_month_time_spend(k) /3600
+      data[k.end_of_month] = seconds_to_hours(in_month_time_spend(k))
     end
     data
   end

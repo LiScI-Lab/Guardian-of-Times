@@ -7,6 +7,19 @@
       = mdi_tag 'pencil'
 
 - last_month = DateTime.now - 1.months
+
+.row
+  = render 'team/dashboard/total_time_in_hours', time_spend_hours: @user.time_spend_series
+
+.row
+  .col.s12
+    = render 'team/dashboard/actual_vs_expected_hours', date: last_month, series: @user.in_month_actual_vs_expected_hours(last_month)
+.row
+  .col.s12.m6
+    = render 'team/dashboard/spend_time_percentages', series: @user.current_month_spend_time_percentages
+  .col.s12.m6
+    = render 'team/dashboard/spend_time_percentages', date: last_month, series: @user.in_month_spend_time_percentages(last_month)
+
 .row
   .col.s6.m3
     = render 'team/dashboard/spend_time_by_day_of_week', chart_id: 1, series: @user.all_time_spend_time_by_day_of_week, all_time: true

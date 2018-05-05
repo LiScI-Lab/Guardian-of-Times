@@ -53,6 +53,4 @@ class Team < ApplicationRecord
         {name: I18n.t('dashboard.spend_hours_by_percentage'), data: timings_spend},
     ]
   end
-
-
 end

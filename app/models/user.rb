@@ -37,4 +37,35 @@ class User < ApplicationRecord
       self.role = :admin
     end
   end
+
+
+  def time_spend_series
+    team_members.kept.map { |m|
+      { name: m.team.name, data: m.time_spend_series }
+    }
+  end
+
+  def current_month_actual_vs_expected_hours
+    in_month_actual_vs_expected_hours(DateTime.now)
+  end
+
+  def in_month_actual_vs_expected_hours(date)
+    timings_spend = team_members.map { |member| member.time_spend_data(date, by_team:true)}
+    expected_timings = team_members.map { |member| member.expected_time_data(date, by_team:true)}
+    [
+        {name: I18n.t('dashboard.spend_hours'), data: timings_spend},
+        {name: I18n.t('dashboard.target_hours'), data: expected_timings}
+    ]
+  end
+
+  def current_month_spend_time_percentages
+    in_month_spend_time_percentages(DateTime.now)
+  end
+
+  def in_month_spend_time_percentages(date)
+    timings_spend = team_members.map { |member| member.spend_time_percentage_data(date, by_team:true)}
+    [
+        {name: I18n.t('dashboard.spend_hours_by_percentage'), data: timings_spend},
+    ]
+  end
 end
