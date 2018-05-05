@@ -6,8 +6,14 @@ class User < ApplicationRecord
   acts_as_token_authenticatable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  omniauth_providers = []
+  omniauth_providers << :cas3 if Settings.omniauth.cas3.enabled
+  omniauth_providers << :google_oauth2 if Settings.omniauth.google.enabled
+  omniauth_providers << :twitter if Settings.omniauth.twitter.enabled
+  omniauth_providers << :github if Settings.omniauth.github.enabled
+
   devise :database_authenticatable, :trackable,
-         :omniauthable, omniauth_providers: [:google_oauth2, :twitter, :github, :cas3]
+         :omniauthable, omniauth_providers: omniauth_providers
 
   has_many :team_members, class_name: Team::Member.name
   has_many :invited_team_members, -> {kept.invited}, class_name: Team::Member.name

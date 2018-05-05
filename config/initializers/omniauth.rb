@@ -1,9 +1,19 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :developer unless Rails.env.production?
 
-  provider :cas3, host: 'cas.thm.de', ssl: true, service_validate_url: '/cas/serviceValidate', uid_field: 'username'
+  if Settings.omniauth.cas3.enabled
+    provider :cas3, host: Settings.omniauth.cas3.host, ssl: true, service_validate_url: Settings.omniauth.cas3.service_validate_url, uid_field: Settings.omniauth.cas3.uid_field
+  end
 
-  provider :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET']
-  provider :twitter, ENV['TWITTER_KEY'], ENV['TWITTER_SECRET']
-  provider :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET']
+  if Settings.omniauth.google.enabled
+    provider :google_oauth2, Settings.omniauth.google.client_id, Settings.omniauth.google.client_secret
+  end
+
+  if Settings.omniauth.twitter.enabled
+    provider :twitter, Settings.omniauth.twitter.key, Settings.omniauth.twitter.secret
+  end
+
+  if Settings.omniauth.github.enabled
+    provider :github, Settings.omniauth.github.key, Settings.omniauth.github.secret
+  end
 end

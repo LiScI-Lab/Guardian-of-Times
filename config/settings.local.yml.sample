@@ -1,0 +1,27 @@
+seed:
+  email: ''
+  username: ''
+  first_name: ''
+  last_name: ''
+
+omniauth:
+  cas3:
+    enabled: true
+    host: ''
+    service_validate_url: ''
+    uid_field: ''
+
+  google:
+    enabled: false
+    client_id: ''
+    client_secret: ''
+
+  twitter:
+    enabled: false
+    key: ''
+    secret: ''
+
+  github:
+    enabled: false
+    key: ''
+    secret: ''
