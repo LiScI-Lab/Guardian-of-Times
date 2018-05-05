@@ -91,7 +91,7 @@ gem 'simple_form'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem 'capistrano-rails', group: :development
 gem 'http_accept_language'
 gem 'rails-i18n'
 gem 'enum_help'
