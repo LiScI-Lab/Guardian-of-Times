@@ -3,7 +3,7 @@ module ProgressFilter
   def get_filtered_progresses(model_with_progresses)
     month_filter = params[:filter][:month] if params[:filter]
     tag_list ||= params[:filter][:tag_list] if params[:filter]
-    member_filter ||= params[:filter][:member_name] if params[:filter]
+    member_filter ||= params[:filter][:member_id] if params[:filter]
 
     progresses = if month_filter && !month_filter.empty? && month_filter.to_i!=0 then
                    month_date = Date.new(DateTime.now.year, month_filter.to_i)
@@ -16,7 +16,7 @@ module ProgressFilter
                    progresses
                      .joins(:member)
                      .joins(:user)
-                     .where(users: {realname: member_filter})
+                     .where(team_member_id: member_filter)
                  else
                    progresses
                  end

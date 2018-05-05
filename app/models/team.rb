@@ -26,7 +26,7 @@ class Team < ApplicationRecord
 
   def time_spend_series
     members.map { |m|
-      { name: m.user.realname, data: m.time_spend_series }
+      { name: m.user.name, data: m.time_spend_series }
     }
   end
 

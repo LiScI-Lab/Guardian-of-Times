@@ -4,7 +4,9 @@ tr
   td
     = member.status_i18n
   td
-    = member.user.realname
+    = member.user.last_name
+  td
+    = member.user.first_name
   td
     = l(member.created_at.to_date)
   td

@@ -1,4 +1,4 @@
-class Team::SubTeamsController < ApplicationController
+class Team::SubTeamsController < SecurityController
   layout 'team'
 
   load_and_authorize_resource :team

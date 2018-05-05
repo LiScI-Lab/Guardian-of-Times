@@ -1,5 +1,5 @@
 # coding: utf-8
-class Team::MembersController < ApplicationController
+class Team::MembersController < SecurityController
   include DateTimeHelper
   layout 'team'
 

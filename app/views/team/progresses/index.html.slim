@@ -2,6 +2,6 @@
   .col.s12
     h5
       = t('team.menu.progresses')
-= render 'team/progresses/filter', url: team_progresses_path(@team), available_members: @team.members.map { |m| m.user.realname }
+= render 'team/progresses/filter', url: team_progresses_path(@team), available_members: @team.members
 .row
   = render 'team/progresses/progresses', progresses: @progresses.kept

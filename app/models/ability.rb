@@ -4,8 +4,9 @@ class Ability
   include AbilityTeam
 
   def initialize(user, member)
+    can [:index], :welcome
+
     if user
-      can [:index], :welcome
       can [:show, :dashboard], User, id: user.id
       can [:edit, :update], User, id: user.id
 

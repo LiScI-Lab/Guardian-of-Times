@@ -1,34 +1,36 @@
 - action = params[:action].to_sym
 
 ul#main-sidenav.sidenav
-  li class="#{"active" if controller.is_a? UsersController}"
-    = link_to dashboard_user_path(@current_user), class: 'nav-link'
-      = t('menu.dashboard')
-  li class="#{"active" if controller.is_a? TeamsController and [:owner, :index, :invited].include? action}"
-    = link_to teams_path, class: 'nav-link'
-      = t('menu.teams')
-      - if @current_user.invited_teams.any?
-        span.new.badge = @current_user.invited_teams.count
-  li
-    = link_to destroy_user_session_path, method: :delete
-    = mdi_tag 'logout'
+  - if @current_user
+    li class="#{"active" if controller.is_a? UsersController}"
+      = link_to dashboard_user_path(@current_user), class: 'nav-link'
+        = t('menu.dashboard')
+    li class="#{"active" if controller.is_a? TeamsController and [:owner, :index, :invited].include? action}"
+      = link_to teams_path, class: 'nav-link'
+        = t('menu.teams')
+        - if @current_user.invited_teams.any?
+          span.new.badge = @current_user.invited_teams.count
+    li
+      = link_to destroy_user_session_path, method: :delete
+        = mdi_tag 'logout'
 
-ul#dropdown-teams.dropdown-content
-  li
-    = link_to owner_teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :owner}"
-      = t('dropdown.teams.own')
-      - if @current_user.own_teams.any?
-        span.badge = @current_user.own_teams.count
-  li
-    = link_to teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :index}"
-      = t('dropdown.teams.involved')
-      - if @current_user.involved_teams.any?
-        span.badge = @current_user.involved_teams.count
-  li
-    = link_to invited_teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :invited}"
-      = t('dropdown.teams.invitations')
-      - if @current_user.invited_teams.any?
-        span.new.badge = @current_user.invited_teams.count
+- if @current_user
+  ul#dropdown-teams.dropdown-content
+    li
+      = link_to owner_teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :owner}"
+        = t('dropdown.teams.own')
+        - if @current_user.own_teams.any?
+          span.badge = @current_user.own_teams.count
+    li
+      = link_to teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :index}"
+        = t('dropdown.teams.involved')
+        - if @current_user.involved_teams.any?
+          span.badge = @current_user.involved_teams.count
+    li
+      = link_to invited_teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :invited}"
+        = t('dropdown.teams.invitations')
+        - if @current_user.invited_teams.any?
+          span.new.badge = @current_user.invited_teams.count
 
 nav.row.nav-extended
   .nav-wrapper
@@ -36,22 +38,23 @@ nav.row.nav-extended
       = link_to "TimeTracker", root_path, class: 'brand-logo'
       = link_to '#', class: 'sidenav-trigger', data: {target: 'main-sidenav', hover: true, turbolinks: false}
         = mdi_tag 'menu'
-    .col.l8.hide-on-med-and-down
-      ul
-        li class="#{"active" if controller.is_a? UsersController}"
-          = link_to dashboard_user_path(@current_user)
-            = t('menu.dashboard')
-        li class="#{"active" if controller.is_a? TeamsController and [:owner, :index, :invited].include? action}"
-          = link_to '#', class: 'dropdown-trigger no-autoinit', data: {target: 'dropdown-teams'}
-            = t('menu.teams')
-            - if @current_user.invited_teams.any?
-              span.new.badge = @current_user.invited_teams.count
-            = mdi_tag 'menu_down', class: 'right'
-    .col.l2.hide-on-med-and-down
-      ul.right
-        li
-          = link_to destroy_user_session_path, method: :delete
-            = mdi_tag 'logout'
+    - if @current_user
+      .col.l8.hide-on-med-and-down
+        ul
+          li class="#{"active" if controller.is_a? UsersController}"
+            = link_to dashboard_user_path(@current_user)
+              = t('menu.dashboard')
+          li class="#{"active" if controller.is_a? TeamsController and [:owner, :index, :invited].include? action}"
+            = link_to '#', class: 'dropdown-trigger no-autoinit', data: {target: 'dropdown-teams'}
+              = t('menu.teams')
+              - if @current_user.invited_teams.any?
+                span.new.badge = @current_user.invited_teams.count
+              = mdi_tag 'menu_down', class: 'right'
+      .col.l2.hide-on-med-and-down
+        ul.right
+          li
+            = link_to destroy_user_session_path, method: :delete
+              = mdi_tag 'logout'
 
   - if content_for?(:subtitle) or content_for?(:subnavtitle) or content_for?(:subnav)
     .nav-content.col.s12

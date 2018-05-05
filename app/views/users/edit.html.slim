@@ -1,5 +1,5 @@
 - content_for :subtitle
-  | Edit your profile #{@current_user.realname}
+  | Edit your profile #{@current_user.name}
 
 = render 'application/form_errors', errors: @current_user.errors
 = simple_form_for(@current_user) do |f|

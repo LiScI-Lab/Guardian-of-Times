@@ -25,7 +25,7 @@ html
       .column
         table
           tr
-            td#clear-style Name: #{@current_user.realname}
+            td#clear-style Name: #{@current_user.name}
             td#clear-style Fachbereich: #{@current_user.department.upcase}
           tr
             td#clear-style Geburtsdatum: #{l(@current_user.birthdate, format: :birthday)}

@@ -1,4 +1,4 @@
-class TeamsController < ApplicationController
+class TeamsController < SecurityController
   layout 'team'
 
   load_and_authorize_resource

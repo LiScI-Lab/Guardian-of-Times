@@ -90,11 +90,23 @@ ActiveRecord::Schema.define(version: 20180419094356) do
     t.index ["name"], name: "index_teams_on_name"
   end
 
+  create_table "user_identities", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "provider"
+    t.string "uid"
+    t.string "token"
+    t.string "secret"
+    t.string "profile_page"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_user_identities_on_discarded_at"
+    t.index ["user_id"], name: "index_user_identities_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
@@ -103,9 +115,11 @@ ActiveRecord::Schema.define(version: 20180419094356) do
     t.string "last_sign_in_ip"
     t.integer "role", default: 0, null: false
     t.string "username", null: false
-    t.string "realname", null: false
+    t.string "first_name"
+    t.string "last_name"
     t.string "department"
     t.date "birthdate"
+    t.string "avatar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
@@ -113,7 +127,6 @@ ActiveRecord::Schema.define(version: 20180419094356) do
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["discarded_at"], name: "index_users_on_discarded_at"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end

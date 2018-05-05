@@ -3,16 +3,9 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  acts_as_token_authentication_handler_for User
-
   before_action :set_locale_from_params
-  before_action :authenticate_user!
-  check_authorization unless: :unchecked_controller?
 
-  private
-  def unchecked_controller?
-    is_a?(::WelcomeController) or devise_controller?
-  end
+  check_authorization unless: :devise_controller?
 
   def authenticate_admin_user!
     raise SecurityError unless current_user.admin?

@@ -6,11 +6,8 @@ class User < ApplicationRecord
   acts_as_token_authenticatable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  if Rails.env.production? or Settings.use_CAS
-    devise :cas_authenticatable, :trackable
-  else
-    devise :database_authenticatable, :trackable
-  end
+  devise :database_authenticatable, :trackable,
+         :omniauthable, omniauth_providers: [:google_oauth2, :twitter, :github, :cas3]
 
   has_many :team_members, class_name: Team::Member.name
   has_many :invited_team_members, -> {kept.invited}, class_name: Team::Member.name
@@ -25,6 +22,8 @@ class User < ApplicationRecord
 
   has_many :progresses, through: :team_members, class_name: Team::Progress.name
 
+  has_many :identities, class_name: User::Identity.name
+
   validates :email, presence: true, uniqueness: true
   validates :username, presence: true, uniqueness: true
 
@@ -38,6 +37,70 @@ class User < ApplicationRecord
     end
   end
 
+
+  #tutorial from: http://stackoverflow.com/questions/21249749/rails-4-devise-omniauth-with-multiple-providers
+  def self.from_omniauth(auth, current_user)
+    if auth.provider == :cas3
+      identity = User::Identity.find_or_initialize_by provider: auth.provider, uid: auth.uid.to_s
+    else
+      identity = User::Identity.find_or_initialize_by provider: auth.provider, uid: auth.uid.to_s,
+                                                      token: auth.credentials.token,
+                                                      secret: auth.credentials.secret
+    end
+
+    identity.profile_page = auth.info.urls.first.last if auth.info.urls and not identity.persisted?
+
+    if identity.user.blank?
+      if auth.provider == :cas3
+        user = current_user || User.find_by(username: auth.extra.username)
+      else
+        user = current_user || User.find_by(email: auth['info']['email'])
+      end
+      if user.blank?
+        user = User.new
+        user.fetch_details(auth)
+        user.save
+      end
+      identity.user = user
+      identity.save
+    end
+    identity.user
+  end
+
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["omniauth.auth"]
+        user.email = data["email"] if user.email.blank?
+      end
+    end
+  end
+
+  def fetch_details(auth)
+    if auth.provider == :cas3
+      self.username = auth.extra.username
+      self.email = auth.extra.mail
+      self.first_name = auth.extra.firstnames
+      self.last_name = auth.extra.surnames
+      self.department = auth.extra.department
+    else
+      self.name = auth.info.name
+      self.username = auth.info.nickname
+      self.email = auth.info.email || auth.info.nickname + '@change.me'
+      self.picture = auth.info.image
+    end
+
+    if User.all.size == 0
+      self.role = :admin
+    end
+  end
+
+  def name
+    if first_name and last_name
+      "#{first_name} #{last_name}"
+    else
+      "#{username}"
+    end
+  end
 
   def time_spend_series
     team_members.kept.map { |m|

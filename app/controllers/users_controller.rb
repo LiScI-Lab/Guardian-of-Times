@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < SecurityController
   load_and_authorize_resource
 
   def show

@@ -1,4 +1,4 @@
-class Team::ProgressesController < ApplicationController
+class Team::ProgressesController < SecurityController
   include ::ProgressFilter
   layout 'team'
 

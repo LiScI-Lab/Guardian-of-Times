@@ -68,11 +68,16 @@ gem 'groupdate'
 # Nested Forms helper
 #gem 'cocoon'
 
-# CAS Authentication. Read more: https://github.com/nbudin/devise_cas_authenticatable
 gem 'devise'
-gem 'devise_cas_authenticatable'
 gem 'simple_token_authentication'
 gem 'devise-i18n'
+
+gem 'omniauth'
+gem 'omniauth-cas3'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-twitter'
+gem 'omniauth-github'
+
 gem 'acts-as-taggable-on'
 
 # Upload files with Carrierwave. Read more here: https://github.com/carrierwaveuploader/carrierwave

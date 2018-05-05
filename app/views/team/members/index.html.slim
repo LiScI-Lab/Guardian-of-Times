@@ -25,6 +25,8 @@
           th
             | Name
           th
+            | Vorname
+          th
             | Invited at
           th
             | Total
@@ -34,4 +36,4 @@
             | Options
       tbody
         - @members.order(role: :desc).kept.group(:role).select(:role).each do |member_role|
-          = render @members.joins(:user).order(status: :desc).where(role: member_role.role).kept.order('"users"."realname"')
+          = render @members.joins(:user).order(status: :desc).where(role: member_role.role).kept.order('"users"."last_name"')

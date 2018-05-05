@@ -1,4 +1,4 @@
-class Team::ExportController < ApplicationController
+class Team::ExportController < SecurityController
   layout 'team'
   load_and_authorize_resource :team
   authorize_resource :export, class: false

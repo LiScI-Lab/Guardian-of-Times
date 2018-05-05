@@ -34,17 +34,17 @@ class Team::Member < ApplicationRecord
   end
 
   def time_spend_data(date, by_team=false)
-    name = if by_team then team.name else user.realname end
+    name = if by_team then team.name else user.name end
     [name, seconds_to_hours(in_month_time_spend(date))]
   end
 
   def expected_time_data(date, by_team=false)
-    name = if by_team then team.name else user.realname end
+    name = if by_team then team.name else user.name end
     [name, matching_target_hours(date)]
   end
 
   def spend_time_percentage_data(date, by_team=false)
-    name = if by_team then team.name else user.realname end
+    name = if by_team then team.name else user.name end
     current_hours = seconds_to_hours(in_month_time_spend(date))
     target_hours = matching_target_hours(date)
 

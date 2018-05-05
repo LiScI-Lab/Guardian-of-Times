@@ -8,10 +8,10 @@
 
 Faker::Config.random = Random.new(42)
 
-user = User.create! email: Settings.seed.email, username: Settings.seed.username, realname: Settings.seed.realname
+user = User.create! email: Settings.seed.email, username: Settings.seed.username, first_name: Settings.seed.first_name, last_name: Settings.seed.last_name
 
 50.times do
-  User.create! email: Faker::Internet.unique.email, username: Faker::Internet.unique.user_name, realname: Faker::Name.name
+  User.create! email: Faker::Internet.unique.email, username: Faker::Internet.unique.user_name, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name
 
   name = ""
   while name.length < 5
