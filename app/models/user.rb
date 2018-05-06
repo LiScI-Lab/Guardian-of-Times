@@ -6,14 +6,9 @@ class User < ApplicationRecord
   acts_as_token_authenticatable
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  omniauth_providers = []
-  omniauth_providers << :cas3 if Settings.omniauth.cas3.enabled
-  omniauth_providers << :google_oauth2 if Settings.omniauth.google.enabled
-  omniauth_providers << :twitter if Settings.omniauth.twitter.enabled
-  omniauth_providers << :github if Settings.omniauth.github.enabled
 
   devise :database_authenticatable, :trackable,
-         :omniauthable, omniauth_providers: omniauth_providers
+         :omniauthable, omniauth_providers: Settings.omniauth.providers.enabled
 
   has_many :team_members, class_name: Team::Member.name
   has_many :invited_team_members, -> {kept.invited}, class_name: Team::Member.name
@@ -33,6 +28,8 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :username, presence: true, uniqueness: true
 
+  mount_uploader :avatar, AvatarUploader
+
   def cas_extra_attributes=(attributes)
     self.email = attributes['mail']
     self.username = attributes['username']
@@ -46,7 +43,7 @@ class User < ApplicationRecord
 
   #tutorial from: http://stackoverflow.com/questions/21249749/rails-4-devise-omniauth-with-multiple-providers
   def self.from_omniauth(auth, current_user)
-    if auth.provider == :cas3
+    if auth.provider.to_sym == :cas3 or auth.provider.to_sym == :google_oauth2
       identity = User::Identity.find_or_initialize_by provider: auth.provider, uid: auth.uid.to_s
     else
       identity = User::Identity.find_or_initialize_by provider: auth.provider, uid: auth.uid.to_s,
@@ -54,13 +51,17 @@ class User < ApplicationRecord
                                                       secret: auth.credentials.secret
     end
 
-    identity.profile_page = auth.info.urls.first.last if auth.info.urls and not identity.persisted?
+    if auth.info.urls and not identity.persisted?
+      auth.info.urls.each do |url|
+        identity.profile_page ||= url.last
+      end
+    end
 
     if identity.user.blank?
       if auth.provider == :cas3
         user = current_user || User.find_by(username: auth.extra.username)
       else
-        user = current_user || User.find_by(email: auth['info']['email'])
+        user = current_user || User.find_by(email: auth.info.email)
       end
       if user.blank?
         user = User.new
@@ -89,10 +90,15 @@ class User < ApplicationRecord
       self.last_name = auth.extra.surnames
       self.department = auth.extra.department
     else
-      self.name = auth.info.name
-      self.username = auth.info.nickname
+      if auth.info.first_name and auth.info.last_name
+        self.first_name = auth.info.first_name
+        self.last_name = auth.info.last_name
+      else
+        self.name = auth.info.name
+      end
       self.email = auth.info.email || auth.info.nickname + '@change.me'
-      self.picture = auth.info.image
+      self.username = auth.info.nickname || self.email
+      self.external_avatar = auth.info.image
     end
 
     if User.all.size == 0
@@ -106,6 +112,11 @@ class User < ApplicationRecord
     else
       "#{username}"
     end
+  end
+
+  def name=(value)
+    self.first_name = value.split.first
+    self.last_name = value.split.last
   end
 
   def time_spend_series

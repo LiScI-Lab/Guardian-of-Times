@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 20180419094356) do
     t.string "department"
     t.date "birthdate"
     t.string "avatar"
+    t.string "external_avatar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"

@@ -41,6 +41,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
 
       t.date :birthdate
       t.string :avatar
+      t.string :external_avatar
 
       t.timestamps null: false
       t.datetime :discarded_at, index: true

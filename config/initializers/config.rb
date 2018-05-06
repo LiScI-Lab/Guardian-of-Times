@@ -42,4 +42,14 @@ Config.setup do |config|
   #   required(:email).filled(format?: EMAIL_REGEX)
   # end
 
+  config.schema do
+    required(:omniauth).schema do
+      required(:providers).schema do
+        required(:all).filled
+        required(:all).value(:array?)
+        required(:enabled).filled
+        required(:enabled).value(:array?)
+      end
+    end
+  end
 end

@@ -77,11 +77,18 @@ gem 'omniauth-cas3'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 gem 'omniauth-github'
+gem 'omniauth-facebook'
+gem 'omniauth-windowslive'
+gem 'omniauth-xing'
+gem 'omniauth-linkedin-oauth2'
+#gem 'omniauth-slack'
+gem 'omniauth-steam'
+
 
 gem 'acts-as-taggable-on'
 
 # Upload files with Carrierwave. Read more here: https://github.com/carrierwaveuploader/carrierwave
-#gem 'carrierwave'
+gem 'carrierwave'
 
 # CanCanCan - User authorisation. More here: https://github.com/CanCanCommunity/cancancan
 gem 'cancancan'
