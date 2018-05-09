@@ -3,7 +3,8 @@
   - selected_tag_list = params[:filter][:tag_list] if params[:filter]
   = f.input :month, collection: 1..12, selected: selected_month, wrapper_html: {class: 's6 m3 l2'}, label_method: lambda {|m| t('date.month_names')[m]}, include_blank: :translate, required: false
   - if local_assigns[:available_members]
-    = f.input :member_id, collection: available_members, selected: available_members.first, wrapper_html: {class: 's6 m3 l2'}, label_method: lambda {|m| m.user.name}
+    - selected_member = params[:filter][:member_id] if params[:filter]
+    = f.input :member_id, collection: available_members, selected: selected_member, wrapper_html: {class: 's6 m3 l2'}, label_method: lambda {|m| m.user.name}, include_blank: :translate, required: false
   .col.s6.m4
     = render 'acts_as_taggable_on/tag_list', f: f, parent_class: 'filter', value: selected_tag_list
   .col.s6.m2
