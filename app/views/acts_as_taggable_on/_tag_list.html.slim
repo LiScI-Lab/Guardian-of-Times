@@ -1,0 +1,14 @@
+- for_class ||= parent_class
+= f.label :tag_list, required: false
+.chips for="#{for_class}_tag_list"
+= f.hidden_field :tag_list, value: local_assigns[:value]
+
+javascript:
+  function form() {
+    let tags = $(".#{parent_class} .chips").siblings('input[type="hidden"][id$="tag_list"]').val().split(', ').filter(v => v.trim().length !== 0)
+    let autocomplete_tags = #{{ Team::Progress.tags_on(:tags).pluck(:name).to_json }}
+    timetracker.app.init_chips($(".#{parent_class} .chips"), tags, autocomplete_tags)
+  }
+
+  $(document).on('turbolinks:load', form)
+  $(document).ready(form)

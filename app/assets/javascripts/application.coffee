@@ -55,12 +55,7 @@ timetracker.app.materialize = (elem) ->
 timetracker.app.init_chips = (elem, tags, autocomplete_tags) ->
   data = []
   if tags.length > 0
-    tags.forEach (tag) ->
-      data.push {
-        tag: tag
-      }
-
-      return
+    data = tags.map((v) -> {tag: v})
   if elem[0].hasAttribute("for")
     target = elem.siblings("##{elem.attr('for')}")
     updateTarget = () ->

@@ -1,22 +1,12 @@
 = simple_form_for(:filter, url: url, method: :get) do |f|
-  = f.input :month, collection: month_with_index, selected: current_month, wrapper_html: {class: 's6 m3'}
+  - selected_month = params[:filter][:month] if params[:filter]
+  - selected_tag_list = params[:filter][:tag_list] if params[:filter]
+  = f.input :month, collection: 1..12, selected: selected_month, wrapper_html: {class: 's6 m3 l2'}, label_method: lambda {|m| t('date.month_names')[m]}, include_blank: :translate, required: false
   - if local_assigns[:available_members]
-    = f.input :member_id, collection: available_members, selected: available_members.first, wrapper_html: {class: 's6 m3'}, label_method: lambda {|m| m.user.name}
+    = f.input :member_id, collection: available_members, selected: available_members.first, wrapper_html: {class: 's6 m3 l2'}, label_method: lambda {|m| m.user.name}
   .col.s6.m4
-    = f.label :tag_list, required: false
-    .chips for="filter_tag_list"
-    = f.hidden_field :tag_list
+    = render 'acts_as_taggable_on/tag_list', f: f, parent_class: 'filter', value: selected_tag_list
   .col.s6.m2
     .button-group
       = link_to t('team.progress.filter.clear'), url, class: 'waves-effect waves-light btn'
       = f.button :button, t('team.progress.filter.apply')
-
-javascript:
-    function form() {
-        let tags = #{{ (@progress) ? @progress.tags.pluck(:name).to_json : [].to_json }}
-    let autocomplete_tags = #{{ Team::Progress.tags_on(:tags).pluck(:name).to_json }}
-    timetracker.app.init_chips($('.filter .chips'), tags, autocomplete_tags)
-    }
-
-    $(document).on('turbolinks:load', form)
-    $(document).ready(form)
