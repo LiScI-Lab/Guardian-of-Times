@@ -16,7 +16,7 @@ set :systemd_use_sudo, true
 set :systemd_roles, %w(app)
 
 
-append :linked_files, 'config/puma.rb', 'config/secrets.yml'
+append :linked_files, 'config/database.yml', 'config/puma.rb', 'config/secrets.yml', 'config/settings.local.yml'
 
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads', 'private/uploads'
 

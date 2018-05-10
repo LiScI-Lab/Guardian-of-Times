@@ -130,10 +130,12 @@ group :development do
 
   # Capistrano for Deployment to server
   gem 'capistrano', require: false
-  gem 'capistrano-rvm', require: false
-  gem 'capistrano-bundler', require: false
   gem 'capistrano-rbenv', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rails', require: false
+
   gem 'capistrano-systemd', require: false
+
   gem 'capistrano-maintenance', require: false
   gem 'capistrano-pending', require: false
 

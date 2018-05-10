@@ -4,7 +4,7 @@ class Team::Progress < ApplicationRecord
   belongs_to :team, class_name: Team.name
 
   belongs_to :member, class_name: Team::Member.name, foreign_key: :team_member_id
-  has_one :user, class_name: User, through: :member
+  has_one :user, class_name: User.name, through: :member
 
   scope :in_month, -> (date){where(start: date.beginning_of_month..date.end_of_month)}
   scope :this_month, -> {in_month(DateTime.now)}
