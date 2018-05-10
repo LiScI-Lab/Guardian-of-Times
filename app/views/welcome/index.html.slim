@@ -1,2 +1,7 @@
 .row
-  = render 'welcome/login'
+  .col.s12.center
+    | Hier muss der Welcome Text hin.
+
+- unless @current_user
+  .row
+    = render 'welcome/login'
