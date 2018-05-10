@@ -1,6 +1,9 @@
 footer.page-footer
   .footer-copyright
     .container
-      | © 2018 Copyright by N. Justus & M. Hoppe
+      | © 2018 Copyright by N. Justus & M. Hoppe, All rights reserved.
 
-      = link_to 'Repository', 'https://git.thm.de/mhpp11/time-tracker', class: 'grey-text text-lighten-4 right', target: :_blank
+      - if ::GIT_REVISION
+        = link_to "Revision: #{::GIT_REVISION}", "https://git.thm.de/mhpp11/time-tracker/commit/#{::GIT_REVISION}", class: 'grey-text text-lighten-4 right', target: :_blank
+      - else
+        = link_to 'Repository', 'https://git.thm.de/mhpp11/time-tracker', class: 'grey-text text-lighten-4 right', target: :_blank

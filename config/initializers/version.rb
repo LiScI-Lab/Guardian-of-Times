@@ -1,0 +1,1 @@
+::GIT_REVISION = (File.exist? 'REVISION') ? File.read('REVISION')[0..8] : nil
