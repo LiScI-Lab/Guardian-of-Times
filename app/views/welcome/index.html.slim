@@ -1,6 +1,7 @@
 .row
   .col.s12.center
-    | Hier muss der Welcome Text hin.
+    h2 = t('welcome.welcome')
+    h4 = t('welcome.headline', users_count: @users_count, teams_count: @teams_count, total_time: distance_of_time(@total_time))
 
 - unless @current_user
   .row

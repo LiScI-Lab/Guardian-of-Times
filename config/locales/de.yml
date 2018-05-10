@@ -55,6 +55,9 @@ de:
       self:
         edit: "Dein Profil bearbeiten"
 
+  welcome:
+    welcome: "Wilkommen beim TimeTracker."
+    headline: "%{users_count} Benutzer haben in %{teams_count} Teams %{total_time} erfasst. Hilf' mit, die Million zu knacken!"
   team:
     menu:
       overview: "Übersicht"
