@@ -10,8 +10,6 @@ gem 'slim-rails'
 gem 'material_icons'
 gem 'material_design_icons'
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma'
 # Use SCSS for stylesheets
@@ -113,6 +111,9 @@ group :development, :test do
 end
 
 group :development do
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
+
   gem 'rails-plantuml-generator', git: 'https://github.com/HappyKadaver/rails-plantuml-generator'
   gem 'i18n-debug'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
