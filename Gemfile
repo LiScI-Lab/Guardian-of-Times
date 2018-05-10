@@ -102,8 +102,6 @@ gem 'simple_form'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 gem 'http_accept_language'
 gem 'rails-i18n'
 gem 'enum_help'
@@ -129,7 +127,20 @@ group :development do
 
   gem 'faker'
 
+  # Capistrano for Deployment to server
+  gem 'capistrano', require: false
+  gem 'capistrano-rvm', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rbenv', require: false
+  gem 'capistrano-systemd', require: false
+  gem 'capistrano-maintenance', require: false
+  gem 'capistrano-pending', require: false
+
   #better repl & repl-doc browsing
   gem 'pry-rails'
   gem 'pry-doc'
+end
+
+group :production do
+  gem 'pg'
 end
