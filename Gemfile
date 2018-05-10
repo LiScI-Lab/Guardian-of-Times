@@ -94,6 +94,7 @@ gem 'cancancan'
 gem 'discard' # replaces paranoia
 
 gem 'simple_form'
+gem 'time_splitter'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
@@ -102,6 +103,8 @@ gem 'simple_form'
 
 gem 'http_accept_language'
 gem 'rails-i18n'
+gem 'i18n-js'
+gem 'momentjs-rails'
 gem 'enum_help'
 
 group :development, :test do

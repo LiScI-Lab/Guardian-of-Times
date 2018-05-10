@@ -161,7 +161,7 @@ class Team::Member::ProgressesController < SecurityController
 
   private
   def progress_params
-    params.require(:progress).permit([:start, :end, :description, :tag_list])
+    params.require(:progress).permit([:start_date, :start_time, :end_date, :end_time, :description, :tag_list])
   end
 
   def import_params

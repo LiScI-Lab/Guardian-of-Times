@@ -3,9 +3,11 @@
 = simple_form_for([@team, @member, @progress]) do |f|
   = render 'application/form', f: f
     .col.s6
-      = f.input :start, as: :date, wrapper_html: {class: 's6'}
+      = f.input :start_date, as: :date, wrapper_html: {class: 's6'}, input_html: {class: 'no-autoinit'}, label_html: {class: 'active'}
+      = f.input :start_time, as: :time, wrapper_html: {class: 's6'}, input_html: {class: 'no-autoinit'}, label_html: {class: 'active'}
     .col.s6
-      = f.input :end, as: :date, wrapper_html: {class: 's6'}
+      = f.input :end_date, as: :date, wrapper_html: {class: 's6'}, input_html: {class: 'no-autoinit'}, label_html: {class: 'active'}
+      = f.input :end_time, as: :time, wrapper_html: {class: 's6'}, input_html: {class: 'no-autoinit'}, label_html: {class: 'active'}
     .col.s12
       = f.input :description, wrapper_html: {class: 's6'}
       = f.label :tag_list

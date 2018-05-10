@@ -10,6 +10,10 @@
 # Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 # about supported directives.
 #
+#= require i18n
+#= require i18n/translations
+#= require moment
+#
 #= require rails-ujs
 #= require turbolinks
 #= require jquery
@@ -46,10 +50,39 @@ timetracker.app.materialize = (elem) ->
   M.AutoInit(elem[0])
   $(".dropdown-trigger", elem).dropdown
     constrainWidth: false
-  $('input[type="text"]', elem).not('.date,.time,.select-dropdown').characterCounter()
+  $('input[type="text"]', elem).not('.date,.time,.datetime,.select-dropdown').characterCounter()
   $('textarea', elem).characterCounter()
-
   $('.modal', elem).modal()
+  $('.datepicker', elem).each (_, e) ->
+    e = $(e)
+    e.datepicker({
+      setDefaultDate: true
+      autoClose: true
+      format: I18n.t('js.date.picker.format')
+      defaultDate: new Date(moment(e.val(), I18n.t('js.date.formats.default')).format())
+      setDefaultDate: true
+      yearRange: 100
+      i18n: {
+        cancel: I18n.t('js.picker.action.cancel')
+        clear: I18n.t('js.picker.action.clear')
+        done: I18n.t('js.picker.action.done')
+        months: I18n.t('date.month_names')[1..12]
+        monthsShort: I18n.t('date.abbr_month_names')[1..12]
+        weekdays: I18n.t('date.day_names')
+        weekdaysShort: I18n.t('date.abbr_day_names')
+        weekdaysAbbrev: I18n.t('date.abbr_day_names')
+      }
+    })
+    return
+  $('.timepicker', elem).timepicker({
+    autoClose: true
+    twelveHour: I18n.t('js.time.twelve_hour')
+    i18n: {
+      cancel: I18n.t('js.picker.action.cancel')
+      clear: I18n.t('js.picker.action.clear')
+      done: I18n.t('js.picker.action.done')
+    }
+  })
   return
 
 timetracker.app.init_chips = (elem, tags, autocomplete_tags) ->
