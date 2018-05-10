@@ -100,7 +100,7 @@ For each environment user, install the ruby-build plugin:
 git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 ----
 
-... and install the needed ruby version:
+... install the needed ruby version:
 ----
 rbenv install 2.5.1
 rbenv rehash
@@ -108,11 +108,26 @@ rbenv rehash
 
 (--- only done for production)
 
+
+... and install bundler for  this version:
+----
+rbenv local 2.5.1
+rbenv exec gem install bundler
+----
+
 setup ssh access for deployment:
 ----
 mkdir -p /home/{production,development,test}/.ssh
 
 #copy authorized_keys & change owner
 cp /root/.ssh/authorized_keys /home/production/.ssh
+chown production:production /home/production/.ssh
 chown production:production /home/production/.ssh/authorized_keys
+chmod 700 /home/production/.ssh
+----
+
+generate an ssh-deploy-key and add them as deploy-key to your gitlab/-hub project:
+----
+su - production
+production$ ssh-keygen -t rsa -C "production@time-tracker" -b 4096
 ----

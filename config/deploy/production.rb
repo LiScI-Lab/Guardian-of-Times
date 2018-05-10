@@ -33,7 +33,7 @@ server 'time-tracker.mni.thm.de', user: 'production', roles: %w{app db web}
 
 # Default deploy_to directory is /var/www/my_app_name
 set :branch, 'master'
-set :deploy_to, '/srv/rails/production'
+set :deploy_to, '/home/production/app'
 set :rails_env, 'production'
 set :database, 'production'
 set :systemd_unit, "#{fetch :application}@production.service"
