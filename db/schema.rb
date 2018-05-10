@@ -118,7 +118,7 @@ ActiveRecord::Schema.define(version: 20180419094356) do
     t.string "first_name"
     t.string "last_name"
     t.string "department"
-    t.date "birthdate"
+    t.date "birth_date"
     t.string "avatar"
     t.string "external_avatar"
     t.datetime "created_at", null: false

@@ -30,10 +30,27 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 de:
+  js:
+    time:
+      twelve_hour: false
+    date:
+      picker:
+        format: 'dd.mm.yyyy'
+      formats:
+        default: 'DD.MM.YYYY'
+    picker:
+      action:
+        done: 'Übernehmen'
+        clear: 'Leeren'
+        cancel: 'Abbrechen'
+
   date:
     formats:
-      birthday: "%d.%m.%Y"
+      birth_day: "%d.%m.%Y"
       month_with_year: "%B %Y"
+  time:
+      formats:
+        default: "%H:%M"
   menu:
     teams: "Teams"
     dashboard: "Dashboard"

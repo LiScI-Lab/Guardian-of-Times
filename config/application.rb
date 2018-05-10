@@ -11,6 +11,8 @@ module TimeTracker
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
+    config.autoload_paths += %W(#{config.root}/lib)
+
     config.i18n.available_locales = %w(en de )
     config.i18n.default_locale = 'de'
     config.time_zone = 'Berlin'

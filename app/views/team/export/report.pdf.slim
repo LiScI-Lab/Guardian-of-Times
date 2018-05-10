@@ -28,7 +28,7 @@ html
             td#clear-style Name: #{@current_user.name}
             td#clear-style Fachbereich: #{@current_user.department.upcase}
           tr
-            td#clear-style Geburtsdatum: #{l(@current_user.birthdate, format: :birthday)}
+            td#clear-style Geburtsdatum: #{l(@current_user.birth_date, format: :birth_day)}
             td#clear-style Monat: #{t('date.month_names')[@report_month.month]} #{@report_month.year}
     .row.column
       table

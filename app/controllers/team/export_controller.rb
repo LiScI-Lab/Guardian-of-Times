@@ -6,12 +6,12 @@ class Team::ExportController < SecurityController
   #TODO:  use max_hours from team ; german month names ! ; add total hours below the table
 
   def index
-    if @current_user.birthdate
+    if @current_user.birth_date
       #setup values for month picker
       @month_with_index = Date::MONTHNAMES.each_with_index.collect{|m,i| [m,i]}
       @current_month = @month_with_index[DateTime.now.month]
     else
-      flash[:error] = "Add your birthdate first."
+      flash[:error] = "Add your birth date first."
       redirect_to edit_user_path(@current_user)
     end
   end

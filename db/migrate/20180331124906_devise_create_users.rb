@@ -39,7 +39,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       t.string :last_name
       t.string :department
 
-      t.date :birthdate
+      t.date :birth_date
       t.string :avatar
       t.string :external_avatar
 

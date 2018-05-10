@@ -22,6 +22,6 @@ class UsersController < SecurityController
 
   private
   def user_params
-    params.require(:user).permit(:department, :birthdate)
+    params.require(:user).permit(:department, :birth_date)
   end
 end

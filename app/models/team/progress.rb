@@ -1,4 +1,5 @@
 class Team::Progress < ApplicationRecord
+  extend TimeSplitter::Accessors
   acts_as_taggable
 
   belongs_to :team, class_name: Team.name
@@ -14,6 +15,8 @@ class Team::Progress < ApplicationRecord
   validates :start, presence: true
 
   after_initialize :set_start
+
+  split_accessor :start, :end, date_format: I18n.t('date.formats.default'), time_format: I18n.t('time.formats.default')
 
   def finished?
     not self[:end].nil?
