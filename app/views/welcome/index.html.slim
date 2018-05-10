@@ -1,7 +1,13 @@
 .row
   .col.s12.center
-    h2 = t('welcome.welcome')
-    h4 = t('welcome.headline', users_count: @users_count, teams_count: @teams_count, total_time: distance_of_time(@total_time))
+    h2
+      = t('welcome.welcome')
+    .divider
+br
+.row
+  .col.s12.center
+    h5
+      = t('welcome.headline', users_count: @users_count, teams_count: @teams_count, total_time: distance_of_time(@total_time, except: :seconds))
 
 - unless @current_user
   .row
