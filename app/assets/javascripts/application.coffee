@@ -67,7 +67,7 @@ timetracker.app.materialize = (elem) ->
   $('input[type="text"]', elem).not('.date,.time,.datetime,.select-dropdown').characterCounter()
   $('textarea', elem).characterCounter()
   $('.modal', elem).modal()
-  $('.datepicker.no-autoinit', elem).each (_, e) ->
+  $('.datepicker.no-autoinit', elem).not('.manual').each (_, e) ->
     e = $(e)
     e.datepicker({
       setDefaultDate: true
