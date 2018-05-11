@@ -1,17 +1,21 @@
 .modal-content
   h4.header
     | #{t('team.members.new.available_users')}
-  ul#user_list.collection
-    - User.where.not(id: @team.users).order(:last_name).each do |user|
-      li.collection-item.avatar id=user.id
-        = image_tag user.logo_url, class: 'circle'
-        span.title = user.name
-        p
-          | #{user.username}
-          br
-          | #{user.email}
-        = link_to invite_team_path(@team, user_id: user.id), class: 'secondary-content', remote: true, method: :post
-          = mdi_tag 'account-plus 24px'
+  - if User.where.not(id: @team.users).any?
+    ul#user_list.collection
+      - User.where.not(id: @team.users).order(:last_name).each do |user|
+        li.collection-item.avatar id=user.id
+          = image_tag user.logo_url, class: 'circle'
+          span.title = user.name
+          p
+            | #{user.username}
+            br
+            | #{user.email}
+          = link_to invite_team_path(@team, user_id: user.id), class: 'secondary-content', remote: true, method: :post
+            = mdi_tag 'account-plus 24px'
+  - else
+    p
+      | #{t('team.members.new.there_are_no_users')}
 .modal-footer
   = link_to '#', class: "modal-close waves-effect waves-green btn-flat",  data: {turbolinks: false}
     | #{t('modal.actions.close')}

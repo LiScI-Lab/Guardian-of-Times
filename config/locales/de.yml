@@ -106,6 +106,7 @@ de:
     members:
       new:
         available_users: "Verfügbare Benutzer"
+        there_are_no_users: "Es gibt keine Benutzer, die nicht schon eingeladen wurden oder Mitglied dieses Team sind."
   dashboard:
     time_spend_in: "Arbeitszeiten im %{date}"
     total_time_spend: "Gesamte Arbeitszeit"

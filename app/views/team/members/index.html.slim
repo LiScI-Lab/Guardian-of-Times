@@ -1,4 +1,4 @@
-- if User.where.not(id: @team.users).any?
+- if can? :invite, @team
   - content_for :halfway_fab
     = link_to new_team_member_path(@team), class: "btn-floating btn-large halfway-fab waves-effect waves-light", remote: true
       = mdi_tag 'account-multiple-plus'
@@ -7,7 +7,7 @@
   .col.s12
     h5
       = t('team.menu.members')
-.row
+/.row
   .col.s12
     h5
       = t('team.filter')
