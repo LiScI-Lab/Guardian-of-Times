@@ -5,13 +5,14 @@
     li
       .user-view
         .background
+          = image_tag '/sidenav.jpg'
         = link_to '#avatar', data: {turbolinks: false}
           = image_tag @current_user.logo_url, class: 'circle'
         = link_to '#name', data: {turbolinks: false}
-          span.name
+          span.white-text.name
             | #{@current_user.name}
         = link_to '#name', data: {turbolinks: false}
-          span.name
+          span.white-text.email
             | #{@current_user.email}
 
 
