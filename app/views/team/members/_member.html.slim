@@ -14,6 +14,8 @@ tr
   td
     = distance_of_time_or_null member.current_month_time_spend
   td
+    = render partial: 'acts_as_taggable_on/tags/tag', collection: member.tags
+  td
     .button-group
       - if can? :show, member
         = link_to dashboard_team_member_path(@team, member), class: 'btn-floating waves-effect waves-light blue'
