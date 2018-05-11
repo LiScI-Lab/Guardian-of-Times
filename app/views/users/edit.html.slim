@@ -1,9 +1,17 @@
 - content_for :subtitle
-  | Edit your profile #{@current_user.name}
+  | #{t('user.self.edit.title')}
+.row
+  .col.s12.m8.l9
+    = render 'application/form_errors', errors: @current_user.errors
+    = simple_form_for(@current_user) do |f|
+      = render 'application/form', f: f
+        = f.hidden_field :department
+        - birth_date = if @current_user.birth_date then l(@current_user.birth_date) else nil end
+        = f.input :birth_date, as: :date, wrapper_html: {class: 's6'}, input_html: {value: birth_date, class: 'no-autoinit'}, label_html: {class: 'active'}
 
-= render 'application/form_errors', errors: @current_user.errors
-= simple_form_for(@current_user) do |f|
-  = render 'application/form', f: f
-    = f.hidden_field :department
-    - birth_date = if @current_user.birth_date then l(@current_user.birth_date) else nil end
-    = f.input :birth_date, as: :date, wrapper_html: {class: 's6'}, input_html: {value: birth_date, class: 'no-autoinit'}, label_html: {class: 'active'}
+  .col.s12.m4.l3
+    .card
+      .card-content
+        .card-title
+          | #{t('user.edit.connect_login_service')}
+        = render 'users/login_buttons'

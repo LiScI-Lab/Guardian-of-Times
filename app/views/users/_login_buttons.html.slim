@@ -1,0 +1,53 @@
+.button-group
+  - if Settings.omniauth.providers.enabled.include? :cas3
+    - disabled = (@current_user and @current_user.identities.find_by provider: :cas3)
+    - style = if Settings.omniauth.cas3.color then "background-color: #{Settings.omniauth.cas3.color}" else nil end
+    = link_to user_cas3_omniauth_authorize_path, class: "btn waves-effect waves-light tooltipped #{(disabled)?'disabled':''}", data: {tooltip: Settings.omniauth.cas3.name, position: 'bottom'}, style: style
+      = mdi_tag 'school'
+
+  - if Settings.omniauth.providers.enabled.include? :google_oauth2
+    - disabled = (@current_user and @current_user.identities.find_by provider: :google_oauth2)
+    = link_to user_google_oauth2_omniauth_authorize_path, class: "btn waves-effect waves-light tooltipped #{(disabled)?'disabled':''}", data: {tooltip: 'Google', position: 'bottom'}, style: 'background-color: #db3236'
+      = mdi_tag 'google'
+
+  - if Settings.omniauth.providers.enabled.include? :twitter
+    - disabled = (@current_user and @current_user.identities.find_by provider: :twitter)
+    = link_to user_twitter_omniauth_authorize_path, class: "btn waves-effect waves-light tooltipped #{(disabled)?'disabled':''}", data: {tooltip: 'Twitter', position: 'bottom'}, style: 'background-color: #1da1f2'
+      = mdi_tag 'twitter'
+
+  - if Settings.omniauth.providers.enabled.include? :github
+    - disabled = (@current_user and @current_user.identities.find_by provider: :github)
+    = link_to user_github_omniauth_authorize_path, class: "btn waves-effect waves-light tooltipped grey darken-3 #{(disabled)?'disabled':''}", data: {tooltip: 'GitHub', position: 'bottom'}
+      = mdi_tag 'github-circle'
+
+  - if Settings.omniauth.providers.enabled.include? :facebook
+    - disabled = (@current_user and @current_user.identities.find_by provider: :facebook)
+    = link_to user_facebook_omniauth_authorize_path, class: "btn waves-effect waves-light tooltipped #{(disabled)?'disabled':''}", data: {tooltip: 'Facebook', position: 'bottom'}, style: 'background-color: #3b5998'
+      = mdi_tag 'facebook'
+
+  - if Settings.omniauth.providers.enabled.include? :windowslive
+    - disabled = (@current_user and @current_user.identities.find_by provider: :windowslive)
+    = link_to user_windowslive_omniauth_authorize_path, class: "btn waves-effect waves-light tooltipped #{(disabled)?'disabled':''}", data: {tooltip: 'Windows Live', position: 'bottom'}, style: 'background-color: #00a1f1'
+      = mdi_tag 'windows'
+
+  - if Settings.omniauth.providers.enabled.include? :xing
+    - disabled = (@current_user and @current_user.identities.find_by provider: :xing)
+    = link_to user_xing_omniauth_authorize_path, class: "btn waves-effect waves-light tooltipped #{(disabled)?'disabled':''}", data: {tooltip: 'Xing', position: 'bottom'}, style: 'background-color: #126567'
+      = mdi_tag 'xing'
+
+  - if Settings.omniauth.providers.enabled.include? :linkedin
+    - disabled = (@current_user and @current_user.identities.find_by provider: :linkedin)
+    = link_to user_linkedin_omniauth_authorize_path, class: "btn waves-effect waves-light tooltipped #{(disabled)?'disabled':''}", data: {tooltip: 'LinkedIn', position: 'bottom'}, style: 'background-color: #0077b5'
+      = mdi_tag 'linkedin'
+
+  /= link_to user_github_omniauth_authorize_path, class: 'btn waves-effect waves-light tooltipped', data: {tooltip: 'Mozilla Persona', position: 'bottom'}, style: 'background-color: #FF6611'
+          = mdi_tag 'firefox'
+  - if Settings.omniauth.providers.enabled.include? :slack
+    - disabled = (@current_user and @current_user.identities.find_by provider: :slack)
+    = link_to user_slack_omniauth_authorize_path, class: "btn waves-effect waves-light tooltipped #{(disabled)?'disabled':''}", data: {tooltip: 'Slack', position: 'bottom'}, style: 'background-color: #3eb991'
+      = mdi_tag 'slack'
+
+  - if Settings.omniauth.providers.enabled.include? :steam
+    - disabled = (@current_user and @current_user.identities.find_by provider: :steam)
+    = link_to user_steam_omniauth_authorize_path, class: "btn waves-effect waves-light tooltipped #{(disabled)?'disabled':''}", data: {tooltip: 'Steam', position: 'bottom'}, style: 'background-color: #171A21'
+      = mdi_tag 'steam'

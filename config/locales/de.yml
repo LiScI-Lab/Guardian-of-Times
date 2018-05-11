@@ -75,6 +75,7 @@ de:
   welcome:
     welcome: "Wilkommen beim TimeTracker."
     headline: "%{users_count} Benutzer haben in %{teams_count} Teams %{total_time} erfasst. Hilf' mit, die Million zu knacken!"
+    login_with: "Einloggen mit"
   team:
     menu:
       overview: "Übersicht"
@@ -112,3 +113,9 @@ de:
     spend_time_by_day_of_week_in: "Arbeitszeit nach Wochentagen im %{date}"
     spend_time_by_hour_of_day: "Arbeitszeit nach Uhrzeit"
     spend_time_by_hour_of_day_in: "Arbeitszeit nach Uhrzeit im %{date}"
+  user:
+    self:
+      edit:
+        title: "Ändere dein Profil"
+    edit:
+      connect_login_service: "Weitere Login-Dienste koppeln"
