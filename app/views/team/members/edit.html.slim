@@ -16,10 +16,8 @@
 
 = simple_form_for [@team, @member], validate: true do |f|
   = render 'application/form', f: f
-    /.col.s12
-      = f.label :tag_list
-      .chips for="member_tag_list"
-      = f.hidden_field :tag_list, value: f.object.tag_list.to_s
+    .col.s12
+      = render 'acts_as_taggable_on/tag_list', f: f, parent_class: 'simple_form', for_class: 'member', value: @member&.tag_list, collection: Team::Member.tags_on(:tags)
     = f.label :target_hours
     #target_hours.col.s12
       = f.simple_fields_for :target_hours do |target_hour_form|

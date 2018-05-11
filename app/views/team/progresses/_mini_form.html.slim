@@ -3,7 +3,7 @@
 = simple_form_for(@progress, url: start_team_member_progresses_path(@team, @member)) do |f|
   .row
     .col.s12
-      = render 'acts_as_taggable_on/tag_list', f: f, parent_class: 'new_progress', for_class: 'progress', value: @progress&.tag_list
+      = render 'acts_as_taggable_on/tag_list', f: f, parent_class: 'new_progress', for_class: 'progress', value: @progress&.tag_list, collection: Team::Progress.tags_on(:tags)
     .col.s10
       = f.input :description, wrapper_html: {class: 's12'}
     .col.s2

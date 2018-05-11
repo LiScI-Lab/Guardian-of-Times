@@ -6,7 +6,7 @@
     - selected_member = params[:filter][:member_id] if params[:filter]
     = f.input :member_id, collection: available_members, selected: selected_member, wrapper_html: {class: 's6 m3 l2'}, label_method: lambda {|m| m.user.name}, include_blank: :translate, required: false
   .col.s6.m4
-    = render 'acts_as_taggable_on/tag_list', f: f, parent_class: 'filter', value: selected_tag_list
+    = render 'acts_as_taggable_on/tag_list', f: f, parent_class: 'filter', value: selected_tag_list, collection: Team::Progress.tags_on(:tags)
   .col.s6.m2
     .button-group
       = f.button :button, class: 'blue btn-floating tooltipped', data: {position: 'bottom', tooltip: t('team.progress.filter.apply')}
