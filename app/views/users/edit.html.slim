@@ -21,7 +21,7 @@
             - birth_date = if @current_user.birth_date then l(@current_user.birth_date) else nil end
             = f.input :birth_date, as: :date, wrapper_html: {class: 's12'}, input_html: {value: birth_date, class: 'no-autoinit'}, label_html: {class: 'active'}
         .col.s12.m6
-          - ([['generator', f.object.generator_logo_url], ['local', f.object.avatar_url]] + f.object.identities.where.not(avatar_url: nil).pluck(:provider, :avatar_url)).each do |type|
+          - ([['generator', f.object.generated_avatar_url], ['local', f.object.avatar_url]] + f.object.identities.where.not(avatar_url: nil).pluck(:provider, :avatar_url)).each do |type|
             .col.s12.l6
               .card-panel
                 .row
