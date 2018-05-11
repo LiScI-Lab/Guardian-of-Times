@@ -39,13 +39,13 @@ class Team::Member::ProgressesController < SecurityController
     @progress = Team::Progress.new progress_params
     @progress.member = @member
     @progress.team = @team
-    # if @progress.save
-    #   flash[:success] = "Progress successfully started"
-    #   redirect_to team_member_progresses_path(@team, @member)
-    # else
+    if @progress.save
+      flash[:success] = "Progress successfully started"
+      redirect_to team_member_progresses_path(@team, @member)
+    else
       flash[:error] = "Progress not created"
       render 'index'
-    #end
+    end
   end
 
   def stop
