@@ -4,6 +4,6 @@ class WelcomeController < ApplicationController
   def index
     @users_count = User.kept.count
     @teams_count = Team.kept.count
-    @total_time = Team::Progress.kept.pluck(:start,:end).map { |(start,endt)| endt - start }.sum
+    @total_time = Team::Progress.kept.finished.pluck(:start,:end).map { |(start,endt)| endt - start }.sum
   end
 end
