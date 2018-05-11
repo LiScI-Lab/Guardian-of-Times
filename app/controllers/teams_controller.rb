@@ -52,7 +52,16 @@ class TeamsController < SecurityController
 
   def owner
     @teams = @current_user.own_teams.kept
+  end
 
+  def invite
+    @user = User.find params[:user_id]
+    member = @team.members.find_or_initialize_by user: @user
+    if member.save
+      @message = "#{@user.name} successfully invited"
+    else
+      @message = "Something went wrong"
+    end
   end
 
   def join

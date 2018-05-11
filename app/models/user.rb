@@ -30,6 +30,8 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, AvatarUploader
 
+  before_save :update_generated_avatar
+
   #tutorial from: http://stackoverflow.com/questions/21249749/rails-4-devise-omniauth-with-multiple-providers
   def self.from_omniauth(auth, current_user)
     if auth.provider.to_sym == :cas3 or auth.provider.to_sym == :google_oauth2
@@ -122,12 +124,12 @@ class User < ApplicationRecord
     end
 
     if avatar_type.to_sym == :generator or url.nil?
-      url = generator_logo_url
+      url = generated_avatar_url
     end
     url
   end
 
-  def generator_logo_url
+  def generate_avatar
     Identicon.data_url_for(username, 256, [255, 255, 255])
   end
 
@@ -159,5 +161,10 @@ class User < ApplicationRecord
     [
         {name: I18n.t('dashboard.spend_hours_by_percentage'), data: timings_spend},
     ]
+  end
+
+  private
+  def update_generated_avatar
+    self.generated_avatar_url = self.generate_avatar
   end
 end

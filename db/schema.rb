@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180419094356) do
+ActiveRecord::Schema.define(version: 20180511123020) do
 
   create_table "taggings", force: :cascade do |t|
     t.integer "tag_id"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20180419094356) do
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
     t.string "authentication_token", limit: 30
+    t.string "generated_avatar_url"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["discarded_at"], name: "index_users_on_discarded_at"
     t.index ["email"], name: "index_users_on_email", unique: true
