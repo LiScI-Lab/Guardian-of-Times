@@ -1,3 +1,5 @@
+user:
+  maximum_sign_ins_redirected_to_edit: 5
 tag:
   name:
     length_minimum: 2

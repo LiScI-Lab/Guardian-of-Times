@@ -33,8 +33,12 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       set_flash_message(:notice, :success, :kind => provider) if is_navigational_format?
     else
       session["devise.auth_data"] = auth
-      #redirect_to root_path
     end
-    redirect_to request.env['omniauth.origin'] || root_path
+
+    if @user and (@user.sign_in_count <= Settings.user.maximum_sign_ins_redirected_to_edit and @user.birth_date.nil? and @user.department.nil?)
+      redirect_to edit_user_path(@user)
+    else
+      redirect_to request.env['omniauth.origin'] || root_path
+    end
   end
 end
