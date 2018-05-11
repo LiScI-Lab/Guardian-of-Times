@@ -91,7 +91,7 @@ class Team::Member::ProgressesController < SecurityController
       when :hamster
         import_hamster @member, i_params[:file], i_params[:options]
       else
-        raise ArgumentError, "format not implemented"
+        raise ArgumentError, I18n.t('errors.messages.format_not_implemented')
       end
       flash[:success] = "Import successful."
     rescue StandardError => error
@@ -152,7 +152,10 @@ class Team::Member::ProgressesController < SecurityController
     if endtime < starttime
       endtime = endtime + 1.days
     end
-    raise 'start or end is missing' if starttime.nil? or endtime.nil?
+    raise I18n.t('errors.messages.start_or_end_is_missing') if starttime.nil? or endtime.nil?
+    raise I18n.t('errors.messages.start_and_end_are_identical', date: l(starttime, format: :long)) if starttime == endtime
+    raise I18n.t('errors.messages.duration_less_than', date: l(starttime, format: :long), count: Settings.team.progress.minimum_duration_for_import) if (endtime - starttime) < Settings.team.progress.minimum_duration_for_import
+
     Team::Progress.new start: starttime, end: endtime, member: member, team: member.team
   end
 

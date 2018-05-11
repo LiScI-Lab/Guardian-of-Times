@@ -15,3 +15,6 @@ team:
   member:
     target_hours:
       minimum: 0
+
+  progress:
+    minimum_duration_for_import: 60

@@ -135,3 +135,11 @@ de:
   modal:
     actions:
       close: "Schließen"
+  errors:
+    messages:
+      start_or_end_is_missing: "Beginn oder Ende fehlt"
+      start_and_end_are_identical: "%{date}: Beginn und Ende sind identisch"
+      duration_less_than:
+        one: "%{date}: Die Dauer ist geringer als eine Sekunde"
+        other: "%{date}: Die Dauer ist geringer als %{count} Sekunden"
+      format_not_implemented: "Das Format ist noch nicht implementiert"
