@@ -22,9 +22,7 @@ class Team::ExportController < SecurityController
     progresses_current_month = @current_member.progresses.kept.in_month(@report_month).all
     durations = progresses_current_month
                   .sort_by { |p| p.start }
-                  .map { |p|
-      Team::WorkDuration.new(p.start, p.start, p.end)
-    }
+                  .map { |p| Team::WorkDuration.new(p.start, p.start, p.end) }
                   .group_by { |p| p.date.to_date }
                   .map { |date,values|
       values.reduce { |acc,p|
@@ -37,7 +35,6 @@ class Team::ExportController < SecurityController
     days_in_month = (1..Time.days_in_month(@report_month.month, @report_month.year)).map { |d| Date.new(@report_month.year,@report_month.month,d) }
     worked_days = durations.map { |d| [d.date.to_date, d] }.to_h
     @normalized_progresses = days_in_month.map { |d| [d, worked_days[d]] }.to_h
-    puts @normalized_progresses.inspect
 
     @time_spend_this_month = @normalized_progresses
                                .select { |k,p| not p.nil? }
