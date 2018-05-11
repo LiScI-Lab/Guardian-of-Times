@@ -119,3 +119,6 @@ de:
         title: "Ändere dein Profil"
     edit:
       connect_login_service: "Weitere Login-Dienste koppeln"
+    action:
+      logout: "Ausloggen"
+      edit: "Profil ändern"

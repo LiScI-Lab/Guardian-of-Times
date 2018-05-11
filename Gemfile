@@ -95,6 +95,7 @@ gem 'discard' # replaces paranoia
 
 gem 'simple_form'
 gem 'time_splitter'
+gem 'identicon'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'

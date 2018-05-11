@@ -64,8 +64,14 @@ SimpleForm.setup do |config|
   config.wrappers :materialize_radio_and_checkboxes, tag: 'div', class: 'col', error_class: 'has-error' do |b|
     b.use :html5
     b.use :readonly
-    b.use :label
-    b.use :input, class: 'validate'
+
+    b.wrapper tag: 'label' do |ba|
+      ba.use :input, class: 'validate'
+      ba.wrapper tag: 'span' do |bb|
+        bb.use :label_text
+      end
+    end
+
     b.use :error, wrap_with: { tag: 'small', class: 'error-block red-text text-darken-1' }
     b.use :hint,  wrap_with: { tag: 'span', class: 'help-block' }
   end
@@ -108,6 +114,7 @@ SimpleForm.setup do |config|
     check_boxes: :materialize_radio_and_checkboxes,
     radio_buttons: :materialize_radio_and_checkboxes,
     file: :materialize_file_input,
+    image_preview: :materialize_file_input,
     boolean: :materialize_boolean
   }
 end

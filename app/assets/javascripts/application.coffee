@@ -50,12 +50,24 @@ timetracker.app.cocoonize = (elem) ->
 timetracker.app.materialize = (elem) ->
   elem || (elem = $('body'))
   M.AutoInit(elem[0])
-  $(".dropdown-trigger", elem).dropdown
+  $(".dropdown-trigger.no-autoinit", elem).dropdown
     constrainWidth: false
+    autoTrigger: true
+    coverTrigger: false
+
+  sidenavs = $('.sidenav.no-autoinit')
+  sidenavs.sidenav()
+  sidenavs.each (_, nav) ->
+    id = $('.sidenav.no-autoinit').attr('id')
+    $(".sidenav-trigger[data-target=\"#{id}\"").click () ->
+      $(nav).sidenav('open')
+      return
+    return
+
   $('input[type="text"]', elem).not('.date,.time,.datetime,.select-dropdown').characterCounter()
   $('textarea', elem).characterCounter()
   $('.modal', elem).modal()
-  $('.datepicker', elem).each (_, e) ->
+  $('.datepicker.no-autoinit', elem).each (_, e) ->
     e = $(e)
     e.datepicker({
       setDefaultDate: true
