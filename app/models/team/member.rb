@@ -84,7 +84,7 @@ class Team::Member < ApplicationRecord
 
   def time_spend_series
     data = {}
-    progresses.kept.group_by_month(:start).count.map do |k,v|
+    progresses.kept.group_by_month(:start).unscope(:order).count.map do |k,v|
       data[k.end_of_month] = seconds_to_hours(in_month_time_spend(k))
     end
     data
