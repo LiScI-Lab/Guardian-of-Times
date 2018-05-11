@@ -92,7 +92,10 @@ de:
     filter: "Filter"
     total_time_spend: "Gesamtzeit:"
     current_month_time_spend: "Monatszeit:"
-    edit: "Bearbeite %{name}"
+    edit:
+      self:
+        title: "Bearbeite dein Profil"
+      title: "Bearbeite das Profil von %{name}"
     progress:
       import:
         name: "Fortschritte importieren"
@@ -107,6 +110,8 @@ de:
       new:
         available_users: "Verfügbare Benutzer"
         there_are_no_users: "Es gibt keine Benutzer, die nicht schon eingeladen wurden oder Mitglied dieses Team sind."
+      dashboard:
+        title: "Dashboard von %{name}"
   dashboard:
     time_spend_in: "Arbeitszeiten im %{date}"
     total_time_spend: "Gesamte Arbeitszeit"

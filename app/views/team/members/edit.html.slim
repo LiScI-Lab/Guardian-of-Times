@@ -1,5 +1,16 @@
 - content_for :subtitle
-  = t('team.edit', name: @member.user.realname)
+  - if @member == @current_member
+    | #{t('team.edit.self.title')}
+  - else
+    | #{t('team.edit.title', name: @member.user.name)}
+
+.row
+  .col.s12
+    h5
+      - if @member == @current_member
+        | #{t('team.edit.self.title')}
+      - else
+        | #{t('team.edit.title', name: @member.user.name)}
 
 = render 'application/form_errors', errors: @member.errors
 
