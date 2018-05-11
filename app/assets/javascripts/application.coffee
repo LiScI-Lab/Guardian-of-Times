@@ -10,18 +10,20 @@
 # Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 # about supported directives.
 #
-#= require i18n
-#= require i18n/translations
-#= require moment
 #
 #= require rails-ujs
 #= require turbolinks
 #= require jquery
 #= require materialize
 #= require cocoon
-#= require_tree .
+#
+#= require i18n
+#= require i18n/translations
+#= require moment
 #= require Chart.bundle
 #= require chartkick
+#
+#= require_tree .
 
 window.timetracker || (window.timetracker = {})
 
