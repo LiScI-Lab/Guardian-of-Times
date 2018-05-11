@@ -97,10 +97,12 @@ ActiveRecord::Schema.define(version: 20180419094356) do
     t.string "token"
     t.string "secret"
     t.string "profile_page"
+    t.string "avatar_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
     t.index ["discarded_at"], name: "index_user_identities_on_discarded_at"
+    t.index ["user_id", "provider"], name: "index_user_identities_on_user_id_and_provider", unique: true
     t.index ["user_id"], name: "index_user_identities_on_user_id"
   end
 
@@ -119,8 +121,8 @@ ActiveRecord::Schema.define(version: 20180419094356) do
     t.string "last_name"
     t.string "department"
     t.date "birth_date"
+    t.string "avatar_type", default: "generator", null: false
     t.string "avatar"
-    t.string "external_avatar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"

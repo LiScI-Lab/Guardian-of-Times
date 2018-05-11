@@ -40,8 +40,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       t.string :department
 
       t.date :birth_date
+      t.string :avatar_type, null:false, default: 'generator'
       t.string :avatar
-      t.string :external_avatar
 
       t.timestamps null: false
       t.datetime :discarded_at, index: true

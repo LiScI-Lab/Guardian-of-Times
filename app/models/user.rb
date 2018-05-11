@@ -30,17 +30,6 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, AvatarUploader
 
-  def cas_extra_attributes=(attributes)
-    self.email = attributes['mail']
-    self.username = attributes['username']
-    self.realname = attributes['displayName']
-    self.department = attributes['department']
-    if User.all.size == 0
-      self.role = :admin
-    end
-  end
-
-
   #tutorial from: http://stackoverflow.com/questions/21249749/rails-4-devise-omniauth-with-multiple-providers
   def self.from_omniauth(auth, current_user)
     if auth.provider.to_sym == :cas3 or auth.provider.to_sym == :google_oauth2
@@ -51,10 +40,17 @@ class User < ApplicationRecord
                                                       secret: auth.credentials.secret
     end
 
-    if auth.info.urls and not identity.persisted?
-      auth.info.urls.each do |url|
-        identity.profile_page ||= url.last
+    if identity.new_record?
+      if auth.info.image
+        identity.avatar_url = auth.info.image
       end
+
+      if auth.info.urls
+        auth.info.urls.each do |url|
+          identity.profile_page ||= url.last
+        end
+      end
+
     end
 
     if identity.user.blank?
@@ -98,7 +94,6 @@ class User < ApplicationRecord
       end
       self.email = auth.info.email || auth.info.nickname + '@change.me'
       self.username = auth.info.nickname || self.email
-      self.external_avatar = auth.info.image
     end
 
     if User.all.size == 0

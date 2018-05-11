@@ -8,10 +8,13 @@ class CreateUserIdentities < ActiveRecord::Migration[5.1]
       t.string :token
       t.string :secret
       t.string :profile_page
+      t.string :avatar_url
 
       t.timestamps
 
       t.datetime :discarded_at, index: true
+
+      t.index [:user_id, :provider], unique: true
     end
   end
 end
