@@ -9,5 +9,8 @@
     = render 'acts_as_taggable_on/tag_list', f: f, parent_class: 'filter', value: selected_tag_list
   .col.s6.m2
     .button-group
-      = link_to t('team.progress.filter.clear'), url, class: 'waves-effect waves-light btn'
-      = f.button :button, t('team.progress.filter.apply')
+      = f.button :button, class: 'blue btn-floating tooltipped', data: {position: 'bottom', tooltip: t('team.progress.filter.apply')}
+        = mdi_tag 'filter'
+
+      = link_to url, class: 'waves-effect waves-light btn-floating orange darken-4 tooltipped', data: {position: 'bottom', tooltip: t('team.progress.filter.clear')}
+        = mdi_tag 'filter-remove'

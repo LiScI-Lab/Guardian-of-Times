@@ -102,6 +102,10 @@ de:
       filter:
         clear: "Löschen"
         apply: "Anwenden"
+      start: "Sofort starten"
+    members:
+      new:
+        available_users: "Verfügbare Benutzer"
   dashboard:
     time_spend_in: "Arbeitszeiten im %{date}"
     total_time_spend: "Gesamte Arbeitszeit"
@@ -122,3 +126,6 @@ de:
     action:
       logout: "Ausloggen"
       edit: "Profil ändern"
+  modal:
+    actions:
+      close: "Schließen"

@@ -1,5 +1,6 @@
 .modal-content
-  h4.header Available Users
+  h4.header
+    | #{t('team.members.new.available_users')}
   ul#user_list.collection
     - User.where.not(id: @team.users).order(:last_name).each do |user|
       li.collection-item.avatar id=user.id
@@ -11,3 +12,6 @@
           | #{user.email}
         = link_to invite_team_path(@team, user_id: user.id), class: 'secondary-content', remote: true, method: :post
           = mdi_tag 'account-plus 24px'
+.modal-footer
+  = link_to '#', class: "modal-close waves-effect waves-green btn-flat",  data: {turbolinks: false}
+    | #{t('modal.actions.close')}
