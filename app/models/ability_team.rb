@@ -37,7 +37,7 @@ module AbilityTeam
       can [:restore],                           Team::Progress.discarded, member: member
 
       cannot [:restart],                           Team::Progress do |progress|
-        not (progress.member.progresses.first == progress and progress.start.to_date == Date.today)
+        not (progress.member.progresses.kept.first == progress and progress.start.to_date == Date.today)
       end
 
 
