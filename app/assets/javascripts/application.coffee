@@ -97,6 +97,15 @@ timetracker.app.materialize = (elem) ->
       done: I18n.t('js.picker.action.done')
     }
   })
+  $('input.boolean.tooltipped,input.date.tooltipped', elem).each (_, e) ->
+    e = $(e)
+    parent = e.parents('.boolean,.date')
+    data = e.data()
+    data['html'] = data['tooltip']
+    M.Tooltip.init(parent,data)
+    i = M.Tooltip.getInstance(e)
+    if i isnt undefined
+      M.Tooltip.getInstance(e).destroy()
   return
 
 timetracker.app.init_chips = (elem, tags, autocomplete_tags) ->

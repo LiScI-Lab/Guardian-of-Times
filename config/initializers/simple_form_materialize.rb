@@ -13,10 +13,11 @@ SimpleForm.setup do |config|
     b.use :pattern
     b.use :min_max
     b.use :readonly
+    b.use :hint
+
     b.use :input, class: 'validate'
     b.use :label
     b.use :error, wrap_with: { tag: 'small', class: 'error-block red-text text-darken-1' }
-    b.use :hint,  wrap_with: { tag: 'span', class: 'help-block' }
   end
 
   config.wrappers :materialize_text, tag: 'div', class: 'input-field col', error_class: 'has-error' do |b|
@@ -26,15 +27,17 @@ SimpleForm.setup do |config|
     b.use :pattern
     b.use :min_max
     b.use :readonly
+    b.use :hint
+
     b.use :input, class: 'materialize-textarea validate'
     b.use :label, class: 'active'
     b.use :error, wrap_with: { tag: 'small', class: 'error-block red-text text-darken-1' }
-    b.use :hint,  wrap_with: { tag: 'span', class: 'help-block' }
   end
 
   config.wrappers :materialize_boolean, tag: 'p', class: 'col', error_class: 'has-error' do |b|
     b.use :html5
     b.use :readonly
+    b.use :hint
 
     b.wrapper tag: 'label' do |ba|
       ba.use :input, class: 'validate'
@@ -42,14 +45,13 @@ SimpleForm.setup do |config|
         bb.use :label_text
       end
     end
-
     b.use :error, wrap_with: { tag: 'small', class: 'error-block red-text text-darken-1' }
-    b.use :hint,  wrap_with: { tag: 'span', class: 'help-block' }
   end
 
   config.wrappers :materialize_toggle, tag: 'p', class: 'col switch', error_class: 'has-error' do |b|
     b.use :html5
     b.use :readonly
+    b.use :hint
 
     b.use :label
     b.wrapper tag: 'label' do |ba| 
@@ -58,12 +60,12 @@ SimpleForm.setup do |config|
     end
     
     b.use :error, wrap_with: { tag: 'small', class: 'error-block red-text text-darken-1' }
-    b.use :hint,  wrap_with: { tag: 'span', class: 'help-block' }
   end
 
   config.wrappers :materialize_radio_and_checkboxes, tag: 'div', class: 'col', error_class: 'has-error' do |b|
     b.use :html5
     b.use :readonly
+    b.use :hint
 
     b.wrapper tag: 'label' do |ba|
       ba.use :input, class: 'validate'
@@ -73,11 +75,11 @@ SimpleForm.setup do |config|
     end
 
     b.use :error, wrap_with: { tag: 'small', class: 'error-block red-text text-darken-1' }
-    b.use :hint,  wrap_with: { tag: 'span', class: 'help-block' }
   end
 
   config.wrappers :materialize_file_input, tag: 'div', class: 'file-field input-field col', error_class: 'has-error' do |b|
     b.use :html5
+    b.use :hint
 
     b.wrapper tag: :div, class: 'btn' do |ba| 
       ba.use :tag, tag: :span, text: :label_text
@@ -89,12 +91,12 @@ SimpleForm.setup do |config|
     end
 
     b.use :error, wrap_with: { tag: 'small', class: 'error-block red-text text-darken-1' }
-    b.use :hint,  wrap_with: { tag: 'span', class: 'help-block' }
   end
 
   config.wrappers :materialize_multiple_file_input, tag: 'div', class: 'file-field input-field col', error_class: 'has-error' do |b|
     b.use :html5
-    
+    b.use :hint
+
     b.wrapper tag: :div, class: 'btn' do |ba| 
       ba.use :tag, tag: :span, text: :label_text
       ba.use :input, multiple: true
@@ -105,7 +107,6 @@ SimpleForm.setup do |config|
     end
 
     b.use :error, wrap_with: { tag: 'small', class: 'error-block red-text text-darken-1' }
-    b.use :hint,  wrap_with: { tag: 'span', class: 'help-block' }
   end
 
   config.default_wrapper = :materialize_form
