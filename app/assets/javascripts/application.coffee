@@ -131,7 +131,6 @@ timetracker.app.init_chips = (elem, tags, autocomplete_tags) ->
   return
 
 $(document).on 'turbolinks:load', timetracker.app.init
-#$(document).ready timetracker.app.init
 
 
 jQuery.fn.changeTag = (newTag) ->

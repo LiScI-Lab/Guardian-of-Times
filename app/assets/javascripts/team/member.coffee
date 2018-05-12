@@ -46,4 +46,3 @@ timetracker.team.member.materialize = (elem) ->
   return
 
 $(document).on 'turbolinks:load', timetracker.team.member.init
-#$(document).ready timetracker.team.member.init

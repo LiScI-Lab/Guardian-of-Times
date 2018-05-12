@@ -7,15 +7,15 @@
 
 javascript:
   function form() {
-    let val = $(".#{parent_class} .chips").siblings('input[type="hidden"][id$="tag_list"]').val()
+    let chips = $(".chips[for=\"#{for_class}_tag_list\"]")
+    let val = chips.siblings('input[type="hidden"][id$="tag_list"]').val()
     let tags = []
     if(val !== undefined) {
       tags = val.split("#{ActsAsTaggableOn.delimiter}").filter(v => v.trim().length !== 0)
     }
 
     let autocomplete_tags = #{{ collection.pluck(:name).to_json }}
-    timetracker.app.init_chips($(".#{parent_class} .chips"), tags, autocomplete_tags)
+    timetracker.app.init_chips(chips, tags, autocomplete_tags)
   }
 
   $(document).on('turbolinks:load', form)
-  $(document).ready(form)
