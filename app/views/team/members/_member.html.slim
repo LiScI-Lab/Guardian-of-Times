@@ -1,5 +1,10 @@
 tr
   td
+    - if member.progresses.ongoing.any?
+      = mdi_tag 'triangle rotate-90 12px', class: 'shadow shadow-grey'
+    - else
+      = mdi_tag 'checkbox-blank-circle 12px', class: 'shadow shadow-grey'
+  td
     = member.role_i18n
   td
     = member.status_i18n
