@@ -1,6 +1,6 @@
 tr
   td
-    - if member.progresses.ongoing.any?
+    - if member.show_tracking_status and member.progresses.ongoing.any?
       = mdi_tag 'triangle rotate-90 12px', class: 'shadow shadow-grey'
     - else
       = mdi_tag 'checkbox-blank-circle 12px', class: 'shadow shadow-grey'

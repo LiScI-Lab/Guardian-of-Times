@@ -66,7 +66,7 @@ class Team::MembersController < SecurityController
 
   private
   def member_params
-    params.require(:member).permit(:id, :tag_list, target_hours_attributes: [
+    params.require(:member).permit(:id, :tag_list, :show_online_status, :show_tracking_status, target_hours_attributes: [
         :id, :since, :hours
     ])
   end

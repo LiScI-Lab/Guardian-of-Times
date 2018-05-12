@@ -71,7 +71,7 @@ class TeamsController < SecurityController
       if @current_member.owner?
         redirect_to dashboard_team_path(@team)
       else
-        redirect_to dashboard_team_member_path(@team, @current_member)
+        redirect_to edit_team_member_path(@team, @current_member)
       end
     else
     end

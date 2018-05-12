@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180511123020) do
+ActiveRecord::Schema.define(version: 20180512164704) do
 
   create_table "taggings", force: :cascade do |t|
     t.integer "tag_id"
@@ -57,6 +57,8 @@ ActiveRecord::Schema.define(version: 20180511123020) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
+    t.boolean "show_online_status", default: true
+    t.boolean "show_tracking_status", default: true
     t.index ["discarded_at"], name: "index_team_members_on_discarded_at"
     t.index ["team_id"], name: "index_team_members_on_team_id"
     t.index ["user_id", "team_id"], name: "index_team_members_on_user_id_and_team_id", unique: true
