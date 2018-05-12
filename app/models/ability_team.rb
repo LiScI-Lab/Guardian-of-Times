@@ -32,9 +32,14 @@ module AbilityTeam
 
       can [:index, :show, :export],             Team::Progress,           team: {members: {id: member.id, role: Team::Member.roles[:owner]}}
       can [:create, :start, :import, :export],  Team::Progress,           member: member
-      can [:update, :stop],                     Team::Progress,           member: member
+      can [:update, :stop, :restart],           Team::Progress,           member: member
       can [:destroy],                           Team::Progress.kept,      member: member
       can [:restore],                           Team::Progress.discarded, member: member
+
+      cannot [:restart],                           Team::Progress do |progress|
+        not (progress.member.progresses.first == progress and progress.start.to_date == Date.today)
+      end
+
 
       can [:create, :index], :export
     end

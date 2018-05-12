@@ -34,7 +34,6 @@
                 = mdi_tag 'cloud-download'
 = render 'team/progresses/filter', url: team_member_progresses_path(@team, @member)
 
-
 - @progresses.kept.group_by { |p| p.start.beginning_of_month }.each do |date, progresses|
   .row
     .col.s12

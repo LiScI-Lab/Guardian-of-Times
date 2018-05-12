@@ -45,6 +45,16 @@ class Team::Member::ProgressesController < SecurityController
     end
   end
 
+  def restart
+    @progress.end = nil
+    if @progress.save
+      flash[:success] = "Progress successfully restarted"
+    else
+      flash[:error] = "Progress not restarted"
+    end
+    redirect_to team_member_progresses_path(@team, @member)
+  end
+
   def stop
     @progress.end = DateTime.now
     if @progress.save

@@ -42,6 +42,7 @@ Rails.application.routes.draw do
             end
 
             member do
+              patch :restart
               patch :stop
               patch :restore
             end
