@@ -91,7 +91,7 @@ de:
       show: "Anzeigen"
     filter: "Filter"
     total_time_spend: "Gesamtzeit:"
-    current_month_time_spend: "Monatszeit:"
+    current_month_time_spend: "Zeit diesen Monat:"
     edit:
       self:
         title: "Bearbeite dein Profil"
@@ -112,6 +112,8 @@ de:
         there_are_no_users: "Es gibt keine Benutzer, die nicht schon eingeladen wurden oder Mitglied dieses Team sind."
       dashboard:
         title: "Dashboard von %{name}"
+    today_time_spend: "Zeit heute:"
+    current_week_time_spend: "Zeit diese Woche:"
   dashboard:
     time_spend_in: "Arbeitszeiten im %{date}"
     total_time_spend: "Gesamte Arbeitszeit"

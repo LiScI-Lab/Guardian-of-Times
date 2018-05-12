@@ -34,6 +34,14 @@ class Team::Member < ApplicationRecord
     progresses.kept.this_month.map { |p| p.time_spend }.sum
   end
 
+  def current_week_time_spend
+    progresses.kept.this_week.map { |p| p.time_spend }.sum
+  end
+
+  def today_time_spend
+    progresses.kept.today.map { |p| p.time_spend }.sum
+  end
+
   def time_spend_data(date, by_team=false)
     name = if by_team then team.name else user.name end
     [name, seconds_to_hours(in_month_time_spend(date))]

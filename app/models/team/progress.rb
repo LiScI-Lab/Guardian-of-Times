@@ -7,8 +7,15 @@ class Team::Progress < ApplicationRecord
   belongs_to :member, class_name: Team::Member.name, foreign_key: :team_member_id
   has_one :user, class_name: User.name, through: :member
 
+  scope :at_day, -> (date){where(start: date.beginning_of_day..date.end_of_day)}
+  scope :in_week, -> (date){where(start: date.beginning_of_week..date.end_of_week)}
   scope :in_month, -> (date){where(start: date.beginning_of_month..date.end_of_month)}
+
+  scope :today, -> {at_day(DateTime.now)}
+  scope :this_week, -> {in_week(DateTime.now)}
   scope :this_month, -> {in_month(DateTime.now)}
+
+
   scope :ongoing, -> {where end: nil}
   scope :finished, -> {where.not end: nil}
 
