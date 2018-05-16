@@ -1,14 +1,16 @@
 - for_class ||= parent_class
 - if local_assigns[:value] and local_assigns[:value].is_a? Array
   - local_assigns[:value] = local_assigns[:value].join(ActsAsTaggableOn.delimiter)
-= f.label :tag_list, required: false
-.chips for="#{for_class}_tag_list"
-= f.hidden_field :tag_list, value: local_assigns[:value]
+- if local_assigns[:field].nil?
+  - field = :tag_list
+= f.label field, required: false
+.chips for="#{for_class}_#{field}"
+= f.hidden_field field, value: local_assigns[:value]
 
 javascript:
   function form() {
-    let chips = $(".chips[for=\"#{for_class}_tag_list\"]")
-    let val = chips.siblings('input[type="hidden"][id$="tag_list"]').val()
+    let chips = $(".chips[for=\"#{for_class}_#{field}\"]")
+    let val = chips.siblings("input[type=\"hidden\"][id$=\"#{field}\"]").val()
     let tags = []
     if(val !== undefined) {
       tags = val.split("#{ActsAsTaggableOn.delimiter}").filter(v => v.trim().length !== 0)

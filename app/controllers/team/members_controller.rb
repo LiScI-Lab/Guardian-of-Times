@@ -66,8 +66,12 @@ class Team::MembersController < SecurityController
 
   private
   def member_params
-    params.require(:member).permit(:id, :tag_list, :show_online_status, :show_tracking_status, target_hours_attributes: [
+    p = params.require(:member).permit(:id, :tag_list, :own_tag_list, :show_online_status, :show_tracking_status, target_hours_attributes: [
         :id, :since, :hours
     ])
+    if p[:own_tag_list].present?
+      p[:own_tag_list] = {owner: @current_member, tag_list: p[:own_tag_list]}
+    end
+    p
   end
 end

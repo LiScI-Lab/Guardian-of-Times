@@ -1,7 +1,8 @@
 class Team < ApplicationRecord
   include Statistics
+  include TagOwner
 
-  has_ancestry
+  #has_ancestry
   acts_as_taggable
 
   has_many :members, class_name: Team::Member.name

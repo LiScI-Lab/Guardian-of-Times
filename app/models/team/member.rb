@@ -1,5 +1,6 @@
 class Team::Member < ApplicationRecord
   include Statistics
+  include TagOwner
 
   include DateTimeHelper
 

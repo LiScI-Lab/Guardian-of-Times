@@ -2,13 +2,15 @@
 
 = simple_form_for([@team, @member, @progress]) do |f|
   = render 'application/form', f: f
-    .col.s6
+    .col.s6.m3
       = f.input :start_date, as: :date, wrapper_html: {class: 's6'}, input_html: {class: 'no-autoinit'}, label_html: {class: 'active'}
       = f.input :start_time, as: :time, wrapper_html: {class: 's6'}, input_html: {class: 'no-autoinit'}, label_html: {class: 'active'}
-    .col.s6
+    .col.s6.m3
       = f.input :end_date, as: :date, wrapper_html: {class: 's6'}, input_html: {class: 'no-autoinit'}, label_html: {class: 'active'}
       = f.input :end_time, as: :time, wrapper_html: {class: 's6'}, input_html: {class: 'no-autoinit'}, label_html: {class: 'active'}
-    .col.s6
+    .col.s12.m6
       = f.input :description, wrapper_html: {class: 's12'}
-    .col.s6
-      = render 'acts_as_taggable_on/tag_list', f: f, parent_class: 'simple_form', for_class: 'progress', value: @progress&.tag_list, collection: Team::Progress.tags_on(:tags)
+    .col.s12.m6
+      = render 'acts_as_taggable_on/tag_list', f: f, for_class: 'progress', value: f.object.tag_list, collection: Team::Progress.tags_on(:tags)
+    .col.s12.m6
+      = render 'acts_as_taggable_on/tag_list', f: f, for_class: 'progress', field: :own_tag_list, value: f.object.own_tag_list(@current_member), collection: Team::Progress.tags_on(:tags)

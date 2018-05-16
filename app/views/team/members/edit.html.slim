@@ -1,16 +1,16 @@
 - content_for :subtitle
   - if @member == @current_member
-    | #{t('team.edit.self.title')}
+    | #{t('team.member.edit.self.title')}
   - else
-    | #{t('team.edit.title', name: @member.user.name)}
+    | #{t('team.member.edit.title', name: @member.user.name)}
 
 .row
   .col.s12
     h5
       - if @member == @current_member
-        | #{t('team.edit.self.title')}
+        | #{t('team.member.edit.self.title')}
       - else
-        | #{t('team.edit.title', name: @member.user.name)}
+        | #{t('team.member.edit.title', name: @member.user.name)}
 
 = render 'application/form_errors', errors: @member.errors
 
@@ -21,7 +21,10 @@
         /= f.input :show_online_status
         = f.input :show_tracking_status
     .col.s12.m6
-      = render 'acts_as_taggable_on/tag_list', f: f, parent_class: 'simple_form', for_class: 'member', value: @member&.tag_list, collection: Team::Member.tags_on(:tags)
+      = render 'acts_as_taggable_on/tag_list', f: f, parent_class: 'simple_form', for_class: 'member', value: f.object.tag_list, collection: Team::Member.tags_on(:tags)
+    - unless @member == @current_member
+      .col.s12.m6
+        = render 'acts_as_taggable_on/tag_list', f: f, parent_class: 'simple_form', for_class: 'member', field: :own_tag_list, value: f.object.own_tag_list(@current_member), collection: Team::Member.tags_on(:tags)
     .col.s12
       = f.label :target_hours
       #target_hours.col.s12

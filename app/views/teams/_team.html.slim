@@ -21,10 +21,14 @@
           | #{t('team.menu.members')}:
         br
         | #{team.members.joined.kept.size}
-      - if team.tags.any?
+      - if team.tags_on(:tags).any?
         .divider
         .section
-          = render team.tags
+          = render team.tags_on(:tags)
+      - if team.owner_tags_on(team.members.find_by(user:@current_user), :tags).any?
+        .divider
+        .section
+          = render team.owner_tags_on(team.members.find_by(user:@current_user), :tags)
 
     .card-action
       - member = team.members.find_by user: @current_user

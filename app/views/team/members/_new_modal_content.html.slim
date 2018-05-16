@@ -1,6 +1,6 @@
 .modal-content
   h4.header
-    | #{t('team.members.new.available_users')}
+    | #{t('team.member.new.available_users')}
   - if User.where.not(id: @team.users).any?
     ul#user_list.collection
       - User.where.not(id: @team.users).order(:last_name).each do |user|
@@ -15,7 +15,7 @@
             = mdi_tag 'account-plus 24px'
   - else
     p
-      | #{t('team.members.new.there_are_no_users')}
+      | #{t('team.member.new.there_are_no_users')}
 .modal-footer
   = link_to '#', class: "modal-close waves-effect waves-green btn-flat",  data: {turbolinks: false}
     | #{t('modal.actions.close')}

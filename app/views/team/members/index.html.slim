@@ -36,6 +36,8 @@
           th
             | Tags
           th
+            | Private Tags
+          th
             | Options
       tbody
         - @members.order(role: :desc).kept.group(:role).select(:role).each do |member_role|

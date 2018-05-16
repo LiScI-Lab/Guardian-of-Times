@@ -10,11 +10,14 @@ tr
     td #{l(progress.end, format: :short)}
     td #{distance_of_time_or_null progress.time_spend}
   - else
-    td Ongoing
-    td #{distance_of_time progress.time_spend, accumulate_on: :hours}
+    td #{t('team.progress.status.ongoing')}
+    td #{distance_of_time_or_null progress.time_spend, nil}
   td #{progress.description}
   td
-    = render partial: 'acts_as_taggable_on/tags/tag', collection: progress.tags
+    = render partial: 'acts_as_taggable_on/tags/tag', collection: progress.tags_on(:tags)
+  td
+    = render partial: 'acts_as_taggable_on/tags/tag', collection: progress.owner_tags_on(@current_member, :tags)
+
   - unless overview
     td
       - if progress.finished?

@@ -1,5 +1,7 @@
 class Team::Progress < ApplicationRecord
   extend TimeSplitter::Accessors
+  include TagOwner
+
   acts_as_taggable
 
   belongs_to :team, class_name: Team.name

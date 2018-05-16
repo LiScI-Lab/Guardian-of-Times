@@ -171,7 +171,11 @@ class Team::Member::ProgressesController < SecurityController
 
   private
   def progress_params
-    params.require(:progress).permit([:start_date, :start_time, :end_date, :end_time, :description, :tag_list])
+    p = params.require(:progress).permit([:start_date, :start_time, :end_date, :end_time, :description, :tag_list, :own_tag_list])
+    if p[:own_tag_list].present?
+      p[:own_tag_list] = {owner: @current_member, tag_list: p[:own_tag_list]}
+    end
+    p
   end
 
   def import_params

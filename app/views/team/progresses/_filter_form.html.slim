@@ -8,7 +8,7 @@
   = f.input :month, collection: 1..12, selected: selected_month, wrapper_html: {class: "s5 #{if local_assigns[:available_members] then "m3 l2" else "m4 l4" end}"}, label_method: lambda {|m| t('date.month_names')[m]}, include_blank: :translate, required: false
 
   .col.l6 class="#{ if local_assigns[:available_members] then "hide-on-small-only m4" else "s5 m6" end }"
-    = render 'acts_as_taggable_on/tag_list', f: f, parent_class: 'filter', value: selected_tag_list, collection: Team::Progress.tags_on(:tags)
+    = render 'acts_as_taggable_on/tag_list', f: f, for_class: 'filter', value: selected_tag_list, collection: Team::Progress.tags_on(:tags)
   .col.s2.m2
     .button-group
       = f.button :button, class: 'blue btn-floating tooltipped', data: {position: 'bottom', tooltip: t('team.progress.filter.apply')}

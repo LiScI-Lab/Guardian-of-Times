@@ -5,7 +5,7 @@
     .col.m6.hide-on-small-only
       = f.input :description, wrapper_html: {class: 's12'}
     .col.s10.m5
-      = render 'acts_as_taggable_on/tag_list', f: f, parent_class: 'new_progress', for_class: 'progress', value: @progress&.tag_list, collection: Team::Progress.tags_on(:tags)
+      = render 'acts_as_taggable_on/tag_list', f: f, for_class: 'progress', value: @progress&.tag_list, collection: Team::Progress.tags_on(:tags)
     .col.s2.m1
       = f.button :button, class: 'green btn-floating tooltipped', data: {position: 'bottom', tooltip: t('team.progress.start')}
         = mdi_tag 'play'

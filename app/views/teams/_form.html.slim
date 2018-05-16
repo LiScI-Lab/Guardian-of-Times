@@ -4,17 +4,5 @@
   = render 'application/form', f: f
     = f.input :name, wrapper_html: {class: 's12'}, input_html: {minlength: Settings.team.name.length_minimum}
     = f.input :description, wrapper_html: {class: 's12'}, input_html: {minlength: Settings.team.description.length_minimum}
-    .col.s12
-      = f.label :tag_list
-      .chips for="team_tag_list"
-      = f.hidden_field :tag_list, value: f.object.tag_list.to_s
-
-javascript:
-  function form() {
-    let tags = #{{ @team.tags.pluck(:name).to_json }}
-    let autocomplete_tags = #{{ Team.tags_on(:tags).pluck(:name).to_json }}
-    timetracker.app.init_chips($('.chips'), tags, autocomplete_tags)
-  }
-
-  $(document).on('turbolinks:load', form)
-  $(document).ready(form)
+    = render 'acts_as_taggable_on/tag_list', f: f, for_class: 'team', value: f.object.tag_list, collection: Team.tags_on(:tags)
+    = render 'acts_as_taggable_on/tag_list', f: f, for_class: 'team', field: :own_tag_list, value: f.object.own_tag_list(@current_member), collection: Team.tags_on(:tags)

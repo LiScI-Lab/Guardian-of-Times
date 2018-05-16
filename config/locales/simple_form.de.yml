@@ -17,6 +17,7 @@ de:
     labels:
       defaults:
         tag_list: 'Tag Liste'
+        own_tag_list: 'Private Tag Liste'
       member:
         show_tracking_status: 'Status über laufende Fortschritte anzeigen'
         target_hours: 'Sollstunden'
