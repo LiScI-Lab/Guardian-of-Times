@@ -3,14 +3,13 @@ class Team::Member::UnavailabilitiesController < SecurityController
 
   load_and_authorize_resource :team
   load_and_authorize_resource :member, class: Team::Member
-  load_and_authorize_resource :unavailabilities, through: :member, class: Team::Unavailability
+  load_and_authorize_resource :unavailability, through: :member, class: Team::Unavailability
 
   def index
     @unavailability = Team::Unavailability.new(start: DateTime.now.to_date)
   end
 
   def create
-    @unavailability = Team::Unavailability.new(unavailability_params)
     @unavailability.member = @member
     @unavailability.team = @team
     if @unavailability.save
@@ -23,8 +22,7 @@ class Team::Member::UnavailabilitiesController < SecurityController
   end
 
   def destroy
-    unavailability = Team::Unavailability.find params[:id]
-    unavailability.discard
+    @unavailability.discard
     redirect_to team_member_unavailabilities_path(@team, @member)
   end
 
