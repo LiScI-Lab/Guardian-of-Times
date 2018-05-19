@@ -1,8 +1,19 @@
 
-h2 Unavailabilities
+.row
+  .col.s12
+    h4 New Unavailability
+    = render 'team/unavailabilities/form'
 
-h4 New Unavailability
-= render 'team/unavailabilities/form'
-
-h4 All Unavailabilities
-- @unavailabilities.each do |unavailability|
+.row
+  .col.s12
+    h4 Unavailabilities
+    table.highlight.responsive-table
+      thead
+        tr
+          th Start
+          th End
+      tbody
+        - @member.unavailabilities.kept.each do |unavailability|
+          tr
+            td = l(unavailability.start, format: :short)
+            td = l(unavailability.end, format: :short)
