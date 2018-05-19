@@ -15,6 +15,7 @@ class Team::Member < ApplicationRecord
   has_many :progresses, -> {order start: :desc}, class_name: Team::Progress.name, foreign_key: :team_member_id
 
   has_many :target_hours, -> {order since: :asc}, class_name: Team::Member::TargetHour.name, foreign_key: :team_member_id
+  has_many :unavailabilities, -> {order start: :desc}, class_name: Team::Unavailability.name, foreign_key: :team_member_id
 
   validates :user, uniqueness: {scope: :team}
 

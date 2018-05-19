@@ -48,6 +48,8 @@ Rails.application.routes.draw do
             end
           end
 
+          resources :unavailabilities, only: [:index, :create]
+
         end
       end
       resources :progresses, only: [:index, :show]

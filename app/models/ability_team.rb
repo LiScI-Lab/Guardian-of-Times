@@ -41,6 +41,10 @@ module AbilityTeam
         not (progress.member.progresses.kept.first == progress and progress.start.to_date == Date.today)
       end
 
+      # can [:index, :create],             Team::Unavailability,           team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
+
+      #FIXME: use correct access rights !
+      can [:manage], Team::Unavailability, member: member
 
       can [:create, :index], :export
     end
