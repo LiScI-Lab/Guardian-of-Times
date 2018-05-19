@@ -17,7 +17,7 @@ html
         .col.s10
           = content_for?(:content) ? yield(:content) : yield
         .col.s1
-      #main_modal.modal.bottom-sheet
+      #main_modal.modal.modal-fixed-footer
     = render 'layouts/footer'
 
     javascript:

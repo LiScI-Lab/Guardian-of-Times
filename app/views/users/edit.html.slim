@@ -1,15 +1,45 @@
 - content_for :subtitle
   | #{t('user.self.edit.title')}
 .row
-  .col.s12.m8.l9
+  .col.s12.l9
     = render 'application/form_errors', errors: @current_user.errors
     = simple_form_for(@current_user) do |f|
       = render 'application/form', f: f
-        = f.hidden_field :department
-        - birth_date = if @current_user.birth_date then l(@current_user.birth_date) else nil end
-        = f.input :birth_date, as: :date, wrapper_html: {class: 's6'}, input_html: {value: birth_date, class: 'no-autoinit'}, label_html: {class: 'active'}
+        .col.s12.m6
+          .section
+            = f.input :last_name, disabled: true, wrapper_html: {class: 's6'}
+            = f.input :first_name, disabled: true, wrapper_html: {class: 's6'}
+            = f.input :email, disabled: true, wrapper_html: {class: 's12'}
+            = f.input :username, disabled: true, wrapper_html: {class: 's6'}
+            .col.s6.input-field
+              = f.label :role, class: 'disabled active'
+              .col.s6.offset-s3 style='height=3rem; padding-top: 15px;'
+                = render 'role_badge', user: @current_user
+          .divider
+          .section
+            = f.input :department, wrapper_html: {class: 's12'}
+            - birth_date = if @current_user.birth_date then l(@current_user.birth_date) else nil end
+            = f.input :birth_date, as: :date, wrapper_html: {class: 's12'}, input_html: {value: birth_date, class: 'no-autoinit'}, label_html: {class: 'active'}
+        .col.s12.m6
+          - ([['generator', f.object.generated_avatar_url], ['local', f.object.avatar_url]] + f.object.identities.where.not(avatar_url: nil).pluck(:provider, :avatar_url)).each do |type|
+            .col.s12.l6
+              .card-panel
+                .row
+                  .col.s2.m4.offset-m4.center.l6.offset-l3
+                    - unless type[1].nil?
+                      = image_tag type[1], class: 'responsive-img circle'
+                  .col.s10.m12
+                    label
+                      = f.radio_button :avatar_type, type[0], checked: (type[0] == f.object.avatar_type), class: 'with-gap'
+                      span
+                        = t("devise.omniauth.providers.#{type[0]}")
+                  - if type[0] == 'local'
+                    = f.input :avatar, label: false, wrapper_html: {class: 's12'}
+                    = f.hidden_field :avatar_cache
 
-  .col.s12.m4.l3
+
+
+  .col.s12.l3
     .card
       .card-content
         .card-title

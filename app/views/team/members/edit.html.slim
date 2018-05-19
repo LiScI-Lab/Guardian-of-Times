@@ -1,22 +1,36 @@
 - content_for :subtitle
-  = t('team.edit', name: @member.user.realname)
+  - if @member == @current_member
+    | #{t('team.edit.self.title')}
+  - else
+    | #{t('team.edit.title', name: @member.user.name)}
+
+.row
+  .col.s12
+    h5
+      - if @member == @current_member
+        | #{t('team.edit.self.title')}
+      - else
+        | #{t('team.edit.title', name: @member.user.name)}
 
 = render 'application/form_errors', errors: @member.errors
 
 = simple_form_for [@team, @member], validate: true do |f|
   = render 'application/form', f: f
-    /.col.s12
-      = f.label :tag_list
-      .chips for="member_tag_list"
-      = f.hidden_field :tag_list, value: f.object.tag_list.to_s
-    = f.label :target_hours
-    #target_hours.col.s12
-      = f.simple_fields_for :target_hours do |target_hour_form|
-        = render 'target_hour_fields', f: target_hour_form
+    - if @member == @current_member
+      .col.s12.m6
+        /= f.input :show_online_status
+        = f.input :show_tracking_status
+    .col.s12.m6
+      = render 'acts_as_taggable_on/tag_list', f: f, parent_class: 'simple_form', for_class: 'member', value: @member&.tag_list, collection: Team::Member.tags_on(:tags)
+    .col.s12
+      = f.label :target_hours
+      #target_hours.col.s12
+        = f.simple_fields_for :target_hours do |target_hour_form|
+          = render 'target_hour_fields', f: target_hour_form
 
-      .links.col.s12
-        = link_to_add_association f, :target_hours, class: "btn-floating btn-large waves-effect waves-light red right"
-          = mdi_tag 'plus'
+        .links.col.s12
+          = link_to_add_association f, :target_hours, class: "btn-floating btn-large waves-effect waves-light red right"
+            = mdi_tag 'plus'
 
 coffee:
   form = () ->
@@ -25,12 +39,3 @@ coffee:
     timetracker.team.member.cocoonize($('#target_hours'))
     return
   $(document).on('turbolinks:load', form)
-/javascript:
-    function form() {
-        let tags = #{{ @team.tags.pluck(:name).to_json }}
-    let autocomplete_tags = #{{ Team.tags_on(:tags).pluck(:name).to_json }}
-    timetracker.app.init_chips($('.chips'), tags, autocomplete_tags)
-    }
-
-    $(document).on('turbolinks:load', form)
-    $(document).ready(form)

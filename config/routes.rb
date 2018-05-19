@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     end
 
     member do
+      post :invite
       patch :join
       get :dashboard
     end
@@ -27,9 +28,6 @@ Rails.application.routes.draw do
     scope module: :team do
       #resources :sub_teams, only: [:index, :new, :create]
       resources :members, only: [:index, :show, :new, :edit, :update, :destroy] do
-        collection do
-          post :invite
-        end
         member do
           get :dashboard
           patch :restore
@@ -44,6 +42,7 @@ Rails.application.routes.draw do
             end
 
             member do
+              patch :restart
               patch :stop
               patch :restore
             end

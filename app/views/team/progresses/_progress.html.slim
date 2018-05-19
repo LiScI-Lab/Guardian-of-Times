@@ -19,6 +19,9 @@ tr
     td
       - if progress.finished?
         .button-group
+          - if can? :restart, progress
+            = link_to restart_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light green', method: :patch
+              = mdi_tag 'play'
           - if can? :edit, progress
             = link_to edit_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light orange'
               = mdi_tag 'pencil'

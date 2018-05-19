@@ -52,7 +52,16 @@ class TeamsController < SecurityController
 
   def owner
     @teams = @current_user.own_teams.kept
+  end
 
+  def invite
+    @user = User.find params[:user_id]
+    member = @team.members.find_or_initialize_by user: @user
+    if member.save
+      @message = "#{@user.name} successfully invited"
+    else
+      @message = "Something went wrong"
+    end
   end
 
   def join
@@ -62,7 +71,7 @@ class TeamsController < SecurityController
       if @current_member.owner?
         redirect_to dashboard_team_path(@team)
       else
-        redirect_to dashboard_team_member_path(@team, @current_member)
+        redirect_to edit_team_member_path(@team, @current_member)
       end
     else
     end

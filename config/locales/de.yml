@@ -91,8 +91,11 @@ de:
       show: "Anzeigen"
     filter: "Filter"
     total_time_spend: "Gesamtzeit:"
-    current_month_time_spend: "Monatszeit:"
-    edit: "Bearbeite %{name}"
+    current_month_time_spend: "Zeit diesen Monat:"
+    edit:
+      self:
+        title: "Bearbeite dein Profil"
+      title: "Bearbeite das Profil von %{name}"
     progress:
       import:
         name: "Fortschritte importieren"
@@ -102,6 +105,15 @@ de:
       filter:
         clear: "Löschen"
         apply: "Anwenden"
+      start: "Sofort starten"
+    members:
+      new:
+        available_users: "Verfügbare Benutzer"
+        there_are_no_users: "Es gibt keine Benutzer, die nicht schon eingeladen wurden oder Mitglied dieses Team sind."
+      dashboard:
+        title: "Dashboard von %{name}"
+    today_time_spend: "Zeit heute:"
+    current_week_time_spend: "Zeit diese Woche:"
   dashboard:
     time_spend_in: "Arbeitszeiten im %{date}"
     total_time_spend: "Gesamte Arbeitszeit"
@@ -119,3 +131,17 @@ de:
         title: "Ändere dein Profil"
     edit:
       connect_login_service: "Weitere Login-Dienste koppeln"
+    action:
+      logout: "Ausloggen"
+      edit: "Profil ändern"
+  modal:
+    actions:
+      close: "Schließen"
+  errors:
+    messages:
+      start_or_end_is_missing: "Beginn oder Ende fehlt"
+      start_and_end_are_identical: "%{date}: Beginn und Ende sind identisch"
+      duration_less_than:
+        one: "%{date}: Die Dauer ist geringer als eine Sekunde"
+        other: "%{date}: Die Dauer ist geringer als %{count} Sekunden"
+      format_not_implemented: "Das Format ist noch nicht implementiert"

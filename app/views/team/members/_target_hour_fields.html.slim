@@ -1,5 +1,6 @@
 .nested-fields.col.s6.m4.l3
   .card-panel
     .row
-      = f.input :since, wrapper_html: {class: 's6'}
+      - since = if f.object.since then l(f.object.since) else nil end
+      = f.input :since, wrapper_html: {class: 's6'}, input_html: {value: since, class: 'no-autoinit manual'}
       = f.input :hours, wrapper_html: {class: 's6'}

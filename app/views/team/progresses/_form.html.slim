@@ -8,19 +8,7 @@
     .col.s6
       = f.input :end_date, as: :date, wrapper_html: {class: 's6'}, input_html: {class: 'no-autoinit'}, label_html: {class: 'active'}
       = f.input :end_time, as: :time, wrapper_html: {class: 's6'}, input_html: {class: 'no-autoinit'}, label_html: {class: 'active'}
-    .col.s12
-      = f.input :description, wrapper_html: {class: 's6'}
-      = f.label :tag_list
-      .chips.col.s6 for="progress_tag_list"
-      = f.hidden_field :tag_list, value: f.object.tag_list.to_s
-
-javascript:
-  function form() {
-    $(document).ready($('.datepicker').datepicker)
-    let tags = #{{ @progress.tags.pluck(:name).to_json }}
-    let autocomplete_tags = #{{ Team::Progress.tags_on(:tags).pluck(:name).to_json }}
-    timetracker.app.init_chips($('.chips'), tags, autocomplete_tags)
-  }
-
-  $(document).on('turbolinks:load', form)
-  $(document).ready(form)
+    .col.s6
+      = f.input :description, wrapper_html: {class: 's12'}
+    .col.s6
+      = render 'acts_as_taggable_on/tag_list', f: f, parent_class: 'simple_form', for_class: 'progress', value: @progress&.tag_list, collection: Team::Progress.tags_on(:tags)

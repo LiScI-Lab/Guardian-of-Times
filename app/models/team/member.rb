@@ -4,6 +4,7 @@ class Team::Member < ApplicationRecord
   include DateTimeHelper
 
   acts_as_tagger
+  acts_as_taggable
 
   enum status: {invited: 0, leaved: 5, removed: 10, joined: 100}
   enum role: {participant: 0, timekeeper: 50, responsible: 90, owner: 100}
@@ -31,6 +32,14 @@ class Team::Member < ApplicationRecord
 
   def current_month_time_spend
     progresses.kept.this_month.map { |p| p.time_spend }.sum
+  end
+
+  def current_week_time_spend
+    progresses.kept.this_week.map { |p| p.time_spend }.sum
+  end
+
+  def today_time_spend
+    progresses.kept.today.map { |p| p.time_spend }.sum
   end
 
   def time_spend_data(date, by_team=false)
@@ -84,7 +93,7 @@ class Team::Member < ApplicationRecord
 
   def time_spend_series
     data = {}
-    progresses.kept.group_by_month(:start).count.map do |k,v|
+    progresses.kept.group_by_month(:start).unscope(:order).count.map do |k,v|
       data[k.end_of_month] = seconds_to_hours(in_month_time_spend(k))
     end
     data

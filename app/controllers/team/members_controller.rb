@@ -46,18 +46,6 @@ class Team::MembersController < SecurityController
     end
   end
 
-  def invite
-    invite_params[:users].reject { |c| c.empty? }.each do |id|
-      @team.members.find_or_initialize_by user: User.find(id)
-    end
-    if @team.save
-      flash[:success] = "Users are invited!"
-    else
-      flash[:error] = "Something went wrong"
-    end
-    redirect_to team_members_path(@team)
-  end
-
   def restore
     if @member.joined!
       flash[:success] = "Member is rejoined!"
@@ -78,12 +66,8 @@ class Team::MembersController < SecurityController
 
   private
   def member_params
-    params.require(:member).permit(:id, target_hours_attributes: [
+    params.require(:member).permit(:id, :tag_list, :show_online_status, :show_tracking_status, target_hours_attributes: [
         :id, :since, :hours
     ])
-  end
-
-  def invite_params
-    params.require(:invitations).permit(users: [])
   end
 end

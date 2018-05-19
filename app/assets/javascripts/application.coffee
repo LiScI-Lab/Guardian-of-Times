@@ -50,12 +50,24 @@ timetracker.app.cocoonize = (elem) ->
 timetracker.app.materialize = (elem) ->
   elem || (elem = $('body'))
   M.AutoInit(elem[0])
-  $(".dropdown-trigger", elem).dropdown
+  $(".dropdown-trigger.no-autoinit", elem).dropdown
     constrainWidth: false
+    autoTrigger: true
+    coverTrigger: false
+
+  sidenavs = $('.sidenav.no-autoinit')
+  sidenavs.sidenav()
+  sidenavs.each (_, nav) ->
+    id = $('.sidenav.no-autoinit').attr('id')
+    $(".sidenav-trigger[data-target=\"#{id}\"").click () ->
+      $(nav).sidenav('open')
+      return
+    return
+
   $('input[type="text"]', elem).not('.date,.time,.datetime,.select-dropdown').characterCounter()
   $('textarea', elem).characterCounter()
   $('.modal', elem).modal()
-  $('.datepicker', elem).each (_, e) ->
+  $('.datepicker.no-autoinit', elem).not('.manual').each (_, e) ->
     e = $(e)
     e.datepicker({
       setDefaultDate: true
@@ -85,6 +97,15 @@ timetracker.app.materialize = (elem) ->
       done: I18n.t('js.picker.action.done')
     }
   })
+  $('input.boolean.tooltipped,input.date.tooltipped', elem).each (_, e) ->
+    e = $(e)
+    parent = e.parents('.boolean,.date')
+    data = e.data()
+    data['html'] = data['tooltip']
+    M.Tooltip.init(parent,data)
+    i = M.Tooltip.getInstance(e)
+    if i isnt undefined
+      M.Tooltip.getInstance(e).destroy()
   return
 
 timetracker.app.init_chips = (elem, tags, autocomplete_tags) ->
@@ -119,7 +140,6 @@ timetracker.app.init_chips = (elem, tags, autocomplete_tags) ->
   return
 
 $(document).on 'turbolinks:load', timetracker.app.init
-#$(document).ready timetracker.app.init
 
 
 jQuery.fn.changeTag = (newTag) ->

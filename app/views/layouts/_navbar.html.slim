@@ -1,18 +1,54 @@
 - action = params[:action].to_sym
 
-ul#main-sidenav.sidenav
-  - if @current_user
+- if @current_user
+  ul#main-sidenav.sidenav.no-autoinit
+    li
+      .user-view
+        .background
+          = image_tag '/sidenav.jpg'
+        = link_to '#avatar', data: {turbolinks: false}
+          = image_tag @current_user.logo_url, class: 'circle'
+        = link_to '#name', data: {turbolinks: false}
+          span.white-text.name
+            | #{@current_user.name}
+        = link_to '#name', data: {turbolinks: false}
+          span.white-text.email
+            | #{@current_user.email}
+
+
     li class="#{"active" if controller.is_a? UsersController}"
-      = link_to dashboard_user_path(@current_user), class: 'nav-link'
+      = link_to dashboard_user_path(@current_user)
         = t('menu.dashboard')
+    li
+      .divider
     li class="#{"active" if controller.is_a? TeamsController and [:owner, :index, :invited].include? action}"
-      = link_to teams_path, class: 'nav-link'
+      = link_to '#', class: 'subheader'
         = t('menu.teams')
+    li
+      = link_to owner_teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :owner}"
+        = t('dropdown.teams.own')
+        - if @current_user.own_teams.any?
+          span.badge = @current_user.own_teams.count
+    li
+      = link_to teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :index}"
+        = t('dropdown.teams.involved')
+        - if @current_user.involved_teams.any?
+          span.badge = @current_user.involved_teams.count
+    li
+      = link_to invited_teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :invited}"
+        = t('dropdown.teams.invitations')
         - if @current_user.invited_teams.any?
           span.new.badge = @current_user.invited_teams.count
     li
+      .divider
+    li
+      = link_to edit_user_path @current_user
+        = mdi_tag 'pencil'
+        | #{t('user.action.edit')}
+    li
       = link_to destroy_user_session_path, method: :delete
         = mdi_tag 'logout'
+        | #{t('user.action.logout')}
 
 - if @current_user
   ul#dropdown-teams.dropdown-content
@@ -32,29 +68,46 @@ ul#main-sidenav.sidenav
         - if @current_user.invited_teams.any?
           span.new.badge = @current_user.invited_teams.count
 
+  ul#dropdown-user.dropdown-content
+    li
+      = link_to edit_user_path @current_user
+        = mdi_tag 'pencil'
+        | #{t('user.action.edit')}
+    li
+      = link_to destroy_user_session_path, method: :delete
+        = mdi_tag 'logout'
+        | #{t('user.action.logout')}
+
 nav.row.nav-extended
   .nav-wrapper
     .col.s12.l2
       = link_to "TimeTracker", root_path, class: 'brand-logo'
-      = link_to '#', class: 'sidenav-trigger', data: {target: 'main-sidenav', hover: true, turbolinks: false}
-        = mdi_tag 'menu'
+      - if @current_user
+        = link_to '#', class: 'sidenav-trigger', data: {target: 'main-sidenav', turbolinks: false}
+          = mdi_tag 'menu'
     - if @current_user
-      .col.l8.hide-on-med-and-down
+      .col.l7.hide-on-med-and-down
         ul
           li class="#{"active" if controller.is_a? UsersController}"
             = link_to dashboard_user_path(@current_user)
               = t('menu.dashboard')
           li class="#{"active" if controller.is_a? TeamsController and [:owner, :index, :invited].include? action}"
-            = link_to '#', class: 'dropdown-trigger no-autoinit', data: {target: 'dropdown-teams'}
+            = link_to '#', class: 'dropdown-trigger no-autoinit', data: {target: 'dropdown-teams', turbolinks: false}
               = t('menu.teams')
               - if @current_user.invited_teams.any?
                 span.new.badge = @current_user.invited_teams.count
-              = mdi_tag 'menu_down', class: 'right'
-      .col.l2.hide-on-med-and-down
-        ul.right
-          li
-            = link_to destroy_user_session_path, method: :delete
-              = mdi_tag 'logout'
+              = mdi_tag 'menu-down', class: 'right'
+      .col.l3.hide-on-med-and-down
+        .right
+          .brand-logo
+            = image_tag @current_user.logo_url, class: 'circle avatar'
+          ul
+            li
+
+            li
+              = link_to '#', class: 'dropdown-trigger no-autoinit', data: {target: 'dropdown-user', turbolinks: false}
+                = @current_user.name
+                = mdi_tag 'menu-down', class: 'right'
 
   - if content_for?(:subtitle) or content_for?(:subnavtitle) or content_for?(:subnav)
     .nav-content.col.s12

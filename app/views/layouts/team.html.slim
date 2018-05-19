@@ -1,6 +1,7 @@
 - if @team and @team.persisted?
-  - content_for :subtitle
-    | #{@team.name}
+  - unless content_for? :subtitle
+    - content_for :subtitle
+      | #{@team.name}
   - content_for :subnavtitle
     .col.s12
       - if @team.has_parent?

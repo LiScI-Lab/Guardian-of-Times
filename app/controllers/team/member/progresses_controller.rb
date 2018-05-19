@@ -6,12 +6,9 @@ class Team::Member::ProgressesController < SecurityController
   load_and_authorize_resource :member, class: Team::Member
   load_and_authorize_resource :progress, through: :member, class: Team::Progress
 
-  #TODO: use materializecss datepicker instead of input field ??
-
   def index
     @progresses = get_filtered_progresses(@member)
     @progress = Team::Progress.new(start: DateTime.now, team: @team, member: @member)
-    @tag_list = Team::Progress.tags_on(:tag)
   end
 
   def create
@@ -39,13 +36,23 @@ class Team::Member::ProgressesController < SecurityController
     @progress = Team::Progress.new progress_params
     @progress.member = @member
     @progress.team = @team
-    # if @progress.save
-    #   flash[:success] = "Progress successfully started"
-    #   redirect_to team_member_progresses_path(@team, @member)
-    # else
+    if @progress.save
+      flash[:success] = "Progress successfully started"
+      redirect_to team_member_progresses_path(@team, @member)
+    else
       flash[:error] = "Progress not created"
       render 'index'
-    #end
+    end
+  end
+
+  def restart
+    @progress.end = nil
+    if @progress.save
+      flash[:success] = "Progress successfully restarted"
+    else
+      flash[:error] = "Progress not restarted"
+    end
+    redirect_to team_member_progresses_path(@team, @member)
   end
 
   def stop
@@ -94,7 +101,7 @@ class Team::Member::ProgressesController < SecurityController
       when :hamster
         import_hamster @member, i_params[:file], i_params[:options]
       else
-        raise ArgumentError, "format not implemented"
+        raise ArgumentError, I18n.t('errors.messages.format_not_implemented')
       end
       flash[:success] = "Import successful."
     rescue StandardError => error
@@ -155,7 +162,10 @@ class Team::Member::ProgressesController < SecurityController
     if endtime < starttime
       endtime = endtime + 1.days
     end
-    raise 'start or end is missing' if starttime.nil? or endtime.nil?
+    raise I18n.t('errors.messages.start_or_end_is_missing') if starttime.nil? or endtime.nil?
+    raise I18n.t('errors.messages.start_and_end_are_identical', date: l(starttime, format: :long)) if starttime == endtime
+    raise I18n.t('errors.messages.duration_less_than', date: l(starttime, format: :long), count: Settings.team.progress.minimum_duration_for_import) if (endtime - starttime) < Settings.team.progress.minimum_duration_for_import
+
     Team::Progress.new start: starttime, end: endtime, member: member, team: member.team
   end
 

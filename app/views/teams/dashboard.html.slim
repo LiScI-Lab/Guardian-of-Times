@@ -12,7 +12,9 @@
   = render 'team/dashboard/total_time_in_hours', time_spend_hours: @team.time_spend_series
 
 .row
-  .col.s12
+  .col.s12.m6
+    = render 'team/dashboard/actual_vs_expected_hours', series: @team.current_month_actual_vs_expected_hours
+  .col.s12.m6
     = render 'team/dashboard/actual_vs_expected_hours', date: last_month, series: @team.in_month_actual_vs_expected_hours(last_month)
 .row
   .col.s12.m6
