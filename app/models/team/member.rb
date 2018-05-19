@@ -100,6 +100,10 @@ class Team::Member < ApplicationRecord
     data
   end
 
+  def available?
+    not unavailabilities.kept.where('"team_unavailabilities"."start" <= ? and "team_unavailabilities"."end" >= ?', Date.today, Date.today).exists?
+  end
+
   private
   def set_joined
     self.status = :joined

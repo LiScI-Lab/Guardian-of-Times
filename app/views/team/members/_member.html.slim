@@ -1,9 +1,14 @@
 tr
   td
     - if member.show_tracking_status and member.progresses.ongoing.any?
-      = mdi_tag 'triangle rotate-90 12px', class: 'shadow shadow-grey'
+      = mdi_tag 'triangle rotate-90 18px', class: 'shadow shadow-grey'
     - else
-      = mdi_tag 'checkbox-blank-circle 12px', class: 'shadow shadow-grey'
+      = mdi_tag 'checkbox-blank-circle 18px', class: 'shadow shadow-grey'
+    - puts "is available: ", member.available?
+    - if member.available?
+      = mdi_tag 'checkbox-marked-circle-outline 18px', class: 'green-text'
+    - else
+      = mdi_tag 'circle 18px', class: 'red-text'
   td
     = member.role_i18n
   td
