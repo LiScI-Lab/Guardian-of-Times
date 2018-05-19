@@ -1,0 +1,7 @@
+= render 'application/form_errors', errors: @unavailability.errors
+
+= simple_form_for([@team, @member, @unavailability]) do |f|
+  = render 'application/form', f: f
+    .col.s6
+      = f.input :start
+      = f.input :end
