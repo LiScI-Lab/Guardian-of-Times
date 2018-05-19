@@ -12,8 +12,13 @@
         tr
           th Start
           th End
+          th Options
       tbody
         - @member.unavailabilities.kept.each do |unavailability|
           tr
             td = l(unavailability.start, format: :short)
             td = l(unavailability.end, format: :short)
+            td
+              - if can? :destroy, unavailability
+                = link_to team_member_unavailability_path(@team, @member, unavailability), class: 'btn-floating waves-effect waves-light red', method: :delete
+                  = mdi_tag 'delete'

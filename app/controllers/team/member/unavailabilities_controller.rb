@@ -22,6 +22,12 @@ class Team::Member::UnavailabilitiesController < SecurityController
     end
   end
 
+  def destroy
+    unavailability = Team::Unavailability.find params[:id]
+    unavailability.discard
+    redirect_to team_member_unavailabilities_path(@team, @member)
+  end
+
   private
   def unavailability_params
     params.require(:unavailability).permit([:start,:end])
