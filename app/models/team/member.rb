@@ -100,8 +100,12 @@ class Team::Member < ApplicationRecord
     data
   end
 
+  def current_unavailability
+    unavailabilities.kept.where('"team_unavailabilities"."start" <= ? and "team_unavailabilities"."end" >= ?', Date.today, Date.today).first
+  end
+
   def available?
-    not unavailabilities.kept.where('"team_unavailabilities"."start" <= ? and "team_unavailabilities"."end" >= ?', Date.today, Date.today).exists?
+    not current_unavailability
   end
 
   private
