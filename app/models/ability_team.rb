@@ -43,8 +43,8 @@ module AbilityTeam
 
       # can [:index, :create],             Team::Unavailability,           team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
 
-      #FIXME: use correct access rights !
-      can [:manage], Team::Unavailability, member: member
+      can [:show,:index], Team::Unavailability, team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
+      can [:show,:index, :create, :edit, :update, :destroy], Team::Unavailability, member: member
 
       can [:create, :index], :export
     end
