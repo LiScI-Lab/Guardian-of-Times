@@ -113,6 +113,7 @@ de:
         there_are_no_users: "Es gibt keine Benutzer, die nicht schon eingeladen wurden oder Mitglied dieses Team sind."
       dashboard:
         title: "Dashboard von %{name}"
+        not_available: "nicht erreichbar bis %{date}"
     today_time_spend: "Zeit heute:"
     current_week_time_spend: "Zeit diese Woche:"
   dashboard:
