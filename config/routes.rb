@@ -48,7 +48,7 @@ Rails.application.routes.draw do
             end
           end
 
-          resources :unavailabilities, only: [:index, :create, :destroy]
+          resources :unavailabilities, only: [:index, :create, :edit, :update, :destroy]
 
         end
       end

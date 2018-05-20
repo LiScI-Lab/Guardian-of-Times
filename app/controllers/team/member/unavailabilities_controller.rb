@@ -21,6 +21,16 @@ class Team::Member::UnavailabilitiesController < SecurityController
     end
   end
 
+  def update
+    if @unavailability.update unavailability_params
+      flash[:success] = "Progress successfully updated"
+      redirect_to team_member_unavailabilities_path(@team, @member)
+    else
+      flash[:error] = "Progress not updated"
+      render 'index'
+    end
+  end
+
   def destroy
     @unavailability.discard
     redirect_to team_member_unavailabilities_path(@team, @member)
