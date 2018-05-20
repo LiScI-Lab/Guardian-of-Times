@@ -41,8 +41,6 @@ module AbilityTeam
         not (progress.member.progresses.kept.first == progress and progress.start.to_date == Date.today)
       end
 
-      # can [:index, :create],             Team::Unavailability,           team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
-
       can [:show,:index], Team::Unavailability, team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
       can [:show,:index, :create, :edit, :update, :destroy], Team::Unavailability, member: member
 
