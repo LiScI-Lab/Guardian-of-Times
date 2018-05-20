@@ -1,12 +1,14 @@
 
 .row
   .col.s12
-    h4 Abwesenheit eintragen
+    h5 = t('team.menu.unavailability')
+
+.row
+  .col.s12
     = render 'team/unavailabilities/form'
 
 .row
   .col.s12
-    h4 = t('team.menu.unavailability')
     table.highlight.responsive-table
       thead
         tr
