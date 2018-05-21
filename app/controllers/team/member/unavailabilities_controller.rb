@@ -39,6 +39,6 @@ class Team::Member::UnavailabilitiesController < SecurityController
 
   private
   def unavailability_params
-    params.require(:unavailability).permit([:start,:end])
+    params.require(:unavailability).permit([:start_date, :end_date])
   end
 end
