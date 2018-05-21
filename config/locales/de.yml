@@ -156,3 +156,8 @@ de:
         one: "%{date}: Die Dauer ist geringer als eine Sekunde"
         other: "%{date}: Die Dauer ist geringer als %{count} Sekunden"
       format_not_implemented: "Das Format ist noch nicht implementiert"
+  headline:
+    team:
+      progress:
+        start: "Fortschritt starten"
+    statistics: "Statistiken"

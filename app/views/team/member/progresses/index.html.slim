@@ -19,7 +19,8 @@
 .row
   .col.s12.l6
     .col.s12
-      h6 Statistiken
+      h6
+        = t('headline.statistics')
     .col.m4.l3.hide-on-small-only
       .col.s12
         b
@@ -48,7 +49,8 @@
   .col.s12.l6
     - if can? :start, @progress and @member.progresses.kept.ongoing.empty?
       .col.s12
-        h6 Start Progress
+        h6
+          = t('headline.team.progress.start')
       .col.s12
         = render 'team/progresses/mini_form'
 
