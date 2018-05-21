@@ -9,6 +9,7 @@ class Team < ApplicationRecord
   has_many :users, through: :members, class_name: User.name
 
   has_many :progresses, -> {order start: :desc}, class_name: Team::Progress.name
+  has_many :unavailabilities, -> {order start: :desc}, class_name: Team::Unavailability.name
 
   validates :name, presence: true, uniqueness: {scope: :ancestry}, length: { minimum: Settings.team.name.length_minimum}
   validates :description, allow_blank: true, length: { minimum: Settings.team.description.length_minimum }

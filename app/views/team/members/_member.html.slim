@@ -1,11 +1,9 @@
 tr
   td
-    - if not member.available?
-      = mdi_tag 'close-circle 18px', class: 'red-text'
-    - elsif member.show_tracking_status and member.progresses.ongoing.any?
-      = mdi_tag 'triangle rotate-90 18px', class: 'shadow shadow-grey'
+    - if member.show_tracking_status and member.progresses.ongoing.any?
+      = mdi_tag 'triangle rotate-90 18px', class: "shadow #{if member.available? then "shadow-grey" else "shadow-red" end}"
     - else
-      = mdi_tag 'checkbox-blank-circle 18px', class: 'shadow shadow-grey'
+      = mdi_tag 'checkbox-blank-circle 18px', class: "shadow #{if member.available? then "shadow-grey" else "shadow-red" end}"
   td
     = member.role_i18n
   td
@@ -31,6 +29,8 @@ tr
           = mdi_tag 'view-dashboard'
         = link_to team_member_progresses_path(@team, member), class: 'btn-floating waves-effect waves-light'
           = mdi_tag 'run'
+        = link_to team_member_unavailabilities_path(@team, member), class: 'btn-floating waves-effect waves-light green'
+          = mdi_tag 'weather-sunny'
       - if can? :edit, member
         = link_to edit_team_member_path(@team, member), class: 'btn-floating waves-effect waves-light orange'
           = mdi_tag 'pencil'

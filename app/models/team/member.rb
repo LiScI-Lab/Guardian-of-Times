@@ -102,7 +102,7 @@ class Team::Member < ApplicationRecord
   end
 
   def current_unavailability
-    unavailabilities.kept.where('"team_unavailabilities"."start" <= ? and "team_unavailabilities"."end" >= ?', Date.today, Date.today).first
+    unavailabilities.kept.current.first
   end
 
   def available?

@@ -7,5 +7,5 @@
 - @progresses.kept.group_by {|p| p.start.beginning_of_month}.each do |date, progresses|
   .row
     .col.s12
-      h5 #{t('date.month_names')[date.month]} #{date.year}
+      h6 #{t('date.month_names')[date.month]} #{date.year}
       = render 'team/progresses/progresses', progresses: progresses

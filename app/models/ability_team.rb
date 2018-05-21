@@ -31,18 +31,18 @@ module AbilityTeam
         not member.joined?
       end
 
-      can [:index, :show, :export],             Team::Progress,           team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
-      can [:create, :start, :import, :export],  Team::Progress,           member: member
-      can [:update, :stop, :restart, :duplicate],           Team::Progress,           member: member
-      can [:destroy],                           Team::Progress.kept,      member: member
-      can [:restore],                           Team::Progress.discarded, member: member
+      can [:index, :show, :export],               Team::Progress,           team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
+      can [:create, :start, :import, :export],    Team::Progress,           member: member
+      can [:update, :stop, :restart, :duplicate], Team::Progress,           member: member
+      can [:destroy],                             Team::Progress.kept,      member: member
+      can [:restore],                             Team::Progress.discarded, member: member
 
-      cannot [:restart, :duplicate],                           Team::Progress do |progress|
+      cannot [:restart],                          Team::Progress do |progress|
         not (progress.member.progresses.kept.first == progress and progress.start.to_date == Date.today)
       end
 
-      can [:show,:index], Team::Unavailability, team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
-      can [:show,:index, :create, :edit, :update, :destroy], Team::Unavailability, member: member
+      can [:show,:index],                              Team::Unavailability, team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
+      can [:show, :create, :edit, :update, :destroy],  Team::Unavailability, member: member
 
       can [:create, :index], :export
     end

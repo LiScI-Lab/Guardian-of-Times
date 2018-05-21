@@ -76,6 +76,7 @@ timetracker.app.materialize = (elem) ->
       defaultDate: new Date(moment(e.val(), I18n.t('js.date.formats.default')).format())
       setDefaultDate: true
       yearRange: 100
+      showClearBtn: e.hasClass('optional')
       i18n: {
         cancel: I18n.t('js.picker.action.cancel')
         clear: I18n.t('js.picker.action.clear')

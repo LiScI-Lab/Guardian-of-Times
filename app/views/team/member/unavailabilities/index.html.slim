@@ -7,24 +7,8 @@
   .col.s12
     = render 'team/unavailabilities/form'
 
-.row
-  .col.s12
-    table.highlight.responsive-table
-      thead
-        tr
-          th Start
-          th End
-          th Options
-      tbody
-        - @member.unavailabilities.kept.each do |unavailability|
-          tr
-            td = l(unavailability.start, format: :short)
-            td = l(unavailability.end, format: :short)
-            td
-              .button-group
-                - if can? :edit, unavailability
-                  = link_to edit_team_member_unavailability_path(@team, @member, unavailability), class: 'btn-floating waves-effect waves-light orange'
-                    = mdi_tag 'pencil'
-                - if can? :destroy, unavailability
-                  = link_to team_member_unavailability_path(@team, @member, unavailability), class: 'btn-floating waves-effect waves-light red', method: :delete
-                    = mdi_tag 'delete'
+- @unavailabilities.kept.group_by {|p| p.start.beginning_of_month}.each do |date, unavailabilities|
+  .row
+    .col.s12
+      h6 #{t('date.month_names')[date.month]} #{date.year}
+      = render 'team/unavailabilities/unavailabilities', unavailabilities: unavailabilities

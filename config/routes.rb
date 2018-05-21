@@ -54,6 +54,7 @@ Rails.application.routes.draw do
         end
       end
       resources :progresses, only: [:index, :show]
+      resources :unavailabilities, only: [:index, :show]
       resources :export, only: [:index, :create]
     end
   end

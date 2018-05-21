@@ -7,6 +7,7 @@ class Team::Member::UnavailabilitiesController < SecurityController
 
   def index
     @unavailability = Team::Unavailability.new(start: DateTime.now.to_date)
+    @unavailabilities = @member.unavailabilities
   end
 
   def create

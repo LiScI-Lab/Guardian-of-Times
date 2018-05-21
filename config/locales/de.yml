@@ -46,6 +46,7 @@ de:
 
   date:
     formats:
+      default: "%d.%m.%Y"
       birth_day: "%d.%m.%Y"
       month_with_year: "%B %Y"
   time:
@@ -87,6 +88,7 @@ de:
       my_progresses: "Meine Fortschritte"
       my_dashboard: "Mein Dashboard"
       discarded_progresses: "Gelöschte Fortschritte"
+      my_unavailability: "Meine Abwesenheiten"
     actions:
       join: "Beitreten"
       show: "Anzeigen"
@@ -117,9 +119,12 @@ de:
         title: "Bearbeite das Profil von %{name}"
       dashboard:
         title: "Dashboard von %{name}"
-        not_available: "nicht erreichbar bis %{date}"
+        not_available: "nicht erreichbar"
+        not_available_until: "nicht erreichbar bis %{date}"
     today_time_spend: "Zeit heute:"
     current_week_time_spend: "Zeit diese Woche:"
+    unavailability:
+      current: "Aktuelle Abwesenheiten"
   dashboard:
     time_spend_in: "Arbeitszeiten im %{date}"
     total_time_spend: "Gesamte Arbeitszeit"

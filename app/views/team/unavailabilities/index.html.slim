@@ -1,0 +1,17 @@
+.row
+  .col.s12
+    h5
+      = t('team.menu.unavailability')
+
+- if @unavailabilities.kept.current.any?
+  .row
+    .col.s12
+      h6
+        | #{t('team.unavailability.current')}
+      = render 'team/unavailabilities/unavailabilities', unavailabilities: @unavailabilities.kept.current
+
+- @unavailabilities.kept.group_by {|p| p.start.beginning_of_month}.each do |date, unavailabilities|
+  .row
+    .col.s12
+      h6 #{t('date.month_names')[date.month]} #{date.year}
+      = render 'team/unavailabilities/unavailabilities', unavailabilities: unavailabilities

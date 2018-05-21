@@ -1,0 +1,21 @@
+- overview = controller.is_a? Team::UnavailabilitiesController
+
+tr
+  - if overview
+    td
+      = unavailability.member.user.name
+  td = l(unavailability.start, format: :short)
+  - if unavailability.end
+    td = l(unavailability.end, format: :short)
+  - else
+    td
+      | -
+  - unless overview
+    td
+      .button-group
+        - if can? :edit, unavailability
+          = link_to edit_team_member_unavailability_path(@team, @member, unavailability), class: 'btn-floating waves-effect waves-light orange'
+            = mdi_tag 'pencil'
+        - if can? :destroy, unavailability
+          = link_to team_member_unavailability_path(@team, @member, unavailability), class: 'btn-floating waves-effect waves-light red', method: :delete
+            = mdi_tag 'delete'
