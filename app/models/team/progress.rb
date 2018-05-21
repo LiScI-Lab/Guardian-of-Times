@@ -22,6 +22,7 @@ class Team::Progress < ApplicationRecord
   scope :finished, -> {where.not end: nil}
 
   validates :start, presence: true
+  validates :end, timeliness: { after: :start, type: :datetime, allow_nil: true }
 
   after_initialize :set_start
 

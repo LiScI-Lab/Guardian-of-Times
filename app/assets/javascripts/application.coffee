@@ -89,15 +89,18 @@ timetracker.app.materialize = (elem) ->
       }
     })
     return
-  $('.timepicker', elem).timepicker({
-    autoClose: true
-    twelveHour: I18n.t('js.time.twelve_hour')
-    i18n: {
-      cancel: I18n.t('js.picker.action.cancel')
-      clear: I18n.t('js.picker.action.clear')
-      done: I18n.t('js.picker.action.done')
-    }
-  })
+  $('.timepicker', elem).not('.manual').each (_, e) ->
+    e = $(e)
+    e.timepicker({
+      autoClose: true
+      twelveHour: I18n.t('js.time.twelve_hour')
+      showClearBtn: e.hasClass('optional')
+      i18n: {
+        cancel: I18n.t('js.picker.action.cancel')
+        clear: I18n.t('js.picker.action.clear')
+        done: I18n.t('js.picker.action.done')
+      }
+    })
   $('input.boolean.tooltipped,input.date.tooltipped', elem).each (_, e) ->
     e = $(e)
     parent = e.parents('.boolean,.date')

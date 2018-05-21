@@ -1,9 +1,10 @@
 - if errors.any?
-  .alert.alert-danger
-    h5.alert-heading
-      | Error
-    p
-      | There are Errors:
-    ul
-      - errors.full_messages.each do |message|
-        li = message
+  .row
+    .col.s12.m6.l4.offset-m3.offset-l4
+      .card
+        .card-content
+          .card-title
+            | Error
+          ul.browser-default
+            - errors.full_messages.each do |message|
+              li = message

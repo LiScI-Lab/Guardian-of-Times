@@ -62,6 +62,9 @@ gem 'chartjs-ror'
 
 #date&time grouping
 gem 'groupdate'
+#date & time validations
+gem 'validates_timeliness'
+gem 'timeliness-i18n'
 
 # Nested Forms helper
 #gem 'cocoon'

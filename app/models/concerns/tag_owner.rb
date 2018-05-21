@@ -8,7 +8,7 @@ module TagOwner
     end
 
     def own_tag_list=(own_tag_list)
-      set_owner_tag_list_on(own_tag_list[:owner], :tags, own_tag_list[:tag_list])
+      set_owner_tag_list_on(own_tag_list[:owner], :tags, own_tag_list[:tag_list]) if own_tag_list.is_a? Hash
     end
   end
 end
