@@ -45,6 +45,17 @@ class Team::Member::ProgressesController < SecurityController
     end
   end
 
+  def duplicate
+    #duplicate selected progress & "restart" the duplicate
+    duplicate_progress = @progress.dup
+    duplicate_progress.start = DateTime.now
+    duplicate_progress.end = nil
+    #dup does not copy associations, so do it manually
+    duplicate_progress.tag_list =  @progress.tags
+    duplicate_progress.save!
+    redirect_to team_member_progresses_path(@team, @member)
+  end
+
   def restart
     @progress.end = nil
     if @progress.save

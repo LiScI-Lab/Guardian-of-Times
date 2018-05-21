@@ -22,6 +22,9 @@ tr
     td
       - if progress.finished?
         .button-group
+          - if can? :duplicate, progress
+            = link_to duplicate_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light green', method: :post
+              = mdi_tag 'content-duplicate'
           - if can? :restart, progress
             = link_to restart_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light green', method: :patch
               = mdi_tag 'play'

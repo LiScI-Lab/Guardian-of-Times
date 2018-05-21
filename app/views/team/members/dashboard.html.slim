@@ -12,6 +12,11 @@
         | #{t('team.menu.my_dashboard')}
       - else
         | #{t('team.member.dashboard.title', name: @member.user.name)}
+      - unless @member.available?
+        - unavailability = @member.current_unavailability
+        = link_to team_member_unavailabilities_path(@team,@member)
+          span.badge.red.white-text
+            = t('team.members.dashboard.not_available', date: l(unavailability.end, format: :short))
 .row
   = render 'team/dashboard/total_time_in_hours', time_spend_hours: @member.time_spend_series
 .row

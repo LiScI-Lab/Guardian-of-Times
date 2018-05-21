@@ -81,6 +81,7 @@ de:
       overview: "Übersicht"
       members: "Mitglieder"
       progresses: "Fortschritte"
+      unavailability: "Abwesenheiten"
       exports: "Export"
       dashboard: "Dashboard"
       my_progresses: "Meine Fortschritte"
@@ -116,6 +117,7 @@ de:
         title: "Bearbeite das Profil von %{name}"
       dashboard:
         title: "Dashboard von %{name}"
+        not_available: "nicht erreichbar bis %{date}"
     today_time_spend: "Zeit heute:"
     current_week_time_spend: "Zeit diese Woche:"
   dashboard:

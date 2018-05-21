@@ -42,11 +42,14 @@ Rails.application.routes.draw do
             end
 
             member do
+              post :duplicate
               patch :restart
               patch :stop
               patch :restore
             end
           end
+
+          resources :unavailabilities, only: [:index, :create, :edit, :update, :destroy]
 
         end
       end

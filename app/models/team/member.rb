@@ -16,6 +16,7 @@ class Team::Member < ApplicationRecord
   has_many :progresses, -> {order start: :desc}, class_name: Team::Progress.name, foreign_key: :team_member_id
 
   has_many :target_hours, -> {order since: :asc}, class_name: Team::Member::TargetHour.name, foreign_key: :team_member_id
+  has_many :unavailabilities, -> {order start: :desc}, class_name: Team::Unavailability.name, foreign_key: :team_member_id
 
   validates :user, uniqueness: {scope: :team}
 
@@ -98,6 +99,14 @@ class Team::Member < ApplicationRecord
       data[k.end_of_month] = seconds_to_hours(in_month_time_spend(k))
     end
     data
+  end
+
+  def current_unavailability
+    unavailabilities.kept.where('"team_unavailabilities"."start" <= ? and "team_unavailabilities"."end" >= ?', Date.today, Date.today).first
+  end
+
+  def available?
+    not current_unavailability
   end
 
   private
