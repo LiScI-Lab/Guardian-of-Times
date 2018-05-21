@@ -19,7 +19,7 @@
             - badge_text = t('team.member.dashboard.not_available_until', date: l(unavailability.end, format: :short))
           - else
             - badge_text = t('team.member.dashboard.not_available')
-            span.badge.new.red.white-text data={badge: {caption: badge_text}}
+          span.badge.new.red.white-text data={badge: {caption: badge_text}}
 .row
   = render 'team/dashboard/total_time_in_hours', time_spend_hours: @member.time_spend_series
 .row
