@@ -1,4 +1,9 @@
 de:
+  activerecord:
+    models:
+      team/unavailability: 'Abwesenheit'
+      team/progress: 'Fortschritt'
+      team/member: 'Mitglied'
   helpers:
     submit:
       member:
@@ -18,6 +23,7 @@ de:
       defaults:
         tag_list: 'Tag Liste'
         own_tag_list: 'Private Tag Liste'
+        description: 'Beschreibung'
       member:
         show_tracking_status: 'Status über laufende Fortschritte anzeigen'
         target_hours: 'Sollstunden'
