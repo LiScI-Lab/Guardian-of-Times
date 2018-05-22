@@ -1,3 +1,5 @@
+window.dotiw || (window.dotiw = {})
+
 class TimeHash
   @MINUTE = 60
   @HOUR = @MINUTE * 60
@@ -48,7 +50,7 @@ class TimeHash
           @build_minutes()
         else if @distance < TimeHash.DAY
           @build_hours()
-        else if @distance < WEEK
+        else if @distance < TimeHash.WEEK
           @build_days()
         else if @distance < TimeHash.FOURWEEKS
           @build_weeks()
@@ -69,12 +71,12 @@ class TimeHash
     @distance = @distance % TimeHash.HOUR
 
   build_days: () ->
-    if not output['days']?
+    if not @output['days']?
       @output['days'] = Math.floor(@distance / TimeHash.DAY)
       @distance = @distance % TimeHash.DAY
 
   build_weeks: () ->
-    if not output['weeks']?
+    if not @output['weeks']?
       @output['weeks'] = Math.floor(@distance / TimeHash.WEEK)
       @distance = @distance % TimeHash.WEEK
 
@@ -126,4 +128,4 @@ class TimeHash
 
     [total_days, @distance]
 
-window.TimeHash = TimeHash
+window.dotiw.TimeHash = TimeHash
