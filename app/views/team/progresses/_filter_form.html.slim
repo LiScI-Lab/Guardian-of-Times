@@ -1,11 +1,15 @@
 = simple_form_for(:filter, url: url, method: :get) do |f|
-  - if local_assigns[:available_members]
-    - selected_member = params[:filter][:member_id] if params[:filter]
-    = f.input :member_id, collection: available_members, selected: selected_member, wrapper_html: {class: 's5 m3 l2'}, label_method: lambda {|m| m.user.name}, include_blank: :translate, required: false
+  - params[:filter][:member_id] = params[:filter][:member_id].select {|e| not e.blank?} if params[:filter] and params[:filter][:member_id]&.any?
+  - params[:filter][:month] = params[:filter][:month].select {|e| not e.blank?} if params[:filter] and params[:filter][:month]&.any?
 
-  - selected_month = params[:filter][:month] if params[:filter]
+  - selected_member = if params[:filter] and params[:filter][:member_id]&.any? then params[:filter][:member_id] else local_assigns[:available_members].map {|m| m.id} end
+  - selected_month = if params[:filter] and params[:filter][:month]&.any? then params[:filter][:month] else available_months_in_years end
   - selected_tag_list = params[:filter][:tag_list] if params[:filter]
-  = f.input :month, collection: 1..12, selected: selected_month, wrapper_html: {class: "s5 #{if local_assigns[:available_members] then "m3 l2" else "m4 l4" end}"}, label_method: lambda {|m| t('date.month_names')[m]}, include_blank: :translate, required: false
+
+  - if local_assigns[:available_members]
+    = f.input :member_id, collection: available_members, selected: selected_member, wrapper_html: {class: 's5 m3 l2'}, input_html: {multiple: true}, label_method: lambda {|m| m.user.name}, include_blank: false, required: false
+
+  = f.input :month, collection: available_months_in_years, selected: selected_month, wrapper_html: {class: "s5 #{if local_assigns[:available_members] then "m3 l2" else "m4 l4" end}"}, input_html: {multiple: true}, label_method: lambda {|date| "#{t('date.month_names')[date.month]} #{date.year}"}, include_blank: false, required: false
 
   .col.l6 class="#{ if local_assigns[:available_members] then "hide-on-small-only m4" else "s5 m6" end }"
     = render 'acts_as_taggable_on/tag_list', f: f, for_class: 'filter', value: selected_tag_list, collection: Team::Progress.tags_on(:tags)

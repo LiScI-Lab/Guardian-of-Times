@@ -11,6 +11,7 @@ class Team::Progress < ApplicationRecord
 
   scope :at_day, -> (date){where(start: date.beginning_of_day..date.end_of_day)}
   scope :in_week, -> (date){where(start: date.beginning_of_week..date.end_of_week)}
+  scope :in_months, -> (dates){dates.map {|date| in_month(date)}.reduce {|acc, elem| acc.or(elem)}}
   scope :in_month, -> (date){where(start: date.beginning_of_month..date.end_of_month)}
 
   scope :today, -> {at_day(DateTime.now)}
