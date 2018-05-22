@@ -19,7 +19,6 @@ module TimeTracker
 
     #TODO: update this when using postgres !!!
     # => SQLite does not support timezones while grouping
-    Groupdate.time_zone = false
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

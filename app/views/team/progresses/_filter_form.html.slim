@@ -2,7 +2,7 @@
   - params[:filter][:member_id] = params[:filter][:member_id].select {|e| not e.blank?} if params[:filter] and params[:filter][:member_id]&.any?
   - params[:filter][:month] = params[:filter][:month].select {|e| not e.blank?} if params[:filter] and params[:filter][:month]&.any?
 
-  - selected_member = if params[:filter] and params[:filter][:member_id]&.any? then params[:filter][:member_id] else local_assigns[:available_members].map {|m| m.id} end
+  - selected_member = if params[:filter] and params[:filter][:member_id]&.any? then params[:filter][:member_id] else local_assigns[:available_members]&.map {|m| m.id} end
   - selected_month = if params[:filter] and params[:filter][:month]&.any? then params[:filter][:month] else available_months_in_years end
   - selected_tag_list = params[:filter][:tag_list] if params[:filter]
 

@@ -1,12 +1,11 @@
 module ProgressFilter
   include ActiveSupport::Concern
   def get_filtered_progresses(model_with_progresses)
-    month_filter = params[:filter][:month].select {|e| not e.blank?} if params[:filter]
-    tag_list ||= params[:filter][:tag_list] if params[:filter]
-    member_filter ||= params[:filter][:member_id].select {|e| not e.blank?} if params[:filter]
+    month_filter = params[:filter][:month].select {|e| not e.blank?}.map {|str| Date.parse(str)} if params[:filter] and params[:filter][:month]
+    tag_list = params[:filter][:tag_list] if params[:filter]
+    member_filter = params[:filter][:member_id].select {|e| not e.blank?} if params[:filter] and params[:filter][:member_id]
 
     progresses = if month_filter&.any?
-                   month_filter = month_filter.map {|str| Date.parse(str)}
                    model_with_progresses.progresses.in_months(month_filter)
                  else
                    model_with_progresses.progresses
