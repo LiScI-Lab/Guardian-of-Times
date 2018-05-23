@@ -27,10 +27,12 @@
                   li
                     span
                       = mdi_tag 'history'
+                      |  Overall:&nbsp;
                       = distance_of_time_or_null member.total_time_spend, [:minutes, :seconds]
                   li
                     span
                       = mdi_tag 'update'
+                      |  #{DateTime.now.month}/#{DateTime.now.year}:&nbsp;
                       = distance_of_time_or_null member.current_month_time_spend
                   li
                     span
@@ -38,7 +40,7 @@
                   li
                     small
                       = mdi_tag 'account-network'
-                      | #{member.status_i18n} (#{l(member.updated_at.to_date)})
+                      |  #{member.status_i18n} (#{l(member.updated_at.to_date)})
               .section
                 = render partial: 'acts_as_taggable_on/tags/tag', collection: member.tags_on(:tags)
               .section
