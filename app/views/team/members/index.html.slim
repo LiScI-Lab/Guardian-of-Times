@@ -17,7 +17,7 @@
 .row
     - @members.order(role: :desc).kept.group(:role).select(:role).each do |member_role|
       - @members.joins(:user).includes(:progresses).order(status: :desc).where(role: member_role.role).kept.order('"users"."last_name"').each do |member|
-        .col.s12.m6
+        .col.s12.m6.l4
           ul.collection
             li.collection-item.avatar
               = image_tag member.user.logo_url, class: 'circle responsive-img'
@@ -36,12 +36,9 @@
                     span
                       = member.role_i18n
                   li
-                    span
-                      = member.status_i18n
-                  li
-                    span
+                    small
                       = mdi_tag 'account-network'
-                      = l(member.created_at.to_date)
+                      | #{member.status_i18n} (#{l(member.updated_at.to_date)})
               .section
                 = render partial: 'acts_as_taggable_on/tags/tag', collection: member.tags_on(:tags)
               .section
