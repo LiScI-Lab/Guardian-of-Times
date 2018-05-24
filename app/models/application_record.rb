@@ -7,7 +7,11 @@ class ApplicationRecord < ActiveRecord::Base
   end
 
   def destroy
-    raise "Use discard! We don't delete"
+    if self.class == User::Identity
+      super
+    else
+      raise "Use discard! We don't delete"
+    end
   end
   def destroy!
     destroy

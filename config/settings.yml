@@ -1,5 +1,11 @@
 user:
   maximum_sign_ins_redirected_to_edit: 5
+  discard:
+    randomize_personal_data: true
+    destroy_identities: true
+    hand_over_teams: true
+
+
 tag:
   name:
     length_minimum: 2

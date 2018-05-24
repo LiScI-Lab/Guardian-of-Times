@@ -6,6 +6,8 @@ de:
       team/member: 'Mitglied'
   helpers:
     submit:
+      user:
+        update: 'Profil aktualisieren'
       member:
         update: 'Mitglied speichern'
 

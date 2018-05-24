@@ -1,0 +1,51 @@
+= simple_form_for @user, method: :delete do |f|
+  .modal-content
+    h4.header
+      - if @user == @current_user
+        | #{t('user.delete.headline.self')}
+      - else
+        | #{t('user.delete.headline.other', name: @user.name)}
+
+    - if Settings.user.discard.randomize_personal_data
+      .section
+        - if @user == @current_user
+          | #{t('user.delete.randomize_personal_data.self')}
+        - else
+          | #{t('user.delete.randomize_personal_data.other', name: f.object.name)}
+        ul.browser-default
+          li #{t('activerecord.attributes.user.first_name')}
+          li #{t('activerecord.attributes.user.last_name')}
+          li #{t('activerecord.attributes.user.email')}
+          li #{t('activerecord.attributes.user.username')}
+          li #{t('activerecord.attributes.user.department')}
+          li #{t('activerecord.attributes.user.birth_date')}
+          li #{t('activerecord.attributes.user.last_sign_in_ip')}
+          li #{t('activerecord.attributes.user.last_sign_in_at')}
+          li #{t('activerecord.attributes.user.current_sign_in_ip')}
+          li #{t('activerecord.attributes.user.current_sign_in_at')}
+          li #{t('activerecord.attributes.user.avatar')}
+    - if Settings.user.discard.destroy_identities
+      .section
+        - if @user == @current_user
+          | #{t('user.delete.destroy_identities.self')}
+        - else
+          | #{t('user.delete.destroy_identities.other', name: f.object.name)}
+    - if Settings.user.discard.hand_over_teams
+      .section
+        - if @user == @current_user
+          | #{t('user.delete.hand_over_teams.self')}
+        - else
+          | #{t('user.delete.hand_over_teams.other', name: f.object.name)}
+
+    .divider
+    .section
+      .col.s12.strong
+        - if @user == @current_user
+          | #{t('user.delete.are_you_sure.self', username: f.object.username)}
+        - else
+          | #{t('user.delete.are_you_sure.other', name: f.object.name, username: f.object.username)}
+      = f.input :username, wrapper_html: {class: 's12'}, input_html: {value: '', required: true, pattern: f.object.username}
+  .modal-footer
+    = f.button :button, t('user.action.discard'), class: 'red'
+    = link_to '#', class: "modal-close waves-effect waves-green btn-flat",  data: {turbolinks: false}
+      | #{t('modal.actions.close')}

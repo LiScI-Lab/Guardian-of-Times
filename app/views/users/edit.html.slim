@@ -2,9 +2,9 @@
   | #{t('user.self.edit.title')}
 .row
   .col.s12.l9
-    = render 'application/form_errors', errors: @current_user.errors
-    = simple_form_for(@current_user) do |f|
-      = render 'application/form', f: f
+    = render 'application/form_errors', errors: @user.errors
+    = simple_form_for(@user) do |f|
+      .row
         .col.s12.m6
           .section
             = f.input :last_name, disabled: true, wrapper_html: {class: 's6'}
@@ -14,11 +14,11 @@
             .col.s6.input-field
               = f.label :role, class: 'disabled active'
               .col.s6.offset-s3 style='height=3rem; padding-top: 15px;'
-                = render 'role_badge', user: @current_user
+                = render 'role_badge', user: @user
           .divider
           .section
             = f.input :department, wrapper_html: {class: 's12'}
-            - birth_date = if @current_user.birth_date then l(@current_user.birth_date) else nil end
+            - birth_date = if @user.birth_date then l(@user.birth_date) else nil end
             = f.input :birth_date, as: :date, wrapper_html: {class: 's12'}, input_html: {value: birth_date, class: 'no-autoinit'}, label_html: {class: 'active'}
         .col.s12.m6
           - ([['generator', f.object.generated_avatar_url], ['local', f.object.avatar_url]] + f.object.identities.where.not(avatar_url: nil).pluck(:provider, :avatar_url)).each do |type|
@@ -36,6 +36,11 @@
                   - if type[0] == 'local'
                     = f.input :avatar, label: false, wrapper_html: {class: 's12'}
                     = f.hidden_field :avatar_cache
+      .row
+        .col.s12
+          .button-group
+            = f.button :button
+            = link_to t('user.action.discard'), delete_user_path(@user), class: 'btn waves-effect waves-light red', remote: true
 
 
 

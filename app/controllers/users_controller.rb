@@ -20,6 +20,20 @@ class UsersController < SecurityController
     end
   end
 
+  def delete
+  end
+
+  def destroy
+    sign_out @user
+    if @user.discard
+      flash[:success] = "User successfully discarded"
+      redirect_to '/'
+    else
+      flash[:error] = "User not discarded"
+      redirect_to :back
+    end
+  end
+
   private
   def user_params
     params.require(:user).permit(:department, :birth_date,

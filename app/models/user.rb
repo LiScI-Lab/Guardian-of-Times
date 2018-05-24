@@ -32,6 +32,8 @@ class User < ApplicationRecord
 
   before_save :update_generated_avatar
 
+  before_discard :randomize_before_discard
+
   #tutorial from: http://stackoverflow.com/questions/21249749/rails-4-devise-omniauth-with-multiple-providers
   def self.from_omniauth(auth, current_user)
     if auth.provider.to_sym == :cas3 or auth.provider.to_sym == :google_oauth2
@@ -80,6 +82,10 @@ class User < ApplicationRecord
     end
   end
 
+  def active_for_authentication?
+    super && !discarded_at
+  end
+
   def fetch_details(auth)
     if auth.provider == :cas3
       self.username = auth.extra.username
@@ -105,7 +111,7 @@ class User < ApplicationRecord
 
   def name
     if first_name and last_name
-      "#{first_name} #{last_name}"
+      "#{first_name} #{last_name}#{" (#{I18n.t('global.discarded')})" if discarded?}"
     else
       "#{username}"
     end
@@ -166,5 +172,48 @@ class User < ApplicationRecord
   private
   def update_generated_avatar
     self.generated_avatar_url = self.generate_avatar
+  end
+
+  def randomize_before_discard
+    if Settings.user.discard.randomize_personal_data
+      self.avatar_type = :generator
+
+      loop do
+        self.last_name = Faker::Superhero.descriptor
+        self.first_name = Faker::Superhero.suffix
+        self.username = Faker::Internet.user_name
+        self.email = Faker::Internet.email(self.first_name)
+
+        break if self.valid?
+      end
+      self.department = Faker::Company.profession
+      self.birth_date = Faker::Date.birthday(18, 65)
+      self.last_sign_in_ip = Faker::Internet.public_ip_v4_address
+      self.last_sign_in_at = Faker::Time.between(2.days.ago, Date.today, :all)
+      self.current_sign_in_ip = Faker::Internet.public_ip_v4_address
+      self.current_sign_in_at = Faker::Time.between(2.days.ago, Date.today, :all)
+      self.remove_avatar!
+      update_generated_avatar
+    end
+
+    if Settings.user.discard.destroy_identities
+      self.identities.destroy_all
+    end
+
+    if Settings.user.discard.hand_over_teams
+      self.team_members.each do |m|
+        if m.owner?
+          m.team.members.order(role: :desc).kept.each do |m1|
+            if m1 != m and m1.joined?
+              m1.owner!
+              break
+            end
+          end
+        end
+        m.role = :participant
+        m.leaved!
+      end
+    end
+
   end
 end

@@ -1,0 +1,10 @@
+de:
+  activerecord:
+    attributes:
+      user:
+        first_name: Vorname
+        last_name: Nachname
+        username: Benutzername
+        role: Rolle
+        department: Abteilung
+        birth_date: Geburtstag

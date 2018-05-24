@@ -8,7 +8,7 @@ class Ability
 
     if user
       can [:show, :dashboard], User, id: user.id
-      can [:edit, :update], User, id: user.id
+      can [:edit, :update, :delete, :destroy], User, id: user.id
 
       initialize_team(user, member)
     end

@@ -20,7 +20,7 @@ class Team::Member < ApplicationRecord
 
   validates :user, uniqueness: {scope: :team}
 
-  before_create :set_joined, if: Proc.new {|member| member.owner? or (not member.team.root?) }
+  before_create :set_joined, if: Proc.new {|member| member.owner? }
 
   accepts_nested_attributes_for :target_hours, reject_if: :all_blank, allow_destroy: false
 

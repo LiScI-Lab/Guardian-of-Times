@@ -30,6 +30,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 de:
+  global:
+    discarded: 'Gelöscht'
   js:
     time:
       twelve_hour: false
@@ -145,6 +147,23 @@ de:
     action:
       logout: "Ausloggen"
       edit: "Profil ändern"
+      discard: "Profil löschen"
+    delete:
+      headline:
+        self: "Willst dein Profil wirklich löschen?"
+        other: "Willst du '%{name}' wirklich löschen?"
+      randomize_personal_data:
+        self: "Wenn du dein Profil löscht werden folgende Daten durch zufällig generierte ersetzt, um Rückschlüsse auf dich unmöglich zu machen:"
+        other: "Wenn du %{name} löscht werden folgende Daten durch zufällig generierte ersetzt, um Rückschlüsse auf den Benutzer unmöglich zu machen:"
+      destroy_identities:
+        self: "Wenn du dein Profil löscht werden alle deine gekoppelten Login-Dienste gelöscht."
+        other: "Wenn du %{name} löscht werden alle seine gekoppelten Login-Dienste gelöscht."
+      hand_over_teams:
+        self: "Wenn du dein Profil löscht werden alle Teams in denen du der Besitzer bist an ein anderes Mitglied übertragen. Du wirst in allen Teams zu einem normalen Mitglied und verlässt diese anschließend."
+        other: "Wenn du %{name} löscht werden alle Teams in denen er der Besitzer ist an ein anderes Mitglied übertragen. %{name} wird in allen Teams zu einem normalen Mitglied und verlässt diese anschließend."
+      are_you_sure:
+        self: "Bist du dir sicher, dass du den Profil wirklich löschen willst? Gib deinen Benutzernamen \"%{username}\" ein:"
+        other: "Bist du dir sicher, dass du %{name} wirklich löschen willst? Gib den Benutzernamen \"%{username}\" ein:"
   modal:
     actions:
       close: "Schließen"
@@ -161,3 +180,12 @@ de:
       progress:
         start: "Fortschritt starten"
     statistics: "Statistiken"
+  activerecord:
+    attributes:
+      user:
+        email: "E-Mail Adresse"
+        last_sign_in_ip: "IP Adresse des letzten Logins"
+        last_sign_in_at: "Zeitpunkt des letzten Logins"
+        current_sign_in_ip: "IP Adresse des aktuellen Logins"
+        current_sign_in_at: "Zeitpunkt des aktuellen Logins"
+        avatar: "Avatar"
