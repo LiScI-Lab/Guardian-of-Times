@@ -3,7 +3,7 @@
     li.collection-item.avatar
       = image_tag member.user.logo_url, class: 'circle responsive-img'
       span.title = member.user.name
-      small.right = member.role_i18n
+      span.badge.new.white-text data={badge: {caption: member.role_i18n}}
       .section
         ul
           li
