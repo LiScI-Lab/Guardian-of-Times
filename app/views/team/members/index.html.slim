@@ -16,53 +16,7 @@
 
 .row
     - @members.order(role: :desc).kept.group(:role).select(:role).each do |member_role|
-      - @members.joins(:user).includes(:progresses).order(status: :desc).where(role: member_role.role).kept.order('"users"."last_name"').each do |member|
-        .col.s12.m6.l4
-          ul.collection
-            li.collection-item.avatar
-              = image_tag member.user.logo_url, class: 'circle responsive-img'
-              span.title = member.user.name
-              .section
-                ul
-                  li
-                    span
-                      = mdi_tag 'history'
-                      |  Overall:&nbsp;
-                      = distance_of_time_or_null member.total_time_spend, [:minutes, :seconds]
-                  li
-                    span
-                      = mdi_tag 'update'
-                      |  #{DateTime.now.month}/#{DateTime.now.year}:&nbsp;
-                      = distance_of_time_or_null member.current_month_time_spend
-                  li
-                    span
-                      = member.role_i18n
-                  li
-                    small
-                      = mdi_tag 'account-network'
-                      |  #{member.status_i18n} (#{l(member.updated_at.to_date)})
-              .section
-                = render partial: 'acts_as_taggable_on/tags/tag', collection: member.tags_on(:tags)
-              .section
-                = render partial: 'acts_as_taggable_on/tags/tag', collection: member.owner_tags_on(@current_member, :tags)
-              .section
-                .button-group
-                  - if can? :show, member
-                    = link_to dashboard_team_member_path(@team, member), class: 'btn-small waves-effect waves-light blue'
-                      = mdi_tag 'view-dashboard'
-                    = link_to team_member_progresses_path(@team, member), class: 'btn-small waves-effect waves-light'
-                      = mdi_tag 'run'
-                    = link_to team_member_unavailabilities_path(@team, member), class: 'btn-small waves-effect waves-light green'
-                      = mdi_tag 'weather-sunny'
-                  - if can? :edit, member
-                    = link_to edit_team_member_path(@team, member), class: 'btn-small waves-effect waves-light orange'
-                      = mdi_tag 'pencil'
-                  - if can? :restore, member
-                    = link_to restore_team_member_path(@team, member), class: 'btn-small waves-effect waves-light green', method: :patch
-                      = mdi_tag 'delete-restore'
-                  - elsif can? :destroy, member
-                    = link_to team_member_path(@team, member), class: 'btn-small waves-effect waves-light red', method: :delete
-                         = mdi_tag 'delete'
+      = render @members.joins(:user).includes(:progresses).order(status: :desc).where(role: member_role.role).kept.order('"users"."last_name"')
 
 /.row
   .col.s12
