@@ -7,7 +7,8 @@ br
 .row
   .col.s12.center
     h5
-      = t('welcome.headline', users_count: @users_count, teams_count: @teams_count, total_time: distance_of_time(@total_time, except: :seconds))
+      - total_time = Team::Progress.kept.finished.pluck(:start,:end).map { |(start,endt)| endt - start }.sum
+      = t('welcome.headline', users_count: User.kept.count, teams_count: Team.kept.count, total_time: distance_of_time(total_time, except: :seconds))
 
 - unless @current_user
   .row
