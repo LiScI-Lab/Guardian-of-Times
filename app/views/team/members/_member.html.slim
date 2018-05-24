@@ -1,4 +1,4 @@
-.col.s12.m6
+.col.s12.m6.l4
   ul.collection
     li.collection-item.avatar
       = image_tag member.user.logo_url, class: 'circle responsive-img'
@@ -20,9 +20,9 @@
             small
               = mdi_tag 'account-network'
               |  #{member.status_i18n} (#{l(member.updated_at.to_date)})
-      .section
+      .section.chip-list
         = render partial: 'acts_as_taggable_on/tags/tag', collection: member.tags_on(:tags)
-      .section
+      .section.chip-list
         = render partial: 'acts_as_taggable_on/tags/tag', collection: member.owner_tags_on(@current_member, :tags)
       .section
         .button-group
