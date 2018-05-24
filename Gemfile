@@ -99,6 +99,8 @@ gem 'discard' # replaces paranoia
 gem 'simple_form'
 gem 'time_splitter'
 gem 'identicon'
+# Faker - Generator for fake Date
+gem 'faker'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
@@ -132,8 +134,6 @@ group :development do
 
   gem 'better_errors'
   gem 'binding_of_caller'
-
-  gem 'faker'
 
   # Capistrano for Deployment to server
   gem 'capistrano', require: false
