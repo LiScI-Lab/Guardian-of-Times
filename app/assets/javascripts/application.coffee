@@ -64,7 +64,7 @@ timetracker.app.materialize = (elem) ->
       return
     return
 
-  $('input[type="text"]', elem).not('.date,.time,.datetime,.select-dropdown').characterCounter()
+  $('input[type="text"].character-count', elem).not('.date,.time,.datetime,.select-dropdown').characterCounter()
   $('textarea', elem).characterCounter()
   $('.modal', elem).modal()
   $('.datepicker.no-autoinit', elem).not('.manual').each (_, e) ->
@@ -110,6 +110,7 @@ timetracker.app.materialize = (elem) ->
     i = M.Tooltip.getInstance(e)
     if i isnt undefined
       M.Tooltip.getInstance(e).destroy()
+  M.updateTextFields()
   return
 
 timetracker.app.init_chips = (elem, tags, autocomplete_tags) ->
@@ -144,7 +145,6 @@ timetracker.app.init_chips = (elem, tags, autocomplete_tags) ->
   return
 
 $(document).on 'turbolinks:load', timetracker.app.init
-
 
 jQuery.fn.changeTag = (newTag) ->
   q = this
