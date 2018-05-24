@@ -1,6 +1,7 @@
 user:
   maximum_sign_ins_redirected_to_edit: 5
   discard:
+    disabled: false
     randomize_personal_data: true
     destroy_identities: true
     hand_over_teams: true

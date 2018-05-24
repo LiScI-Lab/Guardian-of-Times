@@ -40,9 +40,8 @@
         .col.s12
           .button-group
             = f.button :button
-            = link_to t('user.action.discard'), delete_user_path(@user), class: 'btn waves-effect waves-light red', remote: true
-
-
+            - unless Settings.user.discard.disabled
+              = link_to t('user.action.discard'), delete_user_path(@user), class: 'btn waves-effect waves-light red', remote: true
 
   .col.s12.l3
     .card

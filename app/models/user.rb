@@ -32,7 +32,7 @@ class User < ApplicationRecord
 
   before_save :update_generated_avatar
 
-  before_discard :randomize_before_discard
+  before_discard :randomize_before_discard, unless: Settings.user.discard.disabled
 
   #tutorial from: http://stackoverflow.com/questions/21249749/rails-4-devise-omniauth-with-multiple-providers
   def self.from_omniauth(auth, current_user)

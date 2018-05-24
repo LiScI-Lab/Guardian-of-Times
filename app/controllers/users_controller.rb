@@ -24,13 +24,15 @@ class UsersController < SecurityController
   end
 
   def destroy
-    sign_out @user
-    if @user.discard
-      flash[:success] = "User successfully discarded"
-      redirect_to '/'
-    else
-      flash[:error] = "User not discarded"
-      redirect_to :back
+    unless Settings.user.discard.disabled
+      sign_out @user
+      if @user.discard
+        flash[:success] = "User successfully discarded"
+        redirect_to '/'
+      else
+        flash[:error] = "User not discarded"
+        redirect_to :back
+      end
     end
   end
 
