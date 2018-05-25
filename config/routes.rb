@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       end
       scope :status do
         get :invited
+        get :involved
+        get :requested
       end
     end
 

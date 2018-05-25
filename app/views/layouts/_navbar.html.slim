@@ -24,21 +24,7 @@
     li class="#{"active" if controller.is_a? TeamsController and [:owner, :index, :invited].include? action}"
       = link_to '#', class: 'subheader'
         = t('menu.teams')
-    li
-      = link_to owner_teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :owner}"
-        = t('dropdown.teams.own')
-        - if @current_user.own_teams.any?
-          span.badge = @current_user.own_teams.count
-    li
-      = link_to teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :index}"
-        = t('dropdown.teams.involved')
-        - if @current_user.involved_teams.any?
-          span.badge = @current_user.involved_teams.count
-    li
-      = link_to invited_teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :invited}"
-        = t('dropdown.teams.invitations')
-        - if @current_user.invited_teams.any?
-          span.new.badge = @current_user.invited_teams.count
+    = render 'application/menus/team'
     li
       .divider
     li
@@ -52,21 +38,7 @@
 
 - if @current_user
   ul#dropdown-teams.dropdown-content
-    li
-      = link_to owner_teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :owner}"
-        = t('dropdown.teams.own')
-        - if @current_user.own_teams.any?
-          span.badge = @current_user.own_teams.count
-    li
-      = link_to teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :index}"
-        = t('dropdown.teams.involved')
-        - if @current_user.involved_teams.any?
-          span.badge = @current_user.involved_teams.count
-    li
-      = link_to invited_teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :invited}"
-        = t('dropdown.teams.invitations')
-        - if @current_user.invited_teams.any?
-          span.new.badge = @current_user.invited_teams.count
+    = render 'application/menus/team'
 
   ul#dropdown-user.dropdown-content
     li

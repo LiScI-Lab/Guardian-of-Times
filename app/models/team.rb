@@ -17,6 +17,8 @@ class Team < ApplicationRecord
   validates :name, presence: true, uniqueness: {scope: :ancestry}, length: { minimum: Settings.team.name.length_minimum}
   validates :description, allow_blank: true, length: { minimum: Settings.team.description.length_minimum }
 
+  scope :visible, -> (user){includes(:members).kept.where(access: :hidden, team_members: {user_id: user.id, status: [Team::Member.statuses[:invited], Team::Member.statuses[:joined], Team::Member.statuses[:leaved]]}).or(includes(:members).kept.where(access: [:private, :public]).where.not(team_members: {user_id: nil})).order(:name)}
+
   def total_time_spend
     progresses.kept.map { |p| p.time_spend }.sum
   end

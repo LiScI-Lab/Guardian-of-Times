@@ -4,7 +4,7 @@ module AbilityTeam
   def initialize_team(user, member)
     alias_action :upload, to: :import
 
-    can [:index, :invited, :owner], Team
+    can [:index, :invited, :involved, :requested, :owner], Team
     can [:create, :new], Team
 
     can [:join],    Team, access: Team.accesses[:public]

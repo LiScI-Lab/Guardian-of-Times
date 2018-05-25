@@ -12,14 +12,16 @@ class User < ApplicationRecord
 
   has_many :team_members, class_name: Team::Member.name
   has_many :invited_team_members, -> {kept.invited}, class_name: Team::Member.name
-  has_many :involved_team_members, -> {kept.joined.where.not(role: :owner)}, class_name: Team::Member.name
+  has_many :requested_team_members, -> {kept.requested}, class_name: Team::Member.name
+  has_many :involved_team_members, -> {kept.joined}, class_name: Team::Member.name
   has_many :own_team_members, -> {kept.owner}, class_name: Team::Member.name
 
   has_many :teams, through: :team_members, class_name: Team.name
 
-  has_many :invited_teams, through: :invited_team_members, class_name: Team.name, source: :team
-  has_many :involved_teams, through: :involved_team_members, class_name: Team.name, source: :team
-  has_many :own_teams, through: :own_team_members, class_name: Team.name, source: :team
+  has_many :invited_teams, -> {order(:name)}, through: :invited_team_members, class_name: Team.name, source: :team
+  has_many :requested_teams, -> {order(:name)}, through: :requested_team_members, class_name: Team.name, source: :team
+  has_many :involved_teams, -> {order(:name)}, through: :involved_team_members, class_name: Team.name, source: :team
+  has_many :own_teams, -> {order(:name)}, through: :own_team_members, class_name: Team.name, source: :team
 
   has_many :progresses, through: :team_members, class_name: Team::Progress.name
 

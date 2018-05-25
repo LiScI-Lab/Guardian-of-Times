@@ -62,6 +62,8 @@ de:
       own: "Meine Teams"
       invitations: "Team Einladungen"
       involved: "Involvierte Teams"
+      all: "Alle Teams"
+      requests: "Team Anfragen"
 
   tooltip:
     team:

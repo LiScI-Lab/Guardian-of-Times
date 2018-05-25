@@ -1,0 +1,36 @@
+- action = params[:action].to_sym
+
+- if can? :owner, Team
+  li
+    = link_to owner_teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :owner}"
+      = t('dropdown.teams.own')
+      - if @current_user.own_teams.kept.any?
+        span.badge = @current_user.own_teams.kept.count
+
+- if can? :involved, Team
+  li
+    = link_to involved_teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :involved}"
+      = t('dropdown.teams.involved')
+      - if @current_user.involved_teams.kept.any?
+        span.badge = @current_user.involved_teams.kept.count
+
+- if can? :requested, Team
+  li
+    = link_to requested_teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :requested}"
+      = t('dropdown.teams.requests')
+      - if @current_user.requested_teams.kept.any?
+        span.new.badge = @current_user.requested_teams.kept.count
+
+- if can? :invited, Team
+  li
+    = link_to invited_teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :invited}"
+      = t('dropdown.teams.invitations')
+      - if @current_user.invited_teams.kept.any?
+        span.new.badge = @current_user.invited_teams.kept.count
+
+- if can? :index, Team
+  li
+    = link_to teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :index}"
+      = t('dropdown.teams.all')
+      - if Team.visible(@current_user).kept.any?
+        span.badge = Team.visible(@current_user).kept.count
