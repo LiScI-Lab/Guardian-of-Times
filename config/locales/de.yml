@@ -94,6 +94,9 @@ de:
     actions:
       join: "Beitreten"
       show: "Anzeigen"
+      request: "Anfragen"
+      revoke: "Zurückziehen"
+      leave: "Verlassen"
     filter: "Filter"
     total_time_spend: "Gesamtzeit:"
     current_month_time_spend: "Zeit diesen Monat:"

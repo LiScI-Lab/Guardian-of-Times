@@ -52,7 +52,7 @@ class Team::MembersController < SecurityController
     else
       flash[:error] = "Something went wrong"
     end
-    redirect_to team_members_path(@team)
+    redirect_back fallback_location: team_members_path(@team)
   end
 
   def destroy
@@ -61,7 +61,7 @@ class Team::MembersController < SecurityController
     else
       flash[:error] = "Something went wrong"
     end
-    redirect_to team_members_path(@team)
+    redirect_back fallback_location: team_members_path(@team)
   end
 
   private

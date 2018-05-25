@@ -5,6 +5,9 @@ class Team < ApplicationRecord
   #has_ancestry
   acts_as_taggable
 
+  enum access: {hidden: -10, private: 0, public: 10}, _suffix: true
+
+
   has_many :members, class_name: Team::Member.name
   has_many :users, through: :members, class_name: User.name
 

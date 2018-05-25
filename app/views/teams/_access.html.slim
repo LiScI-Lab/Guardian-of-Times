@@ -1,0 +1,8 @@
+- unless local_assigns[:css_extra]
+  - css_extra = ''
+- if team.hidden_access?
+  = mdi_tag 'eye-off', class: "#{css_extra} red-text tooltipped", data: {position: 'bottom', tooltip: team.access_i18n}
+- elsif team.private_access?
+  = mdi_tag 'shield-half-full', class: "#{css_extra} orange-text tooltipped", data: {position: 'bottom', tooltip: team.access_i18n}
+- elsif team.public_access?
+  = mdi_tag 'shield-outline', class: "#{css_extra} green-text tooltipped", data: {position: 'bottom', tooltip: team.access_i18n}

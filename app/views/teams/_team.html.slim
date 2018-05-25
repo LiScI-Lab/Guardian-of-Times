@@ -1,10 +1,12 @@
+- member = team.members.find_by(user:@current_user)
 .col.s12.m6.l4
   .card
     .card-content
-      span.card-title
+      span.card-title.activator
         = team.name
-      .section
-        = asciidoc team.description
+        span.right
+          = render 'teams/access', team: team
+          = mdi_tag 'dots-vertical'
       .divider
       .section
         b
@@ -21,19 +23,42 @@
           | #{t('team.menu.members')}:
         br
         | #{team.members.joined.kept.size}
-      - if team.tags_on(:tags).any?
-        .divider
-        .section
-          = render team.tags_on(:tags)
-      - if team.owner_tags_on(team.members.find_by(user:@current_user), :tags).any?
-        .divider
-        .section
-          = render team.owner_tags_on(team.members.find_by(user:@current_user), :tags)
+      .divider
+      .section.chip-list
+        = render team.tags_on(:tags)
 
     .card-action
-      - member = team.members.find_by user: @current_user
+      - if can? :join, team
+        = link_to t('team.actions.join'), join_team_path(team), method: :patch
+      - elsif can? :show, team
+        = link_to t('team.actions.show'), team_path(team)
+      - elsif can? :ask, team
+        = link_to t('team.actions.request'), ask_team_path(team), method: :post
+      - elsif can? :revoke, team
+        = link_to t('team.actions.revoke'), revoke_team_path(team), method: :patch
+      - if can? :destroy, member
+        = link_to t('team.actions.leave'), team_member_path(team, member), method: :delete, class: 'red-text'
+
+    .card-reveal
+      span.card-title
+        = team.name
+        span.right
+          = render 'teams/access', team: team
+          = mdi_tag 'close'
+      .divider
+      .section
+        = asciidoc team.description
       - if member
-        - if member.invited?
-          = link_to t('team.actions.join'), join_team_path(team), method: :patch
-        - else
-          = link_to t('team.actions.show'), team_path(team)
+        .divider
+        .section
+          b
+            | Member Info
+          .chip-list
+            .chip.blue.lighten-4
+              = member.role_i18n
+            .chip.red.lighten-4
+              = member.status_i18n
+        - if team.owner_tags_on(team.members.find_by(user: @current_user), :tags).any?
+          .divider
+          .section.chip-list
+            = render team.owner_tags_on(team.members.find_by(user: @current_user), :tags)

@@ -24,6 +24,8 @@ Rails.application.routes.draw do
 
     member do
       post :invite
+      post :ask
+      patch :revoke
       patch :join
       get :dashboard
     end

@@ -17,7 +17,7 @@ user = User.create! email: Settings.seed.email, username: Settings.seed.username
   while name.length < 5
     name = Faker::HitchhikersGuideToTheGalaxy.unique.location
   end
-  p = Team.create! name: name, description: Faker::HitchhikersGuideToTheGalaxy.marvin_quote
+  p = Team.create! name: name, description: Faker::HitchhikersGuideToTheGalaxy.marvin_quote, access: [:hidden, :private, :public].sample
 end
 
 

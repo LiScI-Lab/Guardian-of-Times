@@ -7,7 +7,7 @@ class Team::Member < ApplicationRecord
   acts_as_tagger
   acts_as_taggable
 
-  enum status: {invited: 0, leaved: 5, removed: 10, joined: 100}
+  enum status: {invited: 0, leaved: 5, revoked: 7, requested: 8, removed: 10, joined: 100}
   enum role: {participant: 0, timekeeper: 50, responsible: 90, owner: 100}
 
   belongs_to :user, class_name: User.name

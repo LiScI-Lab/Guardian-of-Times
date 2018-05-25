@@ -3,6 +3,19 @@ class TeamsController < SecurityController
 
   load_and_authorize_resource
 
+  def index
+    @teams = Team.includes(:members).kept.where(access: :hidden, team_members: {user_id: 1, status: [Team::Member.statuses[:invited], Team::Member.statuses[:joined], Team::Member.statuses[:leaved]]}).or(Team.includes(:members).kept.where(access: [:private, :public]).where.not(team_members: {user_id: nil})).order(:name)
+  end
+
+  def invited
+    @teams = @current_user.invited_teams.kept
+  end
+
+  def owner
+    @teams = @current_user.own_teams.kept
+  end
+
+
   def show
     if can? :dashboard, @team
       redirect_to dashboard_team_path(@team)
@@ -42,18 +55,6 @@ class TeamsController < SecurityController
     end
   end
 
-  def index
-    @teams = @current_user.involved_teams.kept
-  end
-
-  def invited
-    @teams = @current_user.invited_teams.kept
-  end
-
-  def owner
-    @teams = @current_user.own_teams.kept
-  end
-
   def invite
     @user = User.find params[:user_id]
     member = @team.members.find_or_initialize_by user: @user
@@ -64,7 +65,33 @@ class TeamsController < SecurityController
     end
   end
 
+  def ask
+    member = @team.members.find_or_initialize_by user: @current_user
+
+    if member.requested!
+      flash[:success] = "Access requested!"
+    else
+      flash[:error] = "Something went wrong"
+    end
+    redirect_back fallback_location: teams_path
+  end
+
+  def revoke
+    member = @team.members.find_or_initialize_by user: @current_user
+
+    if member.revoked!
+      flash[:success] = "Request revoked!"
+    else
+      flash[:error] = "Something went wrong"
+    end
+    redirect_back fallback_location: teams_path
+  end
+
+
   def join
+    unless @current_member
+      @current_member = @team.members.new user: @current_user
+    end
     @current_member.status = :joined
     if @current_member.save
       flash[:success] = "Successfully joined #{@team.name}"
@@ -74,6 +101,8 @@ class TeamsController < SecurityController
         redirect_to edit_team_member_path(@team, @current_member)
       end
     else
+      flash[:error] = "Something went wrong"
+      redirect_back fallback_location: teams_path
     end
   end
 
