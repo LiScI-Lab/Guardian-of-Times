@@ -48,7 +48,7 @@ class Team::ExportController < SecurityController
     progresses_current_month = member.progresses.kept.in_month(month).all
     #normalize durations by scaling using the factor: target_seconds/total_time_spend_seconds
     target_seconds = member.matching_target_hours(month) * 3600 if should_normalize
-    total_time_spend = progresses_current_month.reduce(0.0) {|acc, p| acc + p.time_spend.to_d} if should_normalize
+    total_time_spend = member.in_month_time_spend(month).to_d if should_normalize
     normalize_factor = (target_seconds.to_d / total_time_spend).round(4) if should_normalize
     progresses_current_month
         .sort_by {|p| p.start}
