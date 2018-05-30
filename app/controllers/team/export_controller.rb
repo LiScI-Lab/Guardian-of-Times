@@ -44,11 +44,12 @@ class Team::ExportController < SecurityController
   end
 
   def generate_export_durations(member, month)
+    should_normalize = export_params[:normalize] && export_params[:normalize] == "true"
     progresses_current_month = member.progresses.kept.in_month(month).all
     #normalize durations by scaling using the factor: target_seconds/total_time_spend_seconds
-    target_seconds = member.matching_target_hours(month) * 3600 if export_params[:normalize]
-    total_time_spend = progresses_current_month.reduce(0.0) {|acc, p| acc + p.time_spend.to_d} if export_params[:normalize]
-    normalize_factor = (target_seconds.to_d / total_time_spend).round(4) if export_params[:normalize]
+    target_seconds = member.matching_target_hours(month) * 3600 if should_normalize
+    total_time_spend = progresses_current_month.reduce(0.0) {|acc, p| acc + p.time_spend.to_d} if should_normalize
+    normalize_factor = (target_seconds.to_d / total_time_spend).round(4) if should_normalize
     progresses_current_month
         .sort_by {|p| p.start}
         .map {|p|
