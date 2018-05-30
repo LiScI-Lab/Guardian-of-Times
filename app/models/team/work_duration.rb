@@ -31,4 +31,9 @@ class Team::WorkDuration
   def work_duration_formatted
     Time.at(@work_duration).utc.strftime("%H:%M")
   end
+
+  def scale_duration_by(factor)
+    duration = @work_duration*factor
+    ::Team::WorkDuration.new(@date,@start_time, @start_time+duration, duration)
+  end
 end
