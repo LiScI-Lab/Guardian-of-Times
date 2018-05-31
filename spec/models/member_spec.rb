@@ -71,8 +71,9 @@ RSpec.describe Team::Member, type: :model do
     end
     it "should calculate extra hours as difference of progresses-target_hours" do
       month = DateTime.now.beginning_of_month
-      progresses = (0..20).map { |n| Team::Progress.new(member: @member, team: @member.team, start: month+n.days, end: month+n.days+4.hours) }
-      expected_extra_hours = (progresses.map { |p| p.time_spend }.sum/3600 - 20) #20 = target_hours of `month`
+      progresses = (0...20).map { |n| Team::Progress.new(member: @member, team: @member.team, start: month+n.days, end: month+n.days+4.hours) }
+      #expected_extra_hours = (progresses.map { |p| p.time_spend }.sum/3600 - 20) #20 = target_hours of `month`
+      expected_extra_hours = (4*20 - 20) #20 = target_hours of `month`
       @member.progresses << progresses
       @member.save!
 
