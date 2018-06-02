@@ -4,6 +4,9 @@
       = image_tag member.user.logo_url, class: 'circle responsive-img'
       span.title = member.user.name
       span.badge.new.white-text data={badge: {caption: member.role_i18n}}
+      - unless member.available?
+        .section
+          = render partial: 'team/member/unavailabilities/badge', locals: {member: member}
       .section
         ul
           li

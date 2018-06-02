@@ -1,0 +1,7 @@
+- unavailability = member.current_unavailability
+= link_to team_member_unavailabilities_path(member.team,member)
+  - if unavailability.end
+    - badge_text = t('team.member.dashboard.not_available_until', date: l(unavailability.end, format: :short))
+  - else
+    - badge_text = t('team.member.dashboard.not_available')
+  span.badge.new.red.white-text data={badge: {caption: badge_text}}
