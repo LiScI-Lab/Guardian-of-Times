@@ -111,12 +111,15 @@ class Team::Member::ProgressesController < SecurityController
         import_csv_kimai @member, i_params[:file], i_params[:options]
       when :hamster
         import_hamster @member, i_params[:file], i_params[:options]
+      when :csv_stundenzettel
+        import_stundenzettel_csv @member, i_params[:file], i_params[:options]
       else
         raise ArgumentError, I18n.t('errors.messages.format_not_implemented')
       end
       flash[:success] = "Import successful."
     rescue StandardError => error
-      flash[:error] = error.message
+      #flash[:error] = error.message
+      raise error
     end
     redirect_to team_member_progresses_path @member.team, @member
   end
@@ -163,6 +166,21 @@ class Team::Member::ProgressesController < SecurityController
       progress.tag_list.add(row[0]) if row[0] and not ActiveModel::Type::Boolean.new.cast(options[:drop_activity])
       progress.tag_list.add(row[4]) if row[4] and not ActiveModel::Type::Boolean.new.cast(options[:drop_category])
       progress.tag_list.add(row[6], parse: true) if row[6] and not ActiveModel::Type::Boolean.new.cast(options[:drop_tags])
+      raise 'problems while saving progress' unless progress.save
+    end
+  end
+
+  def import_stundenzettel_csv member, file, options
+    require 'csv'
+
+    CSV.parse(File.readlines(file.path, encoding: 'UTF-8').drop(8).join) do |row|
+      date,starttime,endtime,timespan_str = row
+      next if date.blank? || date.downcase == "datum" || starttime.blank? || endtime.blank?
+
+      start = Time.zone.parse(date+" "+starttime).to_datetime
+      timespan = Time.zone.parse(timespan_str).to_datetime unless timespan_str.blank?
+      progress = Team::Progress.new start: start, member: member, team: member.team
+      progress.end = timespan ? start.advance(hours: timespan.hour,minutes: timespan.minute) : Time.zone.parse(date+" "+endtime)
       raise 'problems while saving progress' unless progress.save
     end
   end

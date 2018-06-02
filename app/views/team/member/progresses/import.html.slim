@@ -10,7 +10,7 @@
     = simple_form_for :import, url: upload_team_member_progresses_path(@team, @member), html: {class: 'import has-hideable-content'} do |f|
       = render 'application/form', f: f
         .col.s12.m4
-          = f.input :format, collection: {'CSV': :csv, 'CSV (Nico)': :csv_nico, 'Kimai (CSV)': :csv_kimai, 'Hamster (TSV)': :hamster}, include_blank: false, wrapper_html: {class: 's12 hide-selector'}
+          = f.input :format, collection: {'CSV': :csv, 'CSV (Nico)': :csv_nico, 'Stundenzettel (CSV)': :csv_stundenzettel, 'Kimai (CSV)': :csv_kimai, 'Hamster (TSV)': :hamster}, include_blank: false, wrapper_html: {class: 's12 hide-selector'}
           = f.label :extra_options, required: false, class: 'col s12'
           = f.simple_fields_for :options do |ff|
             .global.col.s12
@@ -55,6 +55,24 @@
                       23.02.2018,12:50:00,16:00:00,3:10:00,"jshell submission from students"
                       28.02.2018,11:00:00,11:30:00,0:30:00,Arbeitszeiten Datenblatt erstellen
                       28.02.2018,11:30:00,16:00:00,4:30:00,"JShell finaly execute submissions,try to apply policies for jshell"
+              .hideable.csv_stundenzettel style='display: none'
+                pre style="overflow-x: auto; "
+                  code style="white-space: pre; display: inline-block; min-width: 100%;"
+                    | Stundennachweis nach §17 Mindestlohngesetz (MiloG),,,
+                      ,,,
+                      Name:,Musterman,Monat:,Februar
+                      Vorname:,Max,Jahr:,1974
+                      Fachbereich:,MuK,,
+                      Geburtsdatum:,12.06.1954,,
+                      ,,,
+                      Datum,Beginn,Ende,Dauer (ohne Pausen)
+                      "Thu, 01. 03. 2018",13:00:00,17:00:00,03:00:00
+                      "Fri, 02. 03. 2018",12:10:00,14:53:00,02:43:00
+                      "Sat, 03. 03. 2018",,,
+                      "Sun, 04. 03. 2018",,,
+                      "Mon, 05. 03. 2018",,,
+                      "Tue, 06. 03. 2018",12:00:00,17:00:00,04:00:00
+                      "Wed, 07. 03. 2018",,,
               .hideable.csv_kimai style='display: none'
                 = t('team.progress.import.csv_kimai_info')
                 pre style="overflow-x: auto; "
