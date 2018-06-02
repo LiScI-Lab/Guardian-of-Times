@@ -57,7 +57,7 @@ html
           td Gesamtstunden
           td
           td
-          td #{ChronicDuration.output(@time_spend_this_month, :limit_to_hours => true,:format => :chrono)}
+          td #{ChronicDuration.output(@time_spend_this_month, :limit_to_hours => true,:format => :chrono)[/\d+:\d+/]}
 
     .row style="margin-top: 2em;"
       .column
