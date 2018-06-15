@@ -93,6 +93,21 @@ class Team::Member < ApplicationRecord
     (target_hour) ? target_hour.hours : 0
   end
 
+  def extra_hours(date=nil)
+    if target_hours.empty?
+      0
+    elsif date
+      (in_month_time_spend(date) - (matching_target_hours(date)*3600))/3600
+    else
+      progresses.kept
+        .group_by_month(&:start)
+        .map { |k,v|
+        month_duration = v.map { |p| p.time_spend }.sum
+        (month_duration - (matching_target_hours(k)*3600))
+      }.sum
+    end
+  end
+
   def time_spend_series
     data = {}
     progresses.kept.group_by_month(:start).unscope(:order).count.map do |k,v|

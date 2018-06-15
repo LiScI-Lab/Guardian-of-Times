@@ -139,6 +139,7 @@ GEM
       warden (~> 1.2.3)
     devise-i18n (1.6.1)
       devise (>= 4.4)
+    diff-lcs (1.3)
     discard (1.0.0)
       activerecord (>= 4.2, < 6)
     dotiw (4.0.0)
@@ -175,6 +176,8 @@ GEM
       activesupport (>= 3.0.0)
     erubi (1.7.1)
     execjs (2.7.0)
+    factory_bot (4.8.2)
+      activesupport (>= 3.0.0)
     faker (1.8.7)
       i18n (>= 0.7)
     faraday (0.12.2)
@@ -376,6 +379,23 @@ GEM
       actionview
       railties
       rouge
+    rspec-core (3.7.1)
+      rspec-support (~> 3.7.0)
+    rspec-expectations (3.7.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.7.0)
+    rspec-mocks (3.7.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.7.0)
+    rspec-rails (3.7.2)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 3.7.0)
+      rspec-expectations (~> 3.7.0)
+      rspec-mocks (~> 3.7.0)
+      rspec-support (~> 3.7.0)
+    rspec-support (3.7.1)
     ruby-openid (2.7.0)
     ruby_dep (1.5.0)
     sass (3.5.6)
@@ -482,6 +502,7 @@ DEPENDENCIES
   discard
   dotiw
   enum_help
+  factory_bot
   faker
   groupdate
   http_accept_language
@@ -515,6 +536,7 @@ DEPENDENCIES
   rails-plantuml-generator!
   rouge
   rouge-rails
+  rspec-rails
   sass-rails
   simple_form
   simple_token_authentication

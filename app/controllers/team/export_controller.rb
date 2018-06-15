@@ -18,17 +18,8 @@ class Team::ExportController < SecurityController
 
   def create
     @debug_pdf = params[:debug].present? || export_params[:format] == :html.to_s
-    @report_month = Date.new(DateTime.now.year, export_params[:month].to_i)
-    progresses_current_month = @current_member.progresses.kept.in_month(@report_month).all
-    durations = progresses_current_month
-                  .sort_by { |p| p.start }
-                  .map { |p| Team::WorkDuration.new(p.start, p.start, p.end) }
-                  .group_by { |p| p.date.to_date }
-                  .map { |date,values|
-      values.reduce { |acc,p|
-        acc.combine(p)
-      }
-    }
+    @report_month = DateTime.new(DateTime.now.year, export_params[:month].to_i)
+    durations = generate_export_durations(@current_member, @report_month)
 
     #generate a list of all days of a month (1..31) and pair it with the working ours [day,woring_duration]
     #if there is no working our for a specific day, make it [day,nil]
@@ -49,6 +40,28 @@ class Team::ExportController < SecurityController
 
   private
   def export_params
-    params.require(:export_options).permit(:month,:max_hours,:format)
+    params.require(:export_options).permit(:month,:max_hours,:format, :normalize)
+  end
+
+  def generate_export_durations(member, month)
+    should_normalize = export_params[:normalize] && export_params[:normalize] == "1"
+    progresses_current_month = member.progresses.kept.in_month(month).all
+    #normalize durations by scaling using the factor: target_seconds/total_time_spend_seconds
+    target_seconds = member.matching_target_hours(month) * 3600 if should_normalize
+    total_time_spend = member.in_month_time_spend(month).to_d if should_normalize
+    normalize_factor = (target_seconds.to_d / total_time_spend).round(4) if should_normalize
+    progresses_current_month
+        .sort_by {|p| p.start}
+        .map {|p|
+          #to duration & normalize
+          duration = Team::WorkDuration.new(p.start, p.start, p.end)
+          (normalize_factor) ? duration.scale_duration_by(normalize_factor) : duration
+        }
+        .group_by {|p| p.date.to_date}
+        .map {|date, values|
+          values.reduce {|acc, p|
+            acc.combine(p)
+          }
+        }
   end
 end

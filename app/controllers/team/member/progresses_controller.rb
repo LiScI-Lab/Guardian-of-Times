@@ -102,23 +102,37 @@ class Team::Member::ProgressesController < SecurityController
 
     begin
       case i_params[:format].to_sym
-      # when :csv
-      #   raise ArgumentError, "not implemented"
-      #   import_csv i_params[:file], i_params[:options]
+      when :csv
+        import_csv @member, i_params[:file], i_params[:options]
       when :csv_nico
         import_csv_nico @member, i_params[:file], i_params[:options]
       when :csv_kimai
         import_csv_kimai @member, i_params[:file], i_params[:options]
       when :hamster
         import_hamster @member, i_params[:file], i_params[:options]
+      when :csv_stundenzettel
+        import_stundenzettel_csv @member, i_params[:file], i_params[:options]
       else
         raise ArgumentError, I18n.t('errors.messages.format_not_implemented')
       end
       flash[:success] = "Import successful."
     rescue StandardError => error
-      flash[:error] = error.message
+      #flash[:error] = error.message
+      raise error
     end
     redirect_to team_member_progresses_path @member.team, @member
+  end
+
+  def import_csv member, file, options
+    require "csv"
+    File.foreach(file.path).with_index do |line, i|
+      next if i == 0 and options[:first_line_description]
+      row = CSV.parse(line, col_sep: ';').first
+      progress = import_progress_standard member, row[0], row[1]
+      progress.description = row[2] if row[2] and not ActiveModel::Type::Boolean.new.cast(options[:drop_description])
+      progress.tag_list.add(row[3], parse: true) if row[3] and not ActiveModel::Type::Boolean.new.cast(options[:drop_tags])
+      raise 'problems while saving progress' unless progress.save
+    end
   end
 
   def import_csv_nico member, file, options
@@ -163,6 +177,21 @@ class Team::Member::ProgressesController < SecurityController
       progress.tag_list.add(row[0]) if row[0] and not ActiveModel::Type::Boolean.new.cast(options[:drop_activity])
       progress.tag_list.add(row[4]) if row[4] and not ActiveModel::Type::Boolean.new.cast(options[:drop_category])
       progress.tag_list.add(row[6], parse: true) if row[6] and not ActiveModel::Type::Boolean.new.cast(options[:drop_tags])
+      raise 'problems while saving progress' unless progress.save
+    end
+  end
+
+  def import_stundenzettel_csv member, file, options
+    require 'csv'
+
+    CSV.parse(File.readlines(file.path, encoding: 'UTF-8').drop(8).join) do |row|
+      date,starttime,endtime,timespan_str = row
+      next if date.blank? || date.downcase == "datum" || starttime.blank? || endtime.blank?
+
+      start = Time.zone.parse(date+" "+starttime).to_datetime
+      timespan = Time.zone.parse(timespan_str).to_datetime unless timespan_str.blank?
+      progress = Team::Progress.new start: start, member: member, team: member.team
+      progress.end = timespan ? start.advance(hours: timespan.hour,minutes: timespan.minute) : Time.zone.parse(date+" "+endtime)
       raise 'problems while saving progress' unless progress.save
     end
   end
