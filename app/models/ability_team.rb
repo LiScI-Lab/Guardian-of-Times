@@ -10,7 +10,7 @@ module AbilityTeam
     can [:join],    Team, access: Team.accesses[:public]
     can [:ask],     Team, access: Team.accesses[:private]
     cannot [:ask],  Team, members: {user: user, status: Team::Member.statuses[:requested]..Team::Member.statuses[:joined]}
-    can [:revoke],  Team, members: {user: user, status: Team::Member.statuses[:requested]}
+    can [:revoke],  Team, members: {user: user, status: Team::Member.statuses[:requested], discarded_at: nil}
     can [:join],    Team, members: {user: user, status: Team::Member.statuses[:invited]..Team::Member.statuses[:leaved]}
     cannot [:join], Team, members: {user: user, status: Team::Member.statuses[:removed]..Team::Member.statuses[:joined]}
     can [:show],    Team, members: {user: user, status: Team::Member.statuses[:joined]}

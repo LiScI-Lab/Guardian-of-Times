@@ -36,8 +36,12 @@
         = link_to t('team.actions.request'), ask_team_path(team), method: :post
       - elsif can? :revoke, team
         = link_to t('team.actions.revoke'), revoke_team_path(team), method: :patch
+      - else
+        span
+          = t('team.action.rejected')
       - if can? :destroy, member
         = link_to t('team.actions.leave'), team_member_path(team, member), method: :delete, class: 'red-text'
+
 
     .card-reveal
       span.card-title

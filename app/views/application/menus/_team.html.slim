@@ -19,7 +19,7 @@
     = link_to requested_teams_path, class: "list-group-item list-group-item-action #{"active" if controller.is_a? TeamsController and action == :requested}"
       = t('dropdown.teams.requests')
       - if @current_user.requested_teams.kept.any?
-        span.new.badge = @current_user.requested_teams.kept.count
+        span.badge = @current_user.requested_teams.kept.count
 
 - if can? :invited, Team
   li

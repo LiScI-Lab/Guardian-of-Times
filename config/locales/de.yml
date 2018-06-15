@@ -136,6 +136,8 @@ de:
     current_week_time_spend: "Zeit diese Woche:"
     unavailability:
       current: "Aktuelle Abwesenheiten"
+    action:
+      rejected: "Abgelehnt"
   dashboard:
     time_spend_in: "Arbeitszeiten im %{date}"
     total_time_spend: "Gesamte Arbeitszeit"
