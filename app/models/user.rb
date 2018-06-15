@@ -128,7 +128,7 @@ class User < ApplicationRecord
     if avatar_type.to_sym == :local and avatar?
       url = avatar_url
     elsif avatar_type.to_sym != :generator
-      url = identities.find_by(provider: avatar_type).avatar_url
+      url = identities.find_by(provider: avatar_type)&.avatar_url
     end
 
     if avatar_type.to_sym == :generator or url.nil?
