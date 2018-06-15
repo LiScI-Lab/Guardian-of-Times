@@ -43,7 +43,7 @@
               span.new.badge
                 = @team.members.where(status: :requested).size
             - else
-              span.badge
+              span.badge.grey.lighten-4.black-text data = {badge: {caption: ''}}
                 = @team.members.where(status: :invited).size
 
 = render template: 'layouts/application'
