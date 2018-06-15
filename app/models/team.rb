@@ -9,7 +9,8 @@ class Team < ApplicationRecord
 
 
   has_many :members, class_name: Team::Member.name
-  has_many :users, through: :members, class_name: User.name
+  has_many :kept_members, -> {kept}, class_name: Team::Member.name
+  has_many :users, through: :kept_members, class_name: User.name
 
   has_many :progresses, -> {order start: :desc}, class_name: Team::Progress.name
   has_many :unavailabilities, -> {order start: :desc}, class_name: Team::Unavailability.name

@@ -1,0 +1,22 @@
+.button-group
+  - if can? :accept, member
+    = link_to accept_team_member_path(@team, member), class: 'btn-small waves-effect waves-light green', method: :patch
+      = mdi_tag 'account-plus'
+
+  - if can? :show, member
+    = link_to dashboard_team_member_path(@team, member), class: 'btn-small waves-effect waves-light blue'
+      = mdi_tag 'view-dashboard'
+    = link_to team_member_progresses_path(@team, member), class: 'btn-small waves-effect waves-light'
+      = mdi_tag 'run'
+    = link_to team_member_unavailabilities_path(@team, member), class: 'btn-small waves-effect waves-light green'
+      = mdi_tag 'weather-sunny'
+
+  - if can? :edit, member
+    = link_to edit_team_member_path(@team, member), class: 'btn-small waves-effect waves-light orange'
+      = mdi_tag 'pencil'
+  - if can? :restore, member
+    = link_to restore_team_member_path(@team, member), class: 'btn-small waves-effect waves-light green', method: :patch
+      = mdi_tag 'delete-restore'
+  - elsif can? :destroy, member
+    = link_to team_member_path(@team, member), class: 'btn-small waves-effect waves-light red', method: :delete
+      = mdi_tag 'delete'

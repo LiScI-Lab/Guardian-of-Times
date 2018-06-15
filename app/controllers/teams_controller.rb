@@ -66,6 +66,7 @@ class TeamsController < SecurityController
   def invite
     @user = User.find params[:user_id]
     member = @team.members.find_or_initialize_by user: @user
+    member.discarded_at = nil
     if member.save
       @message = "#{@user.name} successfully invited"
     else

@@ -23,17 +23,15 @@ module AbilityTeam
       cannot [:update],                   Team, members: {id: member.id, role: Team::Member.roles[:responsible]}
 
 
-      can [:index],                                                         Team::Member, team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
-      can [:outstanding],                                                   Team::Member, team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
-      can [:show, :dashboard, :update],                                     Team::Member, id: member.id
-      can [:show, :dashboard, :update, :new, :invite, :destroy, :restore],  Team::Member, team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
+      can [:index],                                     Team::Member, team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
+      can [:new, :outstanding],                         Team::Member, team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
+      can [:show, :dashboard, :update],                 Team::Member, id: member.id
+      can [:show, :dashboard, :update, :new, :invite],  Team::Member, status: [Team::Member.statuses[:joined], Team::Member.statuses[:leaved], Team::Member.statuses[:removed]], team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
 
-      cannot [:restore],                                                    Team::Member do |member|
-        not member.removed?
-      end
-      cannot [:destroy],                                                    Team::Member do |member|
-        not member.joined?
-      end
+      can [:restore],                                   Team::Member, status: Team::Member.statuses[:removed], team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
+      can [:destroy],                                   Team::Member, status: [Team::Member.statuses[:joined], Team::Member.statuses[:requested], Team::Member.statuses[:invited]], team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
+      cannot [:destroy],                                Team::Member, id: member.id
+      can [:accept],                                    Team::Member, status: Team::Member.statuses[:requested], team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
 
       can [:index, :show, :export],               Team::Progress,           team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
       can [:create, :start, :import, :export],    Team::Progress,           member: member

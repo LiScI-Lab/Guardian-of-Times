@@ -1,4 +1,4 @@
-- if can? :invite, @team
+- if can? :new, Team::Member.new(team: @team)
   - content_for :halfway_fab
     = link_to new_team_member_path(@team), class: "btn-floating btn-large halfway-fab waves-effect waves-light", remote: true
       = mdi_tag 'account-multiple-plus'

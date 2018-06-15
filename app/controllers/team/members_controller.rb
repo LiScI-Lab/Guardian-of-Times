@@ -40,6 +40,15 @@ class Team::MembersController < SecurityController
   def edit
   end
 
+  def accept
+    if @member.joined!
+      flash[:success] = "Member joined!"
+    else
+      flash[:error] = "Something went wrong"
+    end
+    redirect_back fallback_location: outstanding_team_members_path(@team)
+  end
+
   def update
     if @member.update member_params
       flash[:success] = "Member successfully updated"
@@ -60,10 +69,18 @@ class Team::MembersController < SecurityController
   end
 
   def destroy
-    if @member.removed!
-      flash[:success] = "Member is removed!"
+    if @member.joined?
+      if @member.removed!
+        flash[:success] = "Member is removed!"
+      else
+        flash[:error] = "Something went wrong"
+      end
     else
-      flash[:error] = "Something went wrong"
+      if @member.discard
+        flash[:success] = "Member is removed!"
+      else
+        flash[:error] = "Something went wrong"
+      end
     end
     redirect_back fallback_location: team_members_path(@team)
   end

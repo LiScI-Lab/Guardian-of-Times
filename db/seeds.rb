@@ -22,23 +22,28 @@ end
 
 
 Team.all.each do |p|
-  m = p.members.new(user: user, role: [:participant, :owner].sample, status: [:joined, :leaved, :invited].sample)
-  if m.owner?
-    m.status = :joined
-  end
-
-  unless m.invited?
-    rand(0..4).times do
-      hours = m.target_hours.find_or_initialize_by since: rand(-3..3).months.ago.beginning_of_month
-      hours.hours = rand(20..80)
-      hours.member = m
-      hours.save!
+  from = 0
+  if rand(0..100) < 20
+    m = p.members.new(user: user, role: [:participant, :owner].sample, status: [:joined, :leaved, :invited, :requested].sample)
+    if m.owner?
+      m.status = :joined
     end
+
+    unless m.invited?
+      rand(0..4).times do
+        hours = m.target_hours.find_or_initialize_by since: rand(-3..3).months.ago.beginning_of_month
+        hours.hours = rand(20..80)
+        hours.member = m
+        hours.save!
+      end
+    end
+
+    m.save!
+  else
+    from = 2
   end
 
-  m.save!
-
-  rand(0..20).times do
+  rand(from..20).times do
     m = p.members.find_or_initialize_by user_id: rand(2..49)
     m.role = :participant
     m.status = [:joined, :leaved, :invited].sample

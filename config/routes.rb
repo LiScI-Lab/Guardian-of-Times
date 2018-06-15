@@ -41,6 +41,7 @@ Rails.application.routes.draw do
 
         member do
           get :dashboard
+          patch :accept
           patch :restore
         end
 

@@ -6,48 +6,36 @@
       span.badge.new.white-text data={badge: {caption: member.role_i18n}}
       - unless member.available?
         .section
-          = render partial: 'team/member/unavailabilities/badge', locals: {member: member}
+          = render 'team/member/unavailabilities/badge', member: member
       .section
         ul
-          li
-            span
-              => mdi_tag 'history'
-              | Overall:&nbsp;
-              = distance_of_time_or_null member.total_time_spend, [:minutes, :seconds]
-          li
-            span
-              => mdi_tag 'update'
-              | #{DateTime.now.month}/#{DateTime.now.year}:&nbsp;
-              = distance_of_time_or_null member.current_month_time_spend
-          - extra_hours = member.extra_hours
-          li
-            span
-              => mdi_tag 'history', class: "#{"red-text" if extra_hours != 0}"
-              span class="#{"red-text" if extra_hours != 0}" Extra Hours:&nbsp;
-              = distance_of_time_or_null extra_hours
+          - unless member.requested? or member.invited?
+            li
+              span
+                => mdi_tag 'history'
+                | Overall:&nbsp;
+                = distance_of_time_or_null member.total_time_spend, [:minutes, :seconds]
+            li
+              span
+                => mdi_tag 'update'
+                | #{DateTime.now.month}/#{DateTime.now.year}:&nbsp;
+                = distance_of_time_or_null member.current_month_time_spend
+            - extra_hours = member.extra_hours
+            li
+              span
+                => mdi_tag 'history', class: "#{"red-text" if extra_hours != 0}"
+                span class="#{"red-text" if extra_hours != 0}" Extra Hours:&nbsp;
+                = distance_of_time_or_null extra_hours
           li
             small
               = mdi_tag 'account-network'
               |  #{member.status_i18n} (#{l(member.updated_at.to_date)})
-      .section.chip-list
-        = render partial: 'acts_as_taggable_on/tags/tag', collection: member.tags_on(:tags)
-      .section.chip-list
-        = render partial: 'acts_as_taggable_on/tags/tag', collection: member.owner_tags_on(@current_member, :tags)
+      - unless member.requested?
+        .section.chip-list
+          label = t('simple_form.labels.defaults.tag_list')
+          = render partial: 'acts_as_taggable_on/tags/tag', collection: member.tags_on(:tags)
+        .section.chip-list
+          label = t('simple_form.labels.defaults.own_tag_list')
+          = render partial: 'acts_as_taggable_on/tags/tag', collection: member.owner_tags_on(@current_member, :tags)
       .section
-        .button-group
-          - if can? :show, member
-            = link_to dashboard_team_member_path(@team, member), class: 'btn-small waves-effect waves-light blue'
-              = mdi_tag 'view-dashboard'
-            = link_to team_member_progresses_path(@team, member), class: 'btn-small waves-effect waves-light'
-              = mdi_tag 'run'
-            = link_to team_member_unavailabilities_path(@team, member), class: 'btn-small waves-effect waves-light green'
-              = mdi_tag 'weather-sunny'
-          - if can? :edit, member
-            = link_to edit_team_member_path(@team, member), class: 'btn-small waves-effect waves-light orange'
-              = mdi_tag 'pencil'
-          - if can? :restore, member
-            = link_to restore_team_member_path(@team, member), class: 'btn-small waves-effect waves-light green', method: :patch
-              = mdi_tag 'delete-restore'
-          - elsif can? :destroy, member
-            = link_to team_member_path(@team, member), class: 'btn-small waves-effect waves-light red', method: :delete
-              = mdi_tag 'delete'
+        = render 'team/member/actions', member: member
