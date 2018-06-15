@@ -28,10 +28,13 @@ module AbilityTeam
       can [:show, :dashboard, :update],                 Team::Member, id: member.id
       can [:show, :dashboard, :update, :new, :invite],  Team::Member, status: [Team::Member.statuses[:joined], Team::Member.statuses[:leaved], Team::Member.statuses[:removed]], team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
 
+      can [:accept],                                    Team::Member, status: Team::Member.statuses[:requested], team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
       can [:restore],                                   Team::Member, status: Team::Member.statuses[:removed], team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
       can [:destroy],                                   Team::Member, status: [Team::Member.statuses[:joined], Team::Member.statuses[:requested], Team::Member.statuses[:invited]], team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
       cannot [:destroy],                                Team::Member, id: member.id
-      can [:accept],                                    Team::Member, status: Team::Member.statuses[:requested], team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
+      cannot [:destroy],                                Team::Member do |m|
+        Team::Member.roles[m.role] >= Team::Member.roles[member.role]
+      end
 
       can [:index, :show, :export],               Team::Progress,           team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
       can [:create, :start, :import, :export],    Team::Progress,           member: member
