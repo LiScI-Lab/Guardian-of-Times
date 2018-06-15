@@ -4,3 +4,8 @@ de:
       role:
         admin: Admin
         user: Benutzer
+    team:
+      access:
+        hidden: Versteckt
+        private: Privat
+        public: Öffentlich

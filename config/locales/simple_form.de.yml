@@ -26,12 +26,15 @@ de:
         tag_list: 'Tag Liste'
         own_tag_list: 'Private Tag Liste'
         description: 'Beschreibung'
+      team:
+        access: "Zugriff/Sichtbarkeit"
       member:
         show_tracking_status: 'Status über laufende Fortschritte anzeigen'
         target_hours: 'Sollstunden'
       target_hours:
         since: 'Beginnend am'
         hours: 'Stunden'
+
     hints:
       member:
         show_tracking_status: 'Soll in der Mitglieder Übersicht angezeigt werden, ob aktuell ein Fortschritt aufgezeichnet wird?'

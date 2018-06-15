@@ -4,5 +4,31 @@
   = render 'application/form', f: f
     = f.input :name, wrapper_html: {class: 's12'}, input_html: {minlength: Settings.team.name.length_minimum}
     = f.input :description, wrapper_html: {class: 's12'}, input_html: {minlength: Settings.team.description.length_minimum}
-    = render 'acts_as_taggable_on/tag_list', f: f, for_class: 'team', value: f.object.tag_list, collection: Team.tags_on(:tags)
-    = render 'acts_as_taggable_on/tag_list', f: f, for_class: 'team', field: :own_tag_list, value: f.object.own_tag_list(@current_member), collection: Team.tags_on(:tags)
+    .col.s12.m6
+      = render 'acts_as_taggable_on/tag_list', f: f, for_class: 'team', value: f.object.tag_list, collection: Team.tags_on(:tags)
+    .col.s12.m6
+      = render 'acts_as_taggable_on/tag_list', f: f, for_class: 'team', field: :own_tag_list, value: f.object.own_tag_list(@current_member), collection: Team.tags_on(:tags)
+
+    .input-field.col.radios.optional.team_access.s12
+      p
+        label
+          = t('simple_form.labels.team.access')
+      = f.hidden_field :access, as: :radio_buttons
+      p
+        label
+          = f.radio_button :access, :hidden, class: 'with-gap'
+          span
+            = mdi_tag 'eye-off 24px', class: "red-text"
+            =< t('enums.team.access.hidden')
+      p
+        label
+          = f.radio_button :access, :private, class: 'with-gap'
+          span
+            = mdi_tag 'shield-half-full 24px', class: "orange-text"
+            =< t('enums.team.access.private')
+      p
+        label
+          = f.radio_button :access, :public, class: 'with-gap'
+          span
+            = mdi_tag 'shield-outline 24px', class: "green-text"
+            =< t('enums.team.access.public')

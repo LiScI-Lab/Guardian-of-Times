@@ -116,7 +116,7 @@ class TeamsController < SecurityController
 
   private
   def team_params
-    p = params.require(:team).permit([:name, :description, :tag_list, :own_tag_list])
+    p = params.require(:team).permit([:name, :description, :access, :tag_list, :own_tag_list])
     if p[:own_tag_list].present?
       p[:own_tag_list] = {owner: @current_member, tag_list: p[:own_tag_list]}
     end
