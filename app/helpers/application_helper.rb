@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def distance_of_time_or_null seconds, expect = :seconds
-    if seconds > 0
+    if seconds != 0
       distance_of_time seconds, accumulate_on: :hours, except: expect
     else
       '-'

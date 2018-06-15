@@ -15,5 +15,5 @@
     | TODO: Insert filter options here....
 
 .row
-    - @members.order(role: :desc).kept.group(:role).select(:role).each do |member_role|
-      = render @members.joins(:user).includes(:progresses).order(status: :desc).where(role: member_role.role).kept.order('"users"."last_name"')
+    - @members.where(status: [:joined, :removed, :leaved]).order(role: :desc).kept.group(:role).select(:role).each do |member_role|
+      = render @members.joins(:user).includes(:progresses).order(status: :desc).where(role: member_role.role, status: [:joined, :removed, :leaved]).kept.order('"users"."last_name"')

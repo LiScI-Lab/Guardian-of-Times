@@ -11,21 +11,20 @@
         ul
           li
             span
-              = mdi_tag 'history'
-              |  Overall:&nbsp;
+              => mdi_tag 'history'
+              | Overall:&nbsp;
               = distance_of_time_or_null member.total_time_spend, [:minutes, :seconds]
           li
             span
-              = mdi_tag 'update'
-              |  #{DateTime.now.month}/#{DateTime.now.year}:&nbsp;
+              => mdi_tag 'update'
+              | #{DateTime.now.month}/#{DateTime.now.year}:&nbsp;
               = distance_of_time_or_null member.current_month_time_spend
           - extra_hours = member.extra_hours
-          - if extra_hours != 0
-            li
-              span
-                = mdi_tag 'history', class: 'red-text'
-                span.red-text Extra Hours:&nbsp;
-                = distance_of_time_or_null extra_hours
+          li
+            span
+              => mdi_tag 'history', class: "#{"red-text" if extra_hours != 0}"
+              span class="#{"red-text" if extra_hours != 0}" Extra Hours:&nbsp;
+              = distance_of_time_or_null extra_hours
           li
             small
               = mdi_tag 'account-network'
