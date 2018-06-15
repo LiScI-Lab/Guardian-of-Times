@@ -9,3 +9,16 @@ de:
         hidden: Versteckt
         private: Privat
         public: Öffentlich
+      member:
+        role:
+          owner: Besitzer
+          responsible: Verantwortlicher
+          timekeeper: Zeitwächter
+          participant: Mitglied
+        status:
+          invited: Eingeladen
+          leaved: Verlassen
+          revoked: Zurückgezogen
+          requested: Angefragt
+          removed: Gelöscht
+          joined: Beigetreten
