@@ -10,6 +10,10 @@ class Team::MembersController < SecurityController
     @members = @team.members
   end
 
+  def outstanding
+    @members = @team.members
+  end
+
   def show
     redirect_to dashboard_team_member_path(@team, @member)
   end

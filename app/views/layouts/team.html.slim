@@ -33,9 +33,17 @@
         = link_to t('team.menu.unavailability'), team_unavailabilities_path(@team), class: "#{'active' if controller.is_a? Team::UnavailabilitiesController}", target: :_self
     - if can? :index, Team::Member.new(team: @team)
       li.tab
-        = link_to t('team.menu.members'), team_members_path(@team), class: "#{'active' if (controller.is_a? Team::MembersController and not @member == @current_member) or (controller.is_a? Team::Member::ProgressesController and not @member == @current_member)}", target: :_self
-    /- if can? :index, :sub_team
+        = link_to t('team.menu.members'), team_members_path(@team), class: "#{'active' if (controller.is_a? Team::MembersController and not @member == @current_member and not action == :outstanding) or (controller.is_a? Team::Member::ProgressesController and not @member == @current_member)}", target: :_self
+    - if can? :outstanding, Team::Member.new(team: @team)
       li.tab
-        = link_to t('menu.teams'), team_sub_teams_path(@team), class: "#{'active' if controller.is_a? Team::SubTeamsController and action == :index}", target: :_self
+        = link_to outstanding_team_members_path(@team), class: "#{'active' if (controller.is_a? Team::MembersController and action == :outstanding)}", target: :_self
+          = t('team.menu.outstanding_members')
+          - if @team.members.where(status: :requested).any? or @team.members.where(status: :invited).any?
+            - if @team.members.where(status: :requested).any?
+              span.new.badge
+                = @team.members.where(status: :requested).size
+            - else
+              span.badge
+                = @team.members.where(status: :invited).size
 
 = render template: 'layouts/application'

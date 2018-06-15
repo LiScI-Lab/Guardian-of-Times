@@ -1,0 +1,23 @@
+- if can? :invite, @team
+  - content_for :halfway_fab
+    = link_to new_team_member_path(@team), class: "btn-floating btn-large halfway-fab waves-effect waves-light", remote: true
+      = mdi_tag 'account-multiple-plus'
+
+- if @team.members.where(status: :requested).any?
+  .row
+    .col.s12
+      h5
+        = t('team.member.requests')
+  .row
+    = render @team.members.where(status: :requested).kept.order(:created_at)
+
+.row
+  .col.s12
+    h5
+      = t('team.member.invitations')
+.row
+  - if @team.members.where(status: :invited).any?
+    = render @team.members.where(status: :invited).kept.order(:created_at)
+  - else
+    .col.s12.center-align
+      = t('team.member.no_invitations')

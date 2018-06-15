@@ -35,6 +35,10 @@ Rails.application.routes.draw do
     scope module: :team do
       #resources :sub_teams, only: [:index, :new, :create]
       resources :members, only: [:index, :show, :new, :edit, :update, :destroy] do
+        collection do
+          get :outstanding
+        end
+
         member do
           get :dashboard
           patch :restore

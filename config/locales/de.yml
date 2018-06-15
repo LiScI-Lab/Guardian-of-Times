@@ -93,6 +93,7 @@ de:
       my_dashboard: "Mein Dashboard"
       discarded_progresses: "Gelöschte Fortschritte"
       my_unavailability: "Meine Abwesenheiten"
+      outstanding_members: "Einladungen/Anfragen"
     actions:
       join: "Beitreten"
       show: "Anzeigen"
@@ -128,6 +129,9 @@ de:
         title: "Dashboard von %{name}"
         not_available: "nicht erreichbar"
         not_available_until: "nicht erreichbar bis %{date}"
+      no_invitations: "Es gibt keine ausstehenden Einladungen."
+      requests: "Anfragen"
+      invitations: "Einladungen"
     today_time_spend: "Zeit heute:"
     current_week_time_spend: "Zeit diese Woche:"
     unavailability:

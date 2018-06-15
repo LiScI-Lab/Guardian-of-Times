@@ -24,6 +24,7 @@ module AbilityTeam
 
 
       can [:index],                                                         Team::Member, team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
+      can [:outstanding],                                                   Team::Member, team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
       can [:show, :dashboard, :update],                                     Team::Member, id: member.id
       can [:show, :dashboard, :update, :new, :invite, :destroy, :restore],  Team::Member, team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
 
