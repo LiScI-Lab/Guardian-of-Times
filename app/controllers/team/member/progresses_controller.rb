@@ -102,9 +102,8 @@ class Team::Member::ProgressesController < SecurityController
 
     begin
       case i_params[:format].to_sym
-      # when :csv
-      #   raise ArgumentError, "not implemented"
-      #   import_csv i_params[:file], i_params[:options]
+      when :csv
+        import_csv @member, i_params[:file], i_params[:options]
       when :csv_nico
         import_csv_nico @member, i_params[:file], i_params[:options]
       when :csv_kimai
@@ -122,6 +121,18 @@ class Team::Member::ProgressesController < SecurityController
       raise error
     end
     redirect_to team_member_progresses_path @member.team, @member
+  end
+
+  def import_csv member, file, options
+    require "csv"
+    File.foreach(file.path).with_index do |line, i|
+      next if i == 0 and options[:first_line_description]
+      row = CSV.parse(line, col_sep: ';').first
+      progress = import_progress_standard member, row[0], row[1]
+      progress.description = row[2] if row[2] and not ActiveModel::Type::Boolean.new.cast(options[:drop_description])
+      progress.tag_list.add(row[3], parse: true) if row[3] and not ActiveModel::Type::Boolean.new.cast(options[:drop_tags])
+      raise 'problems while saving progress' unless progress.save
+    end
   end
 
   def import_csv_nico member, file, options
