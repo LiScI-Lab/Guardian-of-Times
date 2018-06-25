@@ -1,6 +1,6 @@
-== Setting up the servers for our rails apps
+= Setting up the servers for our rails apps
 
-=== Required gems
+== Required gems
 
 [source,ruby]
 ----
@@ -17,7 +17,7 @@
 
 Add the capistrano-related gems to the _development_ group and the `pg` gem to the _production_ group.
 
-=== Prerequisites
+== Prerequisites
 Install the dependencies on the server:
 
 [source,sh]
@@ -29,7 +29,7 @@ apt-get install postgresql postgresql-contrib libpq-dev rbenv
 apt-get install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev
 ----
 
-=== Capistrano configuration
+== Capistrano configuration
 Setup capistrano in your repository by running:
 
 [source,sh]
@@ -69,7 +69,7 @@ production:
 ----
 
 
-=== User & Postgres setup
+== User & Postgres setup
 The following steps must be repeated  for each environment.
 The following guide creates only the production environment.
 
@@ -94,7 +94,7 @@ psql
 psql$ grant all privileges on database production to production;
 ----
 
-=== rbenv setup
+== rbenv setup
 For each environment user, install the ruby-build plugin:
 ----
 git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build

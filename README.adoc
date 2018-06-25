@@ -1,7 +1,6 @@
-# Guardian of Times
+= Guardian of Times
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Guardian of Times is a Rails Application to track times of teams.
 
 Things you may want to cover:
 
@@ -23,7 +22,7 @@ Things you may want to cover:
 
 * ...
 
-# Generating a seed
+== Generating a seed
 To generate a seed, we need your user informations in the `settings.yml` file.
 Please append it as follows:
 ```yaml
@@ -33,7 +32,7 @@ seed:
   realname: <Your full name>
 ```
 
-# Export
+== Export
 The export uses wkhtmltopdf (https://wkhtmltopdf.org).
 It should be included as a binary gem using bundler.
 If this fails, install wkhtmltopdf using your distribution and tell wicked_pdf (https://github.com/mileszs/wicked_pdf)  where the local installation is.
