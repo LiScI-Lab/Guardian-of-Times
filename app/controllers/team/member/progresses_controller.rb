@@ -46,7 +46,7 @@ class Team::Member::ProgressesController < SecurityController
       redirect_to team_member_progresses_path(@team, @member)
     else
       flash[:error] = "Progress not updated"
-      render 'index'
+      render 'edit'
     end
   end
 
@@ -56,11 +56,10 @@ class Team::Member::ProgressesController < SecurityController
     @progress.team = @team
     if @progress.save
       flash[:success] = "Progress successfully started"
-      redirect_to team_member_progresses_path(@team, @member)
     else
       flash[:error] = "Progress not created"
-      render 'index'
     end
+    redirect_to team_member_progresses_path(@team, @member)
   end
 
   def duplicate
