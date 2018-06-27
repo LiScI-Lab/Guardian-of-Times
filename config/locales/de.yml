@@ -78,7 +78,7 @@ de:
         edit: "Dein Profil bearbeiten"
 
   welcome:
-    welcome: "Willkommen beim TimeTracker."
+    welcome: "Willkommen bei %{name}"
     headline: "%{users_count} Benutzer haben in %{teams_count} Teams %{total_time} erfasst. Hilf' mit, die Million zu knacken!"
     login_with: "Einloggen mit"
   team:

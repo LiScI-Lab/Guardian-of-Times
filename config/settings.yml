@@ -1,3 +1,5 @@
+name: Guardian of Times
+
 user:
   maximum_sign_ins_redirected_to_edit: 5
   discard:
