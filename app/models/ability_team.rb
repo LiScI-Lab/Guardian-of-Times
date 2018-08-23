@@ -56,7 +56,7 @@ module AbilityTeam
 
       can [:index, :show, :export],               Team::Progress,           team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
       can [:create, :start, :import, :export],    Team::Progress,           member: member
-      can [:update, :stop, :restart, :duplicate], Team::Progress,           member: member
+      can [:update, :stop, :restart, :duplicate], Team::Progress.kept,      member: member
       can [:destroy],                             Team::Progress.kept,      member: member
       can [:restore],                             Team::Progress.discarded, member: member
 
