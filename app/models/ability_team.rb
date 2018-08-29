@@ -60,6 +60,10 @@ module AbilityTeam
       can [:destroy],                             Team::Progress.kept,      member: member
       can [:restore],                             Team::Progress.discarded, member: member
 
+      # you can't duplicate and start another progress if a progress is running
+      cannot [:duplicate], Team::Progress do |progress|
+        progress.member.progresses.kept.where(end: nil).any?
+      end
       cannot [:restart],                          Team::Progress do |progress|
         not (progress.member.progresses.kept.first == progress and progress.start.to_date == Date.today)
       end
