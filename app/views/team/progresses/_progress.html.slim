@@ -41,20 +41,20 @@ tr class="#{'ongoing' unless progress.finished?}" data={start: progress.start.is
       - if progress.finished?
         .button-group
           - if can? :duplicate, progress
-            = link_to duplicate_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light green', method: :post
+            = link_to duplicate_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light green tooltipped', method: :post, data: {position: 'bottom', tooltip: t('team.progress.duplicate')}
               = mdi_tag 'content-duplicate'
           - if can? :restart, progress
-            = link_to restart_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light green', method: :patch
+            = link_to restart_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light green tooltipped', method: :patch, data: {position: 'bottom', tooltip: t('team.progress.restart')}
               = mdi_tag 'play'
           - if can? :edit, progress
-            = link_to edit_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light orange'
+            = link_to edit_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light orange tooltipped', data: {position: 'bottom', tooltip: t('team.progress.edit')}
               = mdi_tag 'pencil'
           - if can? :restore, progress
-            = link_to restore_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light green', method: :patch
+            = link_to restore_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light green tooltipped', method: :patch, data: {position: 'bottom', tooltip: t('team.progress.restore')}
               = mdi_tag 'delete-restore'
           - elsif can? :destroy, progress
-            = link_to team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light red', method: :delete
+            = link_to team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light red tooltipped', method: :delete, data: {position: 'bottom', tooltip: t('team.progress.destroy')}
               = mdi_tag 'delete'
       - else
-        = link_to stop_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light red', method: :patch
+        = link_to stop_team_member_progress_path(@team, @member, progress), class: 'btn-floating waves-effect waves-light red tooltipped', method: :patch, data: {position: 'bottom', tooltip: t('team.progress.stop')}
           = mdi_tag 'stop'

@@ -116,6 +116,12 @@ de:
         clear: "Löschen"
         apply: "Anwenden"
       start: "Sofort starten"
+      duplicate: "Beschreibung u. Tags duplizieren"
+      restart: "Fortsetzen"
+      edit: "Editieren"
+      restore: "Wiederherstellen"
+      destroy: "Löschen"
+      stop: "Stoppen"
       status:
         ongoing: "Laufend"
     member:
