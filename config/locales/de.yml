@@ -54,6 +54,7 @@ de:
   time:
       formats:
         default: "%H:%M"
+        progress: "%d.%m. %H:%M"
   menu:
     teams: "Teams"
     dashboard: "Dashboard"

@@ -23,9 +23,9 @@ tr class="#{'ongoing' unless progress.finished?}" data={start: progress.start.is
     td
       = progress.member.user.name
 
-  td.start #{l(progress.start, format: :short)}
+  td.start #{l(progress.start, format: :progress)}
   - if progress.finished?
-    td #{l(progress.end, format: :short)}
+    td #{l(progress.end, format: :progress)}
     td #{distance_of_time_or_null progress.time_spend}
   - else
     td #{t('team.progress.status.ongoing')}
