@@ -18,23 +18,23 @@
 
 .button-group
   - if can? :accept, member
-    = link_to accept_team_member_path(@team, member), class: 'btn-small waves-effect waves-light green', method: :patch
+    = link_to accept_team_member_path(@team, member), class: 'btn-small waves-effect waves-light green tooltipped', method: :patch
       = mdi_tag 'account-plus'
 
   - if can? :show, member
-    = link_to dashboard_team_member_path(@team, member), class: 'btn-small waves-effect waves-light blue'
+    = link_to dashboard_team_member_path(@team, member), class: 'btn-small waves-effect waves-light blue tooltipped', data: {position: 'bottom', tooltip: t('tooltip.team.member.dashboard')}
       = mdi_tag 'view-dashboard'
-    = link_to team_member_progresses_path(@team, member), class: 'btn-small waves-effect waves-light'
+    = link_to team_member_progresses_path(@team, member), class: 'btn-small waves-effect waves-light tooltipped', data: {position: 'bottom', tooltip: t('tooltip.team.member.progresses')}
       = mdi_tag 'run'
-    = link_to team_member_unavailabilities_path(@team, member), class: 'btn-small waves-effect waves-light green'
+    = link_to team_member_unavailabilities_path(@team, member), class: 'btn-small waves-effect waves-light green tooltipped', data: {position: 'bottom', tooltip: t('tooltip.team.member.unavailabilities')}
       = mdi_tag 'weather-sunny'
 
   - if can? :edit, member
-    = link_to edit_team_member_path(@team, member), class: 'btn-small waves-effect waves-light orange'
+    = link_to edit_team_member_path(@team, member), class: 'btn-small waves-effect waves-light orange tooltipped', data: {position: 'bottom', tooltip: t('tooltip.team.member.edit')}
       = mdi_tag 'pencil'
   - if can? :restore, member
     = link_to restore_team_member_path(@team, member), class: 'btn-small waves-effect waves-light green', method: :patch
       = mdi_tag 'delete-restore'
   - elsif can? :destroy, member
-    = link_to team_member_path(@team, member), class: 'btn-small waves-effect waves-light red', method: :delete
+    = link_to team_member_path(@team, member), class: 'btn-small waves-effect waves-light red tooltipped', method: :delete, data: {position: 'bottom', tooltip: t('tooltip.team.member.delete')}
       = mdi_tag 'delete'

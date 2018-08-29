@@ -71,6 +71,10 @@ de:
       edit: 'Bearbeite das Team'
       member:
         edit: "Mitglied bearbeiten"
+        dashboard: "Dashboard anzeigen"
+        progresses: "Fortschritte anzeigen"
+        unavailabilities: "Abwesenheiten anzeigen"
+        delete: "Mitglied ausschließen"
         self:
           edit: "Eigene Mitgliedschaft bearbeiten"
     user:
