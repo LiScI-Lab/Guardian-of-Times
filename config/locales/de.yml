@@ -115,6 +115,7 @@ de:
       filter:
         clear: "Löschen"
         apply: "Anwenden"
+      new: "Neuer Fortschritt"
       start: "Sofort starten"
       duplicate: "Beschreibung u. Tags duplizieren"
       restart: "Fortsetzen"

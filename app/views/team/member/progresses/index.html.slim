@@ -18,7 +18,7 @@
 
 - if can? :new, @progress
   - content_for :halfway_fab
-    = link_to new_team_member_progress_path(@team, @member, @progress), class: 'waves-effect waves-light btn-floating btn-large halfway-fab green'
+    = link_to new_team_member_progress_path(@team, @member, @progress), class: 'waves-effect waves-light btn-floating btn-large halfway-fab green tooltipped', data: {position: 'bottom', tooltip: t('team.progress.new')}
       = mdi_tag 'plus'
 
 .row
@@ -28,7 +28,7 @@
   .col.s2.l1.right
     .button-group
       - if can? :import, @progress
-        = link_to import_team_member_progresses_path(@team, @member), class: 'waves-effect waves-light btn-floating'
+        = link_to import_team_member_progresses_path(@team, @member), class: 'waves-effect waves-light btn-floating tooltipped', data: {position: 'bottom', tooltip: t('team.progress.import.name')}
           = mdi_tag 'cloud-upload'
       - if can? :export, @progress
         /TODO= link_to new_team_member_progress_path, class: 'waves-effect waves-light btn-floating'
