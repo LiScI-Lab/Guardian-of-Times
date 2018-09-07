@@ -21,7 +21,7 @@ class Team::Member::ProgressesController < SecurityController
   layout 'team'
 
   load_and_authorize_resource :team
-  load_and_authorize_resource :member, class: Team::Member
+  load_resource :member, class: Team::Member
   load_and_authorize_resource :progress, through: :member, class: Team::Progress
 
   def index
@@ -32,7 +32,11 @@ class Team::Member::ProgressesController < SecurityController
   def create
     @progress.team = @team
     if @progress.save
-      flash[:success] = "Progress successfully added"
+      if params[:button] == 'start'
+        flash[:success] = "Progress successfully started"
+      else
+        flash[:success] = "Progress successfully added"
+      end
       redirect_to team_member_progresses_path(@team, @member)
     else
       flash[:error] = "Progress not created"
@@ -48,18 +52,6 @@ class Team::Member::ProgressesController < SecurityController
       flash[:error] = "Progress not updated"
       render 'edit'
     end
-  end
-
-  def start
-    @progress = Team::Progress.new progress_params
-    @progress.member = @member
-    @progress.team = @team
-    if @progress.save
-      flash[:success] = "Progress successfully started"
-    else
-      flash[:error] = "Progress not created"
-    end
-    redirect_to team_member_progresses_path(@team, @member)
   end
 
   def duplicate

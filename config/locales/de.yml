@@ -121,7 +121,7 @@ de:
         apply: "Anwenden"
       new: "Neuer Fortschritt"
       start: "Sofort starten"
-      duplicate: "Beschreibung u. Tags duplizieren"
+      duplicate: "Starte neuen Fortschritt mit gleicher Beschreibung u. Tags"
       restart: "Fortsetzen"
       edit: "Editieren"
       restore: "Wiederherstellen"

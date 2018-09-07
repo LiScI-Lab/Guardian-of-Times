@@ -31,6 +31,7 @@ class ApplicationRecord < ActiveRecord::Base
       raise "Use discard! We don't delete"
     end
   end
+
   def destroy!
     destroy
   end

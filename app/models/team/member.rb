@@ -142,6 +142,10 @@ class Team::Member < ApplicationRecord
     not current_unavailability
   end
 
+  def running_progress?
+    progresses.kept.ongoing.any?
+  end
+
   private
   def set_joined
     self.status = :joined

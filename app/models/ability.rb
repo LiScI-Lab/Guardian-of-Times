@@ -29,6 +29,7 @@ class Ability
       can [:edit, :update, :delete, :destroy], User, id: user.id
 
       initialize_team(user, member)
+
     end
   end
 end

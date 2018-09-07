@@ -189,6 +189,11 @@ class User < ApplicationRecord
     ]
   end
 
+  def running_progress?
+    team_members.kept.select {|member| member.running_progress? }.any?
+  end
+
+
   private
   def update_generated_avatar
     self.generated_avatar_url = self.generate_avatar

@@ -41,7 +41,9 @@ class Team::Progress < ApplicationRecord
   scope :finished, -> {where.not end: nil}
 
   validates :start, presence: true
-  validates :end, timeliness: { after: :start, type: :datetime, allow_nil: true }
+  validates :end, timeliness: { after: :start, type: :datetime, allow_nil: Proc.new {
+    not self.member.running_progress?
+  }}
 
   after_initialize :set_start
 
@@ -56,11 +58,11 @@ class Team::Progress < ApplicationRecord
   end
 
   def time_spend
-    ActiveSupport::Duration.build((self.end - start).seconds)
+    ActiveSupport::Duration.build((self.end - self.start).seconds)
   end
 
   private
   def set_start
-    self.start = start || DateTime.now
+    self.start = self.start || DateTime.now
   end
 end

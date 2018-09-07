@@ -65,7 +65,7 @@
         | #{distance_of_time_or_null @member.today_time_spend}
 
   .col.s12.l6
-    - if can? :start, @progress and @member.progresses.kept.ongoing.empty?
+    - if can? :start, @progress
       .col.s12
         h6
           = t('headline.team.progress.start')
