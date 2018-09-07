@@ -64,17 +64,14 @@ class User < ApplicationRecord
                                                       secret: auth.credentials.secret
     end
 
-    if identity.new_record?
-      if auth.info.image
-        identity.avatar_url = auth.info.image
-      end
+    if auth.info.image
+      identity.avatar_url = auth.info.image
+    end
 
-      if auth.info.urls
-        auth.info.urls.each do |url|
-          identity.profile_page ||= url.last
-        end
+    if auth.info.urls
+      auth.info.urls.each do |url|
+        identity.profile_page ||= url.last
       end
-
     end
 
     if identity.user.blank?
