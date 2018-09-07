@@ -115,14 +115,32 @@ class Team::Member < ApplicationRecord
     if target_hours.empty?
       0
     elsif date
-      (in_month_time_spend(date) - (matching_target_hours(date)*3600))/3600
+      (in_month_time_spend(date) - (matching_target_hours(date).hours))
     else
-      progresses.kept
-        .group_by_month(&:start)
-        .map { |k,v|
-        month_duration = v.map { |p| p.time_spend }.sum
-        (month_duration - (matching_target_hours(k)*3600))
-      }.sum
+      progresses_started = self.progresses.kept.last.start.beginning_of_month
+      targets_started = self.target_hours.kept.first.since
+      member_created = self.created_at.beginning_of_month
+
+      if member_created < progresses_started
+        start_month = member_created
+      else
+        start_month = progresses_started
+      end
+      if targets_started < start_month
+        start_month = targets_started
+      end
+
+      if self.leaved? or self.removed?
+        end_month = self.updated_at
+      else
+        end_month = DateTime.now
+      end
+
+      (start_month.to_date .. end_month.to_date).select do |d|
+        d.day == 1
+      end.map do |d|
+        self.extra_hours(d)
+      end.sum
     end
   end
 
