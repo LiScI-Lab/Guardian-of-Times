@@ -20,6 +20,6 @@
 
 = simple_form_for([@team, @member, @unavailability]) do |f|
   = f.input :start_date, as: :date, required: true, input_html: {class: 'no-autoinit'}, wrapper_html: {class: 's5 m3 l2'}
-  = f.input :end_date, as: :date, input_html: {class: 'no-autoinit'}, wrapper_html: {class: 's5 m3 l2'}
+  = f.input :end_date, as: :date, input_html: {class: 'no-autoinit'}, wrapper_html: {class: 's5 m3 l2'}, hint: "Unavailabilities are inclusive the end day!"
   = f.input :description, as: :text
   = f.button :button
