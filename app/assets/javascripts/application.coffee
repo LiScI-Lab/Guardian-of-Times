@@ -37,6 +37,10 @@ timetracker.app = {}
 timetracker.app.init = () ->
   console.log('Application init')
   timetracker.app.materialize()
+  elem = document.querySelector('.collapsible.expandable')
+  instance = M.Collapsible.init(elem, {
+    accordion: false
+  })
   return
 
 timetracker.app.cocoonize = (elem) ->
