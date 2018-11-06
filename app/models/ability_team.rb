@@ -40,8 +40,7 @@ module AbilityTeam
       can [:dashboard, :update, :invite], Team, members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}
       cannot [:update],                   Team, members: {id: member.id, role: Team::Member.roles[:responsible]}
 
-
-      can [:index],                                     Team::Member, team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
+      can [:index],                                     Team::Member, team: {members: {id: member.id}}
       can [:new, :outstanding],                         Team::Member, team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
       can [:show, :dashboard, :update],                 Team::Member, id: member.id
       can [:show, :dashboard, :update, :new, :invite],  Team::Member, status: [Team::Member.statuses[:joined], Team::Member.statuses[:leaved], Team::Member.statuses[:removed]], team: {members: {id: member.id, role: Team::Member.roles[:responsible]..Team::Member.roles[:owner]}}
