@@ -27,6 +27,10 @@ class Team::Member::ProgressesController < SecurityController
   def index
     @progresses = get_filtered_progresses(@member)
     @progress = Team::Progress.new(start: DateTime.now, team: @team, member: @member)
+    respond_to do |format|
+      format.html
+      format.csv { send_data @progresses.to_csv, filename: "progresses-#{@member.user.username}-#{Date.today}.csv" }
+    end
   end
 
   def create
