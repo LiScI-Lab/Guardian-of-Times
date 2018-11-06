@@ -129,6 +129,7 @@ de:
       stop: "Stoppen"
       status:
         ongoing: "Laufend"
+      jump_to_deleted: "Gelöschte Fortschritte"
     member:
       new:
         available_users: "Verfügbare Benutzer"
