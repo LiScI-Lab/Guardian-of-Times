@@ -5,8 +5,8 @@ about: Create a report to help us improve.
 ---
 
 ### Description
-
 [Description of the issue]
+
 **Expected behavior:**
 [What you expect to happen]
 
