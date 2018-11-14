@@ -28,4 +28,14 @@ module ApplicationHelper
       '-'
     end
   end
+
+  def get_role_list_helper
+    Team::Member.roles
+  end
+
+  def get_role_list_helper
+    Team::Member.roles.keys.reduce([]) do |acc, role|
+      acc << [t("course.member.roles.#{role}"), role, {disabled: (@current_member.role_less_than? role or role.to_sym == :owner)}]
+    end.reverse
+  end
 end
