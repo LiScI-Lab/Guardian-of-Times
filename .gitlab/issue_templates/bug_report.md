@@ -1,8 +1,8 @@
----
+<!---
 name: Bug report
 about: Create a report to help us improve.
     This template is a modified copy from https://github.com/atom/atom/blob/master/.github/ISSUE_TEMPLATE/bug_report.md
----
+--->
 
 ### Description
 [Description of the issue]
