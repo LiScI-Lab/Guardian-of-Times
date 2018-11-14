@@ -1,3 +1,4 @@
+# coding: utf-8
 ############
 ##
 ## Copyright 2018 M. Hoppe & N. Justus
@@ -102,6 +103,30 @@ class Team::MembersController < SecurityController
     end
     redirect_back fallback_location: team_members_path(@team)
   end
+  # Change role of this member
+  def change_role
+    #originally copied from:
+    #https://git.thm.de/thsg47/gamification/blob/master/app/controllers/course/members_controller.rb
+
+    role = params[:member][:role]
+
+    if @member == @current_member
+      flash[:error] = 'Du darfst deine eigene Rolle nicht ändern!'
+    elsif @member.role_greater_than? @current_member.role
+      flash[:error] = 'Das Team Mitglied hat mehr Rechte als du!'
+    elsif @current_member.role_less_than? role
+      flash[:error] = 'Du willst dem Mitglied mehr Rechte geben als du hast!'
+    elsif @member.role != role
+      role_was = @member.role
+      @member.role = role.to_sym
+      if @member.save
+        flash[:notice] = "Die Rolle von #{@member.user.name} wurde von #{role_was} zu #{@member.role} geändert."
+                                                                                                           else
+                                                                                                             flash[:error] = 'Etwas ist beim speichern schief gegangen....'
+                                                                                                             end
+                                                                                                             end
+                                                                                                             redirect_to team_members_path(@member.team)
+                                                                                                             end
 
   private
   def member_params

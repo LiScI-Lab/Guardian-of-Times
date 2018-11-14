@@ -43,6 +43,7 @@ Rails.application.routes.draw do
           get :dashboard
           patch :accept
           patch :restore
+          patch :change_role
         end
 
         scope module: :member do
