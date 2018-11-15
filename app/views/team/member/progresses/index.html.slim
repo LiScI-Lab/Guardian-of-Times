@@ -83,9 +83,14 @@
 
 ul.collapsible.expandable
   - @progresses.kept.group_by {|p| p.start.beginning_of_month}.each_with_index do |(date, progresses), index|
+    - total = progresses.map{|p| p.time_spend}.sum
     li class=(index<3 ? 'active' : '')
-      .collapsible-header
-        h6 #{t('date.month_names')[date.month]} #{date.year}
+      .collapsible-header style="display:block;"
+        .row
+          .col.s2.offset-s1
+            h6 #{t('date.month_names')[date.month]} #{date.year}
+          .col.s2.offset-s7
+            h6  #{distance_of_time_or_null total}
       .collapsible-body
         = render 'team/progresses/progresses', progresses: progresses
 
