@@ -1,0 +1,52 @@
+== Howtos
+=== SOLL-Stunden eintragen
+
+NOTE: Wie kann ich Vertrags-/SOLL-Stunden eingetragen?
+
+
+Auf deinem Dashboard, clicke den _Stift_ an:
+
+.Dein Dashboard in einem Team
+image::howto/dashboard.png[]
+
+Auf der Profilseite, clicke das _+_ und trage deine Stundenzahl pro Monat - die Stunden auf deinem Arbeitsvertrag - ein.
+Gebe ein Startdatum (in der Regel der Beginn deines Vertrages) an und speichere.
+Sollte sich dein Vertrag ändern, kannst du hier mehrere SOLL-Stunden mit ihrem jeweiligen Beginn eintragen.
+
+.Dein Profil in einem Team
+image::howto/edit-team-profile.png[]
+
+=== Stundenzettel generieren
+NOTE: Wie wird ein Stundenzettel generiert?
+
+TIP: Damit der Stundenzettel dein Geburtsdatum und den Fachbereich enthält, aktualisier' dein Profil wie in <<profil_aendern, Profil ändern>> beschrieben.
+
+In einem Team clicke auf den _Export_-Tab.
+
+.Export Dialog
+image::howto/export.png[]
+
+Wähle den Monat aus, für den du einen Stundenzettel generieren möchtest und clicke auf _export options speichern_.
+Du bekommst eine pdf generiert, die du ausdrucken, unterschreiben und bei deinem Arbeitgeber abgeben kannst.
+
+GoT summiert automatisch alle _Arbeitsintervalle pro Tag_ und rechnet mögliche Pausenzeiten heraus.
+Besonders praktisch, wenn du morgens beginnst zu arbeiten, dann 2 Stunden Vorlesung besuchst und danach weiterarbeitest.
+Du musst nicht mehr selbst umständlich rechnen, nur Arbeitszeiten in GoT eintragen bzw. Start und Stop drücken ;-).
+
+.generierter Stundenzettel
+image::howto/stundenzettel.jpg[]
+
+
+[#profil_aendern]
+=== Profil aktualisieren
+NOTE: Wie kann ich mein Profil ändern?
+
+Klicke rechts oben auf deinen Benutzernamen und auf _Profil ändern_.
+Auf der sich öffnenden Seite kannst du nun einen Avatar erstellen, weitere Login-Dienste koppeln
+und - ganz wichtig ;) - dein _Geburtsdatum_, sowie dein _Fachbereich_ eintragen.
+Diese Angaben werden später verwendet, um sie im Stundenzettel einzutragen.
+
+.Dein eigenes Profil
+image::howto/edit-user-profile.png[]
+
+=== Stunden aus CSV importieren

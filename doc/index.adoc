@@ -17,3 +17,6 @@ Ursprüngliche Intention hinter GoT ist die automatische Generierung von THM-Stu
 * Arbeitszeiten können _getagged_ werden. Damit können wiederkehrende Tätigkeiten markiert werden, wie z.B. Meetings.
 * _automatische Generierung_ von Stundenzetteln, basierend auf den eingetragenen Arbeitszeiten.
 * Überblick über abgeleistete und offene Stunden (IST gegen SOLL-Vergleich).
+
+include::teams.adoc[]
+include::howtos.adoc[]
