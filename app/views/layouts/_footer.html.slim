@@ -7,7 +7,7 @@ footer.page-footer
 
       div.right
         - if ::GIT_REVISION
-          = link_to "Revision: #{::GIT_REVISION}", "#{Settings.commit_url}/#{::GIT_REVISION}", class: 'right, grey-text text-lighten-4', target: :_blank
+          = link_to "Revision: #{::GIT_REVISION}", "#{Settings.commit_url}/#{::GIT_REVISION}", class: 'right grey-text text-lighten-4', target: :_blank
         - else
           = link_to Settings.repo_url, class: 'right', target: :_blank
             = mdi_tag 'github-circle'
