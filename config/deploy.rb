@@ -76,7 +76,19 @@ namespace :deploy do
       end
     end
   end
+
+  desc 'generate user manual'
+  task compile_doc: [:set_rails_env] do
+    on release_roles([:db]) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :rake, "compile_doc"
+        end
+      end
+    end
+  end
 end
 
 before "deploy:migrate", "db:backup"
+after "deploy:updated", "deploy:compile_doc"
 after  "deploy:cleanup", "db:cleanup"
