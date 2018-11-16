@@ -8,6 +8,12 @@ v0.1, November 16, 2018
 
 == Allgemeines
 
-*Guardian of Times (GoT)* ist ein time-tracking tool.
+*Guardian of Times (GoT)* ist ein Zeiterfassungstool.
 Es ermöglicht die Erfassung von (Arbeits-)zeiten in Teams.
 Ursprüngliche Intention hinter GoT ist die automatische Generierung von THM-Stundenzetteln.
+
+== Highlights
+* Arbeitsgruppen können in _Teams_ zusammengefasst werden.
+* Arbeitszeiten können _getagged_ werden. Damit können wiederkehrende Tätigkeiten markiert werden, wie z.B. Meetings.
+* _automatische Generierung_ von Stundenzetteln, basierend auf den eingetragenen Arbeitszeiten.
+* Überblick über abgeleistete und offene Stunden (IST gegen SOLL-Vergleich).
