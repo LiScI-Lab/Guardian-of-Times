@@ -30,3 +30,5 @@ config/environments/*.local.yml
 
 /.idea/
 *.DS_Store
+public/documentation.html
+doc/index.html

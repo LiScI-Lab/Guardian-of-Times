@@ -1,0 +1,37 @@
+== Teams
+In GoT werden alle Aktivitäten in Teams verwaltet.
+Ein Team besteht aus einem Besitzer (den Vorgesetzten) und mehreren Mitgliedern.
+
+=== Teams erstellen
+
+Teams können im _Meine Teams_ tab erstellt werden.
+
+.Neue Teams erstellen
+image::teams/creating-teams.png[]
+
+Im sich öffnenden Formular kann nun ein _Name_, eine _Beschreibung_ und _Tags_ zugewiesen werden.
+Die Sichtbarkeit bestimmt, wer das Team _sehen_ und _betreten_ kann:
+
+Versteckt:: Das Team ist _unsichtbar_, nur eingeladene Benutzer können es sehen und betreten.
+Privat:: Das Team ist _privat_, _jeder Benutzer_ kann es sehen und um Aufnahme _bitten_.
+         Es kann *nicht ohne* Einladung/Aufnahme betreten werden.
+Öffentlich:: _Jeder_ kann das Team _sehen_ und jeder kann ihm _beitreten_.
+
+.Team Formular
+image::teams/new-team.png[]
+
+=== Mitglieder einladen
+Im _Mitglieder-Tab_ können neue Mitglieder eingeladen werden.
+Sobald sich die Mitglieder in GoT anmelden, sehen sie eine neue Einladung unter ihren _Team Einladungen_.
+Dort können diese dem Team beitreten und ab sofort ihre Stunden eintragen.
+
+.Mitglieder-Tab
+image::teams/member-tab.png[]
+
+.Neue Mitglieder einladen
+image::teams/invide-members.png[]
+
+.Team einladungen
+image::teams/invitations-tab.png[]
+
+=== Arbeitszeiten eintragen
