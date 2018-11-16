@@ -71,4 +71,6 @@ Rails.application.routes.draw do
       resources :export, only: [:index, :create]
     end
   end
+
+  get 'doc', to: 'documentation#index'
 end
