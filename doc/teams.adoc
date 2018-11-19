@@ -63,3 +63,22 @@ image::teams/progresses-options.png[]
 . dupliziert diese Arbeitszeit: Startet eine neue Arbeitszeit ab _jetzt_ und übernimmt Beschreibung sowie Tags.
 . editiert diese Arbeitszeit
 . löscht diese Arbeitszeit
+
+
+.Rechtevergabe für Teams
+GoT unterstützt Rollen zur Rechtevergabe innerhalb von Teams.
+Im *Mitglieder-Tab* können die Rollen für jedes Teammitglied vom _Owner_ des Teams verändert werden.
+
+Die Rollen im Überblick:
+
+Owner::
+  Die Person ist der Besitzer des Teams und kann alle Arbeitszeiten einsehen und auch _verwalten/ändern_.
+Responsible::
+  Die Person hat die gleichen Rechte wie der _Owner_.
+  Diese Rolle sollte nur in Ausnahmefällen vergeben werden.
+  (Sie wird meist' an Entwickler von GoT vergeben.)
+Timekeeper::
+  Das Mitglied kann neben seinen Arbeitszeiten, auch die aller anderen einsehen.
+Participant::
+  Das Mitglied ist ein Arbeitnehmer. Er kann seine eigenen Arbeitszeiten eintragen und einsehen.
+  Er sieht keine Arbeitszeiten von anderen Arbeitnehmern.
