@@ -20,4 +20,5 @@ Ursprüngliche Intention hinter GoT ist die automatische Generierung von THM-Stu
 * Überblick über abgeleistete und offene Stunden (IST gegen SOLL-Vergleich).
 
 include::teams.adoc[]
+
 include::howtos.adoc[]
