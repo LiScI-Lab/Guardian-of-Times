@@ -38,7 +38,3 @@
   - elsif can? :destroy, member
     = link_to team_member_path(@team, member), class: 'btn-small waves-effect waves-light red tooltipped', method: :delete, data: {position: 'bottom', tooltip: t('tooltip.team.member.delete')}
       = mdi_tag 'delete'
-
-- if can? :change_role, @current_member
-  = simple_form_for member, url: change_role_team_member_path(@team, member), method: :patch do |f|
-    = f.select :role, options_for_select(get_role_list_helper, member.role.to_sym), {}, {onchange: "this.form.submit()", disabled: (member == @current_member or member.role_greater_than? @current_member.role)}
