@@ -24,11 +24,11 @@
     .row
       .col.s12
         .input-field
-          input.autocomplete#user-search-input type="text"
+          input#user-search-input type="text"
           label for="user-search-input"
             | User search
     ul#user_list.collection
-      = users.order(:last_name).each do |user|
+      - users.order(:last_name).each do |user|
         li.collection-item.avatar id=user.id
           = image_tag user.logo_url, class: 'circle'
           span.title = user.name
@@ -47,7 +47,5 @@
 
 javascript:
   $(document).ready(() => {
-    var users = #{ raw users.map{|u| [u.username, nil] }.to_h.to_json }
-    console.log('users', users)
-    $('input.autocomplete#user-search-input').autocomplete({ data: users })
+    timetracker.team.member.userSearch ($('input#user-search-input'), $('ul#user_list'))
   })

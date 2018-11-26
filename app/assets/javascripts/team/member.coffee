@@ -59,4 +59,19 @@ timetracker.team.member.materialize = (elem) ->
     })
   return
 
+timetracker.team.member.userSearch = (inputField, collection) ->
+        $(inputField).on 'input', (e) ->
+                typed = $(inputField).val().toLowerCase()
+                if typed.length % 4 <= 2
+                        childs = $(collection).children('li.collection-item')
+                        $(childs).children('span.title').each ->
+                                elem = this
+                                name = this.textContent.toLowerCase()
+                                listItem = $(elem).parent('li.collection-item')
+                                if name.includes(typed)
+                                        listItem.css('display', 'list-item')
+                                else
+                                        listItem.css('display', 'none')
+
+
 $(document).on 'turbolinks:load', timetracker.team.member.init
