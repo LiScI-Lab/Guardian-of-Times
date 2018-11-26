@@ -16,12 +16,19 @@
 //
 ////////////
 
+- users = User.where.not(id: @team.users)
 .modal-content
   h4.header
     | #{t('team.member.new.available_users')}
-  - if User.where.not(id: @team.users).any?
+  - if users.any?
+    .row
+      .col.s12
+        .input-field
+          input.autocomplete#user-search-input type="text"
+          label for="user-search-input"
+            | User search
     ul#user_list.collection
-      - User.where.not(id: @team.users).order(:last_name).each do |user|
+      = users.order(:last_name).each do |user|
         li.collection-item.avatar id=user.id
           = image_tag user.logo_url, class: 'circle'
           span.title = user.name
@@ -37,3 +44,10 @@
 .modal-footer
   = link_to '#', class: "modal-close waves-effect waves-green btn-flat",  data: {turbolinks: false}
     | #{t('modal.actions.close')}
+
+javascript:
+  $(document).ready(() => {
+    var users = #{ raw users.map{|u| [u.username, nil] }.to_h.to_json }
+    console.log('users', users)
+    $('input.autocomplete#user-search-input').autocomplete({ data: users })
+  })
