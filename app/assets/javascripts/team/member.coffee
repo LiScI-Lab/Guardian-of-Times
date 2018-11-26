@@ -70,8 +70,8 @@ timetracker.team.member.userSearch = (inputField, collection) ->
         listItem = $(elem).parent('li.collection-item')
         if name.includes(typed)
           listItem.css('display', 'list-item')
-          else
-            listItem.css('display', 'none')
+        else
+          listItem.css('display', 'none')
 
 
 $(document).on 'turbolinks:load', timetracker.team.member.init
