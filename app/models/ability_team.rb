@@ -70,6 +70,10 @@ module AbilityTeam
       can [:show, :create, :edit, :update, :destroy],  Team::Unavailability, member: member
 
       can [:create, :index], :export
+
+      if member.timekeeper? #timekeepers can view members with the same tags as timekeeper's tags
+        can [:show, :dashboard], member.team.members.tagged_with(member.tags, any: true)
+      end
     end
   end
 end
