@@ -78,7 +78,7 @@ class User < ApplicationRecord
 
     if identity.user.blank?
       if auth.provider == :cas3
-        user = current_user || User.find_by(username: auth.extra.username)
+        user = current_user || User.find_by(username: auth.extra.user)
       else
         user = current_user || User.find_by(email: auth.info.email)
       end
