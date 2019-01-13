@@ -56,7 +56,9 @@ class User < ApplicationRecord
 
   #tutorial from: http://stackoverflow.com/questions/21249749/rails-4-devise-omniauth-with-multiple-providers
   def self.from_omniauth(auth, current_user)
-    if auth.provider.to_sym == :cas3 or auth.provider.to_sym == :google_oauth2
+    if auth.provider.to_sym == :cas3
+      identity = User::Identity.find_or_initialize_by provider: auth.provider, uid: auth.extra.user.to_s
+    elsif auth.provider.to_sym == :google_oauth2
       identity = User::Identity.find_or_initialize_by provider: auth.provider, uid: auth.uid.to_s
     else
       identity = User::Identity.find_or_initialize_by provider: auth.provider, uid: auth.uid.to_s,
