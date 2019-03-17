@@ -111,7 +111,8 @@ class User < ApplicationRecord
       self.email = auth.extra.mail
       self.first_name = auth.extra.firstnames
       self.last_name = auth.extra.surnames
-      self.department = auth.extra.department
+      #self.department = auth.extra.department
+      self.department = "MNI"
     else
       if auth.info.first_name and auth.info.last_name
         self.first_name = auth.info.first_name
