@@ -57,6 +57,7 @@ class UsersController < SecurityController
   private
   def user_params
     params.require(:user).permit(:department, :birth_date,
+                                 :last_name, :first_name, :email,
                                  :avatar, :avatar_cache, :avatar_type)
   end
 end
