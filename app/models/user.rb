@@ -107,7 +107,7 @@ class User < ApplicationRecord
 
   def fetch_details(auth)
     if auth.provider == :cas3
-      self.username = auth.extra.user
+      self.username = auth.extra.username
       self.email = auth.extra.mail
       self.first_name = auth.extra.firstnames
       self.last_name = auth.extra.surnames
