@@ -55,7 +55,8 @@ nav.row.nav-extended
     = link_to root_path, class: 'brand-logo'
       .avatar
         = image_tag '/logo.svg', class: 'circle'
-      = Settings.name
+      span.hide-on-med-and-down
+        = Settings.name
     - if @current_user
       = link_to '#', class: 'sidenav-trigger', data: {target: 'main-sidenav', turbolinks: false}
         = mdi_tag 'menu'
