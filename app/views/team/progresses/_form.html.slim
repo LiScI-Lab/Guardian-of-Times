@@ -21,11 +21,11 @@
 = simple_form_for([@team, @member, @progress]) do |f|
   = render 'application/form', f: f
     .col.s12.m3
-      = f.input :start_date, as: :date, wrapper_html: {class: 's6'}, input_html: {class: 'no-autoinit'}, label_html: {class: 'active'}
-      = f.input :start_time, as: :time, wrapper_html: {class: 's6'}, input_html: {class: 'no-autoinit'}, label_html: {class: 'active'}
+      = f.input :start_date, as: :date, wrapper_html: {class: 's6'}, input_html: {class: 'no-autoinit', type: "date"}, label_html: {class: 'active'}
+      = f.input :start_time, as: :time, wrapper_html: {class: 's6'}, input_html: {class: 'no-autoinit', type: "time"}, label_html: {class: 'active'}
     .col.s12.m3
-      = f.input :end_date, as: :date, wrapper_html: {class: 's6'}, input_html: {class: 'no-autoinit'}, label_html: {class: 'active'}
-      = f.input :end_time, as: :time, wrapper_html: {class: 's6'}, input_html: {class: 'no-autoinit'}, label_html: {class: 'active'}
+      = f.input :end_date, as: :date, wrapper_html: {class: 's6'}, input_html: {class: 'no-autoinit', type: "date"}, label_html: {class: 'active'}
+      = f.input :end_time, as: :time, wrapper_html: {class: 's6'}, input_html: {class: 'no-autoinit', type: "time"}, label_html: {class: 'active'}
     .col.s12.m6
       = f.input :description, wrapper_html: {class: 's12'}
     .col.s12.m6
