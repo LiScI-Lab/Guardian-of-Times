@@ -36,7 +36,7 @@ class Team::ExportController < SecurityController
 
   def create
     @debug_pdf = params[:debug].present? || export_params[:format] == :html.to_s
-    @report_month = DateTime.new(DateTime.now.year, export_params[:month].to_i)
+    @report_month = DateTime.new(export_params[:year].to_i, export_params[:month].to_i)
     durations = generate_export_durations(@current_member, @report_month)
 
     #generate a list of all days of a month (1..31) and pair it with the working ours [day,woring_duration]
@@ -58,7 +58,7 @@ class Team::ExportController < SecurityController
 
   private
   def export_params
-    params.require(:export_options).permit(:month,:max_hours,:format, :normalize)
+    params.require(:export_options).permit(:month,:year,:max_hours,:format, :normalize)
   end
 
   def generate_export_durations(member, month)

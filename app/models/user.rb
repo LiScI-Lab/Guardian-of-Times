@@ -60,6 +60,8 @@ class User < ApplicationRecord
       identity = User::Identity.find_or_initialize_by provider: auth.provider, uid: auth.extra.user.to_s
     elsif auth.provider.to_sym == :google_oauth2
       identity = User::Identity.find_or_initialize_by provider: auth.provider, uid: auth.uid.to_s
+    elsif auth.provider.to_sym == :developer
+      identity = User::Identity.find_or_initialize_by provider: auth.provider, uid: auth.uid
     else
       identity = User::Identity.find_or_initialize_by provider: auth.provider, uid: auth.uid.to_s,
                                                       token: auth.credentials.token,
