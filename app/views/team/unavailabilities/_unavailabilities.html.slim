@@ -19,14 +19,14 @@
 - overview = controller.is_a? Team::UnavailabilitiesController
 
 .col.s12
-  table.highlight.responsive-table
+  table.highlight
     thead
       tr
         - if overview
           th User
         th Start
         th End
-        th Description
+        th.hide-on-small-only Description
         - unless overview
           th Options
     tbody
