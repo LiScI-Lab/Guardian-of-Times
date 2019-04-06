@@ -52,7 +52,7 @@ image::teams/progresses-tab.png[]
 .Arbeitszeiten über das *+* eintragen
 image::teams/progresses-form.png[]
 
-==== Arbeitszeiten ändern
+=== Arbeitszeiten ändern
 Über die _Options_ kann jede eingetragene Arbeitszeit nachträglich verändert, gelöscht oder dupliziert werden.
 Die neueste Arbeitszeit des heutigen Tages kann fortgesetzt werden.
 
@@ -65,7 +65,7 @@ image::teams/progresses-options.png[]
 . löscht diese Arbeitszeit
 
 
-.Rechtevergabe für Teams
+=== Rollen für Teammitglieder
 GoT unterstützt Rollen zur Rechtevergabe innerhalb von Teams.
 Im *Mitglieder-Tab* können die Rollen für jedes Teammitglied vom _Owner_ des Teams verändert werden.
 
