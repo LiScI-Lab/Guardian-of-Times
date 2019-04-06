@@ -39,6 +39,7 @@ class Team::ExportController < SecurityController
   def create
     @debug_pdf = params[:debug].present? || export_params[:format] == :html.to_s
     @report_month = DateTime.parse export_params[:month]
+    @team_name = @current_member.team.name
     durations = generate_export_durations(@current_member, @report_month)
 
     #generate a list of all days of a month (1..31) and pair it with the working ours [day,woring_duration]
@@ -51,7 +52,7 @@ class Team::ExportController < SecurityController
                                .select { |k,p| not p.nil? }
                                .map { |k,p| p.work_duration }.sum
 
-    render pdf: "#{@report_month}-report",
+    render pdf: "#{@report_month.strftime("%Y-%m")}-#{@team_name}-stundenzettel",
            :show_as_html => @debug_pdf,
            template: '/team/export/report.pdf.slim',
            disposition: "inline",

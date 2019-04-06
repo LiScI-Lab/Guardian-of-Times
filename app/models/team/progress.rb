@@ -61,6 +61,22 @@ class Team::Progress < ApplicationRecord
     ActiveSupport::Duration.build((self.end - self.start).seconds)
   end
 
+  def self.to_csv
+    require 'csv'
+    header = %w{Start Stop Description Tags}
+    CSV.generate(headers: true, :col_sep => ';') do |csv|
+      csv << header
+      all.each do |progress|
+        csv << [
+          progress.start,
+          progress.end,
+          progress.description,
+          progress.tags.join(',')
+        ]
+      end
+    end
+  end
+
   private
   def set_start
     self.start = self.start || DateTime.now

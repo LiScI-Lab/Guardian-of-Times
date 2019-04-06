@@ -16,26 +16,11 @@
 ##
 ############
 
-module ApplicationHelper
-  def asciidoc(text)
-    Asciidoctor.convert(text, safe: :server, attributes: ["source-highlighter=rouge"]).html_safe
-  end
-
-  def distance_of_time_or_null seconds, expect = :seconds
-    if seconds != 0
-      distance_of_time seconds, accumulate_on: :hours, except: expect
-    else
-      '-'
-    end
-  end
-
-  def get_role_list_helper
-    Team::Member.roles
-  end
-
-  def get_role_list_helper
-    Team::Member.roles.keys.reduce([]) do |acc, role|
-      acc << [t("course.member.roles.#{role}"), role, {disabled: (@current_member.role_less_than? role or role.to_sym == :owner)}]
-    end.reverse
+#originally copied from dozentron:
+#https://git.thm.de/dalt40/dozentron/blob/master/app/controllers/documentation_controller.rb
+class DocumentationController < ApplicationController
+  skip_authorization_check
+  def index
+    redirect_to "/documentation.html"
   end
 end

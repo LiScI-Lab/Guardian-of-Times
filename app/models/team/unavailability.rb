@@ -25,7 +25,7 @@ class Team::Unavailability < ApplicationRecord
   has_one :user, class_name: User.name, through: :member
 
   validates :start, presence: true
-  validates :end, timeliness: { after: :start, type: :datetime, allow_nil: true }
+  validates :end, timeliness: { on_or_after: :start, type: :datetime, allow_nil: true }
 
   scope :current, -> {where('"team_unavailabilities"."start" <= ? and ("team_unavailabilities"."end" IS NULL or "team_unavailabilities"."end" >= ?)', Date.today, Date.today)}
 

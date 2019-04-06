@@ -19,6 +19,7 @@
 class Team::Member < ApplicationRecord
   include Statistics
   include TagOwner
+  include Roles
 
   include DateTimeHelper
 

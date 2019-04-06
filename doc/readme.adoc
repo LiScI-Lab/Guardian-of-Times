@@ -1,0 +1,15 @@
+= Guardian of Times Documentation
+
+This directory contains the documentation for Guardian of Times.
+Written in asciidoc, the documentation's html is generated ones during deployment.
+
+== Generating html file
+You can generate a local html file of the documentation through:
+[source, sh]
+----
+$ bundle exec asciidoctor index.adoc
+----
+This generates `index.html`.
+
+== Directory Structure
+The whole documentation  is linked in `index.adoc`.

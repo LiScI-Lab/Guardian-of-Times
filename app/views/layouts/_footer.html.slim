@@ -5,9 +5,17 @@ footer.page-footer
       | &nbsp;Distributed under the&nbsp;
       = link_to "Apache License V2.", "https://www.apache.org/licenses/LICENSE-2.0"
 
-      - if ::GIT_REVISION
-        = link_to "Revision: #{::GIT_REVISION}", "#{Settings.commit_url}/#{::GIT_REVISION}", class: 'grey-text text-lighten-4 right', target: :_blank
-      - else
-        = link_to Settings.repo_url, class: 'right', target: :_blank
-          = mdi_tag 'github-circle'
-          | &nbsp;&nbsp;Repository
+      div.right
+        - if ::GIT_REVISION
+          = link_to "Revision: #{::GIT_REVISION}", "#{Settings.commit_url}/#{::GIT_REVISION}", class: 'right grey-text text-lighten-4', target: :_blank
+        - else
+          = link_to Settings.repo_url, class: 'right', target: :_blank
+            = mdi_tag 'github-circle'
+            | &nbsp;Repository
+        /br
+        = link_to '/doc'
+          = mdi_tag 'book-open-variant'
+          | &nbsp;Manual&nbsp;&nbsp;
+        = link_to "https://git.thm.de/mhpp11/time-tracker/issues/new", class: '', target: :_blank
+          = mdi_tag 'bug'
+          | &nbsp;Feedback&nbsp;&nbsp;
