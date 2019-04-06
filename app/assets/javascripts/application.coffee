@@ -76,40 +76,40 @@ timetracker.app.materialize = (elem) ->
   $('input[type="text"].character-count', elem).not('.date,.time,.datetime,.select-dropdown').characterCounter()
   $('textarea', elem).characterCounter()
   $('.modal', elem).modal()
-  # $('.datepicker.no-autoinit', elem).not('.manual').each (_, e) ->
-  #   e = $(e)
-  #   e.datepicker({
-  #     setDefaultDate: true
-  #     autoClose: true
-  #     format: I18n.t('js.date.picker.format')
-  #     defaultDate: new Date(moment(e.val(), I18n.t('js.date.formats.default')).format())
-  #     setDefaultDate: true
-  #     yearRange: 100
-  #     showClearBtn: e.hasClass('optional')
-  #     i18n: {
-  #       cancel: I18n.t('js.picker.action.cancel')
-  #       clear: I18n.t('js.picker.action.clear')
-  #       done: I18n.t('js.picker.action.done')
-  #       months: I18n.t('date.month_names')[1..12]
-  #       monthsShort: I18n.t('date.abbr_month_names')[1..12]
-  #       weekdays: I18n.t('date.day_names')
-  #       weekdaysShort: I18n.t('date.abbr_day_names')
-  #       weekdaysAbbrev: I18n.t('date.abbr_day_names')
-  #     }
-  #   })
-  #   return
-  # $('.timepicker', elem).not('.manual').each (_, e) ->
-  #   e = $(e)
-  #   e.timepicker({
-  #     autoClose: true
-  #     twelveHour: I18n.t('js.time.twelve_hour')
-  #     showClearBtn: e.hasClass('optional')
-  #     i18n: {
-  #       cancel: I18n.t('js.picker.action.cancel')
-  #       clear: I18n.t('js.picker.action.clear')
-  #       done: I18n.t('js.picker.action.done')
-  #     }
-  #   })
+  $('.datepicker.no-autoinit', elem).not('.manual').each (_, e) ->
+    e = $(e)
+    e.datepicker({
+      setDefaultDate: true
+      autoClose: true
+      format: I18n.t('js.date.picker.format')
+      defaultDate: new Date(moment(e.val(), I18n.t('js.date.formats.default')).format())
+      setDefaultDate: true
+      yearRange: 100
+      showClearBtn: e.hasClass('optional')
+      i18n: {
+        cancel: I18n.t('js.picker.action.cancel')
+        clear: I18n.t('js.picker.action.clear')
+        done: I18n.t('js.picker.action.done')
+        months: I18n.t('date.month_names')[1..12]
+        monthsShort: I18n.t('date.abbr_month_names')[1..12]
+        weekdays: I18n.t('date.day_names')
+        weekdaysShort: I18n.t('date.abbr_day_names')
+        weekdaysAbbrev: I18n.t('date.abbr_day_names')
+      }
+    })
+    return
+  $('.timepicker', elem).not('.manual').each (_, e) ->
+    e = $(e)
+    e.timepicker({
+      autoClose: true
+      twelveHour: I18n.t('js.time.twelve_hour')
+      showClearBtn: e.hasClass('optional')
+      i18n: {
+        cancel: I18n.t('js.picker.action.cancel')
+        clear: I18n.t('js.picker.action.clear')
+        done: I18n.t('js.picker.action.done')
+      }
+    })
   $('input.boolean.tooltipped,input.date.tooltipped', elem).each (_, e) ->
     e = $(e)
     parent = e.parents('.boolean,.date')
