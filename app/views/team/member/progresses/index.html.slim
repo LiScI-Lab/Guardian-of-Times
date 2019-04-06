@@ -87,9 +87,9 @@ ul.collapsible.expandable
     li class=(index<3 ? 'active' : '')
       .collapsible-header style="display:block;"
         .row
-          .col.s2.offset-s1
+          .col.s12.m2
             h6 #{t('date.month_names')[date.month]} #{date.year}
-          .col.s2.offset-s7
+          .col.s12.m2.offset-m8
             h6  #{distance_of_time_or_null total}
       .collapsible-body
         = render 'team/progresses/progresses', progresses: progresses
