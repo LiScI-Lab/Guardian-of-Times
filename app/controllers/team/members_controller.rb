@@ -38,19 +38,16 @@ class Team::MembersController < SecurityController
   end
 
   def dashboard
-    # ===== DO NOT KILL THIS ===========================================
-      # spend_hours = @team.members.map { |m|
-      #   [m.user.realname, seconds_to_hours(m.current_month_time_spend)]
-      # }
-      # target_hours = @team.members.map { |m|
-      #   [m.user.realname, m.recent_target_hours]
-      # }
-
-      # @time_spend_with_target_hours = [
-      #   {name: "Time spend", data: spend_hours},
-      #   {name: "Time Vertrag", data: target_hours}
-      # ]
-    # ===== DO NOT KILL THIS ===========================================
+    @selected_date = params.dig(:filter, :month)
+    if @selected_date
+      @selected_date = DateTime.parse @selected_date
+    else
+      @selected_date = DateTime.now.beginning_of_month
+    end
+    @available_months = @member.progresses.kept
+                          .pluck(:start)
+                          .map{ |d| d.beginning_of_month }
+                          .uniq
   end
 
   def new
