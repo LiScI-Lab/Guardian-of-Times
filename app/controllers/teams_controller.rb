@@ -51,6 +51,16 @@ class TeamsController < SecurityController
   end
 
   def dashboard
+    @selected_date = params.dig(:filter, :month)
+    if @selected_date
+      @selected_date = DateTime.parse @selected_date
+    else
+      @selected_date = DateTime.now.beginning_of_month
+    end
+    @available_months = @team.progresses.kept
+                        .pluck(:start)
+                        .map{ |d| d.beginning_of_month }
+                        .uniq
   end
 
   def subs
