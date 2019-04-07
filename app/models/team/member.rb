@@ -113,7 +113,7 @@ class Team::Member < ApplicationRecord
   end
 
   def extra_hours(date=nil)
-    if target_hours.empty?
+    if target_hours.empty? || self.progresses.kept.empty?
       0
     elsif date
       (in_month_time_spend(date) - (matching_target_hours(date).hours))
