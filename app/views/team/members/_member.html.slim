@@ -25,9 +25,12 @@
       - unless member.available?
         .section
           = render 'team/member/unavailabilities/badge', member: member
+      - if can? :change_role, @current_member
+        = simple_form_for member, url: change_role_team_member_path(@team, member), method: :patch do|f|
+          = f.select :role, options_for_select(get_role_list_helper, member.role.to_sym), {}, {onchange: "this.form.submit()", disabled: (member == @current_member or member.role_greater_than? @current_member.role)}
       .section
         ul
-          - unless member.requested? or member.invited?
+          - unless (member.requested? or member.invited?) or @current_member.participant?
             li
               span
                 => mdi_tag 'history'
@@ -52,8 +55,9 @@
         .section.chip-list
           label = t('simple_form.labels.defaults.tag_list')
           = render partial: 'acts_as_taggable_on/tags/tag', collection: member.tags_on(:tags)
-        .section.chip-list
-          label = t('simple_form.labels.defaults.own_tag_list')
-          = render partial: 'acts_as_taggable_on/tags/tag', collection: member.owner_tags_on(@current_member, :tags)
+        - unless @current_member.participant?
+          .section.chip-list
+            label = t('simple_form.labels.defaults.own_tag_list')
+            = render partial: 'acts_as_taggable_on/tags/tag', collection: member.owner_tags_on(@current_member, :tags)
       .section
         = render 'team/member/actions', member: member

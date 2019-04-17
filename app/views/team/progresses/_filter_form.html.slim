@@ -25,13 +25,13 @@
   - selected_tag_list = params[:filter][:tag_list] if params[:filter]
 
   - if local_assigns[:available_members]
-    = f.input :member_id, collection: available_members, selected: selected_member, wrapper_html: {class: 's5 m3 l2'}, input_html: {multiple: true}, label_method: lambda {|m| m.user.name}, include_blank: false, required: false
+    = f.input :member_id, collection: available_members, selected: selected_member, wrapper_html: {class: 's12 m3 l2'}, input_html: {multiple: true}, label_method: lambda {|m| m.user.name}, include_blank: false, required: false
 
-  = f.input :month, collection: available_months_in_years, selected: selected_month, wrapper_html: {class: "s5 #{if local_assigns[:available_members] then "m3 l2" else "m4 l4" end}"}, input_html: {multiple: true}, label_method: lambda {|date| "#{t('date.month_names')[date.month]} #{date.year}"}, include_blank: false, required: false
+  = f.input :month, collection: available_months_in_years, selected: selected_month, wrapper_html: {class: "s12 #{if local_assigns[:available_members] then "m3 l2" else "m4 l4" end}"}, input_html: {multiple: true}, label_method: lambda {|date| "#{t('date.month_names')[date.month]} #{date.year}"}, include_blank: false, required: false
 
-  .col.l6 class="#{ if local_assigns[:available_members] then "hide-on-small-only m4" else "s5 m6" end }"
+  .col.l6 class="#{ if local_assigns[:available_members] then "hide-on-small-only m4" else "s12 m6" end }"
     = render 'acts_as_taggable_on/tag_list', f: f, for_class: 'filter', value: selected_tag_list, collection: Team::Progress.tags_on(:tags)
-  .col.s2.m2
+  .col.s6.m2
     .button-group
       = f.button :button, class: 'blue btn-floating tooltipped', data: {position: 'bottom', tooltip: t('team.progress.filter.apply')}
         = mdi_tag 'filter'

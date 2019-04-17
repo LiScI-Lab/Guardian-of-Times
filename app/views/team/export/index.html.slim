@@ -20,6 +20,6 @@
   h4 Export team #{@team.name} as "THM-Stundenzettel"
   = simple_form_for(:export_options, format: :pdf) do |f|
     = render 'application/form', f: f
-      = f.input :month, collection: 1..12, selected: DateTime.now.month, wrapper_html: {class: 's6 m3'}, label_method: lambda {|m| t('date.month_names')[m]}, include_blank: :translate
+      = f.input :month, collection: @available_months, wrapper_html: {class: 's6 m3'}, label_method: lambda {|m| "#{t('date.month_names')[m.month]} #{m.year}"}, include_blank: :translate
       = f.input :format, collection: [:pdf, :html], selected: :pdf, wrapper_html: {class: 's6 m3'}
       = f.input :normalize, as: :boolean, wrapper_html: {class: 's12'}

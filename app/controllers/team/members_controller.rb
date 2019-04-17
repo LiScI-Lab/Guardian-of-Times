@@ -1,3 +1,4 @@
+# coding: utf-8
 ############
 ##
 ## Copyright 2018 M. Hoppe & N. Justus
@@ -37,19 +38,16 @@ class Team::MembersController < SecurityController
   end
 
   def dashboard
-    # ===== DO NOT KILL THIS ===========================================
-      # spend_hours = @team.members.map { |m|
-      #   [m.user.realname, seconds_to_hours(m.current_month_time_spend)]
-      # }
-      # target_hours = @team.members.map { |m|
-      #   [m.user.realname, m.recent_target_hours]
-      # }
-
-      # @time_spend_with_target_hours = [
-      #   {name: "Time spend", data: spend_hours},
-      #   {name: "Time Vertrag", data: target_hours}
-      # ]
-    # ===== DO NOT KILL THIS ===========================================
+    @selected_date = params.dig(:filter, :month)
+    if @selected_date
+      @selected_date = DateTime.parse @selected_date
+    else
+      @selected_date = DateTime.now.beginning_of_month
+    end
+    @available_months = @member.progresses.kept
+                          .pluck(:start)
+                          .map{ |d| d.beginning_of_month }
+                          .uniq
   end
 
   def new
@@ -102,6 +100,30 @@ class Team::MembersController < SecurityController
     end
     redirect_back fallback_location: team_members_path(@team)
   end
+  # Change role of this member
+  def change_role
+    #originally copied from:
+    #https://git.thm.de/thsg47/gamification/blob/master/app/controllers/course/members_controller.rb
+
+    role = params[:member][:role]
+
+    if @member == @current_member
+      flash[:error] = 'Du darfst deine eigene Rolle nicht ändern!'
+    elsif @member.role_greater_than? @current_member.role
+      flash[:error] = 'Das Team Mitglied hat mehr Rechte als du!'
+    elsif @current_member.role_less_than? role
+      flash[:error] = 'Du willst dem Mitglied mehr Rechte geben als du hast!'
+    elsif @member.role != role
+      role_was = @member.role
+      @member.role = role.to_sym
+      if @member.save
+        flash[:notice] = "Die Rolle von #{@member.user.name} wurde von #{role_was} zu #{@member.role} geändert."
+                                                                                                           else
+                                                                                                             flash[:error] = 'Etwas ist beim speichern schief gegangen....'
+                                                                                                             end
+                                                                                                             end
+                                                                                                             redirect_to team_members_path(@member.team)
+                                                                                                             end
 
   private
   def member_params

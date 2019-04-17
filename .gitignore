@@ -29,3 +29,6 @@ config/settings/*.local.yml
 config/environments/*.local.yml
 config/certs/
 /.idea/
+*.DS_Store
+public/documentation.html
+doc/index.html

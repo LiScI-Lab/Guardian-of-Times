@@ -23,8 +23,10 @@
 - grouped_progresses = @team.progresses.kept.group_by {|p| p.start.beginning_of_month}
 = render 'team/progresses/filter', url: team_progresses_path(@team), available_months_in_years: grouped_progresses.keys, available_members: @team.members
 
-- @progresses.kept.group_by {|p| p.start.beginning_of_month}.each do |date, progresses|
-  .row
-    .col.s12
-      h6 #{t('date.month_names')[date.month]} #{date.year}
-      = render 'team/progresses/progresses', progresses: progresses
+ul.collapsible.expandable
+  - @progresses.kept.group_by {|p| p.start.beginning_of_month}.each_with_index do |(date, progresses), index|
+    li class=(index<3 ? 'active' : '')
+      .collapsible-header
+        h6 #{t('date.month_names')[date.month]} #{date.year}
+      .collapsible-body
+        = render 'team/progresses/progresses', progresses: progresses

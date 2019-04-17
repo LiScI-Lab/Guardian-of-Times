@@ -14,6 +14,11 @@
         = link_to '#name', data: {turbolinks: false}
           span.white-text.email
             | #{@current_user.email}
+    - if @current_member
+      li
+        = link_to '#', class: 'subheader'
+          | Actions
+      = render 'application/menus/team_actions'
 
 
     li class="#{"active" if controller.is_a? UsersController}"
@@ -37,6 +42,10 @@
         | #{t('user.action.logout')}
 
 - if @current_user
+  / - if @current_member
+  /   ul#dropdown-team-actions.dropdown-content
+  /     = render 'application/menus/team_actions'
+
   ul#dropdown-teams.dropdown-content
     = render 'application/menus/team'
 
@@ -55,7 +64,8 @@ nav.row.nav-extended
     = link_to root_path, class: 'brand-logo'
       .avatar
         = image_tag '/logo.svg', class: 'circle'
-      = Settings.name
+      span.hide-on-med-and-down
+        = Settings.name
     - if @current_user
       = link_to '#', class: 'sidenav-trigger', data: {target: 'main-sidenav', turbolinks: false}
         = mdi_tag 'menu'
@@ -64,6 +74,7 @@ nav.row.nav-extended
         li class="#{"active" if controller.is_a? UsersController}"
           = link_to dashboard_user_path(@current_user)
             = t('menu.dashboard')
+
         li class="#{"active" if controller.is_a? TeamsController and [:owner, :index, :invited].include? action}"
           = link_to '#', class: 'dropdown-trigger no-autoinit', data: {target: 'dropdown-teams', turbolinks: false}
             = t('menu.teams')
@@ -88,5 +99,5 @@ nav.row.nav-extended
         - if content_for?(:halfway_fab)
           = yield :halfway_fab
       - if content_for?(:subnav)
-        ul.tabs.tabs-transparent
+        ul.tabs.tabs-transparent.hide-on-small-only
           = yield :subnav

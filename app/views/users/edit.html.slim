@@ -25,9 +25,9 @@
       .row
         .col.s12.m6
           .section
-            = f.input :last_name, disabled: true, wrapper_html: {class: 's6'}
-            = f.input :first_name, disabled: true, wrapper_html: {class: 's6'}
-            = f.input :email, disabled: true, wrapper_html: {class: 's12'}
+            = f.input :last_name, disabled: false, wrapper_html: {class: 's6'}
+            = f.input :first_name, disabled: false, wrapper_html: {class: 's6'}
+            = f.input :email, disabled: false, wrapper_html: {class: 's12'}
             = f.input :username, disabled: true, wrapper_html: {class: 's6'}
             .col.s6.input-field
               = f.label :role, class: 'disabled active'

@@ -17,6 +17,12 @@
 ############
 
 class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  skip_before_action :verify_authenticity_token, only: :developer
+
+  def developer
+    auth = request.env["omniauth.auth"]
+    omniauth(auth, "Developer")
+  end
 
   def cas3
     auth = request.env["omniauth.auth"]

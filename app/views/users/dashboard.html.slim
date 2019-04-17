@@ -28,27 +28,21 @@
 
 .row
   = render 'team/dashboard/total_time_in_hours', time_spend_hours: @user.time_spend_series
-
 .row
-  .col.s12
-    = render 'team/dashboard/actual_vs_expected_hours', date: last_month, series: @user.in_month_actual_vs_expected_hours(last_month)
+  h6 Filter
+  = render 'team/dashboard/month_select_form'
 .row
   .col.s12.m6
-    = render 'team/dashboard/spend_time_percentages', series: @user.current_month_spend_time_percentages
+    = render 'team/dashboard/actual_vs_expected_hours', date: @selected_date, series: @user.in_month_actual_vs_expected_hours(@selected_date)
   .col.s12.m6
-    = render 'team/dashboard/spend_time_percentages', date: last_month, series: @user.in_month_spend_time_percentages(last_month)
+    = render 'team/dashboard/spend_time_percentages', date: @selected_date, series: @user.in_month_spend_time_percentages(@selected_date)
 
 .row
-  .col.s6.m3
+  .col.s12.m6
     = render 'team/dashboard/spend_time_by_day_of_week', chart_id: 1, series: @user.all_time_spend_time_by_day_of_week, all_time: true
-  .col.s6.m3
+  /.col.s12.m6
     = render 'team/dashboard/spend_time_by_day_of_week', chart_id: 2, date: last_month, series: @user.in_month_spend_time_by_day_of_week(last_month)
-  .col.s6.m3
-    = render 'team/dashboard/spend_time_by_day_of_week', chart_id: 3, series: @user.current_month_spend_time_by_day_of_week
-.row
-  .col.s6.m3
+  .col.s12.m6
     = render 'team/dashboard/spend_time_by_hour_of_day', chart_id: 4, series: @user.all_time_spend_time_by_hour_of_day, all_time: true
-  .col.s6.m3
+  /.col.s12.m6
     = render 'team/dashboard/spend_time_by_hour_of_day', chart_id: 5, date: last_month, series: @user.in_month_spend_time_by_hour_of_day(last_month)
-  .col.s6.m3
-    = render 'team/dashboard/spend_time_by_hour_of_day', chart_id: 6, series: @user.current_month_spend_time_by_hour_of_day

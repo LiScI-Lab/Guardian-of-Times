@@ -1,0 +1,84 @@
+== Teams
+In GoT werden alle Aktivitäten in Teams verwaltet.
+Ein Team besteht aus einem Besitzer (den Vorgesetzten) und mehreren Mitgliedern.
+
+=== Teams erstellen
+
+Teams können im _Meine Teams_ tab erstellt werden.
+
+.Neue Teams erstellen
+image::teams/creating-teams.png[]
+
+Im sich öffnenden Formular kann nun ein _Name_, eine _Beschreibung_ und _Tags_ zugewiesen werden.
+Die Sichtbarkeit bestimmt, wer das Team _sehen_ und _betreten_ kann:
+
+Versteckt:: Das Team ist _unsichtbar_, nur eingeladene Benutzer können es sehen und betreten.
+Privat:: Das Team ist _privat_, _jeder Benutzer_ kann es sehen und um Aufnahme _bitten_.
+         Es kann *nicht ohne* Einladung/Aufnahme betreten werden.
+Öffentlich:: _Jeder_ kann das Team _sehen_ und jeder kann ihm _beitreten_.
+
+.Team Formular
+image::teams/new-team.png[]
+
+=== Mitglieder einladen
+Im _Mitglieder-Tab_ können neue Mitglieder eingeladen werden.
+Sobald sich die Mitglieder in GoT anmelden, sehen sie eine neue Einladung unter ihren _Team Einladungen_.
+Dort können diese dem Team beitreten und ab sofort ihre Stunden eintragen.
+
+.Mitglieder-Tab
+image::teams/member-tab.png[]
+
+.Neue Mitglieder einladen
+image::teams/invide-members.png[]
+
+.Team einladungen
+image::teams/invitations-tab.png[]
+
+=== Arbeitszeiten eintragen
+Arbeitszeiten können von Mitarbeitern im *Meine Fortschritte*-Tab eingetragen werden.
+Entweder über den Shortcut *Fortschritt starten* oder über das grüne *+*.
+
+Fortschritt starten::
+  Startet eine neue Arbeitszeit mit jetzigem Beginn. Kann danach über den _roten Pause_-Button beendet werden.
+  Hier können nur eine Beschreibung und Tags eintragen.
+
+Mittels *+*::
+  Hier können auch Arbeitszeiten aus der Vergangenheit eingetragen werden. Im sich öffnenden Formular können
+  _Start und Enddatum_, sowie Beschreibung und Tags eingetragen werden.
+
+.Arbeitszeiten-Tab
+image::teams/progresses-tab.png[]
+
+.Arbeitszeiten über das *+* eintragen
+image::teams/progresses-form.png[]
+
+=== Arbeitszeiten ändern
+Über die _Options_ kann jede eingetragene Arbeitszeit nachträglich verändert, gelöscht oder dupliziert werden.
+Die neueste Arbeitszeit des heutigen Tages kann fortgesetzt werden.
+
+.Options für Arbeitszeiten
+image::teams/progresses-options.png[]
+
+. löscht das Enddatum und führt somit diese Arbeitszeit weiter.
+. dupliziert diese Arbeitszeit: Startet eine neue Arbeitszeit ab _jetzt_ und übernimmt Beschreibung sowie Tags.
+. editiert diese Arbeitszeit
+. löscht diese Arbeitszeit
+
+
+=== Rollen für Teammitglieder
+GoT unterstützt Rollen zur Rechtevergabe innerhalb von Teams.
+Im *Mitglieder-Tab* können die Rollen für jedes Teammitglied vom _Owner_ des Teams verändert werden.
+
+Die Rollen im Überblick:
+
+Owner::
+  Die Person ist der Besitzer des Teams und kann alle Arbeitszeiten einsehen und auch _verwalten/ändern_.
+Responsible::
+  Die Person hat die gleichen Rechte wie der _Owner_.
+  Diese Rolle sollte nur in Ausnahmefällen vergeben werden.
+  (Sie wird meist' an Entwickler von GoT vergeben.)
+Timekeeper::
+  Das Mitglied kann neben seinen Arbeitszeiten, auch die aller anderen einsehen.
+Participant::
+  Das Mitglied ist ein Arbeitnehmer. Er kann seine eigenen Arbeitszeiten eintragen und einsehen.
+  Er sieht keine Arbeitszeiten von anderen Arbeitnehmern.

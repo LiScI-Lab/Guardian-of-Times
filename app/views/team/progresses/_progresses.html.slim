@@ -18,19 +18,18 @@
 
 - overview = controller.is_a? Team::ProgressesController
 
-.col.s12
-  table.highlight.responsive-table.progresses
-    thead
-      tr
-        - if overview
-          th User
-        th Start
-        th End
-        th Duration
-        th Description
-        th Tags
-        th Private Tags
-        - unless overview
-          th Options
-    tbody
-      = render progresses
+table.highlight.progresses
+  thead
+    tr
+      - if overview
+        th User
+      th Start
+      th End
+      th.hide-on-small-only Duration
+      th.hide-on-small-only Description
+      th.hide-on-small-only Tags
+      th.hide-on-small-only Private Tags
+      - unless overview
+        th Options
+  tbody
+    = render progresses

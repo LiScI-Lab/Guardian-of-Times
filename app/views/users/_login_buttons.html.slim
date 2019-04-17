@@ -17,6 +17,12 @@
 ////////////
 
 .button-group
+  - if Settings.omniauth.providers.enabled.include? :developer
+    - disabled = (@current_user and @current_user.identities.find_by provider: :developer)
+    - style = if Settings.omniauth.cas3.color then "background-color: grey" else nil end
+    = link_to user_developer_omniauth_authorize_path, class: "btn waves-effect waves-light tooltipped #{(disabled)?'disabled':''}", data: {tooltip: "Developer login", position: 'bottom'}, style: style
+      = mdi_tag 'database'
+
   - if Settings.omniauth.providers.enabled.include? :cas3
     - disabled = (@current_user and @current_user.identities.find_by provider: :cas3)
     - style = if Settings.omniauth.cas3.color then "background-color: #{Settings.omniauth.cas3.color}" else nil end

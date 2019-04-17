@@ -28,13 +28,13 @@ tr
   - else
     td
       | -
-  td = unavailability.description
+  td.hide-on-small-only = unavailability.description
   - unless overview
     td
       .button-group
         - if can? :edit, unavailability
-          = link_to edit_team_member_unavailability_path(@team, @member, unavailability), class: 'btn-floating waves-effect waves-light orange'
+          = link_to edit_team_member_unavailability_path(@team, @member, unavailability), class: 'btn-floating waves-effect waves-light orange tooltipped', data: {position: 'bottom', tooltip: t('team.progress.edit')}
             = mdi_tag 'pencil'
         - if can? :destroy, unavailability
-          = link_to team_member_unavailability_path(@team, @member, unavailability), class: 'btn-floating waves-effect waves-light red', method: :delete
+          = link_to team_member_unavailability_path(@team, @member, unavailability), class: 'btn-floating waves-effect waves-light red tooltipped', method: :delete, data: {position: 'bottom', tooltip: t('team.progress.destroy')}
             = mdi_tag 'delete'
