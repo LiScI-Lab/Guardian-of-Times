@@ -56,7 +56,7 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 plugin :tmp_restart
 
 
-if Rails.env.development?
+if Rails.env.development? and Settings.use_SSL
 
   dir = "#{File.join(Dir.pwd,'config', 'certs')}"
 
