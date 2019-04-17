@@ -11,7 +11,7 @@ gem 'material_icons'
 gem 'material_design_icons'
 
 # Use Puma as the app server
-gem 'puma'
+gem 'puma', git: 'https://github.com/eric-norcross/puma.git', branch: 'chrome_70_ssl_curve_compatiblity'
 # Use SCSS for stylesheets
 gem 'sass-rails'
 
