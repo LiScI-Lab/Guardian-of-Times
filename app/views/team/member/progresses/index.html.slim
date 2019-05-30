@@ -63,11 +63,13 @@
       .col.s12
         | #{distance_of_time_or_null @member.current_week_time_spend}
     .col.s6.m4.l3
+      - extra_hours = @member.extra_hours
       .col.s12
-        b
-          ' #{t('team.today_time_spend')}
+        b class="#{"red-text" if extra_hours > 0}"
+          ' Überstunden
       .col.s12
-        | #{distance_of_time_or_null @member.today_time_spend}
+        span class="#{"red-text" if extra_hours > 0}"
+          = distance_of_time_or_null extra_hours
 
   .col.s12.l6
     - if can? :start, @progress
