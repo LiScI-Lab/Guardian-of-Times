@@ -34,7 +34,7 @@
             li
               span
                 => mdi_tag 'history'
-                | Overall:&nbsp;
+                = t('team.total_time_spend')
                 = distance_of_time_or_null member.total_time_spend, [:minutes, :seconds]
             li
               span
@@ -45,7 +45,8 @@
             li
               span
                 => mdi_tag 'history', class: "#{"red-text" if extra_hours != 0}"
-                span class="#{"red-text" if extra_hours != 0}" Extra Hours:&nbsp;
+                span class="#{"red-text" if extra_hours != 0}"
+                = t('team.extra_hours')
                 = distance_of_time_or_null extra_hours
           li
             small
