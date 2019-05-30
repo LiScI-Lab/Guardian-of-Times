@@ -108,6 +108,7 @@ de:
     filter: "Filter"
     total_time_spend: "Gesamtzeit:"
     current_month_time_spend: "Zeit diesen Monat:"
+    extra_hours: "Überstunden:"
     edit:
       title: "Bearbeite %{name}"
     progress:
@@ -130,6 +131,7 @@ de:
       status:
         ongoing: "Laufend"
       jump_to_deleted: "Gelöschte Fortschritte"
+      total_hours: "Gesamtzeit"
     member:
       new:
         available_users: "Verfügbare Benutzer"

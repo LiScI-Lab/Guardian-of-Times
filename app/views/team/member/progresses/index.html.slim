@@ -66,7 +66,7 @@
       - extra_hours = @member.extra_hours
       .col.s12
         b class="#{"red-text" if extra_hours > 0}"
-          ' Überstunden
+          = t('team.extra_hours')
       .col.s12
         span class="#{"red-text" if extra_hours > 0}"
           = distance_of_time_or_null extra_hours
