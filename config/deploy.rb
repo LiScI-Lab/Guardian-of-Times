@@ -24,11 +24,6 @@ set :keep_releases, 5
 
 set :maintenance_template_path, File.expand_path("../../app/views/maintenance.html.erb", __FILE__)
 
-# set :slackistrano, {
-#     channel: '#server',
-#     webhook: 'https://hooks.slack.com/services/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'
-# }
-
 namespace :deploy do
   namespace :db do
     desc 'drop all tables in db and setup the db with seed'
