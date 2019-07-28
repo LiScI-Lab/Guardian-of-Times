@@ -34,6 +34,20 @@ class UsersController < SecurityController
                           .pluck(:start)
                           .map{ |d| d.beginning_of_month }
                           .uniq
+    #list recently used teams for the current user
+    if @current_user == @user
+      member_ids = Team::Member.where(user: @current_user).pluck(:id)
+      #progresses for the current user; unique by team
+      progresses = Team::Progress.where(member: member_ids)
+                     .order(start: :desc)
+                     .distinct(:team_id)
+      teams = progresses.joins(:team)
+                .take(3)
+                .pluck(:team_id)
+      @last_members = teams.map{ |id| Team::Member.find_by(team: id, user: @current_user) }
+    else
+      @last_members = []
+    end
   end
 
   def edit

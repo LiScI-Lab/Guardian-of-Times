@@ -27,7 +27,18 @@
 - last_month = DateTime.now - 1.months
 
 .row
-  = render 'team/dashboard/total_time_in_hours', time_spend_hours: @user.time_spend_series
+  - unless @last_members.empty?
+    .col.s10
+      = render 'team/dashboard/total_time_in_hours', time_spend_hours: @user.time_spend_series
+    .cols.s2
+      h6 Zuletzt verwendet
+      ul.collection
+        - @last_members.each do |member|
+          = link_to team_member_progresses_path(member.team, member), class: 'collection-item'
+            = member.team.name
+  - else
+    .col.s12
+      = render 'team/dashboard/total_time_in_hours', time_spend_hours: @user.time_spend_series
 .row
   h6 Filter
   = render 'team/dashboard/month_select_form'

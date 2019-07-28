@@ -20,5 +20,9 @@ class WelcomeController < ApplicationController
   authorize_resource class: false
 
   def index
+    if @current_user
+      #if user authenticated: redirect directly to his dashboard
+      redirect_to dashboard_user_path(@current_user)
+    end
   end
 end
