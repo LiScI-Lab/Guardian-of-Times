@@ -137,11 +137,12 @@ class Team::Member < ApplicationRecord
         end_month = DateTime.now
       end
 
-      (start_month.to_date .. end_month.to_date).select do |d|
+      sum = (start_month.to_date .. end_month.to_date).select do |d|
         d.day == 1
       end.map do |d|
         self.extra_hours(d)
       end.sum
+      if sum > 0 then sum else 0 end
     end
   end
 
