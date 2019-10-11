@@ -26,19 +26,23 @@ html
   body
     css:
       body {
-        line-height: 1.0;
+        line-height: 1.0
       }
       td, th {
         padding: 0.4rem 0.5rem;
         font-size: 10pt;
+        text-align: center;
       }
       td#clear-style {
         border-bottom: none;
       }
+      h5 {
+        text-align: center;
+      }
   .container
     .row
       .column
-        h4 Stundennachweis nach § 17 Mindestlohngesetz (MiloG)
+        h5 Stundennachweis nach § 17 Mindestlohngesetz (MiloG)
     .row
       .column
         table
@@ -72,14 +76,17 @@ html
                 td -
 
         tr
-          td Gesamtstunden
+          th Gesamtstunden
           td
           td
-          td #{ChronicDuration.output(@time_spend_this_month, :limit_to_hours => true,:format => :chrono)[/\d+:\d+/]}
+          /td #{ChronicDuration.output(@time_spend_this_month, :limit_to_hours => true,:format => :chrono)[/\d+:\d+/]}
+          th #{format_duration @time_spend_this_month}
 
-    .row style="margin-top: 2em;"
+    .row style="margin-top: 1em;"
       .column
         table
           tr
             td#clear-style Betreuer
+            td#clear-style
+            td#clear-style
             td#clear-style studentische Hilfskraft
