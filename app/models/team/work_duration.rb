@@ -17,6 +17,7 @@
 ############
 
 class Team::WorkDuration
+  include DateTimeHelper
 
   attr_reader :date
   attr_reader :start_time
@@ -47,7 +48,7 @@ class Team::WorkDuration
     Time.at(self.pauses).utc.strftime("%H:%M")
   end
   def work_duration_formatted
-    Time.at(@work_duration).utc.strftime("%H:%M")
+    format_duration @work_duration
   end
 
   def scale_duration_by(factor)
