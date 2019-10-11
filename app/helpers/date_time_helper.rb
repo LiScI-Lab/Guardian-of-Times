@@ -27,4 +27,11 @@ module DateTimeHelper
   def seconds_to_hours(v)
     (v / 3600).round
   end
+
+  def format_duration duration
+    total_seconds = duration.to_i
+    minutes = (total_seconds / 60) % 60
+    hours = total_seconds / (60 * 60)
+    "%02d:%02d" % [hours, minutes]
+  end
 end
