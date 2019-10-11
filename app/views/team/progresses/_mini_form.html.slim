@@ -18,7 +18,7 @@
 
 = simple_form_for([@team, @member, @progress]) do |f|
   .row
-    .col.m6.hide-on-small-only
+    .col.s10.m5
       = f.input :description, wrapper_html: {class: 's12'}
     .col.s10.m5
       = render 'acts_as_taggable_on/tag_list', f: f, for_class: 'progress', value: @progress&.tag_list, collection: Team::Progress.tags_on(:tags)
