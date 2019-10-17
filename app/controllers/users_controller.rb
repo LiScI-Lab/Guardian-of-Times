@@ -40,10 +40,10 @@ class UsersController < SecurityController
       #progresses for the current user; unique by team
       progresses = Team::Progress.where(member: member_ids)
                      .order(start: :desc)
+                     .distinct(:team_id)
       teams = progresses.joins(:team)
-                .distinct(:team_id)
-                .pluck(:team_id)
                 .take(3)
+                .pluck(:team_id)
       @last_members = teams.map{ |id| Team::Member.find_by(team: id, user: @current_user) }
     else
       @last_members = []
