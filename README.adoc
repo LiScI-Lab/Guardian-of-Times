@@ -2,35 +2,38 @@
 
 Guardian of Times is a Rails Application to track times of teams.
 
-Things you may want to cover:
+== Developer Setup
+* install docker, docker-compose, ruby
+* start the postgres database through docker-compose: `docker-compose up`
+* when running for the first time:
+** install the gems: `bundle install`
+*** if `pg` can't be installed, install the pg native libraries:
+**** Arch: `pacman -S postgresql-libs`
+** create the database layout: `rails db:migrate`
+** generate a seed as described in <<seed, Generating a seed>>
+* start rails: `rails s`
 
-* Ruby version
+You can flash the database by removing the docker volume:
+[source, bash]
+----
+$ docker container stop time-tracker_postgres_1
+$ docker container rm time-tracker_postgres_1
+$ docker volume rm time-tracker_time_tracker_db
+----
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
+[seed]
 == Generating a seed
 To generate a seed, we need your user informations in the `settings.yml` file.
 Please append it as follows:
-```yaml
+[source, yaml]
+----
 seed:
   email: <THM-Email>
   username: <THM-Userkennung>
   realname: <Your full name>
-```
+----
+
+Then execute `rails db:seed`.
 
 == Export
 The export uses wkhtmltopdf (https://wkhtmltopdf.org).
