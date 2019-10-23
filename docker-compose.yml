@@ -1,0 +1,14 @@
+version: '3'
+services:
+  postgres:
+    image: "postgres:12.0-alpine"
+    restart: on-failure
+    ports:
+      - "5432:5432"
+    volumes:
+      - time_tracker_db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=dev_user
+      - POSTGRES_PASSWORD=OoC8ain3xohr
+volumes:
+  time_tracker_db:
