@@ -112,6 +112,7 @@ gem 'rails-i18n'
 gem 'i18n-js'
 gem 'momentjs-rails'
 gem 'enum_help'
+gem 'pg'
 
 group :development, :test do
   # Adds support for Capybara system testing and selenium driver
@@ -154,5 +155,4 @@ group :development do
 end
 
 group :production do
-  gem 'pg'
 end
