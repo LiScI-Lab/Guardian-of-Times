@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 20180603125119) do
 
-  create_table "taggings", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id"
     t.string "taggable_type"
     t.integer "taggable_id"
@@ -31,14 +34,14 @@ ActiveRecord::Schema.define(version: 20180603125119) do
     t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
   end
 
-  create_table "tags", force: :cascade do |t|
+  create_table "tags", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "taggings_count", default: 0
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   create_table "team_member_target_hours", force: :cascade do |t|
-    t.integer "team_member_id"
+    t.bigint "team_member_id"
     t.date "since", null: false
     t.integer "hours", default: 0, null: false
     t.datetime "created_at", null: false
@@ -50,8 +53,8 @@ ActiveRecord::Schema.define(version: 20180603125119) do
   end
 
   create_table "team_members", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "team_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "team_id", null: false
     t.integer "status", default: 0, null: false
     t.integer "role", default: 0, null: false
     t.datetime "created_at", null: false
@@ -66,8 +69,8 @@ ActiveRecord::Schema.define(version: 20180603125119) do
   end
 
   create_table "team_progresses", force: :cascade do |t|
-    t.integer "team_id", null: false
-    t.integer "team_member_id", null: false
+    t.bigint "team_id", null: false
+    t.bigint "team_member_id", null: false
     t.datetime "start", null: false
     t.datetime "end"
     t.text "description"
@@ -80,8 +83,8 @@ ActiveRecord::Schema.define(version: 20180603125119) do
   end
 
   create_table "team_unavailabilities", force: :cascade do |t|
-    t.integer "team_id", null: false
-    t.integer "team_member_id", null: false
+    t.bigint "team_id", null: false
+    t.bigint "team_member_id", null: false
     t.date "start", null: false
     t.date "end"
     t.datetime "created_at", null: false
@@ -108,7 +111,7 @@ ActiveRecord::Schema.define(version: 20180603125119) do
   end
 
   create_table "user_identities", force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.string "provider"
     t.string "uid"
     t.string "token"
@@ -150,4 +153,12 @@ ActiveRecord::Schema.define(version: 20180603125119) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "team_member_target_hours", "team_members"
+  add_foreign_key "team_members", "teams"
+  add_foreign_key "team_members", "users"
+  add_foreign_key "team_progresses", "team_members"
+  add_foreign_key "team_progresses", "teams"
+  add_foreign_key "team_unavailabilities", "team_members"
+  add_foreign_key "team_unavailabilities", "teams"
+  add_foreign_key "user_identities", "users"
 end
