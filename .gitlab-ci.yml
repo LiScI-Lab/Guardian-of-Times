@@ -35,14 +35,14 @@ before_script:
   - gem install bundler
   - bundle install --without test --path=cache/bundler --jobs $(nproc)
 
-update_staging:
-  only:
-    - staging
-  tags:
-    - ruby
-    - ruby2
-  script:
-    - bundle exec cap staging deploy
+# update_staging:
+#   only:
+#     - staging
+#   tags:
+#     - ruby
+#     - ruby2
+#   script:
+#     - bundle exec cap staging deploy
 
 update_production:
   only:
