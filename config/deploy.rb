@@ -10,7 +10,7 @@ set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rben
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 
 set :application, 'time-tracker'
-set :repo_url, 'git@git.thm.de:mhpp11/time-tracker.git'
+set :repo_url, 'git@git.thm.de:mni-time-tracker/time-tracker.git'
 
 set :systemd_use_sudo, true
 set :systemd_roles, %w(app)
