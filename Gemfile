@@ -85,6 +85,9 @@ gem 'omniauth-linkedin-oauth2'
 #gem 'omniauth-slack'
 gem 'omniauth-steam'
 
+#JWT for API-Token
+gem 'jwt'
+
 
 gem 'acts-as-taggable-on'
 

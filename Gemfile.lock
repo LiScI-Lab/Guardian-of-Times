@@ -512,6 +512,7 @@ DEPENDENCIES
   identicon
   jbuilder
   jquery-rails
+  jwt
   listen
   material_design_icons
   material_icons

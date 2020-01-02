@@ -14,7 +14,7 @@ module TimeTracker
     config.autoload_paths += %W(#{config.root}/lib)
 
     #TODO: add english translations
-    config.i18n.available_locales = %w(de)
+    config.i18n.available_locales = %w(de en)
     config.i18n.default_locale = 'de'
     config.time_zone = 'Berlin'
 

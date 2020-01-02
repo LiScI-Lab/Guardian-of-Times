@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'api/user/profile', to: 'api/user#profile'
+
   resources :teams do
     collection do
       scope :role do
