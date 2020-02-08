@@ -45,6 +45,8 @@ class User < ApplicationRecord
 
   has_many :identities, class_name: User::Identity.name
 
+  has_one :user_api_token, class_name: User::ApiToken
+
   validates :email, presence: true, uniqueness: true
   validates :username, presence: true, uniqueness: true
 
