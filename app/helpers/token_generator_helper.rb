@@ -1,5 +1,5 @@
 module TokenGeneratorHelper
-  @@hmac_secret = "IAmSecret!"
+  @@hmac_secret = Settings.api.jwt_secret
 
   def generate_token_for_user(user)
     puts @@hmac_secret

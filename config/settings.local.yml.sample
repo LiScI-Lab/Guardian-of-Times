@@ -4,6 +4,9 @@ seed:
   first_name: ''
   last_name: ''
 
+api:
+  jwt_secret: ''
+
 omniauth:
   providers:
     all:
