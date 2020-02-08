@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180603125119) do
+ActiveRecord::Schema.define(version: 20200208140314) do
 
   create_table "taggings", force: :cascade do |t|
     t.integer "tag_id"
@@ -105,6 +105,14 @@ ActiveRecord::Schema.define(version: 20180603125119) do
     t.index ["discarded_at"], name: "index_teams_on_discarded_at"
     t.index ["name", "ancestry"], name: "index_teams_on_name_and_ancestry", unique: true
     t.index ["name"], name: "index_teams_on_name"
+  end
+
+  create_table "user_api_tokens", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_api_tokens_on_user_id"
   end
 
   create_table "user_identities", force: :cascade do |t|
