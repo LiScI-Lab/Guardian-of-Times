@@ -17,6 +17,7 @@
 ############
 
 class UsersController < SecurityController
+  include TokenGeneratorHelper
   load_and_authorize_resource
 
   def show
@@ -83,5 +84,10 @@ class UsersController < SecurityController
     params.require(:user).permit(:department, :birth_date,
                                  :last_name, :first_name, :email,
                                  :avatar, :avatar_cache, :avatar_type)
+  end
+
+  def generate_api_token
+    token = generate_token_for_user(@user)
+    User::ApiToken.create(user: @user, token: token)
   end
 end
