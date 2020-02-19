@@ -67,3 +67,17 @@
         .card-title
           | #{t('user.edit.connect_login_service')}
         = render 'users/login_buttons'
+
+  .col.s12.l3
+    .card
+      .card-content
+        .card-title
+          | #{t('user.edit.api_management')}
+        .row
+          .input-field.col.s9
+            input id="tokenField" disabled="" value=@api_token
+          .input-field.col.s2
+            button class="btn waves-effect waves-light" onClick="copyToken()" Copy
+        .row
+          .input-field.col.s12
+            = link_to t('user.action.generate'), token_user_path(@user), class: 'btn waves-effect waves-light', remote: true, method: :post

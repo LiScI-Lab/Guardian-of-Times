@@ -18,6 +18,7 @@
 
 class User < ApplicationRecord
   include Statistics
+  include TokenGeneratorHelper
 
   enum role: {user: 0, admin: 100}
 
@@ -45,7 +46,7 @@ class User < ApplicationRecord
 
   has_many :identities, class_name: User::Identity.name
 
-  has_one :user_api_token, class_name: User::ApiToken
+  has_one :user_api_token, class_name: User::ApiToken, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
   validates :username, presence: true, uniqueness: true
@@ -196,6 +197,15 @@ class User < ApplicationRecord
     team_members.kept.select {|member| member.running_progress? }.any?
   end
 
+  def generate_api_token
+    token = generate_token_for_user(self)
+    if self.user_api_token
+      self.user_api_token.delete
+    end
+    api_token = User::ApiToken.create(user: self, token: token)
+    self.user_api_token = api_token
+    self.save
+  end
 
   private
   def update_generated_avatar
@@ -217,9 +227,9 @@ class User < ApplicationRecord
       self.department = Faker::Company.profession
       self.birth_date = Faker::Date.birthday(18, 65)
       self.last_sign_in_ip = Faker::Internet.public_ip_v4_address
-      self.last_sign_in_at = Faker::Time.between(2.days.ago, Date.today, :all)
+      self.last_sign_in_at = Faker::Time.between_date(2.days.ago, Date.today, :all)
       self.current_sign_in_ip = Faker::Internet.public_ip_v4_address
-      self.current_sign_in_at = Faker::Time.between(2.days.ago, Date.today, :all)
+      self.current_sign_in_at = Faker::Time.between_date(2.days.ago, Date.today, :all)
       self.remove_avatar!
       update_generated_avatar
     end

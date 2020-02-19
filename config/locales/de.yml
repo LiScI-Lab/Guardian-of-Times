@@ -170,6 +170,7 @@ de:
         title: "Ändere dein Profil"
     edit:
       connect_login_service: "Weitere Login-Dienste koppeln"
+      api_management: "API Token"
     action:
       logout: "Ausloggen"
       edit: "Profil ändern"

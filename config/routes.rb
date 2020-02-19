@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update, :destroy] do
     member do
       get :dashboard
+      post :token
       unless Settings.user.discard.disabled
         get :delete
       end

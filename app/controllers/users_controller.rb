@@ -17,7 +17,6 @@
 ############
 
 class UsersController < SecurityController
-  include TokenGeneratorHelper
   load_and_authorize_resource
 
   def show
@@ -52,6 +51,7 @@ class UsersController < SecurityController
   end
 
   def edit
+    @api_token = @user.user_api_token.present? ? @user.user_api_token.token : ""
   end
 
   def update
@@ -79,15 +79,15 @@ class UsersController < SecurityController
     end
   end
 
+  def token
+    @user.generate_api_token
+    redirect_to edit_user_path(@current_user)
+  end
+
   private
   def user_params
     params.require(:user).permit(:department, :birth_date,
                                  :last_name, :first_name, :email,
                                  :avatar, :avatar_cache, :avatar_type)
-  end
-
-  def generate_api_token
-    token = generate_token_for_user(@user)
-    User::ApiToken.create(user: @user, token: token)
   end
 end
