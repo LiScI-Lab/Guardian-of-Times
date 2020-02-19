@@ -199,12 +199,11 @@ class User < ApplicationRecord
 
   def generate_api_token
     token = generate_token_for_user(self)
-    if self.user_api_token
-      self.user_api_token.delete
+    if self.user_api_token.blank?
+      self.create_user_api_token(user: self, token: token)
+    else
+      self.user_api_token.update_attributes(token: token)
     end
-    api_token = User::ApiToken.create(user: self, token: token)
-    self.user_api_token = api_token
-    self.save
   end
 
   private
