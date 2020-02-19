@@ -13,7 +13,15 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'api/user/profile', to: 'api/user#profile'
+  #get 'api/user/profile', to: 'api/user#profile'
+  #get 'api/user/teams', to: 'api/user#teams'
+
+  namespace :api do
+    resource :user, only: [] do
+      get :profile
+      get :teams
+    end
+  end
 
   resources :teams do
     collection do
