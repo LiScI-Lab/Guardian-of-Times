@@ -11,12 +11,12 @@ gem 'material_icons'
 gem 'material_design_icons'
 
 # Use Puma as the app server
-gem 'puma'
+gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
-gem 'sassc-rails'
+gem 'sass-rails', '~> 5.0'
 
 # MaterializeCSS
-gem 'materialize-sass', '~> 1.0.0.beta'
+gem 'materialize-sass'#, '~> 1.0.0.beta'
 gem 'materialize-form'
 gem 'ancestry'
 
@@ -35,7 +35,7 @@ gem 'dotiw'
 gem 'chronic_duration'
 
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier'
+gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
