@@ -15,9 +15,9 @@ user = User.create! email: Settings.seed.email, username: Settings.seed.username
 
   name = ""
   while name.length < 5
-    name = Faker::HitchhikersGuideToTheGalaxy.unique.location
+    name = Faker::Movies::HitchhikersGuideToTheGalaxy.unique.location
   end
-  p = Team.create! name: name, description: Faker::HitchhikersGuideToTheGalaxy.marvin_quote, access: [:hidden, :private, :public].sample
+  p = Team.create! name: name, description: Faker::Movies::HitchhikersGuideToTheGalaxy.marvin_quote, access: [:hidden, :private, :public].sample
 end
 
 
@@ -65,8 +65,8 @@ Team.all.each do |p|
       end
 
       rand(0..20).times do
-        start_time = Faker::Time.between(2.months.ago, Date.today, :morning)
-        progress = p.progresses.new(start: start_time, end: Faker::Time.between(start_time, start_time.end_of_day, :evening), member: member)
+        start_time = Faker::Time.between_dates(from: 2.months.ago, to: Date.today, period: :morning)
+        progress = p.progresses.new(start: start_time, end: Faker::Time.between_dates(from: start_time, to: start_time.end_of_day, period: :evening), member: member)
         rand(0..5).times do
           progress.tag_list.add ["rails", "dozentron", "gildamesh", "Meeting"].sample
         end
