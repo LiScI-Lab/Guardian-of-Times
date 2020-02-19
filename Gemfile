@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'config'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails'
+gem 'rails', '~> 5.1.6'
 
 gem 'slim'
 gem 'slim-rails'
@@ -13,7 +13,7 @@ gem 'material_design_icons'
 # Use Puma as the app server
 gem 'puma'
 # Use SCSS for stylesheets
-gem 'sass-rails'
+gem 'sassc-rails'
 
 # MaterializeCSS
 gem 'materialize-sass', '~> 1.0.0.beta'
@@ -75,9 +75,9 @@ gem 'devise-i18n'
 
 gem 'omniauth'
 gem 'omniauth-cas3'
-gem 'omniauth-google-oauth2'
+gem 'omniauth-google-oauth2', '>= 0.8.0'
 gem 'omniauth-twitter'
-gem 'omniauth-github'
+gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 gem 'omniauth-facebook'
 gem 'omniauth-windowslive'
 gem 'omniauth-xing'
