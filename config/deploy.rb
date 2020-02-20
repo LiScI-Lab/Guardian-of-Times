@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.10.2'
+lock '3.12.2'
 
 
 #setup rbenv as in https://github.com/capistrano/rbenv
