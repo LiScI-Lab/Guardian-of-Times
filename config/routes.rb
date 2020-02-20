@@ -13,13 +13,31 @@ Rails.application.routes.draw do
     end
   end
 
-  #get 'api/user/profile', to: 'api/user#profile'
-  #get 'api/user/teams', to: 'api/user#teams'
-
   namespace :api do
-    resource :user, only: [] do
+    resource :user, only: [:update, :destroy] do
       get :profile
       get :teams
+    end
+
+    resources :teams, only: [:index, :show, :create, :update] do
+      collection do
+        scope :role do
+          get :owner
+        end
+        scope :status do
+          get :invited
+          get :involved
+          get :requested
+        end
+      end
+
+      member do
+        post :invite
+        post :ask
+        patch :revoke
+        patch :join
+        get :dashboard
+      end
     end
   end
 
