@@ -27,22 +27,64 @@ class Api::TeamsController < Api::SecuredApiController
   end
 
   def invite
-    #TODO: Implement
+    #TODO: Test!
+    @user = User.find params[:user_id]
+    member = @team.members.find_or_initialize_by user: @user
+    member.discarded_at = nil
+    if member.save
+      @message = "#{@user.name} successfully invited"
+      @status = 200
+    else
+      @message = "Something went wrong"
+      @status = 500
+    end
+    render json: @message.to_json, status: @status
   end
 
   def ask
-    #TODO: Implement
+    #TODO: Test!
+    member = @team.members.find_or_initialize_by user: @current_user
+    if member.requested!
+      @message = "Access requested!"
+      @status = 200
+    else
+      @message = "Something went wrong"
+      @status = 500
+    end
+    render json: @message.to_json, status: @status
   end
 
   def revoke
-    #TODO: Implement
+    #TODO: Test!
+    member = @team.members.find_or_initialize_by user: @current_user
+    if member.revoked!
+      @message = "Request revoked!"
+      @status = 200
+    else
+      @message =  "Something went wrong"
+      @status = 500
+    end
+    render json: @message.to_json, status: @status
   end
 
   def join
-    #TODO: Implement
+    #TODO: Test!
+    unless @current_member
+      @current_member = @team.members.new user: @current_user
+    end
+    @current_member.status = :joined
+    if @current_member.save
+      @message = "Successfully joined #{@team.name}"
+      @status = 200
+    else
+      @message =  "Something went wrong"
+      @status = 500
+    end
+    render json: @message.to_json, status: @status
   end
 
   def show
+    #TODO: Send more detailed Version of team informations. E.g. Send members
     if can? :show, @team
       render json: @team.to_json
     end
@@ -53,10 +95,41 @@ class Api::TeamsController < Api::SecuredApiController
   end
 
   def create
-    #TODO: Implement
+    #TODO: Test!
+    @team.members.new user: @current_user, role: :owner
+    if @team.save
+      @message = "Team successfully created"
+      @status = 200
+    else
+      @message =  "Something went wrong"
+      @status = 500
+    end
+    render json: @message.to_json, status: @status
   end
 
   def update
-    #TODO: Implement
+    #TODO: Test!
+    if @team.update team_params
+      @message = "Team successfully updated"
+      @status = 200
+    else
+      @message =  "Something went wrong"
+      @status = 500
+    end
+    render json: @message.to_json, status: @status
+  end
+
+  def destoy
+    #TODO: Implement, but not very soon!
+    # Team deletion is generally not supported by the TimeTracker by now!
+  end
+
+  private
+  def team_params
+    p = params.require(:team).permit([:name, :description, :access, :tag_list, :own_tag_list])
+    if p[:own_tag_list].present?
+      p[:own_tag_list] = {owner: @current_member, tag_list: p[:own_tag_list]}
+    end
+    p
   end
 end
