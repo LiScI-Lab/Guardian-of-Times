@@ -95,7 +95,7 @@ gem 'acts-as-taggable-on'
 gem 'carrierwave'
 
 # CanCanCan - User authorisation. More here: https://github.com/CanCanCommunity/cancancan
-gem 'cancancan'
+gem 'cancancan', '~> 2.0'
 
 gem 'discard' # replaces paranoia
 
