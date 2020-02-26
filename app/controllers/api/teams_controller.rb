@@ -120,7 +120,7 @@ class Api::TeamsController < Api::SecuredApiController
   end
 
   def destoy
-    #TODO: Implement, but not very soon!
+    # TODO: Implement, but not very soon!
     # Team deletion is generally not supported by the TimeTracker by now!
   end
 
