@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    resource :user, only: [:update, :destroy] do
+    resource :user, only: [:show, :update, :destroy] do
       get :profile
       get :teams
     end

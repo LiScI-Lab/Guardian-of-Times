@@ -11,6 +11,10 @@ class Api::UsersController < Api::SecuredApiController
     render json: @current_user.teams.to_json
   end
 
+  def show
+
+  end
+
   def update
     #TODO: Implement
   end
