@@ -43,9 +43,7 @@ class Api::TeamsController < Api::SecuredApiController
   end
 
   def show
-    #TODO: Implement
-    puts @team
-    if can? :dashboard, @team
+    if can? :show, @team
       render json: @team.to_json
     end
   end
