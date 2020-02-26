@@ -14,12 +14,14 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    resource :user, only: [:show, :update, :destroy] do
+    resource :user, only: [:update, :destroy] do
+      get :dashboard
       get :profile
-      get :teams
     end
 
-    resources :teams, only: [:index, :show, :create, :update] do
+    resources :users, only: [:index, :show]
+
+    resources :teams, only: [:index, :show, :create, :update, :destroy] do
       collection do
         scope :role do
           get :owner
