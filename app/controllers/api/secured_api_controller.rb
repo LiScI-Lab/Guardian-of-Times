@@ -1,4 +1,5 @@
 class Api::SecuredApiController < ActionController::API
+  include CanCan::ControllerAdditions
   include TokenGeneratorHelper
 
   before_action :auth_user
