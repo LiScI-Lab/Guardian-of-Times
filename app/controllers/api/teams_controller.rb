@@ -1,5 +1,6 @@
 class Api::TeamsController < Api::SecuredApiController
 
+  load_and_authorize_resource
   def index
     @teams = Team.visible(@current_user)
     render json: @teams.to_json
@@ -43,6 +44,7 @@ class Api::TeamsController < Api::SecuredApiController
 
   def show
     #TODO: Implement
+    puts @team
     if can? :dashboard, @team
       render json: @team.to_json
     end
