@@ -1,5 +1,5 @@
 class Api::UsersController < Api::SecuredApiController
-  load_and_authorize_resource
+  load_and_authorize_resource :only => [:show]
 
   def dashboard
     #TODO: Implement
@@ -10,7 +10,6 @@ class Api::UsersController < Api::SecuredApiController
   end
 
   def update
-    #TODO: Test!
     if @current_user.update user_params
       @message = "User successfully updated"
       @status = 200
@@ -38,11 +37,11 @@ class Api::UsersController < Api::SecuredApiController
 
   # Plural Routes
   def index
-    #TODO: Implement
+    #TODO: Add Avatar to Dataset
+    render json: User.select("id, username, first_name, last_name, email, department").to_json
   end
 
   def show
-    #TODO: Show Infos about a user the requesting user is allowed to see!
     if can? :show, @user
       render json: @user.to_json
     end
@@ -51,7 +50,7 @@ class Api::UsersController < Api::SecuredApiController
   private
 
   def user_params
-    params.require(:user).permit(:department, :birth_date,
+    params.permit(:department, :birth_date,
                                  :last_name, :first_name, :email,
                                  :avatar, :avatar_cache, :avatar_type)
   end
