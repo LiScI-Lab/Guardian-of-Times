@@ -6,6 +6,6 @@ class Api::Team::ProgressesController
 
   def index
     @progresses = get_filtered_progresses(@team)
-    render json: @progresses
+    render json: @progresses.to_json
   end
 end
