@@ -1,4 +1,4 @@
-class Api::Team::MembersController
+class Api::Team::MembersController < Api::SecuredApiController
   include DateTimeHelper
 
   load_and_authorize_resource :team

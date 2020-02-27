@@ -1,4 +1,4 @@
-class Api::Team::ExportController
+class Api::Team::ExportController < Api::SecuredApiController
   load_and_authorize_resource :team
   authorize_resource :export, class: false
 

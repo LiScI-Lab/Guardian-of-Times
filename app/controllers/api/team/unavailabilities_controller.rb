@@ -1,4 +1,4 @@
-class Api::Team::UnavailabilitiesController
+class Api::Team::UnavailabilitiesController < Api::SecuredApiController
 
   load_and_authorize_resource :team
   load_and_authorize_resource :unavailability, through: :team

@@ -1,4 +1,4 @@
-class Api::Team::ProgressesController
+class Api::Team::ProgressesController < Api::SecuredApiController
   include ::ProgressFilter
 
   load_and_authorize_resource :team
