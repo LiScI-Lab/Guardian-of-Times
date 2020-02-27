@@ -42,6 +42,7 @@ class Api::UsersController < Api::SecuredApiController
   end
 
   def show
+    #TODO: Add Avatar to dataset
     if can? :show, @user
       render json: @user.to_json
     end
