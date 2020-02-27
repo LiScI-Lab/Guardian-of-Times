@@ -49,7 +49,6 @@ class Api::UsersController < Api::SecuredApiController
   end
 
   private
-
   def user_params
     params.permit(:department, :birth_date,
                                  :last_name, :first_name, :email,

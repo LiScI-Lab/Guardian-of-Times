@@ -45,9 +45,9 @@ class Team::MembersController < SecurityController
       @selected_date = DateTime.now.beginning_of_month
     end
     @available_months = @member.progresses.kept
-                          .pluck(:start)
-                          .map{ |d| d.beginning_of_month }
-                          .uniq
+                            .pluck(:start)
+                            .map { |d| d.beginning_of_month }
+                            .uniq
   end
 
   def new
@@ -100,6 +100,7 @@ class Team::MembersController < SecurityController
     end
     redirect_back fallback_location: team_members_path(@team)
   end
+
   # Change role of this member
   def change_role
     #originally copied from:
@@ -118,14 +119,15 @@ class Team::MembersController < SecurityController
       @member.role = role.to_sym
       if @member.save
         flash[:notice] = "Die Rolle von #{@member.user.name} wurde von #{role_was} zu #{@member.role} geändert."
-                                                                                                           else
-                                                                                                             flash[:error] = 'Etwas ist beim speichern schief gegangen....'
-                                                                                                             end
-                                                                                                             end
-                                                                                                             redirect_to team_members_path(@member.team)
-                                                                                                             end
+      else
+        flash[:error] = 'Etwas ist beim speichern schief gegangen....'
+      end
+    end
+    redirect_to team_members_path(@member.team)
+  end
 
   private
+
   def member_params
     p = params.require(:member).permit(:id, :tag_list, :own_tag_list, :show_online_status, :show_tracking_status, target_hours_attributes: [
         :id, :since, :hours
