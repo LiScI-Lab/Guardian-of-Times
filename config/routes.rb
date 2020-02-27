@@ -40,6 +40,27 @@ Rails.application.routes.draw do
         patch :join
         get :dashboard
       end
+
+      scope module: :team do
+
+        resources :progresses, only: [:index]
+        resources :unavailabilities, only: [:index]
+        resources :export, only: [:create]
+
+        resources :members, only: [:index, :show, :update, :destroy] do
+          collection do
+            get :outstanding
+          end
+
+          member do
+            get :dashboard
+            patch :accept
+            patch :restore
+            patch :change_role
+          end
+        end
+
+      end
     end
   end
 
