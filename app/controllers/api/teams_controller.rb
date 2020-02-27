@@ -27,7 +27,6 @@ class Api::TeamsController < Api::SecuredApiController
   end
 
   def invite
-    #TODO: Test!
     @user = User.find params[:user_id]
     member = @team.members.find_or_initialize_by user: @user
     member.discarded_at = nil
@@ -42,7 +41,6 @@ class Api::TeamsController < Api::SecuredApiController
   end
 
   def ask
-    #TODO: Test!
     member = @team.members.find_or_initialize_by user: @current_user
     if member.requested!
       @message = "Access requested!"
@@ -55,7 +53,6 @@ class Api::TeamsController < Api::SecuredApiController
   end
 
   def revoke
-    #TODO: Test!
     member = @team.members.find_or_initialize_by user: @current_user
     if member.revoked!
       @message = "Request revoked!"
@@ -68,7 +65,6 @@ class Api::TeamsController < Api::SecuredApiController
   end
 
   def join
-    #TODO: Test!
     unless @current_member
       @current_member = @team.members.new user: @current_user
     end
@@ -95,7 +91,6 @@ class Api::TeamsController < Api::SecuredApiController
   end
 
   def create
-    #TODO: Test!
     @team.members.new user: @current_user, role: :owner
     if @team.save
       @message = "Team successfully created"
@@ -104,11 +99,10 @@ class Api::TeamsController < Api::SecuredApiController
       @message =  "Something went wrong"
       @status = 500
     end
-    render json: Hash["message:"  => @message].to_json, status: @status
+    render json: Hash["message:"  => @message, "team_id" => @team.id].to_json, status: @status
   end
 
   def update
-    #TODO: Test!
     if @team.update team_params
       @message = "Team successfully updated"
       @status = 200
@@ -119,14 +113,15 @@ class Api::TeamsController < Api::SecuredApiController
     render json: Hash["message:"  => @message].to_json, status: @status
   end
 
-  def destoy
+  def destroy
     # TODO: Implement, but not very soon!
     # Team deletion is generally not supported by the TimeTracker by now!
+    render json: Hash["message" => "Deleting teams is not supported by GoT by now!"], status: 200
   end
 
   private
   def team_params
-    p = params.require(:team).permit([:name, :description, :access, :tag_list, :own_tag_list])
+    p = params.permit([:name, :description, :access, :tag_list, :own_tag_list])
     if p[:own_tag_list].present?
       p[:own_tag_list] = {owner: @current_member, tag_list: p[:own_tag_list]}
     end
