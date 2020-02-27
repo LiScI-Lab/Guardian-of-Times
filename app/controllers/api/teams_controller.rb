@@ -38,7 +38,7 @@ class Api::TeamsController < Api::SecuredApiController
       @message = "Something went wrong"
       @status = 500
     end
-    render json: @message.to_json, status: @status
+    render json: Hash["message:"  => @message].to_json, status: @status
   end
 
   def ask
@@ -51,7 +51,7 @@ class Api::TeamsController < Api::SecuredApiController
       @message = "Something went wrong"
       @status = 500
     end
-    render json: @message.to_json, status: @status
+    render json: Hash["message:"  => @message].to_json, status: @status
   end
 
   def revoke
@@ -64,7 +64,7 @@ class Api::TeamsController < Api::SecuredApiController
       @message =  "Something went wrong"
       @status = 500
     end
-    render json: @message.to_json, status: @status
+    render json: Hash["message:"  => @message].to_json, status: @status
   end
 
   def join
@@ -104,7 +104,7 @@ class Api::TeamsController < Api::SecuredApiController
       @message =  "Something went wrong"
       @status = 500
     end
-    render json: @message.to_json, status: @status
+    render json: Hash["message:"  => @message].to_json, status: @status
   end
 
   def update
@@ -116,7 +116,7 @@ class Api::TeamsController < Api::SecuredApiController
       @message =  "Something went wrong"
       @status = 500
     end
-    render json: @message.to_json, status: @status
+    render json: Hash["message:"  => @message].to_json, status: @status
   end
 
   def destoy
